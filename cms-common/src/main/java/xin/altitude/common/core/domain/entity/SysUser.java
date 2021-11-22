@@ -1,5 +1,6 @@
 package xin.altitude.common.core.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -7,6 +8,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import xin.altitude.common.annotation.Excel;
 import xin.altitude.common.annotation.Excels;
 import xin.altitude.common.core.domain.BaseEntity;
+
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,6 +21,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
+// @TableName("sys_user")
 public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
     

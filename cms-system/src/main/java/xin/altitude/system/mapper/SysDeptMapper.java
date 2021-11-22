@@ -1,5 +1,6 @@
 package xin.altitude.system.mapper;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import xin.altitude.common.core.domain.entity.SysDept;
 
@@ -10,6 +11,7 @@ import java.util.List;
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysDeptMapper {
     /**
      * 查询部门管理数据

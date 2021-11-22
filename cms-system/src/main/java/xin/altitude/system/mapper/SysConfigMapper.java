@@ -1,6 +1,8 @@
 package xin.altitude.system.mapper;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import xin.altitude.system.domain.SysConfig;
 
 /**
@@ -8,6 +10,7 @@ import xin.altitude.system.domain.SysConfig;
  * 
  * @author ruoyi
  */
+@Mapper
 public interface SysConfigMapper
 {
     /**

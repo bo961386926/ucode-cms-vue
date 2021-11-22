@@ -2,6 +2,7 @@ package xin.altitude.system.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import xin.altitude.common.core.domain.entity.SysMenu;
 
@@ -10,6 +11,7 @@ import xin.altitude.common.core.domain.entity.SysMenu;
  *
  * @author ruoyi
  */
+@Mapper
 public interface SysMenuMapper {
     /**
      * 查询系统菜单列表

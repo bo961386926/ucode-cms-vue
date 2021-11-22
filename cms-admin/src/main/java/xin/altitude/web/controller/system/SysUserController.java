@@ -1,5 +1,6 @@
 package xin.altitude.web.controller.system;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -53,7 +54,7 @@ public class SysUserController extends BaseController {
      */
     // @PreAuthorize("@ss.hasPermi('system:user:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysUser user) {
+    public TableDataInfo list(IPage<SysUser> page, SysUser user) {
         startPage();
         List<SysUser> list = userService.selectUserList(user);
         return getDataTable(list);

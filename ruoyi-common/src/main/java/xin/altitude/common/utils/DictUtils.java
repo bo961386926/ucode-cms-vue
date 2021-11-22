@@ -1,12 +1,12 @@
 package xin.altitude.common.utils;
 
-import java.util.Collection;
-import java.util.List;
-
 import xin.altitude.common.constant.Constants;
 import xin.altitude.common.core.domain.entity.SysDictData;
 import xin.altitude.common.core.redis.RedisCache;
 import xin.altitude.common.utils.spring.SpringUtils;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * 字典工具类

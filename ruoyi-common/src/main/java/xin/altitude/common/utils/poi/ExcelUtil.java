@@ -73,6 +73,10 @@ public class ExcelUtil<T> {
      */
     private static final DecimalFormat DOUBLE_FORMAT = new DecimalFormat("######0.00");
     /**
+     * 统计列表
+     */
+    private final Map<Integer, Double> statistics = new HashMap<Integer, Double>();
+    /**
      * 实体对象
      */
     public Class<T> clazz;
@@ -116,10 +120,6 @@ public class ExcelUtil<T> {
      * 最大高度
      */
     private short maxHeight;
-    /**
-     * 统计列表
-     */
-    private final Map<Integer, Double> statistics = new HashMap<Integer, Double>();
     
     public ExcelUtil(Class<T> clazz) {
         this.clazz = clazz;

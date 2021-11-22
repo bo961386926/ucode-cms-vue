@@ -1,8 +1,8 @@
-package com.ruoyi.generator.util;
+package xin.altitude.generator.util;
 
 import java.util.Properties;
 import org.apache.velocity.app.Velocity;
-import com.ruoyi.common.constant.Constants;
+import xin.altitude.common.constant.Constants;
 
 /**
  * VelocityEngine工厂

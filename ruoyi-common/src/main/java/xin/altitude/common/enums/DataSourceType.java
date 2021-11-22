@@ -2,16 +2,15 @@ package xin.altitude.common.enums;
 
 /**
  * 数据源
- * 
+ *
  * @author ruoyi
  */
-public enum DataSourceType
-{
+public enum DataSourceType {
     /**
      * 主库
      */
     MASTER,
-
+    
     /**
      * 从库
      */

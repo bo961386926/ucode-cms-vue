@@ -1,8 +1,8 @@
-package com.ruoyi.generator.service;
+package xin.altitude.generator.service;
 
 import java.util.List;
 import java.util.Map;
-import com.ruoyi.generator.domain.GenTable;
+import xin.altitude.generator.domain.GenTable;
 
 /**
  * 业务 服务层

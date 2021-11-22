@@ -1,7 +1,7 @@
-package com.ruoyi.generator.mapper;
+package xin.altitude.generator.mapper;
 
 import java.util.List;
-import com.ruoyi.generator.domain.GenTableColumn;
+import xin.altitude.generator.domain.GenTableColumn;
 
 /**
  * 业务字段 数据层

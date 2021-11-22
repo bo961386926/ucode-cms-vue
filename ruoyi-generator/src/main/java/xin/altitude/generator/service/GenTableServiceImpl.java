@@ -1,4 +1,4 @@
-package com.ruoyi.generator.service;
+package xin.altitude.generator.service;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -22,19 +22,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.ruoyi.common.constant.Constants;
-import com.ruoyi.common.constant.GenConstants;
-import com.ruoyi.common.core.text.CharsetKit;
-import com.ruoyi.common.exception.ServiceException;
-import com.ruoyi.common.utils.SecurityUtils;
-import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.generator.domain.GenTable;
-import com.ruoyi.generator.domain.GenTableColumn;
-import com.ruoyi.generator.mapper.GenTableColumnMapper;
-import com.ruoyi.generator.mapper.GenTableMapper;
-import com.ruoyi.generator.util.GenUtils;
-import com.ruoyi.generator.util.VelocityInitializer;
-import com.ruoyi.generator.util.VelocityUtils;
+
+import xin.altitude.common.constant.Constants;
+import xin.altitude.common.constant.GenConstants;
+import xin.altitude.common.core.text.CharsetKit;
+import xin.altitude.common.exception.ServiceException;
+import xin.altitude.common.utils.SecurityUtils;
+import xin.altitude.common.utils.StringUtils;
+import xin.altitude.generator.domain.GenTable;
+import xin.altitude.generator.domain.GenTableColumn;
+import xin.altitude.generator.mapper.GenTableColumnMapper;
+import xin.altitude.generator.mapper.GenTableMapper;
+import xin.altitude.generator.util.GenUtils;
+import xin.altitude.generator.util.VelocityInitializer;
+import xin.altitude.generator.util.VelocityUtils;
 
 /**
  * 业务 服务层实现

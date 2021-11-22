@@ -1,15 +1,16 @@
-package com.ruoyi.generator.util;
+package xin.altitude.generator.util;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import org.apache.velocity.VelocityContext;
 import com.alibaba.fastjson.JSONObject;
-import com.ruoyi.common.constant.GenConstants;
-import com.ruoyi.common.utils.DateUtils;
-import com.ruoyi.common.utils.StringUtils;
-import com.ruoyi.generator.domain.GenTable;
-import com.ruoyi.generator.domain.GenTableColumn;
+
+import xin.altitude.common.constant.GenConstants;
+import xin.altitude.common.utils.DateUtils;
+import xin.altitude.common.utils.StringUtils;
+import xin.altitude.generator.domain.GenTable;
+import xin.altitude.generator.domain.GenTableColumn;
 
 /**
  * 模板处理工具类

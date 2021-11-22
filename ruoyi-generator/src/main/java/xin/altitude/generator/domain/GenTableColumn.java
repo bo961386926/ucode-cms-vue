@@ -1,8 +1,9 @@
-package com.ruoyi.generator.domain;
+package xin.altitude.generator.domain;
+
+import xin.altitude.common.core.domain.BaseEntity;
+import xin.altitude.common.utils.StringUtils;
 
 import javax.validation.constraints.NotBlank;
-import com.ruoyi.common.core.domain.BaseEntity;
-import com.ruoyi.common.utils.StringUtils;
 
 /**
  * 代码生成业务字段表 gen_table_column

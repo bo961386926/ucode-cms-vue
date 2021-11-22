@@ -22,7 +22,8 @@
         <bitwalker.version>1.21</bitwalker.version>
         <swagger.version>3.0.0</swagger.version>
         <kaptcha.version>2.3.2</kaptcha.version>
-        <mybatis-spring-boot.version>2.2.0</mybatis-spring-boot.version>
+        <!--<mybatis-spring-boot.version>2.2.0</mybatis-spring-boot.version>-->
+        <mybatis-plus-spring-boot.version>3.4.3.4</mybatis-plus-spring-boot.version>
         <pagehelper.boot.version>1.4.0</pagehelper.boot.version>
         <fastjson.version>1.2.78</fastjson.version>
         <oshi.version>5.8.2</oshi.version>
@@ -63,11 +64,11 @@
             </dependency>
             
             <!-- SpringBoot集成mybatis框架 -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis-spring-boot.version}</version>
-            </dependency>
+            <!--<dependency>-->
+            <!--    <groupId>org.mybatis.spring.boot</groupId>-->
+            <!--    <artifactId>mybatis-spring-boot-starter</artifactId>-->
+            <!--    <version>${mybatis-spring-boot.version}</version>-->
+            <!--</dependency>-->
             
             <!-- pagehelper 分页插件 -->
             <dependency>
@@ -203,6 +204,11 @@
                 <groupId>com.ruoyi</groupId>
                 <artifactId>ruoyi-common</artifactId>
                 <version>${ruoyi.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-spring-boot.version}</version>
             </dependency>
         
         </dependencies>

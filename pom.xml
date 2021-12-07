@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>xin.altitude.cms</groupId>
+    <groupId>com.ruoyi</groupId>
     <artifactId>ruoyi</artifactId>
     <version>3.7.0</version>
     
@@ -173,35 +173,35 @@
             
             <!-- 定时任务-->
             <dependency>
-                <groupId>xin.altitude.cms</groupId>
+                <groupId>com.ruoyi</groupId>
                 <artifactId>ruoyi-quartz</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
             
             <!-- 代码生成-->
             <dependency>
-                <groupId>xin.altitude.cms</groupId>
+                <groupId>com.ruoyi</groupId>
                 <artifactId>ruoyi-generator</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
             
             <!-- 核心模块-->
             <dependency>
-                <groupId>xin.altitude.cms</groupId>
-                <artifactId>ruoyi-framework</artifactId>
+                <groupId>com.ruoyi</groupId>
+                <artifactId>cms-framework</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
             
             <!-- 系统模块-->
             <dependency>
-                <groupId>xin.altitude.cms</groupId>
+                <groupId>com.ruoyi</groupId>
                 <artifactId>ruoyi-system</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
             
             <!-- 通用工具-->
             <dependency>
-                <groupId>xin.altitude.cms</groupId>
+                <groupId>com.ruoyi</groupId>
                 <artifactId>ruoyi-common</artifactId>
                 <version>${ruoyi.version}</version>
             </dependency>
@@ -218,8 +218,8 @@
         <module>cms-admin</module>
         <module>cms-framework</module>
         <module>cms-system</module>
-        <module>cms-quartz</module>
-        <module>cms-generator</module>
+        <!--<module>cms-quartz</module>-->
+        <!--<module>cms-generator</module>-->
         <module>cms-common</module>
     </modules>
     <packaging>pom</packaging>

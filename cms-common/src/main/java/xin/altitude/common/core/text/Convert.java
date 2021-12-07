@@ -806,16 +806,15 @@ public class Convert {
                 // 跳过不替换的字符
                 continue;
             }
-            
+    
             if (c[i] == '\u3000') {
                 c[i] = ' ';
             } else if (c[i] > '\uFF00' && c[i] < '\uFF5F') {
                 c[i] = (char) (c[i] - 65248);
             }
         }
-        String returnString = new String(c);
-        
-        return returnString;
+    
+        return new String(c);
     }
     
     /**
@@ -842,12 +841,12 @@ public class Convert {
         int integerPart = (int) Math.floor(n);
         
         for (int i = 0; i < unit[0].length && integerPart > 0; i++) {
-            String p = "";
+            StringBuilder p = new StringBuilder();
             for (int j = 0; j < unit[1].length && n > 0; j++) {
-                p = digit[integerPart % 10] + unit[1][j] + p;
+                p.insert(0, digit[integerPart % 10] + unit[1][j]);
                 integerPart = integerPart / 10;
             }
-            s.insert(0, p.replaceAll("(零.)*零$", "").replaceAll("^$", "零") + unit[0][i]);
+            s.insert(0, p.toString().replaceAll("(零.)*零$", "").replaceAll("^$", "零") + unit[0][i]);
         }
         return head + s.toString().replaceAll("(零.)*零元", "元").replaceFirst("(零.)+", "").replaceAll("(零.)+", "零").replaceAll("^整$", "零元整");
     }

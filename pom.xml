@@ -4,16 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     
-    <groupId>com.ruoyi</groupId>
-    <artifactId>ruoyi</artifactId>
-    <version>3.7.0</version>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms</artifactId>
+    <version>1.0.0</version>
     
-    <name>ruoyi</name>
-    <url>http://www.ruoyi.vip</url>
-    <description>若依管理系统</description>
+    <name>${project.artifactId}</name>
     
     <properties>
-        <ruoyi.version>3.7.0</ruoyi.version>
+        <ucode-cms.version>1.0.0</ucode-cms.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -35,6 +33,16 @@
         <velocity.version>1.7</velocity.version>
         <jwt.version>0.9.1</jwt.version>
     </properties>
+    
+    <modules>
+        <!--<module>ucode-cms-admin</module>-->
+        <module>ucode-cms-framework</module>
+        <module>ucode-cms-system</module>
+        <module>ucode-cms-common</module>
+        <module>ucode-cms-springboot-starter</module>
+        <module>ucode-cms-monitor</module>
+    </modules>
+    <packaging>pom</packaging>
     
     <!-- 依赖声明 -->
     <dependencyManagement>
@@ -62,13 +70,6 @@
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${bitwalker.version}</version>
             </dependency>
-            
-            <!-- SpringBoot集成mybatis框架 -->
-            <!--<dependency>-->
-            <!--    <groupId>org.mybatis.spring.boot</groupId>-->
-            <!--    <artifactId>mybatis-spring-boot-starter</artifactId>-->
-            <!--    <version>${mybatis-spring-boot.version}</version>-->
-            <!--</dependency>-->
             
             <!-- pagehelper 分页插件 -->
             <dependency>
@@ -101,12 +102,12 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-boot-starter</artifactId>
                 <version>${swagger.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>io.swagger</groupId>
-                        <artifactId>swagger-models</artifactId>
-                    </exclusion>
-                </exclusions>
+                <!--<exclusions>-->
+                <!--    <exclusion>-->
+                <!--        <groupId>io.swagger</groupId>-->
+                <!--        <artifactId>swagger-models</artifactId>-->
+                <!--    </exclusion>-->
+                <!--</exclusions>-->
             </dependency>
             
             <!-- io常用工具类 -->
@@ -131,17 +132,17 @@
             </dependency>
             
             <!-- velocity代码生成使用模板 -->
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity</artifactId>
-                <version>${velocity.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>commons-collections</groupId>
-                        <artifactId>commons-collections</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+            <!--<dependency>-->
+            <!--    <groupId>org.apache.velocity</groupId>-->
+            <!--    <artifactId>velocity</artifactId>-->
+            <!--    <version>${velocity.version}</version>-->
+            <!--    <exclusions>-->
+            <!--        <exclusion>-->
+            <!--            <groupId>commons-collections</groupId>-->
+            <!--            <artifactId>commons-collections</artifactId>-->
+            <!--        </exclusion>-->
+            <!--    </exclusions>-->
+            <!--</dependency>-->
             
             <!-- collections工具类 -->
             <dependency>
@@ -171,66 +172,53 @@
                 <version>${kaptcha.version}</version>
             </dependency>
             
-            <!-- 定时任务-->
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-quartz</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-            
-            <!-- 代码生成-->
-            <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-generator</artifactId>
-                <version>${ruoyi.version}</version>
-            </dependency>
-            
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>cms-framework</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>xin.altitude.cms</groupId>
+                <artifactId>ucode-cms-framework</artifactId>
+                <version>${ucode-cms.version}</version>
             </dependency>
             
             <!-- 系统模块-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-system</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>xin.altitude.cms</groupId>
+                <artifactId>ucode-cms-system</artifactId>
+                <version>${ucode-cms.version}</version>
             </dependency>
             
             <!-- 通用工具-->
             <dependency>
-                <groupId>com.ruoyi</groupId>
-                <artifactId>ruoyi-common</artifactId>
-                <version>${ruoyi.version}</version>
+                <groupId>xin.altitude.cms</groupId>
+                <artifactId>ucode-cms-common</artifactId>
+                <version>${ucode-cms.version}</version>
             </dependency>
+            
+            <dependency>
+                <groupId>xin.altitude.cms</groupId>
+                <artifactId>ucode-cms-monitor</artifactId>
+                <version>${ucode-cms.version}</version>
+            </dependency>
+            
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus-spring-boot.version}</version>
+            </dependency>
+            
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-annotation</artifactId>
                 <version>${mybatis-plus-spring-boot.version}</version>
             </dependency>
         
         </dependencies>
     </dependencyManagement>
     
-    <modules>
-        <module>cms-admin</module>
-        <module>cms-framework</module>
-        <module>cms-system</module>
-        <!--<module>cms-quartz</module>-->
-        <!--<module>cms-generator</module>-->
-        <module>cms-common</module>
-    </modules>
-    <packaging>pom</packaging>
-    
-    
     <dependencies>
     
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-annotation</artifactId>
-            <version>3.4.1</version>
         </dependency>
     </dependencies>
     

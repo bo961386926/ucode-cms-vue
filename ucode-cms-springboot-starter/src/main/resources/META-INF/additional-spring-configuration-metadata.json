@@ -1,0 +1,34 @@
+{
+  "properties": [
+    {
+      "name": "ucode.cms.name",
+      "type": "java.lang.String",
+      "description": "项目名称."
+    },
+    {
+      "name": "ucode.cms.version",
+      "type": "java.lang.String",
+      "description": "项目版本号."
+    },
+    {
+      "name": "ucode.cms.demoEnabled",
+      "type": "java.lang.String",
+      "description": "演示开关."
+    },
+    {
+      "name": "ucode.cms.profile",
+      "type": "java.lang.String",
+      "description": "文件绝对基础路径."
+    },
+    {
+      "name": "ucode.cms.addressEnabled",
+      "type": "java.lang.String",
+      "description": "获取ip地址开关."
+    },
+    {
+      "name": "ucode.cms.captchaType",
+      "type": "java.lang.String",
+      "description": "验证码类型."
+    }
+  ]
+}

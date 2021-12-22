@@ -60,6 +60,10 @@ public class CmsConfig {
         return captchaType;
     }
     
+    public void setCaptchaType(String captchaType) {
+        CmsConfig.captchaType = captchaType;
+    }
+    
     /**
      * 获取导入上传路径
      */
@@ -86,10 +90,6 @@ public class CmsConfig {
      */
     public static String getUploadPath() {
         return getProfile() + "/upload";
-    }
-    
-    public void setCaptchaType(String captchaType) {
-        CmsConfig.captchaType = captchaType;
     }
     
     public String getName() {

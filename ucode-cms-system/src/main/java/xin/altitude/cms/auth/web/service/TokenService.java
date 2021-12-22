@@ -5,15 +5,16 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import xin.altitude.cms.auth.model.LoginUser;
+import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.redis.RedisCache;
 import xin.altitude.cms.common.utils.ServletUtils;
 import xin.altitude.cms.common.utils.StringUtils;
 import xin.altitude.cms.common.utils.ip.AddressUtils;
 import xin.altitude.cms.common.utils.ip.IpUtils;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 import xin.altitude.cms.common.utils.uuid.IdUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,15 +32,17 @@ public class TokenService {
     protected static final long MILLIS_SECOND = 1000;
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
     private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L;
-    // 令牌自定义标识
-    @Value("${ucode.token.header}")
-    private String header;
-    // 令牌秘钥
-    @Value("${ucode.token.secret}")
-    private String secret;
-    // 令牌有效期（默认30分钟）
-    @Value("${ucode.token.expireTime}")
-    private int expireTime;
+    
+    private final CmsConfig.Token token = SpringUtils.getBean(CmsConfig.class).getToken();
+    // // 令牌自定义标识
+    // @Value("${ucode.token.header}")
+    // private String header;
+    // // 令牌秘钥
+    // @Value("${ucode.token.secret}")
+    // private String secret;
+    // // 令牌有效期（默认30分钟）
+    // @Value("${ucode.token.expireTime}")
+    // private int expireTime;
     @Autowired
     private RedisCache redisCache;
     
@@ -122,10 +125,10 @@ public class TokenService {
      */
     public void refreshToken(LoginUser loginUser) {
         loginUser.setLoginTime(System.currentTimeMillis());
-        loginUser.setExpireTime(loginUser.getLoginTime() + expireTime * MILLIS_MINUTE);
+        loginUser.setExpireTime(loginUser.getLoginTime() + token.getExpireTime() * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
-        redisCache.setCacheObject(userKey, loginUser, expireTime, TimeUnit.MINUTES);
+        redisCache.setCacheObject(userKey, loginUser, token.getExpireTime(), TimeUnit.MINUTES);
     }
     
     /**
@@ -149,10 +152,9 @@ public class TokenService {
      * @return 令牌
      */
     private String createToken(Map<String, Object> claims) {
-        String token = Jwts.builder()
+        return Jwts.builder()
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, secret).compact();
-        return token;
+                .signWith(SignatureAlgorithm.HS512, this.token.getSecret()).compact();
     }
     
     /**
@@ -163,7 +165,7 @@ public class TokenService {
      */
     private Claims parseToken(String token) {
         return Jwts.parser()
-                .setSigningKey(secret)
+                .setSigningKey(this.token.getSecret())
                 .parseClaimsJws(token)
                 .getBody();
     }
@@ -186,7 +188,7 @@ public class TokenService {
      * @return token
      */
     private String getToken(HttpServletRequest request) {
-        String token = request.getHeader(header);
+        String token = request.getHeader(this.token.getHeader());
         if (StringUtils.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
             token = token.replace(Constants.TOKEN_PREFIX, "");
         }

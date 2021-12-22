@@ -3,7 +3,7 @@ package xin.altitude.config;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -29,6 +29,7 @@ import java.util.List;
  * @author ucode
  */
 @Configuration
+@ConditionalOnProperty(value = "ucode.swagger.enabled", havingValue = "true")
 public class SwaggerConfig {
     /**
      * 系统基础配置
@@ -37,25 +38,13 @@ public class SwaggerConfig {
     private CmsConfig cmsConfig;
     
     /**
-     * 是否开启swagger
-     */
-    @Value("${ucode.swagger.enabled}")
-    private boolean enabled;
-    
-    /**
-     * 设置请求的统一前缀
-     */
-    @Value("${ucode.swagger.pathMapping}")
-    private String pathMapping;
-    
-    /**
      * 创建API
      */
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.OAS_30)
                 // 是否启用Swagger
-                .enable(enabled)
+                .enable(cmsConfig.getSwagger().getEnabled())
                 // 用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
                 .apiInfo(apiInfo())
                 // 设置哪些接口暴露给Swagger展示
@@ -70,7 +59,7 @@ public class SwaggerConfig {
                 /* 设置安全模式，swagger可以设置访问token */
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts())
-                .pathMapping(pathMapping);
+                .pathMapping(cmsConfig.getSwagger().getPathMapping());
     }
     
     /**
@@ -118,9 +107,9 @@ public class SwaggerConfig {
                 // 描述
                 .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
                 // 作者信息
-                .contact(new Contact(cmsConfig.getName(), null, null))
+                .contact(new Contact(cmsConfig.getCms().getName(), null, null))
                 // 版本
-                .version("版本号:" + cmsConfig.getVersion())
+                .version("版本号:" + cmsConfig.getCms().getVersion())
                 .build();
     }
 }

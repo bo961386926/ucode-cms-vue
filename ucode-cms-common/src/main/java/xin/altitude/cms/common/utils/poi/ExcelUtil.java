@@ -1,5 +1,6 @@
 package xin.altitude.cms.common.utils.poi;
 
+import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
 import org.apache.poi.hssf.usermodel.HSSFPicture;
 import org.apache.poi.hssf.usermodel.HSSFPictureData;
@@ -35,6 +36,7 @@ import xin.altitude.cms.common.utils.file.FileTypeUtils;
 import xin.altitude.cms.common.utils.file.FileUtils;
 import xin.altitude.cms.common.utils.file.ImageUtils;
 import xin.altitude.cms.common.utils.reflect.ReflectUtils;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -946,7 +948,7 @@ public class ExcelUtil<T> {
      * @param filename 文件名称
      */
     public String getAbsoluteFile(String filename) {
-        String downloadPath = CmsConfig.getDownloadPath() + filename;
+        String downloadPath = FilenameUtils.concat(SpringUtils.getBean(CmsConfig.class).getCms().getDownloadPath(), filename);
         File desc = new File(downloadPath);
         if (!desc.getParentFile().exists()) {
             desc.getParentFile().mkdirs();

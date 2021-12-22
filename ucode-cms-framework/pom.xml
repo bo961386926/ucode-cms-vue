@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.framework</groupId>
     <artifactId>ucode-cms-framework</artifactId>
-    <version>${project.parent.version}</version>
     <name>${project.artifactId}</name>
     
     <description>

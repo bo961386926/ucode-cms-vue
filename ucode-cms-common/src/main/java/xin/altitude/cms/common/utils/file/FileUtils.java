@@ -5,6 +5,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.utils.DateUtils;
 import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 import xin.altitude.cms.common.utils.uuid.IdUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +64,7 @@ public class FileUtils {
      * @throws IOException IO异常
      */
     public static String writeImportBytes(byte[] data) throws IOException {
-        return writeBytes(data, CmsConfig.getImportPath());
+        return writeBytes(data, SpringUtils.getBean(CmsConfig.class).getCms().getImportPath());
     }
     
     /**

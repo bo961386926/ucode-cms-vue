@@ -21,6 +21,7 @@ import xin.altitude.cms.common.core.domain.entity.SysUser;
 import xin.altitude.cms.common.enums.BusinessType;
 import xin.altitude.cms.common.utils.StringUtils;
 import xin.altitude.cms.common.utils.file.FileUploadUtils;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 import xin.altitude.cms.system.service.ISysUserService;
 
 import java.io.IOException;
@@ -114,7 +115,7 @@ public class SysProfileController extends BaseController {
     public AjaxResult avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             LoginUser loginUser = getLoginUser();
-            String avatar = FileUploadUtils.upload(CmsConfig.getAvatarPath(), file);
+            String avatar = FileUploadUtils.upload(SpringUtils.getBean(CmsConfig.class).getCms().getAvatarPath(), file);
             if (userService.updateUserAvatar(loginUser.getUsername(), avatar)) {
                 AjaxResult ajax = AjaxResult.success();
                 ajax.put("imgUrl", avatar);

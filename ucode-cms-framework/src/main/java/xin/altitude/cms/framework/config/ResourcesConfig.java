@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 import xin.altitude.cms.framework.interceptor.RepeatSubmitInterceptor;
 
 /**
@@ -27,7 +28,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         /* 本地文件上传路径 */
         registry.addResourceHandler(Constants.RESOURCE_PREFIX + "/**")
-                .addResourceLocations("file:" + CmsConfig.getProfile() + "/");
+                .addResourceLocations("file:" + SpringUtils.getBean(CmsConfig.class).getCms().getProfile() + "/");
     
         /* swagger配置 */
         registry.addResourceHandler("/swagger-ui/**")

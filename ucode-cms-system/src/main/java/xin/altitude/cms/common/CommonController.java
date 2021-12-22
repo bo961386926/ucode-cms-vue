@@ -1,5 +1,6 @@
 package xin.altitude.cms.common;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,11 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.common.config.CmsConfig;
+import xin.altitude.cms.common.config.CmsConfig2;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.utils.StringUtils;
 import xin.altitude.cms.common.utils.file.FileUploadUtils;
 import xin.altitude.cms.common.utils.file.FileUtils;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 import xin.altitude.cms.framework.config.ServerConfig;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,7 +47,7 @@ public class CommonController {
                 throw new Exception(StringUtils.format("文件名称({})非法，不允许下载。 ", fileName));
             }
             String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
-            String filePath = CmsConfig.getDownloadPath() + fileName;
+            String filePath = FilenameUtils.concat(SpringUtils.getBean(CmsConfig.class).getCms().getDownloadPath(), fileName);
             
             response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
             FileUtils.setAttachmentResponseHeader(response, realFileName);
@@ -64,7 +67,7 @@ public class CommonController {
     public AjaxResult uploadFile(MultipartFile file) throws Exception {
         try {
             // 上传文件路径
-            String filePath = CmsConfig.getUploadPath();
+            String filePath = SpringUtils.getBean(CmsConfig.class).getCms().getUploadPath();
             // 上传并返回新文件名称
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + fileName;
@@ -88,7 +91,7 @@ public class CommonController {
                 throw new Exception(StringUtils.format("资源文件({})非法，不允许下载。 ", resource));
             }
             // 本地资源路径
-            String localPath = CmsConfig.getProfile();
+            String localPath = CmsConfig2.getProfile();
             // 数据库资源地址
             String downloadPath = localPath + StringUtils.substringAfter(resource, Constants.RESOURCE_PREFIX);
             // 下载名称

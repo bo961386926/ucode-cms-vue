@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -66,7 +67,7 @@ public class ImageUtils {
                 in = urlConnection.getInputStream();
             } else {
                 // 本机地址
-                String localPath = CmsConfig.getProfile();
+                String localPath = SpringUtils.getBean(CmsConfig.class).getCms().getProfile();
                 String downloadPath = localPath + StringUtils.substringAfter(url, Constants.RESOURCE_PREFIX);
                 in = new FileInputStream(downloadPath);
             }

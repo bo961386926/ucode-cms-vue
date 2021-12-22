@@ -9,6 +9,7 @@ import xin.altitude.cms.common.exception.file.FileSizeLimitExceededException;
 import xin.altitude.cms.common.exception.file.InvalidExtensionException;
 import xin.altitude.cms.common.utils.DateUtils;
 import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 import xin.altitude.cms.common.utils.uuid.IdUtils;
 
 import java.io.File;
@@ -33,7 +34,7 @@ public class FileUploadUtils {
     /**
      * 默认上传的地址
      */
-    private static String defaultBaseDir = CmsConfig.getProfile();
+    private static String defaultBaseDir = SpringUtils.getBean(CmsConfig.class).getCms().getProfile();
     
     public static String getDefaultBaseDir() {
         return defaultBaseDir;
@@ -126,7 +127,7 @@ public class FileUploadUtils {
     }
     
     public static final String getPathFileName(String uploadDir, String fileName) throws IOException {
-        int dirLastIndex = CmsConfig.getProfile().length() + 1;
+        int dirLastIndex = SpringUtils.getBean(CmsConfig.class).getCms().getProfile().length() + 1;
         String currentDir = StringUtils.substring(uploadDir, dirLastIndex);
         String pathFileName = Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
         return pathFileName;

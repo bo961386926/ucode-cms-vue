@@ -8,7 +8,6 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <version>${project.parent.version}</version>
     <name>${project.artifactId}</name>
     
     <artifactId>ucode-cms-springboot-starter</artifactId>
@@ -30,6 +29,10 @@
         <dependency>
             <groupId>xin.altitude.cms.system</groupId>
             <artifactId>ucode-cms-system</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 

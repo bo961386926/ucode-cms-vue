@@ -7,6 +7,7 @@ import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.utils.StringUtils;
 import xin.altitude.cms.common.utils.http.HttpUtils;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 
 /**
  * 获取地址类
@@ -26,7 +27,7 @@ public class AddressUtils {
         if (IpUtils.internalIp(ip)) {
             return "内网IP";
         }
-        if (CmsConfig.isAddressEnabled()) {
+        if (SpringUtils.getBean(CmsConfig.class).getCms().isAddressEnabled()) {
             try {
                 String rspStr = HttpUtils.sendGet(IP_URL, "ip=" + ip + "&json=true", Constants.GBK);
                 if (StringUtils.isEmpty(rspStr)) {

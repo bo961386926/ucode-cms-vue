@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.common</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>${project.parent.version}</version>
     <name>${project.artifactId}</name>
     
     <description>
@@ -126,8 +125,7 @@
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
-    
-    
+
     </dependencies>
 
 </project>

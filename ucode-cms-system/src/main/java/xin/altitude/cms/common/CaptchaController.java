@@ -10,6 +10,7 @@ import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.redis.RedisCache;
 import xin.altitude.cms.common.utils.sign.Base64;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 import xin.altitude.cms.common.utils.uuid.IdUtils;
 import xin.altitude.cms.system.service.ISysConfigService;
 
@@ -59,7 +60,7 @@ public class CaptchaController {
         BufferedImage image = null;
         
         // 生成验证码
-        String captchaType = CmsConfig.getCaptchaType();
+        String captchaType = SpringUtils.getBean(CmsConfig.class).getCms().getCaptchaType();
         if ("math".equals(captchaType)) {
             String capText = captchaProducerMath.createText();
             capStr = capText.substring(0, capText.lastIndexOf("@"));

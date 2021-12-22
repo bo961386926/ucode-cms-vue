@@ -1,126 +1,102 @@
 package xin.altitude.cms.common.config;
 
+import lombok.Data;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.Configuration;
 
 /**
- * 读取项目相关配置
- *
- * @author ucode
- */
-@Component
-@ConfigurationProperties(prefix = "ucode.cms")
+ * @author explore
+ * @since 2021/12/22 17:09
+ **/
+@Data
+@Configuration
+@ConfigurationProperties(prefix = "ucode")
 public class CmsConfig {
-    /**
-     * 上传路径
-     */
-    private static String profile;
-    /**
-     * 获取地址开关
-     */
-    private static boolean addressEnabled;
-    /**
-     * 验证码类型
-     */
-    private static String captchaType;
-    /**
-     * 项目名称
-     */
-    private String name;
-    /**
-     * 版本
-     */
-    private String version;
-    /**
-     * 版权年份
-     */
-    private String copyrightYear;
-    /**
-     * 实例演示开关
-     */
-    private boolean demoEnabled;
+    private Cms cms;
+    private Token token;
+    private Xss xss;
+    private Swagger swagger;
     
-    public static String getProfile() {
-        return profile;
-    }
-    
-    public void setProfile(String profile) {
-        CmsConfig.profile = profile;
-    }
-    
-    public static boolean isAddressEnabled() {
-        return addressEnabled;
-    }
-    
-    public void setAddressEnabled(boolean addressEnabled) {
-        CmsConfig.addressEnabled = addressEnabled;
-    }
-    
-    public static String getCaptchaType() {
-        return captchaType;
-    }
-    
-    public void setCaptchaType(String captchaType) {
-        CmsConfig.captchaType = captchaType;
-    }
-    
-    /**
-     * 获取导入上传路径
-     */
-    public static String getImportPath() {
-        return getProfile() + "/import";
+    @Data
+    public static class Cms {
+        /* 上传路径 */
+        private String profile;
+        /* 获取地址开关 */
+        private boolean addressEnabled;
+        /* 验证码类型 */
+        private String captchaType;
+        /* 项目名称 */
+        private String name;
+        /* 版本 */
+        private String version;
+        /* 版权年份 */
+        private String copyrightYear;
+        /* 实例演示开关 */
+        private boolean demoEnabled;
+        /* 启用认证开关 */
+        private boolean authEnabled;
+        
+        /**
+         * 获取导入上传路径
+         */
+        public String getImportPath() {
+            return FilenameUtils.concat(getProfile(), "import");
+        }
+        
+        /**
+         * 获取头像上传路径
+         */
+        public String getAvatarPath() {
+            return FilenameUtils.concat(getProfile(), "avatar");
+        }
+        
+        /**
+         * 获取下载路径
+         */
+        public String getDownloadPath() {
+            return FilenameUtils.concat(getProfile(), "download");
+        }
+        
+        /**
+         * 获取上传路径
+         */
+        public String getUploadPath() {
+            return FilenameUtils.concat(getProfile(), "upload");
+        }
     }
     
     /**
-     * 获取头像上传路径
+     * Token全局配置
      */
-    public static String getAvatarPath() {
-        return getProfile() + "/avatar";
+    @Data
+    public static class Token {
+        /* 令牌自定义标识 */
+        private String header;
+        /* 令牌密钥 */
+        private String secret;
+        /* 令牌有效期 */
+        private Integer expireTime = 30;
     }
     
     /**
-     * 获取下载路径
+     * xss全局配置
      */
-    public static String getDownloadPath() {
-        return getProfile() + "/download/";
+    @Data
+    public static class Xss {
+        /* 过滤开关 */
+        private Boolean enabled = true;
+        /* 排除链接（多个用逗号分隔） */
+        private String excludes;
+        /* 匹配链接 */
+        private String urlPatterns;
     }
     
-    /**
-     * 获取上传路径
-     */
-    public static String getUploadPath() {
-        return getProfile() + "/upload";
-    }
-    
-    public String getName() {
-        return name;
-    }
-    
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public String getVersion() {
-        return version;
-    }
-    
-    public void setVersion(String version) {
-        this.version = version;
-    }
-    
-    public String getCopyrightYear() {
-        return copyrightYear;
-    }
-    
-    public void setCopyrightYear(String copyrightYear) {
-        this.copyrightYear = copyrightYear;
-    }
-    
-    public boolean isDemoEnabled() {
-        return demoEnabled;
-    }
-    
-    public void setDemoEnabled(boolean demoEnabled) {
-        this.demoEnabled = demoEnabled;
+    @Data
+    public static class Swagger {
+        /* 是否开启swagger */
+        private Boolean enabled = true;
+        /* 请求前缀 */
+        private String pathMapping;
     }
 }

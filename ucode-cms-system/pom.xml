@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.system</groupId>
     <artifactId>ucode-cms-system</artifactId>
-    <version>${project.parent.version}</version>
     <name>${project.artifactId}</name>
     
     <description>
@@ -31,14 +30,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xin.altitude.cms.framework</groupId>
-            <artifactId>ucode-cms-framework</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xin.altitude.cms.common</groupId>
-            <artifactId>ucode-cms-common</artifactId>
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.framework</groupId>

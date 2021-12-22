@@ -10,7 +10,7 @@ import xin.altitude.cms.common.utils.StringUtils;
 import java.util.Set;
 
 /**
- * RuoYi首创 自定义权限实现，ss取自SpringSecurity首字母
+ * UCodeCms首创 自定义权限实现，ss取自SpringSecurity首字母
  *
  * @author ucode
  */

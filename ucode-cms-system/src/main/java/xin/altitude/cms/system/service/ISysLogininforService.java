@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import xin.altitude.cms.system.domain.SysLogininfor;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public interface ISysLogininforService {
+public interface ISysLogininforService extends IService<SysLogininfor> {
     /**
      * 新增系统登录日志
      *

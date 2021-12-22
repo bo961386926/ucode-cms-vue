@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,12 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.common.annotation.Log;
 import xin.altitude.cms.common.core.domain.AjaxResult;
-import xin.altitude.cms.common.core.page.TableDataInfo;
 import xin.altitude.cms.common.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysNotice;
 import xin.altitude.cms.system.service.ISysNoticeService;
-
-import java.util.List;
 
 /**
  * 公告 信息操作处理
@@ -33,13 +32,16 @@ public class SysNoticeController extends BaseController {
     
     /**
      * 获取通知公告列表
+     *
+     * @return
      */
     // @PreAuthorize("@ss.hasPermi('system:notice:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysNotice notice) {
-        startPage();
-        List<SysNotice> list = noticeService.selectNoticeList(notice);
-        return getDataTable(list);
+    public AjaxResult list(Page<SysNotice> page, SysNotice notice) {
+        // startPage();
+        // List<SysNotice> list = noticeService.selectNoticeList(notice);
+        // return getDataTable(list);
+        return AjaxResult.success(noticeService.page(page, Wrappers.lambdaQuery(notice)));
     }
     
     /**

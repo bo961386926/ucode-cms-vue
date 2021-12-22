@@ -1,7 +1,9 @@
-package xin.altitude.cms.monitor;
+package xin.altitude.cms.system.controller;
 
 // import lombok.extern.java.Log;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.common.annotation.Log;
 import xin.altitude.cms.common.core.domain.AjaxResult;
-import xin.altitude.cms.common.core.page.TableDataInfo;
 import xin.altitude.cms.common.enums.BusinessType;
 import xin.altitude.cms.common.utils.poi.ExcelUtil;
 import xin.altitude.cms.system.domain.SysLogininfor;
@@ -34,10 +35,11 @@ public class SysLogininforController extends BaseController {
     
     // @PreAuthorize("@ss.hasPermi('monitor:logininfor:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysLogininfor logininfor) {
-        startPage();
-        List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
-        return getDataTable(list);
+    public AjaxResult list(Page<SysLogininfor> page, SysLogininfor logininfor) {
+        // startPage();
+        // List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
+        // return getDataTable(list);
+        return AjaxResult.success(logininforService.page(page, Wrappers.lambdaQuery(logininfor)));
     }
     
     @Log(title = "登录日志", businessType = BusinessType.EXPORT)

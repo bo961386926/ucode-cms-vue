@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import xin.altitude.cms.common.annotation.Excel;
 import xin.altitude.cms.common.annotation.Excel.ColumnType;
@@ -12,6 +14,7 @@ import java.util.Date;
  *
  * @author ucode
  */
+@TableName("sys_logininfor")
 public class SysLogininfor extends BaseEntity {
     private static final long serialVersionUID = 1L;
     
@@ -72,24 +75,29 @@ public class SysLogininfor extends BaseEntity {
     /**
      * 创建者
      */
+    @TableField(exist = false)
     private String createBy;
     /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(exist = false)
     private Date createTime;
     /**
      * 更新者
      */
+    @TableField(exist = false)
     private String updateBy;
     /**
      * 更新时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(exist = false)
     private Date updateTime;
     /**
      * 备注
      */
+    @TableField(exist = false)
     private String remark;
     
     public Long getInfoId() {

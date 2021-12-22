@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.system.domain.SysLogininfor;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author ucode
  */
 @Service
-public class SysLogininforServiceImpl implements ISysLogininforService {
+public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, SysLogininfor> implements ISysLogininforService {
     
     @Autowired
     private SysLogininforMapper logininforMapper;

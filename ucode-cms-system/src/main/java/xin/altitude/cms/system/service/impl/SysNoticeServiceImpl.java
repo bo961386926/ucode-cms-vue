@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.system.domain.SysNotice;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author ucode
  */
 @Service
-public class SysNoticeServiceImpl implements ISysNoticeService {
+public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice> implements ISysNoticeService {
     @Autowired
     private SysNoticeMapper noticeMapper;
     

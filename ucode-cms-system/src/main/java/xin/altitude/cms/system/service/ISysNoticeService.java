@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import xin.altitude.cms.system.domain.SysNotice;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public interface ISysNoticeService {
+public interface ISysNoticeService extends IService<SysNotice> {
     /**
      * 查询公告信息
      *

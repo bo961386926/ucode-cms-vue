@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import xin.altitude.cms.system.domain.SysNotice;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @author ucode
  */
 @Mapper
-public interface SysNoticeMapper {
+public interface SysNoticeMapper extends BaseMapper<SysNotice> {
     /**
      * 查询公告信息
      *

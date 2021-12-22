@@ -181,7 +181,7 @@
         where menu_name=#{menuName} and parent_id = #{parentId} limit 1
     </select>
     
-    <update id="updateMenu" parameterType="SysMenu">
+    <update id="updateMenu" parameterType="xin.altitude.cms.common.core.domain.entity.SysMenu">
         update sys_menu
         <set>
             <if test="menuName != null and menuName != ''">menu_name = #{menuName},</if>

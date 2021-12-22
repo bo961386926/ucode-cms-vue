@@ -41,8 +41,6 @@
         <module>ucode-cms-system</module>
         <module>ucode-cms-common</module>
         <module>ucode-cms-springboot-starter</module>
-        <!--<module>ucode-cms-monitor</module>-->
-        <!--<module>ucode-cms-auth</module>-->
     </modules>
     <packaging>pom</packaging>
     
@@ -205,6 +203,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
                 <version>${mybatis-plus-spring-boot.version}</version>
+            </dependency>
+    
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-extension</artifactId>
             </dependency>
     
             <dependency>

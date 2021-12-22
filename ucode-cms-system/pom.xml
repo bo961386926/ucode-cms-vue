@@ -8,8 +8,9 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <version>${project.parent.version}</version>
+    <groupId>xin.altitude.cms.system</groupId>
     <artifactId>ucode-cms-system</artifactId>
+    <version>${project.parent.version}</version>
     <name>${project.artifactId}</name>
     
     <description>
@@ -20,7 +21,7 @@
         
         <!-- 通用工具-->
         <dependency>
-            <groupId>xin.altitude.cms</groupId>
+            <groupId>xin.altitude.cms.common</groupId>
             <artifactId>ucode-cms-common</artifactId>
         </dependency>
         <dependency>
@@ -31,7 +32,38 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-    
+        <dependency>
+            <groupId>xin.altitude.cms.framework</groupId>
+            <artifactId>ucode-cms-framework</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>xin.altitude.cms.common</groupId>
+            <artifactId>ucode-cms-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>xin.altitude.cms.framework</groupId>
+            <artifactId>ucode-cms-framework</artifactId>
+        </dependency>
+        <!-- 验证码 -->
+        <dependency>
+            <groupId>com.github.penggle</groupId>
+            <artifactId>kaptcha</artifactId>
+            <exclusions>
+                <exclusion>
+                    <artifactId>javax.servlet-api</artifactId>
+                    <groupId>javax.servlet</groupId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.oshi</groupId>
+            <artifactId>oshi-core</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -20,20 +20,16 @@
     
     <dependencies>
         <dependency>
-            <groupId>xin.altitude.cms</groupId>
+            <groupId>xin.altitude.cms.framework</groupId>
             <artifactId>ucode-cms-framework</artifactId>
         </dependency>
         <dependency>
-            <groupId>xin.altitude.cms</groupId>
+            <groupId>xin.altitude.cms.common</groupId>
             <artifactId>ucode-cms-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>xin.altitude.cms</groupId>
+            <groupId>xin.altitude.cms.system</groupId>
             <artifactId>ucode-cms-system</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xin.altitude.cms</groupId>
-            <artifactId>ucode-cms-monitor</artifactId>
         </dependency>
     </dependencies>
 

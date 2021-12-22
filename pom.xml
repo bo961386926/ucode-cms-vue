@@ -32,6 +32,7 @@
         <poi.version>4.1.2</poi.version>
         <velocity.version>1.7</velocity.version>
         <jwt.version>0.9.1</jwt.version>
+        <lombok.version>1.18.22</lombok.version>
     </properties>
     
     <modules>
@@ -40,7 +41,8 @@
         <module>ucode-cms-system</module>
         <module>ucode-cms-common</module>
         <module>ucode-cms-springboot-starter</module>
-        <module>ucode-cms-monitor</module>
+        <!--<module>ucode-cms-monitor</module>-->
+        <!--<module>ucode-cms-auth</module>-->
     </modules>
     <packaging>pom</packaging>
     
@@ -174,28 +176,22 @@
             
             <!-- 核心模块-->
             <dependency>
-                <groupId>xin.altitude.cms</groupId>
+                <groupId>xin.altitude.cms.framework</groupId>
                 <artifactId>ucode-cms-framework</artifactId>
                 <version>${ucode-cms.version}</version>
             </dependency>
             
             <!-- 系统模块-->
             <dependency>
-                <groupId>xin.altitude.cms</groupId>
+                <groupId>xin.altitude.cms.system</groupId>
                 <artifactId>ucode-cms-system</artifactId>
                 <version>${ucode-cms.version}</version>
             </dependency>
             
             <!-- 通用工具-->
             <dependency>
-                <groupId>xin.altitude.cms</groupId>
+                <groupId>xin.altitude.cms.common</groupId>
                 <artifactId>ucode-cms-common</artifactId>
-                <version>${ucode-cms.version}</version>
-            </dependency>
-            
-            <dependency>
-                <groupId>xin.altitude.cms</groupId>
-                <artifactId>ucode-cms-monitor</artifactId>
                 <version>${ucode-cms.version}</version>
             </dependency>
             
@@ -204,21 +200,31 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus-spring-boot.version}</version>
             </dependency>
-            
+    
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
                 <version>${mybatis-plus-spring-boot.version}</version>
             </dependency>
-        
+    
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
     
     <dependencies>
-    
+        
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-annotation</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
     

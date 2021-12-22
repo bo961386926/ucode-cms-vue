@@ -7,6 +7,7 @@
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
     <version>1.0.0</version>
+    <description>Java知识图谱之内容管理系统</description>
     
     <name>${project.artifactId}</name>
     
@@ -20,7 +21,6 @@
         <bitwalker.version>1.21</bitwalker.version>
         <swagger.version>3.0.0</swagger.version>
         <kaptcha.version>2.3.2</kaptcha.version>
-        <!--<mybatis-spring-boot.version>2.2.0</mybatis-spring-boot.version>-->
         <mybatis-plus-spring-boot.version>3.4.3.4</mybatis-plus-spring-boot.version>
         <pagehelper.boot.version>1.4.0</pagehelper.boot.version>
         <fastjson.version>1.2.78</fastjson.version>
@@ -229,11 +229,6 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
     

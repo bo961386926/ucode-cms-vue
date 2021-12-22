@@ -1,7 +1,6 @@
 package xin.altitude.cms.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +17,8 @@ import org.springframework.web.filter.CorsFilter;
 import xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter;
 import xin.altitude.cms.auth.security.handle.AuthenticationEntryPointImpl;
 import xin.altitude.cms.auth.security.handle.LogoutSuccessHandlerImpl;
+import xin.altitude.cms.common.config.CmsConfig;
+import xin.altitude.cms.common.utils.spring.SpringUtils;
 
 import javax.annotation.Resource;
 
@@ -28,8 +29,6 @@ import javax.annotation.Resource;
  */
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Value("${ucode.cms.authEnabled}")
-    private boolean authEnabled;
     /**
      * 自定义用户认证逻辑
      */
@@ -115,9 +114,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/druid/**").anonymous()
                 // 除上面外的所有请求全部需要鉴权认证
                 // .anyRequest().authenticated()
-                .anyRequest().permitAll()
+                // .anyRequest().permitAll()
                 .and()
                 .headers().frameOptions().disable();
+        if (SpringUtils.getBean(CmsConfig.class).getCms().isAuthEnabled()) {
+            httpSecurity.authorizeRequests().anyRequest().authenticated();
+        } else {
+            httpSecurity.authorizeRequests().anyRequest().permitAll();
+        }
         httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
         // 添加JWT filter
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);

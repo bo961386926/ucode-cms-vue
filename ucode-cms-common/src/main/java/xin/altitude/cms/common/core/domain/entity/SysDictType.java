@@ -1,5 +1,6 @@
 package xin.altitude.cms.common.core.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import xin.altitude.cms.common.annotation.Excel;
@@ -7,6 +8,7 @@ import xin.altitude.cms.common.core.domain.BaseEntity;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.util.Date;
 
 /**
  * 字典类型表 sys_dict_type
@@ -39,6 +41,28 @@ public class SysDictType extends BaseEntity {
      */
     @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
     private String status;
+    /**
+     * 创建者
+     */
+    private String createBy;
+    /**
+     * 创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+    /**
+     * 更新者
+     */
+    private String updateBy;
+    /**
+     * 更新时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date updateTime;
+    /**
+     * 备注
+     */
+    private String remark;
     
     public Long getDictId() {
         return dictId;
@@ -89,5 +113,45 @@ public class SysDictType extends BaseEntity {
                 .append("updateTime", getUpdateTime())
                 .append("remark", getRemark())
                 .toString();
+    }
+    
+    public String getCreateBy() {
+        return createBy;
+    }
+    
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+    
+    public Date getCreateTime() {
+        return createTime;
+    }
+    
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+    
+    public String getUpdateBy() {
+        return updateBy;
+    }
+    
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+    
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+    
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+    
+    public String getRemark() {
+        return remark;
+    }
+    
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }

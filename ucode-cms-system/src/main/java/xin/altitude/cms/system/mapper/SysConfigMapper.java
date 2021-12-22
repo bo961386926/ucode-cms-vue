@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import xin.altitude.cms.system.domain.SysConfig;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @author ucode
  */
 @Mapper
-public interface SysConfigMapper {
+public interface SysConfigMapper extends BaseMapper<SysConfig> {
     /**
      * 查询参数配置信息
      *

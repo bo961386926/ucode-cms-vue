@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import xin.altitude.cms.system.domain.SysConfig;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public interface ISysConfigService {
+public interface ISysConfigService extends IService<SysConfig> {
     /**
      * 查询参数配置信息
      *

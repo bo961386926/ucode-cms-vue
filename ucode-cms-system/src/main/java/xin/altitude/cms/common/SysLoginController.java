@@ -12,7 +12,7 @@ import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.domain.entity.SysMenu;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
-import xin.altitude.cms.common.model.LoginBody;
+import xin.altitude.cms.common.core.model.LoginBody;
 import xin.altitude.cms.system.service.ISysMenuService;
 
 import java.util.List;

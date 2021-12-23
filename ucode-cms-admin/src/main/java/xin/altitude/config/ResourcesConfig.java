@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.interceptor.RepeatSubmitInterceptor;
+import xin.altitude.cms.common.core.interceptor.RepeatSubmitInterceptor;
 import xin.altitude.cms.common.util.spring.SpringUtils;
 
 /**

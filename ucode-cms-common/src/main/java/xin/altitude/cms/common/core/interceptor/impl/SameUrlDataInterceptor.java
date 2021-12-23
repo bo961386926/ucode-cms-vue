@@ -1,4 +1,4 @@
-package xin.altitude.cms.common.interceptor.impl;
+package xin.altitude.cms.common.core.interceptor.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.annotation.RepeatSubmit;
 import xin.altitude.cms.common.constant.Constants;
+import xin.altitude.cms.common.core.interceptor.RepeatSubmitInterceptor;
 import xin.altitude.cms.common.core.redis.RedisCache;
 import xin.altitude.cms.common.filter.RepeatedlyRequestWrapper;
-import xin.altitude.cms.common.interceptor.RepeatSubmitInterceptor;
 import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.common.util.http.HttpHelper;
 

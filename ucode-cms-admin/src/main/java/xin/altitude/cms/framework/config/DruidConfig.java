@@ -11,9 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import xin.altitude.cms.common.config.properties.DruidProperties;
-import xin.altitude.cms.common.constant.enums.DataSourceName;
+import xin.altitude.cms.common.constant.DataSourceName;
 import xin.altitude.cms.common.constant.enums.DataSourceType;
-import xin.altitude.cms.common.datasource.DynamicDataSource;
+import xin.altitude.cms.common.core.datasource.DynamicDataSource;
 import xin.altitude.cms.common.util.spring.SpringUtils;
 
 import javax.servlet.Filter;

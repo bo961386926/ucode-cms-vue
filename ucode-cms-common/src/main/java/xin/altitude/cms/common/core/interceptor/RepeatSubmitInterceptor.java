@@ -1,4 +1,4 @@
-package xin.altitude.cms.common.interceptor;
+package xin.altitude.cms.common.core.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.stereotype.Component;

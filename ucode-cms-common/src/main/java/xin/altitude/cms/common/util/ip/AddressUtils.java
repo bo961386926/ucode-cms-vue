@@ -22,7 +22,6 @@ public class AddressUtils {
     private static final Logger log = LoggerFactory.getLogger(AddressUtils.class);
     
     public static String getRealAddressByIP(String ip) {
-        String address = UNKNOWN;
         // 内网不查询
         if (IpUtils.internalIp(ip)) {
             return "内网IP";
@@ -42,6 +41,6 @@ public class AddressUtils {
                 log.error("获取地理位置异常 {}", ip);
             }
         }
-        return address;
+        return UNKNOWN;
     }
 }

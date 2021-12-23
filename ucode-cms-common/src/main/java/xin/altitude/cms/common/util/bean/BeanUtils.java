@@ -49,7 +49,7 @@ public class BeanUtils extends org.springframework.beans.BeanUtils {
      */
     public static List<Method> getSetterMethods(Object obj) {
         // setter方法列表
-        List<Method> setterMethods = new ArrayList<Method>();
+        List<Method> setterMethods = new ArrayList<>();
         
         // 获取所有方法
         Method[] methods = obj.getClass().getMethods();

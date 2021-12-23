@@ -1,4 +1,4 @@
-package xin.altitude.cms.common.datasource;
+package xin.altitude.cms.common.core.datasource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package xin.altitude.cms.common.datasource;
+package xin.altitude.cms.common.core.datasource;
 
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 

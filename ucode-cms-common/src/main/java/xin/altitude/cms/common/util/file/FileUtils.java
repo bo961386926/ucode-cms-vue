@@ -26,7 +26,7 @@ import java.nio.charset.StandardCharsets;
  * @author ucode
  */
 public class FileUtils {
-    public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-\\|\\.\\u4e00-\\u9fa5]+";
+    public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-|.\\u4e00-\\u9fa5]+";
     
     /**
      * 输出指定文件的byte数组
@@ -49,7 +49,7 @@ public class FileUtils {
                 os.write(b, 0, length);
             }
         } catch (IOException e) {
-            throw e;
+            e.fillInStackTrace();
         } finally {
             IOUtils.close(os);
             IOUtils.close(fis);

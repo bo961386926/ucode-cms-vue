@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.auth.web.service.SysRegisterService;
 import xin.altitude.cms.common.core.domain.AjaxResult;
-import xin.altitude.cms.common.model.RegisterBody;
+import xin.altitude.cms.common.core.model.RegisterBody;
 import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.system.service.ISysConfigService;
 

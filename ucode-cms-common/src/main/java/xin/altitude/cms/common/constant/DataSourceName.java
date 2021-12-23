@@ -1,4 +1,4 @@
-package xin.altitude.cms.common.constant.enums;
+package xin.altitude.cms.common.constant;
 
 /**
  * 数据源名称常量名称

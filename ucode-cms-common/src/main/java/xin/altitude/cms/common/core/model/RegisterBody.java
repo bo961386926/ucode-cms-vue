@@ -1,4 +1,4 @@
-package xin.altitude.cms.common.model;
+package xin.altitude.cms.common.core.model;
 
 /**
  * 用户注册对象

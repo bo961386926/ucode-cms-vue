@@ -11,10 +11,12 @@ import xin.altitude.cms.common.util.spring.SpringUtils;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.Arrays;
+import java.util.Optional;
 
 /**
  * 图片处理工具类
@@ -25,14 +27,18 @@ public class ImageUtils {
     private static final Logger log = LoggerFactory.getLogger(ImageUtils.class);
     
     public static byte[] getImage(String imagePath) {
-        InputStream is = getFile(imagePath);
-        try {
-            return IOUtils.toByteArray(is);
-        } catch (Exception e) {
+        try (InputStream is = getFile(imagePath)) {
+            return Optional.ofNullable(is).map(e -> {
+                try {
+                    return IOUtils.toByteArray(e);
+                } catch (IOException ioException) {
+                    ioException.printStackTrace();
+                }
+                return null;
+            }).orElse(null);
+        } catch (IOException e) {
             log.error("图片加载异常 {}", e);
             return null;
-        } finally {
-            IOUtils.closeQuietly(is);
         }
     }
     
@@ -50,7 +56,6 @@ public class ImageUtils {
     /**
      * 读取文件为字节数据
      *
-     * @param key 地址
      * @return 字节数据
      */
     public static byte[] readFile(String url) {

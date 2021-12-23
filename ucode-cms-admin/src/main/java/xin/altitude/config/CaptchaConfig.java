@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.config;
+package xin.altitude.config;
 
 import com.google.code.kaptcha.impl.DefaultKaptcha;
 import com.google.code.kaptcha.util.Config;

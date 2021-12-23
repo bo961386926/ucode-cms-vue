@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.config;
+package xin.altitude.cms.common.config;
 
 import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.utils.ServletUtils;

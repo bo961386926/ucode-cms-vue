@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.config;
+package xin.altitude.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
@@ -12,16 +12,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import xin.altitude.cms.common.enums.DataSourceType;
 import xin.altitude.cms.common.utils.spring.SpringUtils;
-import xin.altitude.cms.framework.config.properties.DruidProperties;
 import xin.altitude.cms.framework.datasource.DynamicDataSource;
+import xin.altitude.config.properties.DruidProperties;
 
 import javax.servlet.Filter;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
-import javax.servlet.ServletResponse;
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -47,8 +42,9 @@ public class DruidConfig {
         return druidProperties.dataSource(dataSource);
     }
     
-    @Bean(name = "dynamicDataSource")
+    
     @Primary
+    @Bean(name = "dynamicDataSource")
     public DynamicDataSource dataSource(DataSource masterDataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
@@ -68,16 +64,16 @@ public class DruidConfig {
             DataSource dataSource = SpringUtils.getBean(beanName);
             targetDataSources.put(sourceName, dataSource);
         } catch (Exception e) {
+            e.printStackTrace();
         }
     }
     
     /**
      * 去除监控页面底部的广告
      */
-    @SuppressWarnings({"rawtypes", "unchecked"})
     @Bean
     @ConditionalOnProperty(name = "spring.datasource.druid.statViewServlet.enabled", havingValue = "true")
-    public FilterRegistrationBean removeDruidFilterRegistrationBean(DruidStatProperties properties) {
+    public FilterRegistrationBean<Filter> removeDruidFilterRegistrationBean(DruidStatProperties properties) {
         // 获取web监控页面的参数
         DruidStatProperties.StatViewServlet config = properties.getStatViewServlet();
         // 提取common.js的配置路径
@@ -85,30 +81,16 @@ public class DruidConfig {
         String commonJsPattern = pattern.replaceAll("\\*", "js/common.js");
         final String filePath = "support/http/resources/js/common.js";
         // 创建filter进行过滤
-        Filter filter = new Filter() {
-            @Override
-            public void init(javax.servlet.FilterConfig filterConfig) throws ServletException {
-            }
-            
-            @Override
-            public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
-                    throws IOException, ServletException {
-                chain.doFilter(request, response);
-                // 重置缓冲区，响应头不会被重置
-                response.resetBuffer();
-                // 获取common.js
-                String text = Utils.readFromResource(filePath);
-                // 正则替换banner, 除去底部的广告信息
-                text = text.replaceAll("<a.*?banner\"></a><br/>", "");
-                text = text.replaceAll("powered.*?shrek.wang</a>", "");
-                response.getWriter().write(text);
-            }
-            
-            @Override
-            public void destroy() {
-            }
+        Filter filter = (request, response, chain) -> {
+            chain.doFilter(request, response);
+            // 重置缓冲区，响应头不会被重置
+            response.resetBuffer();
+            // 获取common.js
+            String text = Utils.readFromResource(filePath);
+            // 正则替换banner, 除去底部的广告信息
+            response.getWriter().write(text.replaceAll("<a.*?banner\"></a><br/>", "").replaceAll("powered.*?shrek.wang</a>", ""));
         };
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
+        FilterRegistrationBean<Filter> registrationBean = new FilterRegistrationBean<>();
         registrationBean.setFilter(filter);
         registrationBean.addUrlPatterns(commonJsPattern);
         return registrationBean;

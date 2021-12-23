@@ -10,14 +10,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.common.config.CmsConfig;
-import xin.altitude.cms.common.config.CmsConfig2;
+import xin.altitude.cms.common.config.ServerConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.utils.StringUtils;
 import xin.altitude.cms.common.utils.file.FileUploadUtils;
 import xin.altitude.cms.common.utils.file.FileUtils;
 import xin.altitude.cms.common.utils.spring.SpringUtils;
-import xin.altitude.cms.framework.config.ServerConfig;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -91,7 +90,7 @@ public class CommonController {
                 throw new Exception(StringUtils.format("资源文件({})非法，不允许下载。 ", resource));
             }
             // 本地资源路径
-            String localPath = CmsConfig2.getProfile();
+            String localPath = SpringUtils.getBean(CmsConfig.class).getCms().getProfile();
             // 数据库资源地址
             String downloadPath = localPath + StringUtils.substringAfter(resource, Constants.RESOURCE_PREFIX);
             // 下载名称

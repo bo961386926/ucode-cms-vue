@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.config;
+package xin.altitude.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;

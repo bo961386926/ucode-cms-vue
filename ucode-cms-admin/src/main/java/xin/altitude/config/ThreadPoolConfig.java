@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.config;
+package xin.altitude.config;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.context.annotation.Bean;

@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import xin.altitude.cms.common.config.properties.DruidProperties;
+import xin.altitude.cms.common.constant.enums.DataSourceName;
 import xin.altitude.cms.common.constant.enums.DataSourceType;
 import xin.altitude.cms.common.datasource.DynamicDataSource;
 import xin.altitude.cms.common.util.spring.SpringUtils;
@@ -27,14 +28,27 @@ import java.util.Map;
  */
 @Configuration
 public class DruidConfig {
-    @Bean
+    
+    /**
+     * 主数据源
+     *
+     * @param druidProperties
+     * @return
+     */
+    @Bean(DataSourceName.MASTER_DATA_SOURCE)
     @ConfigurationProperties("spring.datasource.druid.master")
     public DataSource masterDataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
         return druidProperties.dataSource(dataSource);
     }
     
-    @Bean
+    /**
+     * 副数据源
+     *
+     * @param druidProperties
+     * @return
+     */
+    @Bean(DataSourceName.SLAVE_DATA_SOURCE)
     @ConfigurationProperties("spring.datasource.druid.slave")
     @ConditionalOnProperty(prefix = "spring.datasource.druid.slave", name = "enabled", havingValue = "true")
     public DataSource slaveDataSource(DruidProperties druidProperties) {
@@ -48,8 +62,8 @@ public class DruidConfig {
     public DynamicDataSource dataSource(DataSource masterDataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
-        if (SpringUtils.containsBean("slaveDataSource")) {
-            setDataSource(targetDataSources, DataSourceType.SLAVE.name(), "slaveDataSource");
+        if (SpringUtils.containsBean(DataSourceName.SLAVE_DATA_SOURCE)) {
+            setDataSource(targetDataSources, DataSourceType.SLAVE.name(), DataSourceName.SLAVE_DATA_SOURCE);
         }
         return new DynamicDataSource(masterDataSource, targetDataSources);
     }

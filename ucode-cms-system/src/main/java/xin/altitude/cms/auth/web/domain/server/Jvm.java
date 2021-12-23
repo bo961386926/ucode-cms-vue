@@ -1,7 +1,7 @@
 package xin.altitude.cms.auth.web.domain.server;
 
-import xin.altitude.cms.common.utils.Arith;
-import xin.altitude.cms.common.utils.DateUtils;
+import xin.altitude.cms.common.util.Arith;
+import xin.altitude.cms.common.util.DateUtils;
 
 import java.lang.management.ManagementFactory;
 

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xin.altitude.cms.common.config.CmsConfig;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 /**
  * 首页

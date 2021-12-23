@@ -31,10 +31,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>xin.altitude.cms.framework</groupId>
-            <artifactId>ucode-cms-framework</artifactId>
-        </dependency>
         <!-- 验证码 -->
         <dependency>
             <groupId>com.github.penggle</groupId>

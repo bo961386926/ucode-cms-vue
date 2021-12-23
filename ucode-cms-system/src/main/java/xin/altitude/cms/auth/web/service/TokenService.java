@@ -10,12 +10,12 @@ import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.redis.RedisCache;
-import xin.altitude.cms.common.utils.ServletUtils;
-import xin.altitude.cms.common.utils.StringUtils;
-import xin.altitude.cms.common.utils.ip.AddressUtils;
-import xin.altitude.cms.common.utils.ip.IpUtils;
-import xin.altitude.cms.common.utils.spring.SpringUtils;
-import xin.altitude.cms.common.utils.uuid.IdUtils;
+import xin.altitude.cms.common.util.ServletUtils;
+import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.ip.AddressUtils;
+import xin.altitude.cms.common.util.ip.IpUtils;
+import xin.altitude.cms.common.util.spring.SpringUtils;
+import xin.altitude.cms.common.util.uuid.IdUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;

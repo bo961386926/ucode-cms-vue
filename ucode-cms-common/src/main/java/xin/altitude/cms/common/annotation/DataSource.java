@@ -1,6 +1,6 @@
 package xin.altitude.cms.common.annotation;
 
-import xin.altitude.cms.common.enums.DataSourceType;
+import xin.altitude.cms.common.constant.enums.DataSourceType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

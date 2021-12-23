@@ -18,10 +18,10 @@
     </properties>
     
     <dependencies>
-        <dependency>
-            <groupId>xin.altitude.cms.framework</groupId>
-            <artifactId>ucode-cms-framework</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>xin.altitude.cms.framework</groupId>-->
+        <!--    <artifactId>ucode-cms-framework</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>xin.altitude.cms.common</groupId>
             <artifactId>ucode-cms-common</artifactId>

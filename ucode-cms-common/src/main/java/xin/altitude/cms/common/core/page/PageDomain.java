@@ -1,6 +1,6 @@
 package xin.altitude.cms.common.core.page;
 
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 /**
  * 分页数据

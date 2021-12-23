@@ -1,6 +1,6 @@
 package xin.altitude.cms.system.domain.vo;
 
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 /**
  * 路由显示信息

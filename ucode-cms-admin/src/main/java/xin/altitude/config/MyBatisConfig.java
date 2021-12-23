@@ -16,7 +16,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternResolver;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -31,7 +31,6 @@ import java.util.List;
  */
 @Configuration
 public class MyBatisConfig {
-    static final String DEFAULT_RESOURCE_PATTERN = "**/*.class";
     @Autowired
     private Environment env;
     

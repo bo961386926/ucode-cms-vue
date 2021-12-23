@@ -1,6 +1,6 @@
 package xin.altitude.cms.common.core.text;
 
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;

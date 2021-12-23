@@ -2,7 +2,7 @@ package xin.altitude.cms.system.service.impl;
 
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.system.domain.SysUserOnline;
 import xin.altitude.cms.system.service.ISysUserOnlineService;
 

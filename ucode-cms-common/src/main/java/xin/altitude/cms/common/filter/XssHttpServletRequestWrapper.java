@@ -3,8 +3,8 @@ package xin.altitude.cms.common.filter;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import xin.altitude.cms.common.utils.StringUtils;
-import xin.altitude.cms.common.utils.html.EscapeUtil;
+import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.html.EscapeUtil;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;

@@ -1,6 +1,6 @@
 package xin.altitude.cms.common.core.text;
 
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 /**
  * 字符串格式化

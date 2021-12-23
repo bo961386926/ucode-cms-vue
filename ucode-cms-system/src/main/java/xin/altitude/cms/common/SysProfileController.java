@@ -16,12 +16,12 @@ import xin.altitude.cms.auth.web.service.TokenService;
 import xin.altitude.cms.common.annotation.Log;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.UserConstants;
+import xin.altitude.cms.common.constant.enums.BusinessType;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
-import xin.altitude.cms.common.enums.BusinessType;
-import xin.altitude.cms.common.utils.StringUtils;
-import xin.altitude.cms.common.utils.file.FileUploadUtils;
-import xin.altitude.cms.common.utils.spring.SpringUtils;
+import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.file.FileUploadUtils;
+import xin.altitude.cms.common.util.spring.SpringUtils;
 import xin.altitude.cms.system.service.ISysUserService;
 
 import java.io.IOException;

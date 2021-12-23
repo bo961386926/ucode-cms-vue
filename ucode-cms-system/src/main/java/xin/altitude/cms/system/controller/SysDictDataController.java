@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.common.annotation.Log;
+import xin.altitude.cms.common.constant.enums.BusinessType;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
 import xin.altitude.cms.common.core.page.TableDataInfo;
-import xin.altitude.cms.common.enums.BusinessType;
-import xin.altitude.cms.common.utils.StringUtils;
-import xin.altitude.cms.common.utils.poi.ExcelUtil;
+import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.poi.ExcelUtil;
 import xin.altitude.cms.system.service.ISysDictDataService;
 import xin.altitude.cms.system.service.ISysDictTypeService;
 

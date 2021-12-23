@@ -10,11 +10,11 @@ import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.common.annotation.Log;
 import xin.altitude.cms.common.constant.Constants;
+import xin.altitude.cms.common.constant.enums.BusinessType;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.page.TableDataInfo;
 import xin.altitude.cms.common.core.redis.RedisCache;
-import xin.altitude.cms.common.enums.BusinessType;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.system.domain.SysUserOnline;
 import xin.altitude.cms.system.service.ISysUserOnlineService;
 

@@ -18,7 +18,7 @@ import xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter;
 import xin.altitude.cms.auth.security.handle.AuthenticationEntryPointImpl;
 import xin.altitude.cms.auth.security.handle.LogoutSuccessHandlerImpl;
 import xin.altitude.cms.common.config.CmsConfig;
-import xin.altitude.cms.common.utils.spring.SpringUtils;
+import xin.altitude.cms.common.util.spring.SpringUtils;
 
 import javax.annotation.Resource;
 

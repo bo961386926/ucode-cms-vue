@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.common.annotation.Log;
+import xin.altitude.cms.common.constant.enums.BusinessType;
 import xin.altitude.cms.common.core.domain.AjaxResult;
-import xin.altitude.cms.common.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysNotice;
 import xin.altitude.cms.system.service.ISysNoticeService;
 

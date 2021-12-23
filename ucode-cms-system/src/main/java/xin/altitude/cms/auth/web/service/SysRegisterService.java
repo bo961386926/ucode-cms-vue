@@ -12,8 +12,8 @@ import xin.altitude.cms.common.core.redis.RedisCache;
 import xin.altitude.cms.common.exception.user.CaptchaException;
 import xin.altitude.cms.common.exception.user.CaptchaExpireException;
 import xin.altitude.cms.common.model.RegisterBody;
-import xin.altitude.cms.common.utils.MessageUtils;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.MessageUtils;
+import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.system.service.ISysConfigService;
 import xin.altitude.cms.system.service.ISysUserService;
 

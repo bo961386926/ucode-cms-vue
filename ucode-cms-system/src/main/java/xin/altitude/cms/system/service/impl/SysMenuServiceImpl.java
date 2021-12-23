@@ -9,7 +9,7 @@ import xin.altitude.cms.common.core.domain.TreeSelect;
 import xin.altitude.cms.common.core.domain.entity.SysMenu;
 import xin.altitude.cms.common.core.domain.entity.SysRole;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.system.domain.vo.MetaVo;
 import xin.altitude.cms.system.domain.vo.RouterVo;
 import xin.altitude.cms.system.mapper.SysMenuMapper;

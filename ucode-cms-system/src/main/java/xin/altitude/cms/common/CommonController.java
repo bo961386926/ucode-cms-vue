@@ -13,10 +13,10 @@ import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.config.ServerConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.domain.AjaxResult;
-import xin.altitude.cms.common.utils.StringUtils;
-import xin.altitude.cms.common.utils.file.FileUploadUtils;
-import xin.altitude.cms.common.utils.file.FileUtils;
-import xin.altitude.cms.common.utils.spring.SpringUtils;
+import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.file.FileUploadUtils;
+import xin.altitude.cms.common.util.file.FileUtils;
+import xin.altitude.cms.common.util.spring.SpringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

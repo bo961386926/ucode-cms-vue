@@ -1,7 +1,7 @@
 package xin.altitude.cms.auth.manager;
 
-import xin.altitude.cms.common.utils.Threads;
-import xin.altitude.cms.common.utils.spring.SpringUtils;
+import xin.altitude.cms.common.util.Threads;
+import xin.altitude.cms.common.util.spring.SpringUtils;
 
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledExecutorService;

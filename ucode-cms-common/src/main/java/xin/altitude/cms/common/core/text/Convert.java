@@ -1,7 +1,7 @@
 package xin.altitude.cms.common.core.text;
 
 import org.apache.commons.lang3.ArrayUtils;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

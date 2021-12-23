@@ -9,7 +9,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.auth.web.service.TokenService;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;

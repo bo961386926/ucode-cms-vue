@@ -37,7 +37,6 @@
     
     <modules>
         <!--<module>ucode-cms-admin</module>-->
-        <module>ucode-cms-framework</module>
         <module>ucode-cms-system</module>
         <module>ucode-cms-common</module>
         <module>ucode-cms-springboot-starter</module>
@@ -164,28 +163,28 @@
                 <artifactId>jjwt</artifactId>
                 <version>${jwt.version}</version>
             </dependency>
-            
+    
             <!-- 验证码 -->
             <dependency>
                 <groupId>com.github.penggle</groupId>
                 <artifactId>kaptcha</artifactId>
                 <version>${kaptcha.version}</version>
             </dependency>
-            
+    
             <!-- 核心模块-->
-            <dependency>
-                <groupId>xin.altitude.cms.framework</groupId>
-                <artifactId>ucode-cms-framework</artifactId>
-                <version>${ucode-cms.version}</version>
-            </dependency>
-            
+            <!--<dependency>-->
+            <!--    <groupId>xin.altitude.cms.framework</groupId>-->
+            <!--    <artifactId>ucode-cms-framework</artifactId>-->
+            <!--    <version>${ucode-cms.version}</version>-->
+            <!--</dependency>-->
+    
             <!-- 系统模块-->
             <dependency>
                 <groupId>xin.altitude.cms.system</groupId>
                 <artifactId>ucode-cms-system</artifactId>
                 <version>${ucode-cms.version}</version>
             </dependency>
-            
+    
             <!-- 通用工具-->
             <dependency>
                 <groupId>xin.altitude.cms.common</groupId>

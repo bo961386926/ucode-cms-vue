@@ -1,7 +1,7 @@
 package xin.altitude.cms.common.exception.base;
 
-import xin.altitude.cms.common.utils.MessageUtils;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.MessageUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 /**
  * 基础异常

@@ -1,7 +1,7 @@
 package xin.altitude.cms.common.filter;
 
 import org.springframework.http.MediaType;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;

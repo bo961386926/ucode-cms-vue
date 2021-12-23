@@ -6,8 +6,8 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.constant.HttpStatus;
 import xin.altitude.cms.common.core.domain.AjaxResult;
-import xin.altitude.cms.common.utils.ServletUtils;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.ServletUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

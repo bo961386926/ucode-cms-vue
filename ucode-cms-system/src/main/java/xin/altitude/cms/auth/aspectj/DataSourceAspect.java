@@ -11,8 +11,8 @@ import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.annotation.DataSource;
-import xin.altitude.cms.common.utils.StringUtils;
-import xin.altitude.cms.framework.datasource.DynamicDataSourceContextHolder;
+import xin.altitude.cms.common.datasource.DynamicDataSourceContextHolder;
+import xin.altitude.cms.common.util.StringUtils;
 
 import java.util.Objects;
 

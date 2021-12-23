@@ -3,7 +3,7 @@ package xin.altitude.cms.system.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
-import xin.altitude.cms.common.utils.DictUtils;
+import xin.altitude.cms.common.util.DictUtils;
 import xin.altitude.cms.system.mapper.SysDictDataMapper;
 import xin.altitude.cms.system.service.ISysDictDataService;
 

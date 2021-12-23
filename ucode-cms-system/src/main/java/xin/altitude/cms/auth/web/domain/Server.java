@@ -14,8 +14,8 @@ import xin.altitude.cms.auth.web.domain.server.Jvm;
 import xin.altitude.cms.auth.web.domain.server.Mem;
 import xin.altitude.cms.auth.web.domain.server.Sys;
 import xin.altitude.cms.auth.web.domain.server.SysFile;
-import xin.altitude.cms.common.utils.Arith;
-import xin.altitude.cms.common.utils.ip.IpUtils;
+import xin.altitude.cms.common.util.Arith;
+import xin.altitude.cms.common.util.ip.IpUtils;
 
 import java.net.UnknownHostException;
 import java.util.LinkedList;

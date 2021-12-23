@@ -16,10 +16,10 @@ import xin.altitude.cms.common.exception.ServiceException;
 import xin.altitude.cms.common.exception.user.CaptchaException;
 import xin.altitude.cms.common.exception.user.CaptchaExpireException;
 import xin.altitude.cms.common.exception.user.UserPasswordNotMatchException;
-import xin.altitude.cms.common.utils.DateUtils;
-import xin.altitude.cms.common.utils.MessageUtils;
-import xin.altitude.cms.common.utils.ServletUtils;
-import xin.altitude.cms.common.utils.ip.IpUtils;
+import xin.altitude.cms.common.util.DateUtils;
+import xin.altitude.cms.common.util.MessageUtils;
+import xin.altitude.cms.common.util.ServletUtils;
+import xin.altitude.cms.common.util.ip.IpUtils;
 import xin.altitude.cms.system.service.ISysConfigService;
 import xin.altitude.cms.system.service.ISysUserService;
 

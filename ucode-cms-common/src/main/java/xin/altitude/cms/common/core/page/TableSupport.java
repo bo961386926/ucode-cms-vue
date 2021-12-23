@@ -1,6 +1,6 @@
 package xin.altitude.cms.common.core.page;
 
-import xin.altitude.cms.common.utils.ServletUtils;
+import xin.altitude.cms.common.util.ServletUtils;
 
 /**
  * 表格数据处理

@@ -16,11 +16,11 @@ import xin.altitude.cms.auth.manager.factory.AsyncFactory;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.annotation.Log;
-import xin.altitude.cms.common.enums.BusinessStatus;
-import xin.altitude.cms.common.enums.HttpMethod;
-import xin.altitude.cms.common.utils.ServletUtils;
-import xin.altitude.cms.common.utils.StringUtils;
-import xin.altitude.cms.common.utils.ip.IpUtils;
+import xin.altitude.cms.common.constant.enums.BusinessStatus;
+import xin.altitude.cms.common.constant.enums.HttpMethod;
+import xin.altitude.cms.common.util.ServletUtils;
+import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.ip.IpUtils;
 import xin.altitude.cms.system.domain.SysOperLog;
 
 import javax.servlet.http.HttpServletRequest;

@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.common.constant.UserConstants;
 import xin.altitude.cms.common.exception.ServiceException;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.system.domain.SysPost;
 import xin.altitude.cms.system.mapper.SysPostMapper;
 import xin.altitude.cms.system.mapper.SysUserPostMapper;

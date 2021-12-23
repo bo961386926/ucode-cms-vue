@@ -1,7 +1,7 @@
 package xin.altitude.cms.common.annotation;
 
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.enums.LimitType;
+import xin.altitude.cms.common.constant.enums.LimitType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

@@ -10,7 +10,7 @@ import xin.altitude.cms.common.annotation.DataScope;
 import xin.altitude.cms.common.core.domain.BaseEntity;
 import xin.altitude.cms.common.core.domain.entity.SysRole;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 /**
  * 数据过滤处理

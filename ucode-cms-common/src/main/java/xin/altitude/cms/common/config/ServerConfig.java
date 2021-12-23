@@ -1,7 +1,7 @@
 package xin.altitude.cms.common.config;
 
 import org.springframework.stereotype.Component;
-import xin.altitude.cms.common.utils.ServletUtils;
+import xin.altitude.cms.common.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
 

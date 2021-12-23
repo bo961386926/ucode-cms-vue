@@ -1,7 +1,7 @@
 package xin.altitude.cms.common.annotation;
 
-import xin.altitude.cms.common.enums.BusinessType;
-import xin.altitude.cms.common.enums.OperatorType;
+import xin.altitude.cms.common.constant.enums.BusinessType;
+import xin.altitude.cms.common.constant.enums.OperatorType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

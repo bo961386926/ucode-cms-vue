@@ -1,6 +1,6 @@
 package xin.altitude.cms.common.filter;
 
-import xin.altitude.cms.common.utils.http.HttpHelper;
+import xin.altitude.cms.common.util.http.HttpHelper;
 
 import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;

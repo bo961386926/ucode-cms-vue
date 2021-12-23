@@ -11,11 +11,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.annotation.RateLimiter;
-import xin.altitude.cms.common.enums.LimitType;
+import xin.altitude.cms.common.constant.enums.LimitType;
 import xin.altitude.cms.common.exception.ServiceException;
-import xin.altitude.cms.common.utils.ServletUtils;
-import xin.altitude.cms.common.utils.StringUtils;
-import xin.altitude.cms.common.utils.ip.IpUtils;
+import xin.altitude.cms.common.util.ServletUtils;
+import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.ip.IpUtils;
 
 import java.lang.reflect.Method;
 import java.util.Collections;

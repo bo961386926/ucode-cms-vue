@@ -1,7 +1,7 @@
 package xin.altitude.cms.common.core.domain;
 
 import xin.altitude.cms.common.constant.HttpStatus;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 import java.util.HashMap;
 

@@ -5,7 +5,7 @@ import org.springframework.util.CollectionUtils;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.core.domain.entity.SysRole;
-import xin.altitude.cms.common.utils.StringUtils;
+import xin.altitude.cms.common.util.StringUtils;
 
 import java.util.Set;
 

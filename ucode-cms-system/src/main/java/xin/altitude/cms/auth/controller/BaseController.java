@@ -13,9 +13,9 @@ import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.page.PageDomain;
 import xin.altitude.cms.common.core.page.TableDataInfo;
 import xin.altitude.cms.common.core.page.TableSupport;
-import xin.altitude.cms.common.utils.DateUtils;
-import xin.altitude.cms.common.utils.StringUtils;
-import xin.altitude.cms.common.utils.sql.SqlUtil;
+import xin.altitude.cms.common.util.DateUtils;
+import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.sql.SqlUtil;
 
 import java.beans.PropertyEditorSupport;
 import java.util.Date;

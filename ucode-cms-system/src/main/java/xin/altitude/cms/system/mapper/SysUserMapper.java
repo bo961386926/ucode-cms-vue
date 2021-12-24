@@ -1,6 +1,7 @@
 package xin.altitude.cms.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
 
@@ -11,6 +12,7 @@ import java.util.List;
  *
  * @author ucode
  */
+@Mapper
 public interface SysUserMapper extends BaseMapper<SysUser> {
     /**
      * 根据条件分页查询用户列表

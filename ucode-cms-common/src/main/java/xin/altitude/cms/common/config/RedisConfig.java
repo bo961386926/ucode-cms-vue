@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.config;
+package xin.altitude.cms.common.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -13,7 +13,6 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import xin.altitude.cms.common.config.FastJson2JsonRedisSerializer;
 
 /**
  * redis配置

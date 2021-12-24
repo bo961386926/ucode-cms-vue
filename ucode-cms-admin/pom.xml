@@ -37,6 +37,12 @@
             <artifactId>ucode-cms-springboot-starter</artifactId>
             <version>${ucode-cms.version}</version>
         </dependency>
+    
+        <dependency>
+            <groupId>xin.altitude.cms</groupId>
+            <artifactId>ucode-cms-ui</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 
     </dependencies>
     

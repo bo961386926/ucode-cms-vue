@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -25,6 +27,7 @@ public class SysConfig extends BaseEntity {
      * 参数主键
      */
     @Excel(name = "参数主键", cellType = ColumnType.NUMERIC)
+    @TableId(type = IdType.AUTO)
     private Long configId;
     
     /**

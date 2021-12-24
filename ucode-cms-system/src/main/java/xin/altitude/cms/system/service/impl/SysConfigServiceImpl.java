@@ -1,12 +1,11 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import xin.altitude.cms.common.annotation.DataSource;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.constant.UserConstants;
-import xin.altitude.cms.common.constant.enums.DataSourceType;
 import xin.altitude.cms.common.core.redis.RedisCache;
 import xin.altitude.cms.common.core.text.Convert;
 import xin.altitude.cms.common.exception.ServiceException;
@@ -47,11 +46,12 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
      * @return 参数配置信息
      */
     @Override
-    @DataSource(DataSourceType.MASTER)
+    // @DataSource(DataSourceType.MASTER)
     public SysConfig selectConfigById(Long configId) {
         SysConfig config = new SysConfig();
         config.setConfigId(configId);
-        return configMapper.selectConfig(config);
+        // return configMapper.selectConfig(config);
+        return getById(configId);
     }
     
     /**
@@ -68,7 +68,8 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         }
         SysConfig config = new SysConfig();
         config.setConfigKey(configKey);
-        SysConfig retConfig = configMapper.selectConfig(config);
+        // SysConfig retConfig = configMapper.selectConfig(config);
+        SysConfig retConfig = getOne(Wrappers.lambdaQuery(config));
         if (StringUtils.isNotNull(retConfig)) {
             redisCache.setCacheObject(getCacheKey(configKey), retConfig.getConfigValue());
             return retConfig.getConfigValue();
@@ -98,7 +99,8 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
      */
     @Override
     public List<SysConfig> selectConfigList(SysConfig config) {
-        return configMapper.selectConfigList(config);
+        // return configMapper.selectConfigList(config);
+        return list(Wrappers.lambdaQuery(config));
     }
     
     /**
@@ -109,11 +111,12 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
      */
     @Override
     public int insertConfig(SysConfig config) {
-        int row = configMapper.insertConfig(config);
-        if (row > 0) {
+        // int row = configMapper.insertConfig(config);
+        boolean row = save(config);
+        if (row) {
             redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
         }
-        return row;
+        return row ? 1 : 0;
     }
     
     /**
@@ -124,11 +127,13 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
      */
     @Override
     public int updateConfig(SysConfig config) {
-        int row = configMapper.updateConfig(config);
-        if (row > 0) {
+    
+        // int row = configMapper.updateConfig(config);
+        boolean row = updateById(config);
+        if (row) {
             redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
         }
-        return row;
+        return row ? 1 : 0;
     }
     
     /**
@@ -140,11 +145,12 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     @Override
     public void deleteConfigByIds(Long[] configIds) {
         for (Long configId : configIds) {
-            SysConfig config = selectConfigById(configId);
+            SysConfig config = this.getById(configId);
             if (StringUtils.equals(UserConstants.YES, config.getConfigType())) {
                 throw new ServiceException(String.format("内置参数【%1$s】不能删除 ", config.getConfigKey()));
             }
-            configMapper.deleteConfigById(configId);
+            removeById(configId);
+            // configMapper.deleteConfigById(configId);
             redisCache.deleteObject(getCacheKey(config.getConfigKey()));
         }
     }
@@ -154,7 +160,8 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
      */
     @Override
     public void loadingConfigCache() {
-        List<SysConfig> configsList = configMapper.selectConfigList(new SysConfig());
+        // List<SysConfig> configsList = configMapper.selectConfigList(new SysConfig());
+        List<SysConfig> configsList = list(Wrappers.lambdaQuery());
         for (SysConfig config : configsList) {
             redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
         }
@@ -187,7 +194,8 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     @Override
     public String checkConfigKeyUnique(SysConfig config) {
         Long configId = StringUtils.isNull(config.getConfigId()) ? -1L : config.getConfigId();
-        SysConfig info = configMapper.checkConfigKeyUnique(config.getConfigKey());
+        // SysConfig info = configMapper.checkConfigKeyUnique(config.getConfigKey());
+        SysConfig info = getOne(Wrappers.lambdaQuery(SysConfig.class).eq(SysConfig::getConfigKey, config.getConfigKey()));
         if (StringUtils.isNotNull(info) && info.getConfigId().longValue() != configId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }

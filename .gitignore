@@ -42,3 +42,4 @@ nbdist/
 !*/build/*.java
 !*/build/*.html
 !*/build/*.xml
+/ucode-cms-ui/src/main/resources/

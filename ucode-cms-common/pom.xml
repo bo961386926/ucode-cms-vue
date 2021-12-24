@@ -139,6 +139,10 @@
             <version>1.2.8</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+        </dependency>
 
     </dependencies>
 

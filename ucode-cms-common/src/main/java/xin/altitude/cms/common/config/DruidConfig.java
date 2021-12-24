@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.config;
+package xin.altitude.cms.common.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;

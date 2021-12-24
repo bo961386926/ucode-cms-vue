@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -23,6 +25,7 @@ public class SysPost extends BaseEntity {
      * 岗位序号
      */
     @Excel(name = "岗位序号", cellType = ColumnType.NUMERIC)
+    @TableId(type = IdType.AUTO)
     private Long postId;
     
     /**

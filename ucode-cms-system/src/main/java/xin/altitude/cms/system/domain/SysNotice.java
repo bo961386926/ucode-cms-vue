@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -22,6 +24,7 @@ public class SysNotice extends BaseEntity {
     /**
      * 公告ID
      */
+    @TableId(type = IdType.AUTO)
     private Long noticeId;
     
     /**

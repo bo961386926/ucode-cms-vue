@@ -1,5 +1,8 @@
 package xin.altitude.cms.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import xin.altitude.cms.common.annotation.Excel;
 import xin.altitude.cms.common.annotation.Excel.ColumnType;
@@ -19,6 +22,7 @@ public class SysOperLog extends BaseEntity {
      * 日志主键
      */
     @Excel(name = "操作序号", cellType = ColumnType.NUMERIC)
+    @TableId(type = IdType.AUTO)
     private Long operId;
     
     /**
@@ -36,6 +40,7 @@ public class SysOperLog extends BaseEntity {
     /**
      * 业务类型数组
      */
+    @TableField(exist = false)
     private Integer[] businessTypes;
     
     /**
@@ -119,24 +124,29 @@ public class SysOperLog extends BaseEntity {
     /**
      * 创建者
      */
+    @TableField(exist = false)
     private String createBy;
     /**
      * 创建时间
      */
+    @TableField(exist = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     /**
      * 更新者
      */
+    @TableField(exist = false)
     private String updateBy;
     /**
      * 更新时间
      */
+    @TableField(exist = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
     /**
      * 备注
      */
+    @TableField(exist = false)
     private String remark;
     
     public Long getOperId() {

@@ -1,11 +1,13 @@
 package xin.altitude.cms.system.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.system.domain.SysOperLog;
 import xin.altitude.cms.system.mapper.SysOperLogMapper;
 import xin.altitude.cms.system.service.ISysOperLogService;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -14,9 +16,9 @@ import java.util.List;
  * @author ucode
  */
 @Service
-public class SysOperLogServiceImpl implements ISysOperLogService {
-    @Autowired
-    private SysOperLogMapper operLogMapper;
+public class SysOperLogServiceImpl extends ServiceImpl<SysOperLogMapper, SysOperLog> implements ISysOperLogService {
+    // @Autowired
+    // private SysOperLogMapper operLogMapper;
     
     /**
      * 新增操作日志
@@ -25,7 +27,8 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public void insertOperlog(SysOperLog operLog) {
-        operLogMapper.insertOperlog(operLog);
+        // operLogMapper.insertOperlog(operLog);
+        save(operLog);
     }
     
     /**
@@ -36,7 +39,8 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public List<SysOperLog> selectOperLogList(SysOperLog operLog) {
-        return operLogMapper.selectOperLogList(operLog);
+        // return operLogMapper.selectOperLogList(operLog);
+        return list(Wrappers.lambdaQuery(operLog));
     }
     
     /**
@@ -46,8 +50,9 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      * @return 结果
      */
     @Override
-    public int deleteOperLogByIds(Long[] operIds) {
-        return operLogMapper.deleteOperLogByIds(operIds);
+    public boolean deleteOperLogByIds(Long[] operIds) {
+        // return operLogMapper.deleteOperLogByIds(operIds);
+        return removeByIds(Arrays.asList(operIds));
     }
     
     /**
@@ -58,7 +63,8 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public SysOperLog selectOperLogById(Long operId) {
-        return operLogMapper.selectOperLogById(operId);
+        // return operLogMapper.selectOperLogById(operId);
+        return getById(operId);
     }
     
     /**
@@ -66,6 +72,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      */
     @Override
     public void cleanOperLog() {
-        operLogMapper.cleanOperLog();
+        // operLogMapper.cleanOperLog();
+        remove(Wrappers.lambdaQuery());
     }
 }

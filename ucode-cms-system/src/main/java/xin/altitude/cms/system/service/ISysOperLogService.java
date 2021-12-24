@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import xin.altitude.cms.system.domain.SysOperLog;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public interface ISysOperLogService {
+public interface ISysOperLogService extends IService<SysOperLog> {
     /**
      * 新增操作日志
      *
@@ -31,7 +32,7 @@ public interface ISysOperLogService {
      * @param operIds 需要删除的操作日志ID
      * @return 结果
      */
-    public int deleteOperLogByIds(Long[] operIds);
+    public boolean deleteOperLogByIds(Long[] operIds);
     
     /**
      * 查询操作日志详细

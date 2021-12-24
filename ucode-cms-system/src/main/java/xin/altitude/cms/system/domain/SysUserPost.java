@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -10,6 +12,11 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class SysUserPost {
     /**
+     * 主键
+     */
+    @TableId(type = IdType.AUTO)
+    private Long id;
+    /**
      * 用户ID
      */
     private Long userId;
@@ -18,6 +25,14 @@ public class SysUserPost {
      * 岗位ID
      */
     private Long postId;
+    
+    public Long getId() {
+        return id;
+    }
+    
+    public void setId(Long id) {
+        this.id = id;
+    }
     
     public Long getUserId() {
         return userId;

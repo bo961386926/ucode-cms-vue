@@ -1,6 +1,8 @@
 package xin.altitude.cms.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import xin.altitude.cms.common.annotation.Excel;
@@ -22,6 +24,7 @@ public class SysLogininfor extends BaseEntity {
      * ID
      */
     @Excel(name = "序号", cellType = ColumnType.NUMERIC)
+    @TableId(type = IdType.AUTO)
     private Long infoId;
     
     /**

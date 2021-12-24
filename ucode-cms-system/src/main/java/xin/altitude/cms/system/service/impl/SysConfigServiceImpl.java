@@ -14,7 +14,6 @@ import xin.altitude.cms.system.domain.SysConfig;
 import xin.altitude.cms.system.mapper.SysConfigMapper;
 import xin.altitude.cms.system.service.ISysConfigService;
 
-import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     /**
      * 项目启动时，初始化参数到缓存
      */
-    @PostConstruct
+    // @PostConstruct
     public void init() {
         loadingConfigCache();
     }

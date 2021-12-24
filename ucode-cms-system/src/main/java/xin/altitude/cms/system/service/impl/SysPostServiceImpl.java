@@ -1,15 +1,20 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.common.constant.UserConstants;
 import xin.altitude.cms.common.exception.ServiceException;
+import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.system.domain.SysPost;
+import xin.altitude.cms.system.domain.SysUserPost;
 import xin.altitude.cms.system.mapper.SysPostMapper;
-import xin.altitude.cms.system.mapper.SysUserPostMapper;
 import xin.altitude.cms.system.service.ISysPostService;
+import xin.altitude.cms.system.service.ISysUserPostService;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,12 +23,14 @@ import java.util.List;
  * @author ucode
  */
 @Service
-public class SysPostServiceImpl implements ISysPostService {
-    @Autowired
-    private SysPostMapper postMapper;
+public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPost> implements ISysPostService {
+    // @Autowired
+    // private SysPostMapper postMapper;
     
+    // @Autowired
+    // private SysUserPostMapper userPostMapper;
     @Autowired
-    private SysUserPostMapper userPostMapper;
+    private ISysUserPostService sysUserPostService;
     
     /**
      * 查询岗位信息集合
@@ -33,7 +40,8 @@ public class SysPostServiceImpl implements ISysPostService {
      */
     @Override
     public List<SysPost> selectPostList(SysPost post) {
-        return postMapper.selectPostList(post);
+        // return postMapper.selectPostList(post);
+        return list(Wrappers.lambdaQuery(post));
     }
     
     /**
@@ -43,7 +51,8 @@ public class SysPostServiceImpl implements ISysPostService {
      */
     @Override
     public List<SysPost> selectPostAll() {
-        return postMapper.selectPostAll();
+        // return postMapper.selectPostAll();
+        return list();
     }
     
     /**
@@ -54,7 +63,8 @@ public class SysPostServiceImpl implements ISysPostService {
      */
     @Override
     public SysPost selectPostById(Long postId) {
-        return postMapper.selectPostById(postId);
+        // return postMapper.selectPostById(postId);
+        return getById(postId);
     }
     
     /**
@@ -64,8 +74,10 @@ public class SysPostServiceImpl implements ISysPostService {
      * @return 选中岗位ID列表
      */
     @Override
-    public List<Integer> selectPostListByUserId(Long userId) {
-        return postMapper.selectPostListByUserId(userId);
+    public List<Long> selectPostListByUserId(Long userId) {
+        List<SysUserPost> userPosts = sysUserPostService.list(Wrappers.lambdaQuery(SysUserPost.class).eq(SysUserPost::getUserId, userId));
+        return EntityUtils.toList(userPosts, SysUserPost::getPostId);
+        // return postMapper.selectPostListByUserId(userId);
     }
     
     /**
@@ -77,7 +89,8 @@ public class SysPostServiceImpl implements ISysPostService {
     @Override
     public String checkPostNameUnique(SysPost post) {
         Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
-        SysPost info = postMapper.checkPostNameUnique(post.getPostName());
+        // SysPost info = postMapper.checkPostNameUnique(post.getPostName());
+        SysPost info = getOne(Wrappers.lambdaQuery(SysPost.class).eq(SysPost::getPostName, post.getPostName()));
         if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -93,7 +106,8 @@ public class SysPostServiceImpl implements ISysPostService {
     @Override
     public String checkPostCodeUnique(SysPost post) {
         Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
-        SysPost info = postMapper.checkPostCodeUnique(post.getPostCode());
+        // SysPost info = postMapper.checkPostCodeUnique(post.getPostCode());
+        SysPost info = getOne(Wrappers.lambdaQuery(SysPost.class).eq(SysPost::getPostCode, post.getPostCode()));
         if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -107,8 +121,9 @@ public class SysPostServiceImpl implements ISysPostService {
      * @return 结果
      */
     @Override
-    public int countUserPostById(Long postId) {
-        return userPostMapper.countUserPostById(postId);
+    public long countUserPostById(Long postId) {
+        // return userPostMapper.countUserPostById(postId);
+        return sysUserPostService.count(Wrappers.lambdaQuery(SysUserPost.class).eq(SysUserPost::getPostId, postId));
     }
     
     /**
@@ -118,8 +133,9 @@ public class SysPostServiceImpl implements ISysPostService {
      * @return 结果
      */
     @Override
-    public int deletePostById(Long postId) {
-        return postMapper.deletePostById(postId);
+    public boolean deletePostById(Long postId) {
+        // return postMapper.deletePostById(postId);
+        return removeById(postId);
     }
     
     /**
@@ -130,14 +146,15 @@ public class SysPostServiceImpl implements ISysPostService {
      * @throws Exception 异常
      */
     @Override
-    public int deletePostByIds(Long[] postIds) {
+    public boolean deletePostByIds(Long[] postIds) {
         for (Long postId : postIds) {
-            SysPost post = selectPostById(postId);
+            SysPost post = getById(postId);
             if (countUserPostById(postId) > 0) {
                 throw new ServiceException(String.format("%1$s已分配,不能删除", post.getPostName()));
             }
         }
-        return postMapper.deletePostByIds(postIds);
+        // return postMapper.deletePostByIds(postIds);
+        return removeByIds(Arrays.asList(postIds));
     }
     
     /**
@@ -147,8 +164,9 @@ public class SysPostServiceImpl implements ISysPostService {
      * @return 结果
      */
     @Override
-    public int insertPost(SysPost post) {
-        return postMapper.insertPost(post);
+    public boolean insertPost(SysPost post) {
+        // return postMapper.insertPost(post);
+        return save(post);
     }
     
     /**
@@ -158,7 +176,8 @@ public class SysPostServiceImpl implements ISysPostService {
      * @return 结果
      */
     @Override
-    public int updatePost(SysPost post) {
-        return postMapper.updatePost(post);
+    public boolean updatePost(SysPost post) {
+        // return postMapper.updatePost(post);
+        return updateById(post);
     }
 }

@@ -17,7 +17,6 @@
     </description>
     
     <dependencies>
-        
         <!-- 通用工具-->
         <dependency>
             <groupId>xin.altitude.cms.common</groupId>

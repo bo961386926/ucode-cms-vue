@@ -17,15 +17,16 @@ import xin.altitude.cms.common.util.spring.SpringUtils;
 import xin.altitude.cms.system.domain.SysPost;
 import xin.altitude.cms.system.domain.SysUserPost;
 import xin.altitude.cms.system.domain.SysUserRole;
-import xin.altitude.cms.system.mapper.SysPostMapper;
-import xin.altitude.cms.system.mapper.SysRoleMapper;
 import xin.altitude.cms.system.mapper.SysUserMapper;
-import xin.altitude.cms.system.mapper.SysUserPostMapper;
-import xin.altitude.cms.system.mapper.SysUserRoleMapper;
 import xin.altitude.cms.system.service.ISysConfigService;
+import xin.altitude.cms.system.service.ISysPostService;
+import xin.altitude.cms.system.service.ISysRoleService;
+import xin.altitude.cms.system.service.ISysUserPostService;
+import xin.altitude.cms.system.service.ISysUserRoleService;
 import xin.altitude.cms.system.service.ISysUserService;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,17 +41,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private SysUserMapper userMapper;
     
+    // @Autowired
+    // private SysRoleMapper roleMapper;
     @Autowired
-    private SysRoleMapper roleMapper;
+    private ISysRoleService sysRoleService;
     
+    // @Autowired
+    // private SysPostMapper postMapper;
     @Autowired
-    private SysPostMapper postMapper;
+    private ISysPostService sysPostService;
     
-    @Autowired
-    private SysUserRoleMapper userRoleMapper;
+    // @Autowired
+    // private SysUserRoleMapper userRoleMapper;
     
+    private ISysUserRoleService sysUserRoleService;
+    
+    // @Autowired
+    // private SysUserPostMapper userPostMapper;
     @Autowired
-    private SysUserPostMapper userPostMapper;
+    private ISysUserPostService sysUserPostService;
     
     @Autowired
     private ISysConfigService configService;
@@ -121,7 +130,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public String selectUserRoleGroup(String userName) {
-        List<SysRole> list = roleMapper.selectRolesByUserName(userName);
+        // List<SysRole> list = roleMapper.selectRolesByUserName(userName);
+        List<SysRole> list = sysRoleService.selectRolesByUserName(userName);
         StringBuffer idsStr = new StringBuffer();
         for (SysRole role : list) {
             idsStr.append(role.getRoleName()).append(",");
@@ -140,7 +150,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public String selectUserPostGroup(String userName) {
-        List<SysPost> list = postMapper.selectPostsByUserName(userName);
+        // List<SysPost> list = postMapper.selectPostsByUserName(userName);
+        List<SysPost> list = sysPostService.selectPostsByUserName(userName);
         StringBuffer idsStr = new StringBuffer();
         for (SysPost post : list) {
             idsStr.append(post.getPostName()).append(",");
@@ -267,11 +278,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     public int updateUser(SysUser user) {
         Long userId = user.getUserId();
         // 删除用户与角色关联
-        userRoleMapper.deleteUserRoleByUserId(userId);
+        // userRoleMapper.deleteUserRoleByUserId(userId);
+        sysUserRoleService.deleteUserRoleByUserId(userId);
         // 新增用户与角色管理
         insertUserRole(user);
         // 删除用户与岗位关联
-        userPostMapper.deleteUserPostByUserId(userId);
+        // userPostMapper.deleteUserPostByUserId(userId);
+        sysUserPostService.deleteUserPostByUserId(userId);
         // 新增用户与岗位管理
         insertUserPost(user);
         return userMapper.updateUser(user);
@@ -286,7 +299,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @Transactional
     public void insertUserAuth(Long userId, Long[] roleIds) {
-        userRoleMapper.deleteUserRoleByUserId(userId);
+        // userRoleMapper.deleteUserRoleByUserId(userId);
+        sysUserRoleService.deleteUserRoleByUserId(userId);
         insertUserRole(userId, roleIds);
     }
     
@@ -356,7 +370,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Long[] roles = user.getRoleIds();
         if (StringUtils.isNotNull(roles)) {
             // 新增用户与角色管理
-            List<SysUserRole> list = new ArrayList<SysUserRole>();
+            List<SysUserRole> list = new ArrayList<>();
             for (Long roleId : roles) {
                 SysUserRole ur = new SysUserRole();
                 ur.setUserId(user.getUserId());
@@ -364,7 +378,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 list.add(ur);
             }
             if (list.size() > 0) {
-                userRoleMapper.batchUserRole(list);
+                // userRoleMapper.batchUserRole(list);
+                sysUserRoleService.saveBatch(list);
             }
         }
     }
@@ -378,7 +393,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Long[] posts = user.getPostIds();
         if (StringUtils.isNotNull(posts)) {
             // 新增用户与岗位管理
-            List<SysUserPost> list = new ArrayList<SysUserPost>();
+            List<SysUserPost> list = new ArrayList<>();
             for (Long postId : posts) {
                 SysUserPost up = new SysUserPost();
                 up.setUserId(user.getUserId());
@@ -386,7 +401,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 list.add(up);
             }
             if (list.size() > 0) {
-                userPostMapper.batchUserPost(list);
+                // userPostMapper.batchUserPost(list);
+                sysUserPostService.saveBatch(list);
             }
         }
     }
@@ -408,7 +424,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
                 list.add(ur);
             }
             if (list.size() > 0) {
-                userRoleMapper.batchUserRole(list);
+                // userRoleMapper.batchUserRole(list);
+                sysUserRoleService.saveBatch(list);
             }
         }
     }
@@ -423,9 +440,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Transactional
     public int deleteUserById(Long userId) {
         // 删除用户与角色关联
-        userRoleMapper.deleteUserRoleByUserId(userId);
+        // userRoleMapper.deleteUserRoleByUserId(userId);
+        sysUserRoleService.deleteUserRoleByUserId(userId);
         // 删除用户与岗位表
-        userPostMapper.deleteUserPostByUserId(userId);
+        // userPostMapper.deleteUserPostByUserId(userId);
+        sysUserPostService.deleteUserPostByUserId(userId);
         return userMapper.deleteUserById(userId);
     }
     
@@ -442,9 +461,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             checkUserAllowed(new SysUser(userId));
         }
         // 删除用户与角色关联
-        userRoleMapper.deleteUserRole(userIds);
+        // userRoleMapper.deleteUserRole(userIds);
+        sysUserRoleService.deleteUserRoleByUserIds(Arrays.asList(userIds));
         // 删除用户与岗位关联
-        userPostMapper.deleteUserPost(userIds);
+        // sysUserPostService.deleteUserPost(userIds);
+        sysUserPostService.deleteUserPostByUserIds(Arrays.asList(userIds));
         return userMapper.deleteUserByIds(userIds);
     }
     

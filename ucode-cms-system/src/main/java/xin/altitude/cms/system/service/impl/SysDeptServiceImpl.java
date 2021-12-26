@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.auth.util.SecurityUtils;
@@ -28,7 +29,7 @@ import java.util.stream.Collectors;
  * @author ucode
  */
 @Service
-public class SysDeptServiceImpl implements ISysDeptService {
+public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements ISysDeptService {
     @Autowired
     private SysDeptMapper deptMapper;
     

@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import xin.altitude.cms.common.core.domain.entity.SysRole;
 import xin.altitude.cms.system.domain.SysUserRole;
 
@@ -11,7 +12,7 @@ import java.util.Set;
  *
  * @author ucode
  */
-public interface ISysRoleService {
+public interface ISysRoleService extends IService<SysRole> {
     /**
      * 根据条件分页查询角色数据
      *
@@ -170,4 +171,6 @@ public interface ISysRoleService {
      * @return 结果
      */
     public int insertAuthUsers(Long roleId, Long[] userIds);
+    
+    List<SysRole> selectRolesByUserName(String userName);
 }

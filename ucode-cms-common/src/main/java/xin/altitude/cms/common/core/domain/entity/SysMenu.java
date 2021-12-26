@@ -1,5 +1,8 @@
 package xin.altitude.cms.common.core.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -22,6 +25,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 菜单ID
      */
+    @TableId(type = IdType.AUTO)
     private Long menuId;
     
     /**
@@ -32,6 +36,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 父菜单名称
      */
+    @TableField(exist = false)
     private String parentName;
     
     /**
@@ -97,6 +102,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 子菜单
      */
+    @TableField(exist = false)
     private List<SysMenu> children = new ArrayList<SysMenu>();
     /**
      * 创建者

@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import xin.altitude.cms.common.core.domain.TreeSelect;
 import xin.altitude.cms.common.core.domain.entity.SysDept;
 
@@ -10,7 +11,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public interface ISysDeptService {
+public interface ISysDeptService extends IService<SysDept> {
     /**
      * 查询部门管理数据
      *

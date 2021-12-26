@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.common.constant.UserConstants;
+import xin.altitude.cms.common.core.domain.entity.SysUser;
 import xin.altitude.cms.common.exception.ServiceException;
 import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.common.util.StringUtils;
@@ -13,7 +14,9 @@ import xin.altitude.cms.system.domain.SysUserPost;
 import xin.altitude.cms.system.mapper.SysPostMapper;
 import xin.altitude.cms.system.service.ISysPostService;
 import xin.altitude.cms.system.service.ISysUserPostService;
+import xin.altitude.cms.system.service.ISysUserService;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,6 +34,9 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPost> impl
     // private SysUserPostMapper userPostMapper;
     @Autowired
     private ISysUserPostService sysUserPostService;
+    
+    @Autowired
+    private ISysUserService sysUserService;
     
     /**
      * 查询岗位信息集合
@@ -179,5 +185,17 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPost> impl
     public boolean updatePost(SysPost post) {
         // return postMapper.updatePost(post);
         return updateById(post);
+    }
+    
+    @Override
+    public List<SysPost> selectPostsByUserName(String userName) {
+        SysUser sysUser = sysUserService.getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getUserName, userName));
+        Long userId = EntityUtils.toObj(sysUser, SysUser::getUserId);
+        List<SysUserPost> userPosts = sysUserPostService.list(Wrappers.lambdaQuery(SysUserPost.class).eq(SysUserPost::getUserId, userId));
+        List<Long> postIds = EntityUtils.toList(userPosts, SysUserPost::getPostId);
+        if (postIds.size() > 0) {
+            return list(Wrappers.lambdaQuery(SysPost.class).in(SysPost::getPostId, postIds));
+        }
+        return new ArrayList<>();
     }
 }

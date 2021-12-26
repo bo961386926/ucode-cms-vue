@@ -98,4 +98,6 @@ public interface ISysPostService extends IService<SysPost> {
      * @return 结果
      */
     public boolean updatePost(SysPost post);
+    
+    List<SysPost> selectPostsByUserName(String userName);
 }

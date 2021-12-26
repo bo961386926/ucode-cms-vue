@@ -2,15 +2,18 @@ package xin.altitude.cms.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import xin.altitude.cms.common.core.domain.BaseEntity;
 
 /**
  * 角色和菜单关联 sys_role_menu
  *
  * @author ucode
  */
-public class SysRoleMenu {
+@TableName("sys_role_menu")
+public class SysRoleMenu extends BaseEntity {
     /**
      * 主键
      */

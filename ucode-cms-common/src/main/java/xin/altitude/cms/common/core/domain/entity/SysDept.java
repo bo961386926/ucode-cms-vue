@@ -1,5 +1,9 @@
 package xin.altitude.cms.common.core.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -17,12 +21,14 @@ import java.util.List;
  *
  * @author ucode
  */
+@TableName("sys_dept")
 public class SysDept extends BaseEntity {
     private static final long serialVersionUID = 1L;
     
     /**
      * 部门ID
      */
+    @TableId(type = IdType.AUTO)
     private Long deptId;
     
     /**
@@ -73,12 +79,14 @@ public class SysDept extends BaseEntity {
     /**
      * 父部门名称
      */
+    @TableField(exist = false)
     private String parentName;
     
     /**
      * 子部门
      */
-    private List<SysDept> children = new ArrayList<SysDept>();
+    @TableField(exist = false)
+    private List<SysDept> children = new ArrayList<>();
     /**
      * 创建者
      */
@@ -100,6 +108,7 @@ public class SysDept extends BaseEntity {
     /**
      * 备注
      */
+    @TableField(exist = false)
     private String remark;
     
     public Long getDeptId() {

@@ -1,5 +1,9 @@
 package xin.altitude.cms.common.core.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -20,13 +24,14 @@ import java.util.List;
  *
  * @author ucode
  */
-// @TableName("sys_user")
+@TableName("sys_user")
 public class SysUser extends BaseEntity {
     private static final long serialVersionUID = 1L;
     
     /**
      * 用户ID
      */
+    @TableId(type = IdType.AUTO)
     @Excel(name = "用户序号", cellType = Excel.ColumnType.NUMERIC, prompt = "用户编号")
     private Long userId;
     
@@ -111,26 +116,31 @@ public class SysUser extends BaseEntity {
             @Excel(name = "部门名称", targetAttr = "deptName", type = Excel.Type.EXPORT),
             @Excel(name = "部门负责人", targetAttr = "leader", type = Excel.Type.EXPORT)
     })
+    @TableField(exist = false)
     private SysDept dept;
     
     /**
      * 角色对象
      */
+    @TableField(exist = false)
     private List<SysRole> roles;
     
     /**
      * 角色组
      */
+    @TableField(exist = false)
     private Long[] roleIds;
     
     /**
      * 岗位组
      */
+    @TableField(exist = false)
     private Long[] postIds;
     
     /**
      * 角色ID
      */
+    @TableField(exist = false)
     private Long roleId;
     /**
      * 创建者

@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,6 +11,7 @@ import xin.altitude.cms.common.constant.UserConstants;
 import xin.altitude.cms.common.core.domain.entity.SysRole;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
 import xin.altitude.cms.common.exception.ServiceException;
+import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.common.util.spring.SpringUtils;
 import xin.altitude.cms.system.domain.SysRoleDept;
@@ -19,6 +22,8 @@ import xin.altitude.cms.system.mapper.SysRoleMapper;
 import xin.altitude.cms.system.mapper.SysRoleMenuMapper;
 import xin.altitude.cms.system.mapper.SysUserRoleMapper;
 import xin.altitude.cms.system.service.ISysRoleService;
+import xin.altitude.cms.system.service.ISysUserRoleService;
+import xin.altitude.cms.system.service.ISysUserService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,7 +37,7 @@ import java.util.Set;
  * @author ucode
  */
 @Service
-public class SysRoleServiceImpl implements ISysRoleService {
+public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
     @Autowired
     private SysRoleMapper roleMapper;
     
@@ -44,6 +49,12 @@ public class SysRoleServiceImpl implements ISysRoleService {
     
     @Autowired
     private SysRoleDeptMapper roleDeptMapper;
+    
+    @Autowired
+    private ISysUserService sysUserService;
+    
+    @Autowired
+    private ISysUserRoleService sysUserRoleService;
     
     /**
      * 根据条件分页查询角色数据
@@ -380,5 +391,17 @@ public class SysRoleServiceImpl implements ISysRoleService {
             list.add(ur);
         }
         return userRoleMapper.batchUserRole(list);
+    }
+    
+    @Override
+    public List<SysRole> selectRolesByUserName(String userName) {
+        SysUser sysUser = sysUserService.getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getUserName, userName));
+        Long userId = EntityUtils.toObj(sysUser, SysUser::getUserId);
+        List<SysUserRole> userRoles = sysUserRoleService.list(Wrappers.lambdaQuery(SysUserRole.class).eq(SysUserRole::getUserId, userId));
+        List<Long> roleIds = EntityUtils.toList(userRoles, SysUserRole::getRoleId);
+        if (roleIds.size() > 0) {
+            return list(Wrappers.lambdaQuery(SysRole.class).in(SysRole::getRoleId, roleIds));
+        }
+        return new ArrayList<>();
     }
 }

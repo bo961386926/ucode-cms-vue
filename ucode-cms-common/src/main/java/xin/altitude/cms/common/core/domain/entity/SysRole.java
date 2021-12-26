@@ -1,5 +1,9 @@
 package xin.altitude.cms.common.core.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -15,12 +19,14 @@ import java.util.Date;
  *
  * @author ucode
  */
+@TableName("sys_role")
 public class SysRole extends BaseEntity {
     private static final long serialVersionUID = 1L;
     
     /**
      * 角色ID
      */
+    @TableId(type = IdType.AUTO)
     @Excel(name = "角色序号", cellType = Excel.ColumnType.NUMERIC)
     private Long roleId;
     
@@ -51,12 +57,12 @@ public class SysRole extends BaseEntity {
     /**
      * 菜单树选择项是否关联显示（ 0：父子不互相关联显示 1：父子互相关联显示）
      */
-    private boolean menuCheckStrictly;
+    private Boolean menuCheckStrictly;
     
     /**
      * 部门树选择项是否关联显示（0：父子不互相关联显示 1：父子互相关联显示 ）
      */
-    private boolean deptCheckStrictly;
+    private Boolean deptCheckStrictly;
     
     /**
      * 角色状态（0正常 1停用）
@@ -72,16 +78,19 @@ public class SysRole extends BaseEntity {
     /**
      * 用户是否存在此角色标识 默认不存在
      */
-    private boolean flag = false;
+    @TableField(exist = false)
+    private Boolean flag = false;
     
     /**
      * 菜单组
      */
+    @TableField(exist = false)
     private Long[] menuIds;
     
     /**
      * 部门组（数据权限）
      */
+    @TableField(exist = false)
     private Long[] deptIds;
     /**
      * 创建者
@@ -114,7 +123,7 @@ public class SysRole extends BaseEntity {
         this.roleId = roleId;
     }
     
-    public static boolean isAdmin(Long roleId) {
+    public static Boolean isAdmin(Long roleId) {
         return roleId != null && 1L == roleId;
     }
     
@@ -126,7 +135,7 @@ public class SysRole extends BaseEntity {
         this.roleId = roleId;
     }
     
-    public boolean isAdmin() {
+    public Boolean isAdmin() {
         return isAdmin(this.roleId);
     }
     
@@ -167,19 +176,19 @@ public class SysRole extends BaseEntity {
         this.dataScope = dataScope;
     }
     
-    public boolean isMenuCheckStrictly() {
+    public Boolean isMenuCheckStrictly() {
         return menuCheckStrictly;
     }
     
-    public void setMenuCheckStrictly(boolean menuCheckStrictly) {
+    public void setMenuCheckStrictly(Boolean menuCheckStrictly) {
         this.menuCheckStrictly = menuCheckStrictly;
     }
     
-    public boolean isDeptCheckStrictly() {
+    public Boolean isDeptCheckStrictly() {
         return deptCheckStrictly;
     }
     
-    public void setDeptCheckStrictly(boolean deptCheckStrictly) {
+    public void setDeptCheckStrictly(Boolean deptCheckStrictly) {
         this.deptCheckStrictly = deptCheckStrictly;
     }
     
@@ -199,11 +208,11 @@ public class SysRole extends BaseEntity {
         this.delFlag = delFlag;
     }
     
-    public boolean isFlag() {
+    public Boolean isFlag() {
         return flag;
     }
     
-    public void setFlag(boolean flag) {
+    public void setFlag(Boolean flag) {
         this.flag = flag;
     }
     

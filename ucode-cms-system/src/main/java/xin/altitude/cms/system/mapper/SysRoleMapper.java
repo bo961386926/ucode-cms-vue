@@ -1,6 +1,9 @@
 package xin.altitude.cms.system.mapper;
 
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.cache.decorators.ScheduledCache;
 import xin.altitude.cms.common.core.domain.entity.SysRole;
 
 import java.util.List;
@@ -11,7 +14,8 @@ import java.util.List;
  * @author ucode
  */
 @Mapper
-public interface SysRoleMapper {
+@CacheNamespace(eviction = ScheduledCache.class, blocking = true, flushInterval = 86400 * 1000)
+public interface SysRoleMapper extends BaseMapper<SysRole> {
     /**
      * 根据条件分页查询角色数据
      *

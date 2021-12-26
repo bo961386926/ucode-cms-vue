@@ -1,5 +1,7 @@
 package xin.altitude.cms.common;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -52,10 +54,11 @@ public class SysRoleController extends BaseController {
     
     // @PreAuthorize("@ss.hasPermi('system:role:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysRole role) {
-        startPage();
-        List<SysRole> list = roleService.selectRoleList(role);
-        return getDataTable(list);
+    public AjaxResult list(Page<SysRole> page, SysRole role) {
+        // startPage();
+        // List<SysRole> list = roleService.selectRoleList(role);
+        // return getDataTable(list);
+        return AjaxResult.success(roleService.page(page, Wrappers.lambdaQuery(role)));
     }
     
     @Log(title = "角色管理", businessType = BusinessType.EXPORT)

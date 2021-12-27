@@ -112,7 +112,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param user 用户信息
      * @return 结果
      */
-    public int insertUser(SysUser user);
+    public boolean insertUser(SysUser user);
     
     /**
      * 注册用户信息
@@ -128,7 +128,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param user 用户信息
      * @return 结果
      */
-    public int updateUser(SysUser user);
+    public boolean updateUser(SysUser user);
     
     /**
      * 用户授权角色
@@ -144,7 +144,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param user 用户信息
      * @return 结果
      */
-    public int updateUserStatus(SysUser user);
+    public boolean updateUserStatus(SysUser user);
     
     /**
      * 修改用户基本信息
@@ -152,7 +152,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param user 用户信息
      * @return 结果
      */
-    public int updateUserProfile(SysUser user);
+    public boolean updateUserProfile(SysUser user);
     
     /**
      * 修改用户头像
@@ -169,7 +169,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param user 用户信息
      * @return 结果
      */
-    public int resetPwd(SysUser user);
+    public boolean resetPwd(SysUser user);
     
     /**
      * 重置用户密码
@@ -178,7 +178,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param password 密码
      * @return 结果
      */
-    public int resetUserPwd(String userName, String password);
+    public boolean resetUserPwd(String userName, String password);
     
     /**
      * 通过用户ID删除用户
@@ -186,7 +186,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param userId 用户ID
      * @return 结果
      */
-    public int deleteUserById(Long userId);
+    public boolean deleteUserById(Long userId);
     
     /**
      * 批量删除用户信息
@@ -194,7 +194,7 @@ public interface ISysUserService extends IService<SysUser> {
      * @param userIds 需要删除的用户ID
      * @return 结果
      */
-    public int deleteUserByIds(Long[] userIds);
+    public boolean deleteUserByIds(Long[] userIds);
     
     /**
      * 导入用户数据

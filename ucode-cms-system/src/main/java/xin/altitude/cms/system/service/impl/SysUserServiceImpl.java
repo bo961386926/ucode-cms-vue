@@ -46,8 +46,8 @@ import java.util.Set;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
     private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
     
-    @Autowired
-    private SysUserMapper userMapper;
+    // @Autowired
+    // private SysUserMapper userMapper;
     
     // @Autowired
     // private SysRoleMapper roleMapper;
@@ -113,7 +113,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectAllocatedList(SysUser user) {
-        return userMapper.selectAllocatedList(user);
+        Set<Long> userIds = EntityUtils.toSet(sysUserRoleService.list(Wrappers.lambdaQuery(SysUserRole.class)), SysUserRole::getUserId);
+        if (userIds.size() > 0) {
+            return list(Wrappers.lambdaQuery(user).in(SysUser::getUserId, userIds));
+        }
+        return new ArrayList<>();
+        // return userMapper.selectAllocatedList(user);
     }
     
     /**
@@ -125,7 +130,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectUnallocatedList(SysUser user) {
-        return userMapper.selectUnallocatedList(user);
+        // return userMapper.selectUnallocatedList(user);
+        Set<Long> userIds = EntityUtils.toSet(sysUserRoleService.list(Wrappers.lambdaQuery(SysUserRole.class)), SysUserRole::getUserId);
+        return list(Wrappers.lambdaQuery(user).in(userIds.size() > 0, SysUser::getUserId, userIds));
     }
     
     /**
@@ -151,7 +158,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public SysUser selectUserById(Long userId) {
-        return userMapper.selectUserById(userId);
+        SysUser sysUser = getById(userId);
+        sysUser.setDept(sysDeptService.getById(sysUser.getDeptId()));
+        return sysUser;
+        // return userMapper.selectUserById(userId);
     }
     
     /**
@@ -202,7 +212,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public String checkUserNameUnique(String userName) {
-        int count = userMapper.checkUserNameUnique(userName);
+        // int count = userMapper.checkUserNameUnique(userName);
+        long count = count(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getUserName, userName));
         if (count > 0) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -218,7 +229,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public String checkPhoneUnique(SysUser user) {
         Long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
-        SysUser info = userMapper.checkPhoneUnique(user.getPhonenumber());
+        // SysUser info = userMapper.checkPhoneUnique(user.getPhonenumber());
+        SysUser info = getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getPhonenumber, user.getPhonenumber()));
         if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -234,7 +246,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     public String checkEmailUnique(SysUser user) {
         Long userId = StringUtils.isNull(user.getUserId()) ? -1L : user.getUserId();
-        SysUser info = userMapper.checkEmailUnique(user.getEmail());
+        // SysUser info = userMapper.checkEmailUnique(user.getEmail());
+        SysUser info = getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getEmail, user.getEmail()));
         if (StringUtils.isNotNull(info) && info.getUserId().longValue() != userId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -278,14 +291,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     @Transactional
-    public int insertUser(SysUser user) {
+    public boolean insertUser(SysUser user) {
         // 新增用户信息
-        int rows = userMapper.insertUser(user);
+        // int rows = userMapper.insertUser(user);
+        boolean bool = save(user);
         // 新增用户岗位关联
         insertUserPost(user);
         // 新增用户与角色管理
         insertUserRole(user);
-        return rows;
+        return bool;
     }
     
     /**
@@ -296,7 +310,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public boolean registerUser(SysUser user) {
-        return userMapper.insertUser(user) > 0;
+        // return userMapper.insertUser(user) > 0;
+        return save(user);
     }
     
     /**
@@ -307,7 +322,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     @Transactional
-    public int updateUser(SysUser user) {
+    public boolean updateUser(SysUser user) {
         Long userId = user.getUserId();
         // 删除用户与角色关联
         // userRoleMapper.deleteUserRoleByUserId(userId);
@@ -319,7 +334,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUserPostService.deleteUserPostByUserId(userId);
         // 新增用户与岗位管理
         insertUserPost(user);
-        return userMapper.updateUser(user);
+        // return userMapper.updateUser(user);
+        return updateById(user);
     }
     
     /**
@@ -343,8 +359,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 结果
      */
     @Override
-    public int updateUserStatus(SysUser user) {
-        return userMapper.updateUser(user);
+    public boolean updateUserStatus(SysUser user) {
+        // return userMapper.updateUser(user);
+        return updateById(user);
     }
     
     /**
@@ -354,8 +371,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 结果
      */
     @Override
-    public int updateUserProfile(SysUser user) {
-        return userMapper.updateUser(user);
+    public boolean updateUserProfile(SysUser user) {
+        // return userMapper.updateUser(user);
+        return updateById(user);
     }
     
     /**
@@ -367,7 +385,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public boolean updateUserAvatar(String userName, String avatar) {
-        return userMapper.updateUserAvatar(userName, avatar) > 0;
+        // return userMapper.updateUserAvatar(userName, avatar) > 0;
+        SysUser sysUser = new SysUser();
+        sysUser.setAvatar(avatar);
+        return update(sysUser, Wrappers.lambdaUpdate(SysUser.class).eq(SysUser::getUserName, userName));
     }
     
     /**
@@ -377,8 +398,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 结果
      */
     @Override
-    public int resetPwd(SysUser user) {
-        return userMapper.updateUser(user);
+    public boolean resetPwd(SysUser user) {
+        // return userMapper.updateUser(user);
+        return updateById(user);
     }
     
     /**
@@ -389,8 +411,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      * @return 结果
      */
     @Override
-    public int resetUserPwd(String userName, String password) {
-        return userMapper.resetUserPwd(userName, password);
+    public boolean resetUserPwd(String userName, String password) {
+        // return userMapper.resetUserPwd(userName, password);
+        SysUser sysUser = new SysUser();
+        sysUser.setAvatar(password);
+        return update(sysUser, Wrappers.lambdaUpdate(SysUser.class).eq(SysUser::getUserName, userName));
     }
     
     /**
@@ -470,14 +495,15 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     @Transactional
-    public int deleteUserById(Long userId) {
+    public boolean deleteUserById(Long userId) {
         // 删除用户与角色关联
         // userRoleMapper.deleteUserRoleByUserId(userId);
         sysUserRoleService.deleteUserRoleByUserId(userId);
         // 删除用户与岗位表
         // userPostMapper.deleteUserPostByUserId(userId);
         sysUserPostService.deleteUserPostByUserId(userId);
-        return userMapper.deleteUserById(userId);
+        // return userMapper.deleteUserById(userId);
+        return removeById(userId);
     }
     
     /**
@@ -488,7 +514,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     @Transactional
-    public int deleteUserByIds(Long[] userIds) {
+    public boolean deleteUserByIds(Long[] userIds) {
         for (Long userId : userIds) {
             checkUserAllowed(new SysUser(userId));
         }
@@ -498,7 +524,8 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // 删除用户与岗位关联
         // sysUserPostService.deleteUserPost(userIds);
         sysUserPostService.deleteUserPostByUserIds(Arrays.asList(userIds));
-        return userMapper.deleteUserByIds(userIds);
+        // return userMapper.deleteUserByIds(userIds);
+        return removeByIds(Arrays.asList(userIds));
     }
     
     /**
@@ -522,26 +549,26 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         for (SysUser user : userList) {
             try {
                 // 验证是否存在这个用户
-                SysUser u = userMapper.selectUserByUserName(user.getUserName());
+                SysUser u = selectUserByUserName(user.getUserName());
                 if (StringUtils.isNull(u)) {
                     user.setPassword(SecurityUtils.encryptPassword(password));
                     user.setCreateBy(operName);
                     this.insertUser(user);
                     successNum++;
-                    successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 导入成功");
+                    successMsg.append("<br/>").append(successNum).append("、账号 ").append(user.getUserName()).append(" 导入成功");
                 } else if (isUpdateSupport) {
                     user.setUpdateBy(operName);
                     this.updateUser(user);
                     successNum++;
-                    successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 更新成功");
+                    successMsg.append("<br/>").append(successNum).append("、账号 ").append(user.getUserName()).append(" 更新成功");
                 } else {
                     failureNum++;
-                    failureMsg.append("<br/>" + failureNum + "、账号 " + user.getUserName() + " 已存在");
+                    failureMsg.append("<br/>").append(failureNum).append("、账号 ").append(user.getUserName()).append(" 已存在");
                 }
             } catch (Exception e) {
                 failureNum++;
                 String msg = "<br/>" + failureNum + "、账号 " + user.getUserName() + " 导入失败：";
-                failureMsg.append(msg + e.getMessage());
+                failureMsg.append(msg).append(e.getMessage());
                 log.error(msg, e);
             }
         }

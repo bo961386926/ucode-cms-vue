@@ -13,6 +13,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "ucode")
 public class CmsConfig {
+    /**
+     * 接口访问统一前缀
+     */
+    public final static String UNIFORM_PREFIX = "cms-api/";
     private Cms cms;
     private Token token;
     private Xss xss;

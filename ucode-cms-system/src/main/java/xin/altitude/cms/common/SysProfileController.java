@@ -71,7 +71,7 @@ public class SysProfileController extends BaseController {
         SysUser sysUser = loginUser.getUser();
         user.setUserId(sysUser.getUserId());
         user.setPassword(null);
-        if (userService.updateUserProfile(user) > 0) {
+        if (userService.updateUserProfile(user)) {
             // 更新缓存用户信息
             sysUser.setNickName(user.getNickName());
             sysUser.setPhonenumber(user.getPhonenumber());
@@ -98,7 +98,7 @@ public class SysProfileController extends BaseController {
         if (SecurityUtils.matchesPassword(newPassword, password)) {
             return AjaxResult.error("新密码不能与旧密码相同");
         }
-        if (userService.resetUserPwd(userName, SecurityUtils.encryptPassword(newPassword)) > 0) {
+        if (userService.resetUserPwd(userName, SecurityUtils.encryptPassword(newPassword))) {
             // 更新缓存用户密码
             loginUser.getUser().setPassword(SecurityUtils.encryptPassword(newPassword));
             tokenService.setLoginUser(loginUser);

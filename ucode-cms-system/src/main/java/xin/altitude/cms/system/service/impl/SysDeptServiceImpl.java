@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import xin.altitude.cms.common.core.domain.entity.SysRole;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
 import xin.altitude.cms.common.core.text.Convert;
 import xin.altitude.cms.common.exception.ServiceException;
+import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.common.util.spring.SpringUtils;
 import xin.altitude.cms.system.mapper.SysDeptMapper;
@@ -21,6 +24,7 @@ import xin.altitude.cms.system.service.ISysDeptService;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -278,9 +282,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
      */
     private List<SysDept> getChildList(List<SysDept> list, SysDept t) {
         List<SysDept> tlist = new ArrayList<SysDept>();
-        Iterator<SysDept> it = list.iterator();
-        while (it.hasNext()) {
-            SysDept n = (SysDept) it.next();
+        for (SysDept n : list) {
             if (StringUtils.isNotNull(n.getParentId()) && n.getParentId().longValue() == t.getDeptId().longValue()) {
                 tlist.add(n);
             }
@@ -293,5 +295,18 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
      */
     private boolean hasChild(List<SysDept> list, SysDept t) {
         return getChildList(list, t).size() > 0;
+    }
+    
+    
+    @Override
+    public void getChildIds(Set<Long> deptIds, Long deptId) {
+        deptIds.add(deptId);
+        LambdaQueryWrapper<SysDept> wrapper = Wrappers.lambdaQuery(SysDept.class)
+                .eq(SysDept::getParentId, deptId).select(SysDept::getDeptId);
+        List<Long> ids = EntityUtils.toList(list(wrapper), SysDept::getDeptId);
+        for (Long id : ids) {
+            getChildIds(deptIds, id);
+        }
+        
     }
 }

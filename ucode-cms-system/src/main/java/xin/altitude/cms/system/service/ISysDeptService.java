@@ -5,6 +5,7 @@ import xin.altitude.cms.common.core.domain.TreeSelect;
 import xin.altitude.cms.common.core.domain.entity.SysDept;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * 部门管理 服务层
@@ -114,4 +115,6 @@ public interface ISysDeptService extends IService<SysDept> {
      * @return 结果
      */
     public int deleteDeptById(Long deptId);
+    
+    void getChildIds(Set<Long> deptIds, Long deptId);
 }

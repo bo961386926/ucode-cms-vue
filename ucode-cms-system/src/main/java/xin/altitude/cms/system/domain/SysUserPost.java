@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import xin.altitude.cms.common.core.domain.BaseEntity;
 
 /**
  * 用户和岗位关联 sys_user_post
@@ -12,7 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author ucode
  */
 @TableName("sys_user_post")
-public class SysUserPost {
+public class SysUserPost extends BaseEntity {
     /**
      * 主键
      */

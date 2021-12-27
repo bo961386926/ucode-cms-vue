@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,9 +11,11 @@ import org.springframework.transaction.annotation.Transactional;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.annotation.DataScope;
 import xin.altitude.cms.common.constant.UserConstants;
+import xin.altitude.cms.common.core.domain.entity.SysDept;
 import xin.altitude.cms.common.core.domain.entity.SysRole;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
 import xin.altitude.cms.common.exception.ServiceException;
+import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.common.util.spring.SpringUtils;
 import xin.altitude.cms.system.domain.SysPost;
@@ -19,6 +23,7 @@ import xin.altitude.cms.system.domain.SysUserPost;
 import xin.altitude.cms.system.domain.SysUserRole;
 import xin.altitude.cms.system.mapper.SysUserMapper;
 import xin.altitude.cms.system.service.ISysConfigService;
+import xin.altitude.cms.system.service.ISysDeptService;
 import xin.altitude.cms.system.service.ISysPostService;
 import xin.altitude.cms.system.service.ISysRoleService;
 import xin.altitude.cms.system.service.ISysUserPostService;
@@ -27,7 +32,10 @@ import xin.altitude.cms.system.service.ISysUserService;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * 用户 业务层处理
@@ -53,7 +61,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     
     // @Autowired
     // private SysUserRoleMapper userRoleMapper;
-    
+    @Autowired
     private ISysUserRoleService sysUserRoleService;
     
     // @Autowired
@@ -64,6 +72,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Autowired
     private ISysConfigService configService;
     
+    @Autowired
+    private ISysDeptService sysDeptService;
+    
+    
     /**
      * 根据条件分页查询用户列表
      *
@@ -73,7 +85,23 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     @Override
     @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectUserList(SysUser user) {
-        return userMapper.selectUserList(user);
+        LambdaQueryWrapper<SysUser> wrapper = Wrappers.lambdaQuery(user);
+        if (user.getDeptId() != null) {
+            /*  只查询当前部分，孩子并未包含 */
+            wrapper.eq(SysUser::getDeptId, user.getDeptId());
+            HashSet<Long> deptIds = new HashSet<>();
+            sysDeptService.getChildIds(deptIds, user.getDeptId());
+            wrapper.or().in(SysUser::getDeptId, deptIds);
+            user.setDeptId(null);
+        }
+        List<SysUser> sysUsers = list(wrapper);
+        Set<Long> deptIds = EntityUtils.toSet(sysUsers, SysUser::getDeptId);
+        if (deptIds.size() > 0) {
+            Map<Long, SysDept> map = EntityUtils.toMap(sysDeptService.listByIds(deptIds), SysDept::getDeptId, e -> e);
+            sysUsers.forEach(e -> e.setDept(map.get(e.getDeptId())));
+        }
+        return sysUsers;
+        // return userMapper.selectUserList(user);
     }
     
     /**
@@ -108,7 +136,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
      */
     @Override
     public SysUser selectUserByUserName(String userName) {
-        return userMapper.selectUserByUserName(userName);
+        // return userMapper.selectUserByUserName(userName);
+        // 需要补充部门、角色等信息
+        SysUser sysUser = getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getUserName, userName));
+        sysUser.setDept(sysDeptService.getById(sysUser.getDeptId()));
+        return sysUser;
     }
     
     /**

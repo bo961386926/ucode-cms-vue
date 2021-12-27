@@ -2,6 +2,7 @@ package xin.altitude.cms.system.domain;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -10,6 +11,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  *
  * @author ucode
  */
+@TableName("sys_role_dept")
 public class SysRoleDept {
     /**
      * 主键

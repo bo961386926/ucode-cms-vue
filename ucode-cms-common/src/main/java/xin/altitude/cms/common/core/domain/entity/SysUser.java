@@ -84,6 +84,7 @@ public class SysUser extends BaseEntity {
     /**
      * 盐加密
      */
+    @TableField(exist = false)
     private String salt;
     
     /**

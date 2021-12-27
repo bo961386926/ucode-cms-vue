@@ -111,6 +111,14 @@ public class SysDept extends BaseEntity {
     @TableField(exist = false)
     private String remark;
     
+    public SysDept() {
+    }
+    
+    public SysDept(Long deptId, String status) {
+        this.deptId = deptId;
+        this.status = status;
+    }
+    
     public Long getDeptId() {
         return deptId;
     }

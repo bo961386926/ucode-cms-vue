@@ -24,8 +24,8 @@ import java.util.List;
  */
 @Service
 public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig> implements ISysConfigService {
-    @Autowired
-    private SysConfigMapper configMapper;
+    // @Autowired
+    // private SysConfigMapper configMapper;
     
     @Autowired
     private RedisCache redisCache;

@@ -43,7 +43,7 @@ public interface ISysDeptService extends IService<SysDept> {
      * @param roleId 角色ID
      * @return 选中部门列表
      */
-    public List<Integer> selectDeptListByRoleId(Long roleId);
+    public List<Long> selectDeptListByRoleId(Long roleId);
     
     /**
      * 根据部门ID查询信息
@@ -98,7 +98,7 @@ public interface ISysDeptService extends IService<SysDept> {
      * @param dept 部门信息
      * @return 结果
      */
-    public int insertDept(SysDept dept);
+    public boolean insertDept(SysDept dept);
     
     /**
      * 修改保存部门信息
@@ -106,7 +106,7 @@ public interface ISysDeptService extends IService<SysDept> {
      * @param dept 部门信息
      * @return 结果
      */
-    public int updateDept(SysDept dept);
+    public boolean updateDept(SysDept dept);
     
     /**
      * 删除部门管理信息
@@ -114,7 +114,22 @@ public interface ISysDeptService extends IService<SysDept> {
      * @param deptId 部门ID
      * @return 结果
      */
-    public int deleteDeptById(Long deptId);
+    public boolean deleteDeptById(Long deptId);
     
     void getChildIds(Set<Long> deptIds, Long deptId);
+    
+    /**
+     * 查询当前节点所有父亲ID（不包含自己）
+     *
+     * @param deptIds
+     * @param deptId
+     */
+    void getParentIds(Set<Long> deptIds, Long deptId);
+    
+    /**
+     * 获取非叶子节点的集合
+     *
+     * @return
+     */
+    Set<Long> getParentIds();
 }

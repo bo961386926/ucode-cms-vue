@@ -62,6 +62,7 @@ public class SysMenu extends BaseEntity {
     /**
      * 路由参数
      */
+    @TableField(value = "`query`")
     private String query;
     
     /**

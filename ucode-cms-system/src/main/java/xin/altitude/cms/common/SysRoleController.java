@@ -24,10 +24,10 @@ import xin.altitude.cms.common.core.domain.entity.SysRole;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
 import xin.altitude.cms.common.core.page.TableDataInfo;
 import xin.altitude.cms.common.util.StringUtils;
-import xin.altitude.cms.common.util.poi.ExcelUtil;
 import xin.altitude.cms.system.domain.SysUserRole;
 import xin.altitude.cms.system.service.ISysRoleService;
 import xin.altitude.cms.system.service.ISysUserService;
+import xin.altitude.cms.system.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

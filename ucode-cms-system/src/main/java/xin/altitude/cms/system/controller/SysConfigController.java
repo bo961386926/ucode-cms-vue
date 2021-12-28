@@ -18,9 +18,9 @@ import xin.altitude.cms.common.constant.UserConstants;
 import xin.altitude.cms.common.constant.enums.BusinessType;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.page.TableDataInfo;
-import xin.altitude.cms.common.util.poi.ExcelUtil;
 import xin.altitude.cms.system.domain.SysConfig;
 import xin.altitude.cms.system.service.ISysConfigService;
+import xin.altitude.cms.system.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

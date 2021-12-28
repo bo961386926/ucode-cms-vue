@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
-import xin.altitude.cms.common.util.DictUtils;
 import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.system.mapper.SysDictDataMapper;
 import xin.altitude.cms.system.service.ISysDictDataService;
@@ -74,7 +73,7 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
             removeById(dictCode);
             // List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(data.getDictType());
             List<SysDictData> dictDatas = list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, data.getDictType()));
-            DictUtils.setDictCache(data.getDictType(), dictDatas);
+            // DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
     }
     
@@ -91,7 +90,7 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         if (row) {
             // List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(data.getDictType());
             List<SysDictData> dictDatas = list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, data.getDictType()));
-            DictUtils.setDictCache(data.getDictType(), dictDatas);
+            // DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
         return row;
     }
@@ -109,7 +108,7 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         if (row) {
             // List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(data.getDictType());
             List<SysDictData> dictDatas = list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, data.getDictType()));
-            DictUtils.setDictCache(data.getDictType(), dictDatas);
+            // DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
         return row;
     }

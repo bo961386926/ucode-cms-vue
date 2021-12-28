@@ -2,11 +2,9 @@ package xin.altitude.cms.system.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.constant.UserConstants;
-import xin.altitude.cms.common.core.redis.RedisCache;
 import xin.altitude.cms.common.core.text.Convert;
 import xin.altitude.cms.common.exception.ServiceException;
 import xin.altitude.cms.common.util.StringUtils;
@@ -14,7 +12,6 @@ import xin.altitude.cms.system.domain.SysConfig;
 import xin.altitude.cms.system.mapper.SysConfigMapper;
 import xin.altitude.cms.system.service.ISysConfigService;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,8 +24,8 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     // @Autowired
     // private SysConfigMapper configMapper;
     
-    @Autowired
-    private RedisCache redisCache;
+    // @Autowired
+    // private RedisCache redisCache;
     
     /**
      * 项目启动时，初始化参数到缓存
@@ -61,16 +58,16 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
      */
     @Override
     public String selectConfigByKey(String configKey) {
-        String configValue = Convert.toStr(redisCache.getCacheObject(getCacheKey(configKey)));
-        if (StringUtils.isNotEmpty(configValue)) {
-            return configValue;
-        }
+        // String configValue = Convert.toStr(redisCache.getCacheObject(getCacheKey(configKey)));
+        // if (StringUtils.isNotEmpty(configValue)) {
+        //     return configValue;
+        // }
         SysConfig config = new SysConfig();
         config.setConfigKey(configKey);
         // SysConfig retConfig = configMapper.selectConfig(config);
         SysConfig retConfig = getOne(Wrappers.lambdaQuery(config));
         if (StringUtils.isNotNull(retConfig)) {
-            redisCache.setCacheObject(getCacheKey(configKey), retConfig.getConfigValue());
+            // redisCache.setCacheObject(getCacheKey(configKey), retConfig.getConfigValue());
             return retConfig.getConfigValue();
         }
         return StringUtils.EMPTY;
@@ -113,7 +110,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         // int row = configMapper.insertConfig(config);
         boolean row = save(config);
         if (row) {
-            redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
+            // redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
         }
         return row ? 1 : 0;
     }
@@ -130,7 +127,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         // int row = configMapper.updateConfig(config);
         boolean row = updateById(config);
         if (row) {
-            redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
+            // redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
         }
         return row ? 1 : 0;
     }
@@ -150,7 +147,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
             }
             removeById(configId);
             // configMapper.deleteConfigById(configId);
-            redisCache.deleteObject(getCacheKey(config.getConfigKey()));
+            // redisCache.deleteObject(getCacheKey(config.getConfigKey()));
         }
     }
     
@@ -161,9 +158,9 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     public void loadingConfigCache() {
         // List<SysConfig> configsList = configMapper.selectConfigList(new SysConfig());
         List<SysConfig> configsList = list(Wrappers.lambdaQuery());
-        for (SysConfig config : configsList) {
-            redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
-        }
+        // for (SysConfig config : configsList) {
+        //     redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
+        // }
     }
     
     /**
@@ -171,8 +168,8 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
      */
     @Override
     public void clearConfigCache() {
-        Collection<String> keys = redisCache.keys(Constants.SYS_CONFIG_KEY + "*");
-        redisCache.deleteObject(keys);
+        // Collection<String> keys = redisCache.keys(Constants.SYS_CONFIG_KEY + "*");
+        // redisCache.deleteObject(keys);
     }
     
     /**

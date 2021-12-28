@@ -17,9 +17,9 @@ import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
 import xin.altitude.cms.common.core.page.TableDataInfo;
 import xin.altitude.cms.common.util.StringUtils;
-import xin.altitude.cms.common.util.poi.ExcelUtil;
 import xin.altitude.cms.system.service.ISysDictDataService;
 import xin.altitude.cms.system.service.ISysDictTypeService;
+import xin.altitude.cms.system.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;

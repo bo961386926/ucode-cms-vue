@@ -1,4 +1,4 @@
-package xin.altitude.cms.common.util.poi;
+package xin.altitude.cms.system.util;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
@@ -30,11 +30,11 @@ import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.text.Convert;
 import xin.altitude.cms.common.exception.UtilException;
 import xin.altitude.cms.common.util.DateUtils;
-import xin.altitude.cms.common.util.DictUtils;
 import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.common.util.file.FileTypeUtils;
 import xin.altitude.cms.common.util.file.FileUtils;
 import xin.altitude.cms.common.util.file.ImageUtils;
+import xin.altitude.cms.common.util.poi.ExcelHandlerAdapter;
 import xin.altitude.cms.common.util.reflect.ReflectUtils;
 import xin.altitude.cms.common.util.spring.SpringUtils;
 
@@ -153,7 +153,7 @@ public class ExcelUtil<T> {
             if (StringUtils.containsAny(separator, propertyValue)) {
                 for (String value : propertyValue.split(separator)) {
                     if (itemArray[0].equals(value)) {
-                        propertyString.append(itemArray[1] + separator);
+                        propertyString.append(itemArray[1]).append(separator);
                         break;
                     }
                 }
@@ -422,27 +422,25 @@ public class ExcelUtil<T> {
                     } else if (Boolean.TYPE == fieldType || Boolean.class == fieldType) {
                         val = Convert.toBool(val, false);
                     }
-                    if (StringUtils.isNotNull(fieldType)) {
-                        String propertyName = field.getName();
-                        if (StringUtils.isNotEmpty(attr.targetAttr())) {
-                            propertyName = field.getName() + "." + attr.targetAttr();
-                        } else if (StringUtils.isNotEmpty(attr.readConverterExp())) {
-                            val = reverseByExp(Convert.toStr(val), attr.readConverterExp(), attr.separator());
-                        } else if (StringUtils.isNotEmpty(attr.dictType())) {
-                            val = reverseDictByExp(Convert.toStr(val), attr.dictType(), attr.separator());
-                        } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
-                            val = dataFormatHandlerAdapter(val, attr);
-                        } else if (Excel.ColumnType.IMAGE == attr.cellType() && StringUtils.isNotEmpty(pictures)) {
-                            PictureData image = pictures.get(row.getRowNum() + "_" + entry.getKey());
-                            if (image == null) {
-                                val = "";
-                            } else {
-                                byte[] data = image.getData();
-                                val = FileUtils.writeImportBytes(data);
-                            }
+                    String propertyName = field.getName();
+                    if (StringUtils.isNotEmpty(attr.targetAttr())) {
+                        propertyName = field.getName() + "." + attr.targetAttr();
+                    } else if (StringUtils.isNotEmpty(attr.readConverterExp())) {
+                        val = reverseByExp(Convert.toStr(val), attr.readConverterExp(), attr.separator());
+                    } else if (StringUtils.isNotEmpty(attr.dictType())) {
+                        val = reverseDictByExp(Convert.toStr(val), attr.dictType(), attr.separator());
+                    } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
+                        val = dataFormatHandlerAdapter(val, attr);
+                    } else if (Excel.ColumnType.IMAGE == attr.cellType() && StringUtils.isNotEmpty(pictures)) {
+                        PictureData image = pictures.get(row.getRowNum() + "_" + entry.getKey());
+                        if (image == null) {
+                            val = "";
+                        } else {
+                            byte[] data = image.getData();
+                            val = FileUtils.writeImportBytes(data);
                         }
-                        ReflectUtils.invokeSetter(entity, propertyName, val);
                     }
+                    ReflectUtils.invokeSetter(entity, propertyName, val);
                 }
                 list.add(entity);
             }
@@ -766,7 +764,7 @@ public class ExcelUtil<T> {
      * 创建表格样式
      */
     public void setDataValidation(Excel attr, Row row, int column) {
-        if (attr.name().indexOf("注：") >= 0) {
+        if (attr.name().contains("注：")) {
             sheet.setColumnWidth(column, 6000);
         } else {
             // 设置列宽
@@ -909,6 +907,7 @@ public class ExcelUtil<T> {
             try {
                 temp = Double.valueOf(text);
             } catch (NumberFormatException e) {
+                e.fillInStackTrace();
             }
             statistics.put(index, statistics.get(index) + temp);
         }
@@ -969,7 +968,7 @@ public class ExcelUtil<T> {
         Object o = field.get(vo);
         if (StringUtils.isNotEmpty(excel.targetAttr())) {
             String target = excel.targetAttr();
-            if (target.indexOf(".") > -1) {
+            if (target.contains(".")) {
                 String[] targets = target.split("[.]");
                 for (String name : targets) {
                     o = getValue(o, name);
@@ -1048,7 +1047,7 @@ public class ExcelUtil<T> {
         double maxHeight = 0;
         for (Object[] os : this.fields) {
             Excel excel = (Excel) os[1];
-            maxHeight = maxHeight > excel.height() ? maxHeight : excel.height();
+            maxHeight = Math.max(maxHeight, excel.height());
         }
         return (short) (maxHeight * 20);
     }

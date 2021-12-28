@@ -30,9 +30,9 @@ CREATE TABLE `sys_config`
     `config_value` varchar(500) DEFAULT '' COMMENT '参数键值',
     `config_type`  char(1)      DEFAULT 'N' COMMENT '系统内置（Y是 N否）',
     `create_by`    varchar(64)  DEFAULT '' COMMENT '创建者',
-    `create_time`  datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_time`  datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`    varchar(64)  DEFAULT '' COMMENT '更新者',
-    `update_time`  datetime     DEFAULT NULL COMMENT '更新时间',
+    `update_time`  datetime     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`       varchar(500) DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`config_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='参数配置表';
@@ -80,9 +80,9 @@ CREATE TABLE `sys_dept`
     `status`      char(1)     DEFAULT '0' COMMENT '部门状态（0正常 1停用）',
     `del_flag`    char(1)     DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
     `create_by`   varchar(64) DEFAULT '' COMMENT '创建者',
-    `create_time` datetime    DEFAULT NULL COMMENT '创建时间',
+    `create_time` datetime    DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`   varchar(64) DEFAULT '' COMMENT '更新者',
-    `update_time` datetime    DEFAULT NULL COMMENT '更新时间',
+    `update_time` datetime    DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     PRIMARY KEY (`dept_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8 COMMENT='部门表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -137,9 +137,9 @@ CREATE TABLE `sys_dict_data`
     `is_default`  char(1)      DEFAULT 'N' COMMENT '是否默认（Y是 N否）',
     `status`      char(1)      DEFAULT '0' COMMENT '状态（0正常 1停用）',
     `create_by`   varchar(64)  DEFAULT '' COMMENT '创建者',
-    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`   varchar(64)  DEFAULT '' COMMENT '更新者',
-    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+    `update_time` datetime     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`      varchar(500) DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`dict_code`)
 ) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8 COMMENT='字典数据表';
@@ -205,9 +205,9 @@ CREATE TABLE `sys_dict_type`
     `dict_type`   varchar(100) DEFAULT '' COMMENT '字典类型',
     `status`      char(1)      DEFAULT '0' COMMENT '状态（0正常 1停用）',
     `create_by`   varchar(64)  DEFAULT '' COMMENT '创建者',
-    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`   varchar(64)  DEFAULT '' COMMENT '更新者',
-    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+    `update_time` datetime     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`      varchar(500) DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`dict_id`),
     UNIQUE KEY `dict_type` (`dict_type`)
@@ -254,9 +254,9 @@ CREATE TABLE `sys_job`
     `concurrent`      char(1)               DEFAULT '1' COMMENT '是否并发执行（0允许 1禁止）',
     `status`          char(1)               DEFAULT '0' COMMENT '状态（0正常 1暂停）',
     `create_by`       varchar(64)           DEFAULT '' COMMENT '创建者',
-    `create_time`     datetime              DEFAULT NULL COMMENT '创建时间',
+    `create_time`     datetime              DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`       varchar(64)           DEFAULT '' COMMENT '更新者',
-    `update_time`     datetime              DEFAULT NULL COMMENT '更新时间',
+    `update_time`     datetime              DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`          varchar(500)          DEFAULT '' COMMENT '备注信息',
     PRIMARY KEY (`job_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='定时任务调度表';
@@ -331,7 +331,7 @@ CREATE TABLE `sys_logininfor`
     `msg`            varchar(255) DEFAULT '' COMMENT '提示消息',
     `login_time`     datetime     DEFAULT NULL COMMENT '访问时间',
     PRIMARY KEY (`info_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8 COMMENT='系统访问记录';
+) ENGINE=InnoDB AUTO_INCREMENT=163 DEFAULT CHARSET=utf8 COMMENT='系统访问记录';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,7 +355,56 @@ VALUES (100, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验
        (110, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-22 16:43:21'),
        (111, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', '2021-12-22 16:43:25'),
        (112, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-22 16:43:29'),
-       (113, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-22 16:43:36');
+       (113, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-22 16:43:36'),
+       (114, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-23 15:42:07'),
+       (115, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-23 16:43:58'),
+       (116, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-23 18:59:22'),
+       (117, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-23 18:59:27'),
+       (118, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-24 11:00:19'),
+       (119, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-24 11:00:28'),
+       (120, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-24 13:39:34'),
+       (121, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', '2021-12-24 18:03:21'),
+       (122, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-24 18:03:26'),
+       (123, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', '2021-12-26 14:04:20'),
+       (124, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', '2021-12-26 14:04:22'),
+       (125, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-26 14:04:26'),
+       (126, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-26 14:37:24'),
+       (127, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-26 15:36:25'),
+       (128, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-26 22:50:57'),
+       (129, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-26 22:51:05'),
+       (130, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-27 10:06:56'),
+       (131, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:49'),
+       (132, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:50'),
+       (133, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:50'),
+       (134, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:50'),
+       (135, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:50'),
+       (136, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:51'),
+       (137, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:51'),
+       (138, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:51'),
+       (139, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '0', '登录成功', '2021-12-27 10:37:51'),
+       (140, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 11:00:49'),
+       (141, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 11:00:49'),
+       (142, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-27 11:00:49'),
+       (143, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 13:39:46'),
+       (144, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-27 13:39:46'),
+       (145, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 15:13:18'),
+       (146, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 15:13:18'),
+       (147, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 15:13:18'),
+       (148, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-27 15:13:18'),
+       (149, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:32'),
+       (150, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:32'),
+       (151, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:33'),
+       (152, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:33'),
+       (153, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:33'),
+       (154, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-28 10:05:34'),
+       (155, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-28 11:21:31'),
+       (156, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28'),
+       (157, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28'),
+       (158, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28'),
+       (159, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28'),
+       (160, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28'),
+       (161, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:29'),
+       (162, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-28 13:06:29');
 /*!40000 ALTER TABLE `sys_logininfor` ENABLE KEYS */;
 UNLOCK
 TABLES;
@@ -384,12 +433,12 @@ CREATE TABLE `sys_menu`
     `perms`       varchar(100) DEFAULT NULL COMMENT '权限标识',
     `icon`        varchar(100) DEFAULT '#' COMMENT '菜单图标',
     `create_by`   varchar(64)  DEFAULT '' COMMENT '创建者',
-    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`   varchar(64)  DEFAULT '' COMMENT '更新者',
-    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+    `update_time` datetime     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`      varchar(500) DEFAULT '' COMMENT '备注',
     PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1061 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=1062 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -422,16 +471,16 @@ VALUES (1, '系统管理', 0, 1, 'system', NULL, '', 1, 0, 'M', '0', '0', '', 's
         'admin', '2021-11-22 09:57:54', '', NULL, '参数设置菜单'),
        (107, '通知公告', 1, 8, 'notice', 'system/notice/index', '', 1, 0, 'C', '0', '0', 'system:notice:list', 'message',
         'admin', '2021-11-22 09:57:54', '', NULL, '通知公告菜单'),
-       (108, '日志管理', 1, 9, 'log', '', '', 1, 0, 'M', '0', '0', '', 'log', 'admin', '2021-11-22 09:57:54', '', NULL,
-        '日志管理菜单'),
-       (109, '在线用户', 2, 1, 'online', 'monitor/online/index', '', 1, 0, 'C', '0', '0', 'monitor:online:list', 'online',
-        'admin', '2021-11-22 09:57:54', '', NULL, '在线用户菜单'),
+       (108, '日志管理', 1, 9, 'log', '', '', 1, 0, 'M', '1', '0', '', 'log', 'admin', '2021-11-22 09:57:54', 'admin',
+        '2021-12-28 13:21:19', '日志管理菜单'),
+       (109, '在线用户', 1, 11, 'online', 'monitor/online/index', '', 1, 0, 'C', '0', '0', 'monitor:online:list', 'online',
+        'admin', '2021-11-22 09:57:54', 'admin', '2021-12-28 13:22:30', '在线用户菜单'),
        (110, '定时任务', 2, 2, 'job', 'monitor/job/index', '', 1, 0, 'C', '0', '0', 'monitor:job:list', 'job', 'admin',
         '2021-11-22 09:57:54', '', NULL, '定时任务菜单'),
        (111, '数据监控', 2, 3, 'druid', 'monitor/druid/index', '', 1, 0, 'C', '0', '0', 'monitor:druid:list', 'druid',
         'admin', '2021-11-22 09:57:54', '', NULL, '数据监控菜单'),
-       (112, '服务监控', 2, 4, 'server', 'monitor/server/index', '', 1, 0, 'C', '0', '0', 'monitor:server:list', 'server',
-        'admin', '2021-11-22 09:57:54', '', NULL, '服务监控菜单'),
+       (112, '服务监控', 1, 12, 'server', 'monitor/server/index', '', 1, 0, 'C', '0', '0', 'monitor:server:list', 'server',
+        'admin', '2021-11-22 09:57:54', 'admin', '2021-12-28 13:23:01', '服务监控菜单'),
        (113, '缓存监控', 2, 5, 'cache', 'monitor/cache/index', '', 1, 0, 'C', '0', '0', 'monitor:cache:list', 'redis',
         'admin', '2021-11-22 09:57:54', '', NULL, '缓存监控菜单'),
        (114, '表单构建', 3, 1, 'build', 'tool/build/index', '', 1, 0, 'C', '0', '0', 'tool:build:list', 'build', 'admin',
@@ -440,10 +489,11 @@ VALUES (1, '系统管理', 0, 1, 'system', NULL, '', 1, 0, 'M', '0', '0', '', 's
         '2021-11-22 09:57:54', '', NULL, '代码生成菜单'),
        (116, '系统接口', 3, 3, 'swagger', 'tool/swagger/index', '', 1, 0, 'C', '0', '0', 'tool:swagger:list', 'swagger',
         'admin', '2021-11-22 09:57:54', '', NULL, '系统接口菜单'),
-       (500, '操作日志', 108, 1, 'operlog', 'monitor/operlog/index', '', 1, 0, 'C', '0', '0', 'monitor:operlog:list',
-        'form', 'admin', '2021-11-22 09:57:54', '', NULL, '操作日志菜单'),
-       (501, '登录日志', 108, 2, 'logininfor', 'monitor/logininfor/index', '', 1, 0, 'C', '0', '0',
-        'monitor:logininfor:list', 'logininfor', 'admin', '2021-11-22 09:57:54', '', NULL, '登录日志菜单'),
+       (500, '操作日志', 1, 9, 'operlog', 'monitor/operlog/index', '', 1, 0, 'C', '0', '0', 'monitor:operlog:list', 'form',
+        'admin', '2021-11-22 09:57:54', 'admin', '2021-12-28 13:20:26', '操作日志菜单'),
+       (501, '登录日志', 1, 10, 'logininfor', 'monitor/logininfor/index', '', 1, 0, 'C', '0', '0',
+        'monitor:logininfor:list', 'logininfor', 'admin', '2021-11-22 09:57:54', 'admin', '2021-12-28 13:21:10',
+        '登录日志菜单'),
        (1001, '用户查询', 100, 1, '', '', '', 1, 0, 'F', '0', '0', 'system:user:query', '#', 'admin', '2021-11-22 09:57:54',
         '', NULL, ''),
        (1002, '用户新增', 100, 2, '', '', '', 1, 0, 'F', '0', '0', 'system:user:add', '#', 'admin', '2021-11-22 09:57:54',
@@ -583,12 +633,12 @@ CREATE TABLE `sys_notice`
     `notice_content` longblob COMMENT '公告内容',
     `status`         char(1)      DEFAULT '0' COMMENT '公告状态（0正常 1关闭）',
     `create_by`      varchar(64)  DEFAULT '' COMMENT '创建者',
-    `create_time`    datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_time`    datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`      varchar(64)  DEFAULT '' COMMENT '更新者',
-    `update_time`    datetime     DEFAULT NULL COMMENT '更新时间',
+    `update_time`    datetime     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`         varchar(255) DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`notice_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='通知公告表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='通知公告表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -600,7 +650,10 @@ TABLES `sys_notice` WRITE;
 /*!40000 ALTER TABLE `sys_notice` DISABLE KEYS */;
 INSERT INTO `sys_notice`
 VALUES (1, '温馨提醒：2018-07-01 若依新版本发布啦', '2', _binary '新版本内容', '0', 'admin', '2021-11-22 09:57:56', '', NULL, '管理员'),
-       (2, '维护通知：2018-07-01 若依系统凌晨维护', '1', _binary '维护内容', '0', 'admin', '2021-11-22 09:57:56', '', NULL, '管理员');
+       (2, '维护通知：2018-07-01 若依系统凌晨维护', '1', _binary '维护内容', '0', 'admin', '2021-11-22 09:57:56', '', NULL, '管理员'),
+       (3, '123123123', '1',
+        _binary '<h1>3123123</h1><h2>3213123123213</h2><h5>31231313</h5><p><br></p><p><br></p><p><br></p><p>312312312das大三大四的</p>',
+        '0', 'admin', '2021-12-28 10:06:29', '', NULL, NULL);
 /*!40000 ALTER TABLE `sys_notice` ENABLE KEYS */;
 UNLOCK
 TABLES;
@@ -631,7 +684,7 @@ CREATE TABLE `sys_oper_log`
     `error_msg`      varchar(2000) DEFAULT '' COMMENT '错误消息',
     `oper_time`      datetime      DEFAULT NULL COMMENT '操作时间',
     PRIMARY KEY (`oper_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='操作日志记录';
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COMMENT='操作日志记录';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -641,6 +694,204 @@ CREATE TABLE `sys_oper_log`
 LOCK
 TABLES `sys_oper_log` WRITE;
 /*!40000 ALTER TABLE `sys_oper_log` DISABLE KEYS */;
+INSERT INTO `sys_oper_log`
+VALUES (1, '参数管理', 1, 'xin.altitude.cms.system.controller.SysConfigController.add()', 'POST', 1, 'admin', NULL,
+        '/system/config', '127.0.0.1', '内网IP',
+        '{\"configName\":\"2133\",\"configKey\":\"321321\",\"createBy\":\"admin\",\"remark\":\"312312\",\"configType\":\"Y\",\"configValue\":\"312321312\",\"params\":{}}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2021-12-23 18:59:42'),
+       (2, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/6', '127.0.0.1', '内网IP', '{configIds=6}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-23 19:01:17'),
+       (3, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/7', '127.0.0.1', '内网IP', '{configIds=7}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-23 19:01:31'),
+       (4, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/7', '127.0.0.1', '内网IP', '{configIds=7}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-23 19:10:45'),
+       (5, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/7', '127.0.0.1', '内网IP', '{configIds=7}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-23 19:11:59'),
+       (6, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/6', '127.0.0.1', '内网IP', '{configIds=6}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-23 19:13:57'),
+       (7, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/6', '127.0.0.1', '内网IP', '{configIds=6}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-23 19:16:30'),
+       (8, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/6', '127.0.0.1', '内网IP', '{configIds=6}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-23 19:22:30'),
+       (10, '参数管理', 1, 'xin.altitude.cms.system.controller.SysConfigController.add()', 'POST', 1, 'admin', NULL,
+        '/system/config', '127.0.0.1', '内网IP',
+        '{\"configName\":\"43214123421342\",\"configKey\":\"42314123412341234\",\"createBy\":\"admin\",\"configType\":\"Y\",\"configValue\":\"42314234123412341234\",\"params\":{}}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2021-12-23 19:30:53'),
+       (11, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/8', '127.0.0.1', '内网IP', '{configIds=8}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-23 19:30:58'),
+       (12, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/8', '127.0.0.1', '内网IP', '{configIds=8}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-23 19:32:44'),
+       (13, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/8', '127.0.0.1', '内网IP', '{configIds=8}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-24 11:00:38'),
+       (14, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/8', '127.0.0.1', '内网IP', '{configIds=8}', NULL, 1,
+        'Invalid bound statement (not found): xin.altitude.cms.system.mapper.SysConfigMapper.selectById',
+        '2021-12-24 11:01:38'),
+       (16, '参数管理', 2, 'xin.altitude.cms.system.controller.SysConfigController.edit()', 'PUT', 1, 'admin', NULL,
+        '/system/config', '127.0.0.1', '内网IP',
+        '{\"configName\":\"43214123421342\",\"configKey\":\"42314123412341234\",\"createBy\":\"admin\",\"updateBy\":\"admin\",\"configId\":8,\"configType\":\"N\",\"configValue\":\"42314234123412341234\",\"params\":{}}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2021-12-24 11:07:00'),
+       (17, '参数管理', 3, 'xin.altitude.cms.system.controller.SysConfigController.remove()', 'DELETE', 1, 'admin', NULL,
+        '/system/config/8', '127.0.0.1', '内网IP', '{configIds=8}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL,
+        '2021-12-24 11:07:05'),
+       (18, '操作日志', 3, 'xin.altitude.cms.monitor.SysOperlogController.remove()', 'DELETE', 1, 'admin', '',
+        '/monitor/operlog/9', '127.0.0.1', '内网IP', '{operIds=9}', '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (19, '操作日志', 3, 'xin.altitude.cms.monitor.SysOperlogController.remove()', 'DELETE', 1, 'admin', '',
+        '/monitor/operlog/15', '127.0.0.1', '内网IP', '{operIds=15}', '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (20, '操作日志', 5, 'xin.altitude.cms.monitor.SysOperlogController.export()', 'POST', 1, 'admin', '',
+        '/monitor/operlog/export', '127.0.0.1', '内网IP', '{\"params\":{}}', '', 0, '', NULL),
+       (21, '岗位管理', 1, 'xin.altitude.cms.system.controller.SysPostController.add()', 'POST', 1, 'admin', '',
+        '/system/post', '127.0.0.1', '内网IP',
+        '{\"postSort\":\"4\",\"flag\":false,\"remark\":\"12312312\",\"postId\":5,\"params\":{},\"createBy\":\"admin\",\"postName\":\"13212312312\",\"postCode\":\"311231231231231\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (22, '岗位管理', 2, 'xin.altitude.cms.system.controller.SysPostController.edit()', 'PUT', 1, 'admin', '',
+        '/system/post', '127.0.0.1', '内网IP',
+        '{\"postSort\":\"4\",\"flag\":false,\"remark\":\"12312312312312312312\",\"postId\":5,\"params\":{},\"createBy\":\"admin\",\"updateBy\":\"admin\",\"postName\":\"13212312312\",\"postCode\":\"311231231231231\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (23, '岗位管理', 3, 'xin.altitude.cms.system.controller.SysPostController.remove()', 'DELETE', 1, 'admin', '',
+        '/system/post/5', '127.0.0.1', '内网IP', '{postIds=5}', '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (24, '角色管理', 2, 'xin.altitude.cms.common.SysRoleController.edit()', 'PUT', 1, 'admin', '', '/system/role',
+        '127.0.0.1', '内网IP',
+        '{\"flag\":false,\"roleId\":2,\"admin\":false,\"remark\":\"普通角色\",\"dataScope\":\"2\",\"delFlag\":\"0\",\"params\":{},\"roleSort\":\"2\",\"deptCheckStrictly\":true,\"createTime\":1637546274000,\"updateBy\":\"admin\",\"menuCheckStrictly\":true,\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"menuIds\":[2,109,1046,1047,1048,110,1049,1050,1051,1052,1053,1054,111,112,113,3,114,115,1055,1056,1057,1058,1059,1060,116],\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (25, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":105,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"若依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '', 1, '', NULL),
+       (26, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":105,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"若依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '', 1, '', NULL),
+       (27, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":105,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"若依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (28, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":108,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"若依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (29, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":109,\"avatar\":\"\",\"dept\":{\"deptName\":\"市场部门\",\"leader\":\"若依\",\"deptId\":108,\"orderNum\":\"1\",\"params\":{},\"parentId\":102,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (30, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"avatar\":\"\",\"dept\":{\"deptName\":\"财务部门\",\"leader\":\"若依\",\"deptId\":109,\"orderNum\":\"2\",\"params\":{},\"parentId\":102,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (31, '用户管理', 1, 'xin.altitude.cms.system.controller.SysUserController.add()', 'POST', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"admin\":false,\"password\":\"$2a$10$/NiiCfVRKTr0ZY8gBRDa8OmeqlQpOnQKDT/18NbkMpbfZ3ACBm3VW\",\"postIds\":[],\"nickName\":\"321\",\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[],\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (32, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"phonenumber\":\"\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[],\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (33, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"phonenumber\":\"\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[1],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"dept\":{\"deptName\":\"若依科技\",\"leader\":\"若依\",\"deptId\":100,\"orderNum\":\"0\",\"delFlag\":\"0\",\"params\":{},\"parentId\":0,\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"phone\":\"15888888888\",\"updateBy\":\"\",\"ancestors\":\"0\",\"email\":\"ry@qq.com\",\"status\":\"0\"},\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[2],\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (34, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"phonenumber\":\"18511112222\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[1],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"dept\":{\"deptName\":\"若依科技\",\"leader\":\"若依\",\"deptId\":100,\"orderNum\":\"0\",\"delFlag\":\"0\",\"params\":{},\"parentId\":0,\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"phone\":\"15888888888\",\"updateBy\":\"\",\"ancestors\":\"0\",\"email\":\"ry@qq.com\",\"status\":\"0\"},\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[2],\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (35, '菜单管理', 1, 'xin.altitude.cms.system.controller.SysMenuController.add()', 'POST', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"orderNum\":\"6\",\"menuName\":\"AAAAA\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"/aaaaa\",\"createBy\":\"admin\",\"children\":[],\"isFrame\":\"1\",\"menuType\":\"M\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (36, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"icon\":\"#\",\"orderNum\":\"6\",\"menuName\":\"AAAAA\",\"params\":{},\"parentId\":0,\"isCache\":\"0\",\"path\":\"/aaaaa\",\"children\":[],\"createTime\":1640589239000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":1061,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (37, '菜单管理', 3, 'xin.altitude.cms.system.controller.SysMenuController.remove()', 'DELETE', 1, 'admin', '',
+        '/system/menu/1061', '127.0.0.1', '内网IP', '{menuId=1061}', '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (38, '通知公告', 1, 'xin.altitude.cms.system.controller.SysNoticeController.add()', 'POST', 1, 'admin', '',
+        '/system/notice', '127.0.0.1', '内网IP',
+        '{\"noticeContent\":\"<h1>3123123</h1><h2>3213123123213</h2><h5>31231313</h5><p><br></p><p><br></p><p><br></p><p>312312312das大三大四的</p>\",\"createBy\":\"admin\",\"noticeType\":\"1\",\"params\":{},\"noticeId\":3,\"noticeTitle\":\"123123123\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (39, '角色管理', 1, 'xin.altitude.cms.common.SysRoleController.add()', 'POST', 1, 'admin', '', '/system/role',
+        '127.0.0.1', '内网IP',
+        '{\"flag\":false,\"roleId\":3,\"admin\":false,\"params\":{},\"roleSort\":\"3\",\"deptCheckStrictly\":true,\"createBy\":\"admin\",\"menuCheckStrictly\":true,\"roleKey\":\"31231231313123131231312\",\"roleName\":\"32112312312312\",\"deptIds\":[],\"menuIds\":[1,100,1001,1002,1003,1004,1005,1006,1007,101,1008,1009,1010,1011,1012,102,1013,1014,1015,1016,103,1017,1018,1019,1020,104,1021,1022,1023,1024,1025,105,1026,1027,1028,1029,1030,106,1031,1032,1033,1034,1035,107,1036,1037,1038,1039,108,500,1040,1041,1042,501,1043,1044,1045],\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (40, '角色管理', 4, 'xin.altitude.cms.common.SysRoleController.selectAuthUserAll()', 'PUT', 1, 'admin', '',
+        '/system/role/authUser/selectAll', '127.0.0.1', '内网IP', '3 [3]', '{\"msg\":\"操作成功\",\"code\":200}', 0, '',
+        NULL),
+       (41, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
+        '/system/user', '127.0.0.1', '内网IP',
+        '{\"phonenumber\":\"18511112222\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[1],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"dept\":{\"deptName\":\"若依科技\",\"leader\":\"若依\",\"deptId\":100,\"orderNum\":\"0\",\"delFlag\":\"0\",\"params\":{},\"parentId\":0,\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"phone\":\"15888888888\",\"updateBy\":\"\",\"ancestors\":\"0\",\"email\":\"ry@qq.com\",\"status\":\"0\"},\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[3],\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (42, '字典类型', 9, 'xin.altitude.cms.system.controller.SysDictTypeController.refreshCache()', 'DELETE', 1, 'admin',
+        '', '/system/dict/type/refreshCache', '127.0.0.1', '内网IP', '{}', '{\"msg\":\"操作成功\",\"code\":200}', 0, '',
+        NULL),
+       (43, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"form\",\"orderNum\":\"9\",\"menuName\":\"操作日志\",\"remark\":\"操作日志菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"operlog\",\"component\":\"monitor/operlog/index\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":500,\"menuType\":\"C\",\"perms\":\"monitor:operlog:list\",\"status\":\"0\"}',
+        '', 1,
+        'nested exception is org.apache.ibatis.exceptions.PersistenceException: \n### Error updating database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?\n### The error may exist in xin/altitude/cms/system/mapper/SysMenuMapper.java (best guess)\n### The error may involve xin.altitude.cms.system.mapper.SysMenuMapper.updateById\n### The error occurred while executing an update\n### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?',
+        NULL),
+       (44, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"form\",\"orderNum\":\"9\",\"menuName\":\"操作日志\",\"remark\":\"操作日志菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"operlog\",\"component\":\"monitor/operlog/index\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":500,\"menuType\":\"C\",\"perms\":\"monitor:operlog:list\",\"status\":\"0\"}',
+        '', 1,
+        'nested exception is org.apache.ibatis.exceptions.PersistenceException: \n### Error updating database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?\n### The error may exist in xin/altitude/cms/system/mapper/SysMenuMapper.java (best guess)\n### The error may involve xin.altitude.cms.system.mapper.SysMenuMapper.updateById\n### The error occurred while executing an update\n### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?',
+        NULL),
+       (45, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"form\",\"orderNum\":\"9\",\"menuName\":\"操作日志\",\"remark\":\"操作日志菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"operlog\",\"component\":\"monitor/operlog/index\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":500,\"menuType\":\"C\",\"perms\":\"monitor:operlog:list\",\"status\":\"0\"}',
+        '', 1,
+        'nested exception is org.apache.ibatis.exceptions.PersistenceException: \n### Error updating database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?\n### The error may exist in xin/altitude/cms/system/mapper/SysMenuMapper.java (best guess)\n### The error may involve xin.altitude.cms.system.mapper.SysMenuMapper.updateById\n### The error occurred while executing an update\n### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?',
+        NULL),
+       (46, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"form\",\"orderNum\":\"9\",\"menuName\":\"操作日志\",\"remark\":\"操作日志菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"operlog\",\"component\":\"monitor/operlog/index\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":500,\"menuType\":\"C\",\"perms\":\"monitor:operlog:list\",\"status\":\"0\"}',
+        '', 1,
+        'nested exception is org.apache.ibatis.exceptions.PersistenceException: \n### Error updating database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?\n### The error may exist in xin/altitude/cms/system/mapper/SysMenuMapper.java (best guess)\n### The error may involve xin.altitude.cms.system.mapper.SysMenuMapper.updateById\n### The error occurred while executing an update\n### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?',
+        NULL),
+       (47, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"form\",\"orderNum\":\"9\",\"menuName\":\"操作日志\",\"remark\":\"操作日志菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"operlog\",\"component\":\"monitor/operlog/index\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":500,\"menuType\":\"C\",\"perms\":\"monitor:operlog:list\",\"status\":\"0\"}',
+        '', 1,
+        'nested exception is org.apache.ibatis.exceptions.PersistenceException: \n### Error updating database.  Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?\n### The error may exist in xin/altitude/cms/system/mapper/SysMenuMapper.java (best guess)\n### The error may involve xin.altitude.cms.system.mapper.SysMenuMapper.updateById\n### The error occurred while executing an update\n### Cause: com.baomidou.mybatisplus.core.exceptions.MybatisPlusException: Failed to process, Error SQL: UPDATE sys_menu  SET menu_name=?,\nparent_id=?,\norder_num=?,\npath=?,\ncomponent=?,\nquery=?,\nis_frame=?,\nis_cache=?,\nmenu_type=?,\nvisible=?,\nstatus=?,\nperms=?,\nicon=?,\ncreate_by=?,\ncreate_time=?,\nupdate_by=?,\n\nremark=?  WHERE menu_id=?',
+        NULL),
+       (48, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"form\",\"orderNum\":\"9\",\"menuName\":\"操作日志\",\"remark\":\"操作日志菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"operlog\",\"component\":\"monitor/operlog/index\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":500,\"menuType\":\"C\",\"perms\":\"monitor:operlog:list\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (49, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"logininfor\",\"orderNum\":\"10\",\"menuName\":\"登录日志\",\"remark\":\"登录日志菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"logininfor\",\"component\":\"monitor/logininfor/index\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":501,\"menuType\":\"C\",\"perms\":\"monitor:logininfor:list\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (50, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"1\",\"query\":\"\",\"icon\":\"log\",\"orderNum\":\"9\",\"menuName\":\"日志管理\",\"remark\":\"日志管理菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"log\",\"component\":\"\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":108,\"menuType\":\"M\",\"perms\":\"\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (51, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"online\",\"orderNum\":\"11\",\"menuName\":\"在线用户\",\"remark\":\"在线用户菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"online\",\"component\":\"monitor/online/index\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":109,\"menuType\":\"C\",\"perms\":\"monitor:online:list\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL),
+       (52, '菜单管理', 2, 'xin.altitude.cms.system.controller.SysMenuController.edit()', 'PUT', 1, 'admin', '',
+        '/system/menu', '127.0.0.1', '内网IP',
+        '{\"visible\":\"0\",\"query\":\"\",\"icon\":\"server\",\"orderNum\":\"12\",\"menuName\":\"服务监控\",\"remark\":\"服务监控菜单\",\"params\":{},\"parentId\":1,\"isCache\":\"0\",\"path\":\"server\",\"component\":\"monitor/server/index\",\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"updateBy\":\"admin\",\"isFrame\":\"1\",\"menuId\":112,\"menuType\":\"C\",\"perms\":\"monitor:server:list\",\"status\":\"0\"}',
+        '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL);
 /*!40000 ALTER TABLE `sys_oper_log` ENABLE KEYS */;
 UNLOCK
 TABLES;
@@ -660,9 +911,9 @@ CREATE TABLE `sys_post`
     `post_sort`   int(4) NOT NULL COMMENT '显示顺序',
     `status`      char(1)     NOT NULL COMMENT '状态（0正常 1停用）',
     `create_by`   varchar(64)  DEFAULT '' COMMENT '创建者',
-    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`   varchar(64)  DEFAULT '' COMMENT '更新者',
-    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+    `update_time` datetime     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`      varchar(500) DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`post_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='岗位信息表';
@@ -703,12 +954,12 @@ CREATE TABLE `sys_role`
     `status`              char(1)      NOT NULL COMMENT '角色状态（0正常 1停用）',
     `del_flag`            char(1)      DEFAULT '0' COMMENT '删除标志（0代表存在 2代表删除）',
     `create_by`           varchar(64)  DEFAULT '' COMMENT '创建者',
-    `create_time`         datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_time`         datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`           varchar(64)  DEFAULT '' COMMENT '更新者',
-    `update_time`         datetime     DEFAULT NULL COMMENT '更新时间',
+    `update_time`         datetime     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`              varchar(500) DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`role_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='角色信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='角色信息表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -720,7 +971,10 @@ TABLES `sys_role` WRITE;
 /*!40000 ALTER TABLE `sys_role` DISABLE KEYS */;
 INSERT INTO `sys_role`
 VALUES (1, '超级管理员', 'admin', 1, '1', 1, 1, '0', '0', 'admin', '2021-11-22 09:57:54', '', NULL, '超级管理员'),
-       (2, '普通角色', 'common', 2, '2', 1, 1, '0', '0', 'admin', '2021-11-22 09:57:54', '', NULL, '普通角色');
+       (2, '普通角色', 'common', 2, '2', 1, 1, '0', '0', 'admin', '2021-11-22 09:57:54', 'admin', '2021-12-26 16:13:12',
+        '普通角色'),
+       (3, '32112312312312', '31231231313123131231312', 3, '1', 1, 1, '0', '0', 'admin', '2021-12-28 11:22:33', '',
+        NULL, NULL);
 /*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
 UNLOCK
 TABLES;
@@ -777,7 +1031,7 @@ CREATE TABLE `sys_role_menu`
     KEY       `menu_id` (`menu_id`),
     CONSTRAINT `sys_role_menu_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `sys_role_menu_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `sys_menu` (`menu_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8 COMMENT='角色和菜单关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -788,88 +1042,88 @@ LOCK
 TABLES `sys_role_menu` WRITE;
 /*!40000 ALTER TABLE `sys_role_menu` DISABLE KEYS */;
 INSERT INTO `sys_role_menu`
-VALUES (1, 2, 1),
-       (2, 2, 2),
-       (3, 2, 3),
-       (5, 2, 100),
-       (6, 2, 101),
-       (7, 2, 102),
-       (8, 2, 103),
-       (9, 2, 104),
-       (10, 2, 105),
-       (11, 2, 106),
-       (12, 2, 107),
-       (13, 2, 108),
-       (14, 2, 109),
-       (15, 2, 110),
-       (16, 2, 111),
-       (17, 2, 112),
-       (18, 2, 113),
-       (19, 2, 114),
-       (20, 2, 115),
-       (21, 2, 116),
-       (22, 2, 500),
-       (23, 2, 501),
-       (25, 2, 1001),
-       (26, 2, 1002),
-       (27, 2, 1003),
-       (28, 2, 1004),
-       (29, 2, 1005),
-       (30, 2, 1006),
-       (31, 2, 1007),
-       (32, 2, 1008),
-       (33, 2, 1009),
-       (34, 2, 1010),
-       (35, 2, 1011),
-       (36, 2, 1012),
-       (37, 2, 1013),
-       (38, 2, 1014),
-       (39, 2, 1015),
-       (40, 2, 1016),
-       (41, 2, 1017),
-       (42, 2, 1018),
-       (43, 2, 1019),
-       (44, 2, 1020),
-       (45, 2, 1021),
-       (46, 2, 1022),
-       (47, 2, 1023),
-       (48, 2, 1024),
-       (49, 2, 1025),
-       (50, 2, 1026),
-       (51, 2, 1027),
-       (52, 2, 1028),
-       (53, 2, 1029),
-       (54, 2, 1030),
-       (55, 2, 1031),
-       (56, 2, 1032),
-       (57, 2, 1033),
-       (58, 2, 1034),
-       (59, 2, 1035),
-       (60, 2, 1036),
-       (61, 2, 1037),
-       (62, 2, 1038),
-       (63, 2, 1039),
-       (64, 2, 1040),
-       (65, 2, 1041),
-       (66, 2, 1042),
-       (67, 2, 1043),
-       (68, 2, 1044),
-       (69, 2, 1045),
-       (70, 2, 1046),
-       (71, 2, 1047),
-       (72, 2, 1048),
-       (73, 2, 1049),
-       (74, 2, 1050),
-       (75, 2, 1051),
-       (76, 2, 1052),
-       (77, 2, 1053),
-       (78, 2, 1054),
-       (79, 2, 1055),
-       (80, 2, 1056),
-       (81, 2, 1057),
-       (82, 2, 1058),
-       (83, 2, 1059),
-       (84, 2, 1060);
+VALUES (85, 2, 2),
+       (100, 2, 3),
+       (86, 2, 109),
+       (90, 2, 110),
+       (97, 2, 111),
+       (98, 2, 112),
+       (99, 2, 113),
+       (101, 2, 114),
+       (102, 2, 115),
+       (109, 2, 116),
+       (87, 2, 1046),
+       (88, 2, 1047),
+       (89, 2, 1048),
+       (91, 2, 1049),
+       (92, 2, 1050),
+       (93, 2, 1051),
+       (94, 2, 1052),
+       (95, 2, 1053),
+       (96, 2, 1054),
+       (103, 2, 1055),
+       (104, 2, 1056),
+       (105, 2, 1057),
+       (106, 2, 1058),
+       (107, 2, 1059),
+       (108, 2, 1060),
+       (110, 3, 1),
+       (111, 3, 100),
+       (119, 3, 101),
+       (125, 3, 102),
+       (130, 3, 103),
+       (135, 3, 104),
+       (141, 3, 105),
+       (147, 3, 106),
+       (153, 3, 107),
+       (158, 3, 108),
+       (159, 3, 500),
+       (163, 3, 501),
+       (112, 3, 1001),
+       (113, 3, 1002),
+       (114, 3, 1003),
+       (115, 3, 1004),
+       (116, 3, 1005),
+       (117, 3, 1006),
+       (118, 3, 1007),
+       (120, 3, 1008),
+       (121, 3, 1009),
+       (122, 3, 1010),
+       (123, 3, 1011),
+       (124, 3, 1012),
+       (126, 3, 1013),
+       (127, 3, 1014),
+       (128, 3, 1015),
+       (129, 3, 1016),
+       (131, 3, 1017),
+       (132, 3, 1018),
+       (133, 3, 1019),
+       (134, 3, 1020),
+       (136, 3, 1021),
+       (137, 3, 1022),
+       (138, 3, 1023),
+       (139, 3, 1024),
+       (140, 3, 1025),
+       (142, 3, 1026),
+       (143, 3, 1027),
+       (144, 3, 1028),
+       (145, 3, 1029),
+       (146, 3, 1030),
+       (148, 3, 1031),
+       (149, 3, 1032),
+       (150, 3, 1033),
+       (151, 3, 1034),
+       (152, 3, 1035),
+       (154, 3, 1036),
+       (155, 3, 1037),
+       (156, 3, 1038),
+       (157, 3, 1039),
+       (160, 3, 1040),
+       (161, 3, 1041),
+       (162, 3, 1042),
+       (164, 3, 1043),
+       (165, 3, 1044),
+       (166, 3, 1045);
 /*!40000 ALTER TABLE `sys_role_menu` ENABLE KEYS */;
 UNLOCK
 TABLES;
@@ -898,14 +1152,14 @@ CREATE TABLE `sys_user`
     `login_ip`    varchar(128) DEFAULT '' COMMENT '最后登录IP',
     `login_date`  datetime     DEFAULT NULL COMMENT '最后登录时间',
     `create_by`   varchar(64)  DEFAULT '' COMMENT '创建者',
-    `create_time` datetime     DEFAULT NULL COMMENT '创建时间',
+    `create_time` datetime     DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
     `update_by`   varchar(64)  DEFAULT '' COMMENT '更新者',
-    `update_time` datetime     DEFAULT NULL COMMENT '更新时间',
+    `update_time` datetime     DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
     `remark`      varchar(500) DEFAULT NULL COMMENT '备注',
     PRIMARY KEY (`user_id`),
     KEY           `dept_id` (`dept_id`),
     CONSTRAINT `sys_user_ibfk_1` FOREIGN KEY (`dept_id`) REFERENCES `sys_dept` (`dept_id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -917,11 +1171,13 @@ TABLES `sys_user` WRITE;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user`
 VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '',
-        '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2021-12-22 16:43:37',
-        'admin', '2021-11-22 09:57:54', '', '2021-12-22 16:43:36', '管理员'),
-       (2, 105, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '1', '',
+        '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2021-12-28 13:06:30',
+        'admin', '2021-11-22 09:57:54', '', '2021-12-28 13:06:29', '管理员'),
+       (2, 109, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '0', '',
         '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2021-11-22 09:57:54',
-        'admin', '2021-11-22 09:57:54', '', NULL, '测试员');
+        'admin', '2021-11-22 09:57:54', 'admin', '2021-12-26 23:35:50', '测试员'),
+       (3, 100, '32131233', '321', '00', '', '18511112222', '0', '', '', '0', '0', '', NULL, 'admin', NULL, 'admin',
+        NULL, NULL);
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 UNLOCK
 TABLES;
@@ -943,7 +1199,7 @@ CREATE TABLE `sys_user_post`
     KEY       `post_id` (`post_id`),
     CONSTRAINT `sys_user_post_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `sys_user_post_ibfk_2` FOREIGN KEY (`post_id`) REFERENCES `sys_post` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户与岗位关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户与岗位关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -955,7 +1211,8 @@ TABLES `sys_user_post` WRITE;
 /*!40000 ALTER TABLE `sys_user_post` DISABLE KEYS */;
 INSERT INTO `sys_user_post`
 VALUES (1, 1, 1),
-       (2, 2, 2);
+       (6, 2, 2),
+       (9, 3, 1);
 /*!40000 ALTER TABLE `sys_user_post` ENABLE KEYS */;
 UNLOCK
 TABLES;
@@ -977,7 +1234,7 @@ CREATE TABLE `sys_user_role`
     KEY       `role_id` (`role_id`),
     CONSTRAINT `sys_user_role_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `sys_user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `sys_user_role_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `sys_role` (`role_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='用户和角色关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='用户和角色关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -989,7 +1246,8 @@ TABLES `sys_user_role` WRITE;
 /*!40000 ALTER TABLE `sys_user_role` DISABLE KEYS */;
 INSERT INTO `sys_user_role`
 VALUES (1, 1, 1),
-       (2, 2, 2);
+       (6, 2, 2),
+       (10, 3, 3);
 /*!40000 ALTER TABLE `sys_user_role` ENABLE KEYS */;
 UNLOCK
 TABLES;
@@ -1003,4 +1261,4 @@ TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-12-22 17:04:17
+-- Dump completed on 2021-12-28 15:07:12

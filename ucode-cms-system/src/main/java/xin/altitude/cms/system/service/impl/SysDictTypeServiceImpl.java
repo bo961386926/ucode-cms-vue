@@ -9,7 +9,6 @@ import xin.altitude.cms.common.constant.UserConstants;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
 import xin.altitude.cms.common.core.domain.entity.SysDictType;
 import xin.altitude.cms.common.exception.ServiceException;
-import xin.altitude.cms.common.util.DictUtils;
 import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.system.mapper.SysDictTypeMapper;
 import xin.altitude.cms.system.service.ISysDictDataService;
@@ -71,17 +70,17 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
      */
     @Override
     public List<SysDictData> selectDictDataByType(String dictType) {
-        List<SysDictData> dictDatas = DictUtils.getDictCache(dictType);
-        if (StringUtils.isNotEmpty(dictDatas)) {
-            return dictDatas;
-        }
+        // List<SysDictData> dictDatas = DictUtils.getDictCache(dictType);
+        // if (StringUtils.isNotEmpty(dictDatas)) {
+        //     return dictDatas;
+        // }
         // dictDatas = dictDataMapper.selectDictDataByType(dictType);
-        dictDatas = sysDictDataService.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType));
-        if (StringUtils.isNotEmpty(dictDatas)) {
-            DictUtils.setDictCache(dictType, dictDatas);
-            return dictDatas;
-        }
-        return null;
+        return sysDictDataService.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType));
+        // if (StringUtils.isNotEmpty(dictDatas)) {
+        //     DictUtils.setDictCache(dictType, dictDatas);
+        //     return dictDatas;
+        // }
+        // return null;
     }
     
     /**
@@ -125,7 +124,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
             }
             // dictTypeMapper.deleteDictTypeById(dictId);
             removeById(dictId);
-            DictUtils.removeDictCache(dictType.getDictType());
+            // DictUtils.removeDictCache(dictType.getDictType());
         }
     }
     
@@ -139,7 +138,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         for (SysDictType dictType : dictTypeList) {
             // List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dictType.getDictType());
             List<SysDictData> dictDatas = sysDictDataService.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType.getDictType()));
-            DictUtils.setDictCache(dictType.getDictType(), dictDatas);
+            // DictUtils.setDictCache(dictType.getDictType(), dictDatas);
         }
     }
     
@@ -148,7 +147,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
      */
     @Override
     public void clearDictCache() {
-        DictUtils.clearDictCache();
+        // DictUtils.clearDictCache();
     }
     
     /**
@@ -171,7 +170,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         // int row = dictTypeMapper.insertDictType(dict);
         boolean row = save(dict);
         if (row) {
-            DictUtils.setDictCache(dict.getDictType(), null);
+            // DictUtils.setDictCache(dict.getDictType(), null);
         }
         return row;
     }
@@ -195,7 +194,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         if (row) {
             // List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dict.getDictType());
             List<SysDictData> dictDatas = sysDictDataService.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dict.getDictType()));
-            DictUtils.setDictCache(dict.getDictType(), dictDatas);
+            // DictUtils.setDictCache(dict.getDictType(), dictDatas);
         }
         return row;
     }

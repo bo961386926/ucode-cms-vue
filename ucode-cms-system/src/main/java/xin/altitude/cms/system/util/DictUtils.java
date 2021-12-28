@@ -1,9 +1,12 @@
-package xin.altitude.cms.common.util;
+package xin.altitude.cms.system.util;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
 import xin.altitude.cms.common.core.redis.RedisCache;
+import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.common.util.spring.SpringUtils;
+import xin.altitude.cms.system.service.ISysDictDataService;
 
 import java.util.Collection;
 import java.util.List;
@@ -38,8 +41,7 @@ public class DictUtils {
     public static List<SysDictData> getDictCache(String key) {
         Object cacheObj = SpringUtils.getBean(RedisCache.class).getCacheObject(getCacheKey(key));
         if (StringUtils.isNotNull(cacheObj)) {
-            List<SysDictData> dictDatas = StringUtils.cast(cacheObj);
-            return dictDatas;
+            return StringUtils.cast(cacheObj);
         }
         return null;
     }
@@ -76,13 +78,14 @@ public class DictUtils {
      */
     public static String getDictLabel(String dictType, String dictValue, String separator) {
         StringBuilder propertyString = new StringBuilder();
-        List<SysDictData> datas = getDictCache(dictType);
-        
+        // List<SysDictData> datas = getDictCache(dictType);
+        ISysDictDataService service = SpringUtils.getBean(ISysDictDataService.class);
+        List<SysDictData> datas = service.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType));
         if (StringUtils.containsAny(separator, dictValue) && StringUtils.isNotEmpty(datas)) {
             for (SysDictData dict : datas) {
                 for (String value : dictValue.split(separator)) {
                     if (value.equals(dict.getDictValue())) {
-                        propertyString.append(dict.getDictLabel() + separator);
+                        propertyString.append(dict.getDictLabel()).append(separator);
                         break;
                     }
                 }
@@ -107,13 +110,14 @@ public class DictUtils {
      */
     public static String getDictValue(String dictType, String dictLabel, String separator) {
         StringBuilder propertyString = new StringBuilder();
-        List<SysDictData> datas = getDictCache(dictType);
-        
+        // List<SysDictData> datas = getDictCache(dictType);
+        ISysDictDataService service = SpringUtils.getBean(ISysDictDataService.class);
+        List<SysDictData> datas = service.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType));
         if (StringUtils.containsAny(separator, dictLabel) && StringUtils.isNotEmpty(datas)) {
             for (SysDictData dict : datas) {
                 for (String label : dictLabel.split(separator)) {
                     if (label.equals(dict.getDictLabel())) {
-                        propertyString.append(dict.getDictValue() + separator);
+                        propertyString.append(dict.getDictValue()).append(separator);
                         break;
                     }
                 }

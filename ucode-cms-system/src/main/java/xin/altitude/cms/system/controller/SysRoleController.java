@@ -1,4 +1,4 @@
-package xin.altitude.cms.common;
+package xin.altitude.cms.system.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

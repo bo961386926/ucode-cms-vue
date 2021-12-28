@@ -1,5 +1,7 @@
 package xin.altitude.cms.monitor;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +13,6 @@ import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.common.annotation.Log;
 import xin.altitude.cms.common.constant.enums.BusinessType;
 import xin.altitude.cms.common.core.domain.AjaxResult;
-import xin.altitude.cms.common.core.page.TableDataInfo;
 import xin.altitude.cms.system.domain.SysOperLog;
 import xin.altitude.cms.system.service.ISysOperLogService;
 import xin.altitude.cms.system.util.ExcelUtil;
@@ -32,10 +33,11 @@ public class SysOperlogController extends BaseController {
     
     // @PreAuthorize("@ss.hasPermi('monitor:operlog:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysOperLog operLog) {
-        startPage();
-        List<SysOperLog> list = operLogService.selectOperLogList(operLog);
-        return getDataTable(list);
+    public AjaxResult list(Page<SysOperLog> page, SysOperLog operLog) {
+        // startPage();
+        // List<SysOperLog> list = operLogService.selectOperLogList(operLog);
+        // return getDataTable(list);
+        return AjaxResult.success(operLogService.page(page, Wrappers.lambdaQuery(operLog)));
     }
     
     @Log(title = "操作日志", businessType = BusinessType.EXPORT)

@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +18,6 @@ import xin.altitude.cms.common.constant.UserConstants;
 import xin.altitude.cms.common.constant.enums.BusinessType;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.domain.entity.SysDictType;
-import xin.altitude.cms.common.core.page.TableDataInfo;
 import xin.altitude.cms.system.service.ISysDictTypeService;
 import xin.altitude.cms.system.util.ExcelUtil;
 
@@ -36,10 +37,12 @@ public class SysDictTypeController extends BaseController {
     
     // @PreAuthorize("@ss.hasPermi('system:dict:list')")
     @GetMapping("/list")
-    public TableDataInfo list(SysDictType dictType) {
-        startPage();
-        List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
-        return getDataTable(list);
+    public AjaxResult list(Page<SysDictType> page, SysDictType dictType) {
+        // startPage();
+        // List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
+        // return getDataTable(list);
+        
+        return AjaxResult.success(dictTypeService.page(page, Wrappers.lambdaQuery(dictType)));
     }
     
     @Log(title = "字典类型", businessType = BusinessType.EXPORT)

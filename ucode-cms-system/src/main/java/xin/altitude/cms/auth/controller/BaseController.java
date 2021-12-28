@@ -1,7 +1,6 @@
 package xin.altitude.cms.auth.controller;
 
 import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.WebDataBinder;
@@ -76,8 +75,9 @@ public class BaseController {
         TableDataInfo rspData = new TableDataInfo();
         rspData.setCode(HttpStatus.SUCCESS);
         rspData.setMsg("查询成功");
-        rspData.setRows(list);
-        rspData.setTotal(new PageInfo(list).getTotal());
+        rspData.setData(new TableDataInfo.DataBody(list, list.size()));
+        // rspData.setRows(list);
+        // rspData.setTotal(new PageInfo(list).getTotal());
         return rspData;
     }
     

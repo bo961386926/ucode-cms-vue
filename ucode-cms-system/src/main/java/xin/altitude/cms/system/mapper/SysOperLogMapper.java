@@ -1,7 +1,9 @@
 package xin.altitude.cms.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.cache.decorators.ScheduledCache;
 import xin.altitude.cms.system.domain.SysOperLog;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.List;
  * @author ucode
  */
 @Mapper
+@CacheNamespace(eviction = ScheduledCache.class, blocking = true, flushInterval = 86400 * 1000)
 public interface SysOperLogMapper extends BaseMapper<SysOperLog> {
     /**
      * 新增操作日志

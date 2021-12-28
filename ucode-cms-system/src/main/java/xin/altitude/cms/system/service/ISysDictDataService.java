@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public interface ISysDictDataService {
+public interface ISysDictDataService extends IService<SysDictData> {
     /**
      * 根据条件分页查询字典数据
      *

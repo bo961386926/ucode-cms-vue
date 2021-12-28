@@ -1,5 +1,8 @@
 package xin.altitude.cms.common.core.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -15,12 +18,14 @@ import java.util.Date;
  *
  * @author ucode
  */
+@TableName("sys_dict_type")
 public class SysDictType extends BaseEntity {
     private static final long serialVersionUID = 1L;
     
     /**
      * 字典主键
      */
+    @TableId(type = IdType.AUTO)
     @Excel(name = "字典主键", cellType = Excel.ColumnType.NUMERIC)
     private Long dictId;
     

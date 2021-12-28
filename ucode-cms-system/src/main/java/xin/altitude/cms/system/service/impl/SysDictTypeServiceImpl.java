@@ -1,5 +1,7 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,8 +11,8 @@ import xin.altitude.cms.common.core.domain.entity.SysDictType;
 import xin.altitude.cms.common.exception.ServiceException;
 import xin.altitude.cms.common.util.DictUtils;
 import xin.altitude.cms.common.util.StringUtils;
-import xin.altitude.cms.system.mapper.SysDictDataMapper;
 import xin.altitude.cms.system.mapper.SysDictTypeMapper;
+import xin.altitude.cms.system.service.ISysDictDataService;
 import xin.altitude.cms.system.service.ISysDictTypeService;
 
 import java.util.List;
@@ -21,12 +23,14 @@ import java.util.List;
  * @author ucode
  */
 @Service
-public class SysDictTypeServiceImpl implements ISysDictTypeService {
-    @Autowired
-    private SysDictTypeMapper dictTypeMapper;
+public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDictType> implements ISysDictTypeService {
+    // @Autowired
+    // private SysDictTypeMapper dictTypeMapper;
     
+    // @Autowired
+    // private SysDictDataMapper dictDataMapper;
     @Autowired
-    private SysDictDataMapper dictDataMapper;
+    private ISysDictDataService sysDictDataService;
     
     /**
      * 项目启动时，初始化字典到缓存
@@ -44,7 +48,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public List<SysDictType> selectDictTypeList(SysDictType dictType) {
-        return dictTypeMapper.selectDictTypeList(dictType);
+        // return dictTypeMapper.selectDictTypeList(dictType);
+        return list(Wrappers.lambdaQuery(dictType));
     }
     
     /**
@@ -54,7 +59,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public List<SysDictType> selectDictTypeAll() {
-        return dictTypeMapper.selectDictTypeAll();
+        // return dictTypeMapper.selectDictTypeAll();
+        return list(Wrappers.lambdaQuery());
     }
     
     /**
@@ -69,7 +75,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
         if (StringUtils.isNotEmpty(dictDatas)) {
             return dictDatas;
         }
-        dictDatas = dictDataMapper.selectDictDataByType(dictType);
+        // dictDatas = dictDataMapper.selectDictDataByType(dictType);
+        dictDatas = sysDictDataService.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType));
         if (StringUtils.isNotEmpty(dictDatas)) {
             DictUtils.setDictCache(dictType, dictDatas);
             return dictDatas;
@@ -85,7 +92,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public SysDictType selectDictTypeById(Long dictId) {
-        return dictTypeMapper.selectDictTypeById(dictId);
+        // return dictTypeMapper.selectDictTypeById(dictId);
+        return getById(dictId);
     }
     
     /**
@@ -96,7 +104,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public SysDictType selectDictTypeByType(String dictType) {
-        return dictTypeMapper.selectDictTypeByType(dictType);
+        // return dictTypeMapper.selectDictTypeByType(dictType);
+        return getOne(Wrappers.lambdaQuery(SysDictType.class).eq(SysDictType::getDictType, dictType));
     }
     
     /**
@@ -109,10 +118,13 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     public void deleteDictTypeByIds(Long[] dictIds) {
         for (Long dictId : dictIds) {
             SysDictType dictType = selectDictTypeById(dictId);
-            if (dictDataMapper.countDictDataByType(dictType.getDictType()) > 0) {
+            // int count = dictDataMapper.countDictDataByType(dictType.getDictType());
+            long count = sysDictDataService.count(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType.getDictType()));
+            if (count > 0) {
                 throw new ServiceException(String.format("%1$s已分配,不能删除", dictType.getDictName()));
             }
-            dictTypeMapper.deleteDictTypeById(dictId);
+            // dictTypeMapper.deleteDictTypeById(dictId);
+            removeById(dictId);
             DictUtils.removeDictCache(dictType.getDictType());
         }
     }
@@ -122,9 +134,11 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     public void loadingDictCache() {
-        List<SysDictType> dictTypeList = dictTypeMapper.selectDictTypeAll();
+        // List<SysDictType> dictTypeList = dictTypeMapper.selectDictTypeAll();
+        List<SysDictType> dictTypeList = list();
         for (SysDictType dictType : dictTypeList) {
-            List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dictType.getDictType());
+            // List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dictType.getDictType());
+            List<SysDictData> dictDatas = sysDictDataService.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType.getDictType()));
             DictUtils.setDictCache(dictType.getDictType(), dictDatas);
         }
     }
@@ -153,9 +167,10 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      * @return 结果
      */
     @Override
-    public int insertDictType(SysDictType dict) {
-        int row = dictTypeMapper.insertDictType(dict);
-        if (row > 0) {
+    public boolean insertDictType(SysDictType dict) {
+        // int row = dictTypeMapper.insertDictType(dict);
+        boolean row = save(dict);
+        if (row) {
             DictUtils.setDictCache(dict.getDictType(), null);
         }
         return row;
@@ -169,12 +184,17 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
      */
     @Override
     @Transactional
-    public int updateDictType(SysDictType dict) {
-        SysDictType oldDict = dictTypeMapper.selectDictTypeById(dict.getDictId());
-        dictDataMapper.updateDictDataType(oldDict.getDictType(), dict.getDictType());
-        int row = dictTypeMapper.updateDictType(dict);
-        if (row > 0) {
-            List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dict.getDictType());
+    public boolean updateDictType(SysDictType dict) {
+        // SysDictType oldDict = dictTypeMapper.selectDictTypeById(dict.getDictId());
+        SysDictType oldDict = getById(dict.getDictId());
+        // dictDataMapper.updateDictDataType(oldDict.getDictType(), dict.getDictType());
+        SysDictData sysDictData = new SysDictData();
+        sysDictData.setDictType(dict.getDictType());
+        sysDictDataService.update(sysDictData, Wrappers.lambdaUpdate(SysDictData.class).eq(SysDictData::getDictType, oldDict.getDictType()));
+        boolean row = updateById(dict);
+        if (row) {
+            // List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(dict.getDictType());
+            List<SysDictData> dictDatas = sysDictDataService.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dict.getDictType()));
             DictUtils.setDictCache(dict.getDictType(), dictDatas);
         }
         return row;
@@ -189,7 +209,8 @@ public class SysDictTypeServiceImpl implements ISysDictTypeService {
     @Override
     public String checkDictTypeUnique(SysDictType dict) {
         Long dictId = StringUtils.isNull(dict.getDictId()) ? -1L : dict.getDictId();
-        SysDictType dictType = dictTypeMapper.checkDictTypeUnique(dict.getDictType());
+        // SysDictType dictType = dictTypeMapper.checkDictTypeUnique(dict.getDictType());
+        SysDictType dictType = getOne(Wrappers.lambdaQuery(SysDictType.class).eq(SysDictType::getDictType, dict.getDictType()));
         if (StringUtils.isNotNull(dictType) && dictType.getDictId().longValue() != dictId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }

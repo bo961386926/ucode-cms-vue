@@ -1,12 +1,13 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.system.domain.SysNotice;
 import xin.altitude.cms.system.mapper.SysNoticeMapper;
 import xin.altitude.cms.system.service.ISysNoticeService;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,8 +17,8 @@ import java.util.List;
  */
 @Service
 public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice> implements ISysNoticeService {
-    @Autowired
-    private SysNoticeMapper noticeMapper;
+    // @Autowired
+    // private SysNoticeMapper noticeMapper;
     
     /**
      * 查询公告信息
@@ -27,7 +28,8 @@ public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice
      */
     @Override
     public SysNotice selectNoticeById(Long noticeId) {
-        return noticeMapper.selectNoticeById(noticeId);
+        // return noticeMapper.selectNoticeById(noticeId);
+        return getById(noticeId);
     }
     
     /**
@@ -38,7 +40,8 @@ public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice
      */
     @Override
     public List<SysNotice> selectNoticeList(SysNotice notice) {
-        return noticeMapper.selectNoticeList(notice);
+        // return noticeMapper.selectNoticeList(notice);
+        return list(Wrappers.lambdaQuery(notice));
     }
     
     /**
@@ -48,8 +51,9 @@ public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice
      * @return 结果
      */
     @Override
-    public int insertNotice(SysNotice notice) {
-        return noticeMapper.insertNotice(notice);
+    public boolean insertNotice(SysNotice notice) {
+        // return noticeMapper.insertNotice(notice);
+        return save(notice);
     }
     
     /**
@@ -59,8 +63,9 @@ public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice
      * @return 结果
      */
     @Override
-    public int updateNotice(SysNotice notice) {
-        return noticeMapper.updateNotice(notice);
+    public boolean updateNotice(SysNotice notice) {
+        // return noticeMapper.updateNotice(notice);
+        return updateById(notice);
     }
     
     /**
@@ -70,8 +75,9 @@ public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice
      * @return 结果
      */
     @Override
-    public int deleteNoticeById(Long noticeId) {
-        return noticeMapper.deleteNoticeById(noticeId);
+    public boolean deleteNoticeById(Long noticeId) {
+        // return noticeMapper.deleteNoticeById(noticeId);
+        return removeById(noticeId);
     }
     
     /**
@@ -81,7 +87,8 @@ public class SysNoticeServiceImpl extends ServiceImpl<SysNoticeMapper, SysNotice
      * @return 结果
      */
     @Override
-    public int deleteNoticeByIds(Long[] noticeIds) {
-        return noticeMapper.deleteNoticeByIds(noticeIds);
+    public boolean deleteNoticeByIds(Long[] noticeIds) {
+        // return noticeMapper.deleteNoticeByIds(noticeIds);
+        return removeByIds(Arrays.asList(noticeIds));
     }
 }

@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
 import xin.altitude.cms.common.core.domain.entity.SysDictType;
 
@@ -10,7 +11,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public interface ISysDictTypeService {
+public interface ISysDictTypeService extends IService<SysDictType> {
     /**
      * 根据条件分页查询字典类型
      *
@@ -79,7 +80,7 @@ public interface ISysDictTypeService {
      * @param dictType 字典类型信息
      * @return 结果
      */
-    public int insertDictType(SysDictType dictType);
+    public boolean insertDictType(SysDictType dictType);
     
     /**
      * 修改保存字典类型信息
@@ -87,7 +88,7 @@ public interface ISysDictTypeService {
      * @param dictType 字典类型信息
      * @return 结果
      */
-    public int updateDictType(SysDictType dictType);
+    public boolean updateDictType(SysDictType dictType);
     
     /**
      * 校验字典类型称是否唯一

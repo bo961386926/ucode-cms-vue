@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
+import xin.altitude.cms.common.core.domain.BaseEntity;
 
 /**
  * 角色和部门关联 sys_role_dept
@@ -12,7 +13,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author ucode
  */
 @TableName("sys_role_dept")
-public class SysRoleDept {
+public class SysRoleDept extends BaseEntity {
     /**
      * 主键
      */

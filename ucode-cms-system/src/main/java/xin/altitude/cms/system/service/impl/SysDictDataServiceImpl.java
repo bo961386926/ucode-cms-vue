@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
@@ -15,7 +16,7 @@ import java.util.List;
  * @author ucode
  */
 @Service
-public class SysDictDataServiceImpl implements ISysDictDataService {
+public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDictData> implements ISysDictDataService {
     @Autowired
     private SysDictDataMapper dictDataMapper;
     

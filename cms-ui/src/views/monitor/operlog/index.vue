@@ -1,13 +1,19 @@
 <template>
   <div class="app-container">
-    <el-form v-show="showSearch" ref="queryForm" :inline="true" :model="queryParams" label-width="68px">
+    <el-form
+      v-show="showSearch"
+      ref="queryForm"
+      :inline="true"
+      :model="queryParams"
+      label-width="68px"
+    >
       <el-form-item label="系统模块" prop="title">
         <el-input
           v-model="queryParams.title"
           clearable
           placeholder="请输入系统模块"
           size="small"
-          style="width: 240px;"
+          style="width: 240px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -17,7 +23,7 @@
           clearable
           placeholder="请输入操作人员"
           size="small"
-          style="width: 240px;"
+          style="width: 240px"
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
@@ -66,8 +72,18 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" size="mini" type="primary" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button
+          icon="el-icon-search"
+          size="mini"
+          type="primary"
+          @click="handleQuery"
+        >搜索
+        </el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+        >重置
+        </el-button
+        >
       </el-form-item>
     </el-form>
 
@@ -106,43 +122,86 @@
         >导出
         </el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
+      ></right-toolbar>
     </el-row>
 
-    <el-table ref="tables" v-loading="loading" :data="list" :default-sort="defaultSort"
-              @selection-change="handleSelectionChange" @sort-change="handleSortChange">
+    <el-table
+      ref="tables"
+      v-loading="loading"
+      :data="list"
+      :default-sort="defaultSort"
+      @selection-change="handleSelectionChange"
+      @sort-change="handleSortChange"
+    >
       <el-table-column align="center" type="selection" width="55"/>
       <el-table-column align="center" label="日志编号" prop="operId"/>
       <el-table-column align="center" label="系统模块" prop="title"/>
       <el-table-column align="center" label="操作类型" prop="businessType">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_oper_type" :value="scope.row.businessType"/>
+          <dict-tag
+            :options="dict.type.sys_oper_type"
+            :value="scope.row.businessType"
+          />
         </template>
       </el-table-column>
       <el-table-column align="center" label="请求方式" prop="requestMethod"/>
-      <el-table-column :show-overflow-tooltip="true" :sort-orders="['descending', 'ascending']" align="center" label="操作人员" prop="operName"
-                       sortable="custom" width="100"/>
-      <el-table-column :show-overflow-tooltip="true" align="center" label="操作地址" prop="operIp" width="130"/>
-      <el-table-column :show-overflow-tooltip="true" align="center" label="操作地点" prop="operLocation"/>
+      <el-table-column
+        :show-overflow-tooltip="true"
+        :sort-orders="['descending', 'ascending']"
+        align="center"
+        label="操作人员"
+        prop="operName"
+        sortable="custom"
+        width="100"
+      />
+      <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
+        label="操作地址"
+        prop="operIp"
+        width="130"
+      />
+      <el-table-column
+        :show-overflow-tooltip="true"
+        align="center"
+        label="操作地点"
+        prop="operLocation"
+      />
       <el-table-column align="center" label="操作状态" prop="status">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_common_status" :value="scope.row.status"/>
+          <dict-tag
+            :options="dict.type.sys_common_status"
+            :value="scope.row.status"
+          />
         </template>
       </el-table-column>
-      <el-table-column :sort-orders="['descending', 'ascending']" align="center" label="操作日期" prop="operTime"
-                       sortable="custom" width="180">
+      <el-table-column
+        :sort-orders="['descending', 'ascending']"
+        align="center"
+        label="操作日期"
+        prop="operTime"
+        sortable="custom"
+        width="180"
+      >
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.operTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" class-name="small-padding fixed-width" label="操作">
+      <el-table-column
+        align="center"
+        class-name="small-padding fixed-width"
+        label="操作"
+      >
         <template slot-scope="scope">
           <el-button
             v-hasPermi="['monitor:operlog:query']"
             icon="el-icon-view"
             size="mini"
             type="text"
-            @click="handleView(scope.row,scope.index)"
+            @click="handleView(scope.row, scope.index)"
           >详细
           </el-button>
         </template>
@@ -150,27 +209,37 @@
     </el-table>
 
     <pagination
-      v-show="total>0"
-      :limit.sync="queryParams.pageSize"
-      :page.sync="queryParams.pageNum"
+      v-show="total > 0"
+      :limit.sync="queryParams.size"
+      :page.sync="queryParams.current"
       :total="total"
       @pagination="getList"
     />
 
     <!-- 操作日志详细 -->
-    <el-dialog :visible.sync="open" append-to-body title="操作日志详细" width="700px">
+    <el-dialog
+      :visible.sync="open"
+      append-to-body
+      title="操作日志详细"
+      width="700px"
+    >
       <el-form ref="form" :model="form" label-width="100px" size="mini">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="操作模块：">{{ form.title }} / {{ typeFormat(form) }}</el-form-item>
-            <el-form-item
-              label="登录信息："
+            <el-form-item label="操作模块："
+            >{{ form.title }} / {{ typeFormat(form) }}
+            </el-form-item
+            >
+            <el-form-item label="登录信息："
             >{{ form.operName }} / {{ form.operIp }} / {{ form.operLocation }}
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="请求地址：">{{ form.operUrl }}</el-form-item>
-            <el-form-item label="请求方式：">{{ form.requestMethod }}</el-form-item>
+            <el-form-item label="请求方式：">{{
+                form.requestMethod
+              }}
+            </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="操作方法：">{{ form.method }}</el-form-item>
@@ -179,7 +248,10 @@
             <el-form-item label="请求参数：">{{ form.operParam }}</el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="返回参数：">{{ form.jsonResult }}</el-form-item>
+            <el-form-item label="返回参数：">{{
+                form.jsonResult
+              }}
+            </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="操作状态：">
@@ -188,10 +260,16 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="操作时间：">{{ parseTime(form.operTime) }}</el-form-item>
+            <el-form-item label="操作时间：">{{
+                parseTime(form.operTime)
+              }}
+            </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item v-if="form.status === 1" label="异常信息：">{{ form.errorMsg }}</el-form-item>
+            <el-form-item v-if="form.status === 1" label="异常信息：">{{
+                form.errorMsg
+              }}
+            </el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -207,7 +285,7 @@ import {cleanOperlog, delOperlog, list} from "@/api/monitor/operlog";
 
 export default {
   name: "Operlog",
-  dicts: ['sys_oper_type', 'sys_common_status'],
+  dicts: ["sys_oper_type", "sys_common_status"],
   data() {
     return {
       // 遮罩层
@@ -227,18 +305,18 @@ export default {
       // 日期范围
       dateRange: [],
       // 默认排序
-      defaultSort: {prop: 'operTime', order: 'descending'},
+      defaultSort: {prop: "operTime", order: "descending"},
       // 表单参数
       form: {},
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
+        current: 1,
+        size: 10,
         title: undefined,
         operName: undefined,
         businessType: undefined,
-        status: undefined
-      }
+        status: undefined,
+      },
     };
   },
   created() {
@@ -248,33 +326,37 @@ export default {
     /** 查询登录日志 */
     getList() {
       this.loading = true;
-      list(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-          this.list = response.rows;
-          this.total = response.total;
+      list(this.addDateRange(this.queryParams, this.dateRange)).then(
+        (response) => {
+          this.list = response.data.records;
+          this.total = response.data.total;
           this.loading = false;
         }
       );
     },
     // 操作日志类型字典翻译
     typeFormat(row, column) {
-      return this.selectDictLabel(this.dict.type.sys_oper_type, row.businessType);
+      return this.selectDictLabel(
+        this.dict.type.sys_oper_type,
+        row.businessType
+      );
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
+      this.queryParams.current = 1;
       this.getList();
     },
     /** 重置按钮操作 */
     resetQuery() {
       this.dateRange = [];
       this.resetForm("queryForm");
-      this.$refs.tables.sort(this.defaultSort.prop, this.defaultSort.order)
+      this.$refs.tables.sort(this.defaultSort.prop, this.defaultSort.order);
       this.handleQuery();
     },
     /** 多选框选中数据 */
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.operId)
-      this.multiple = !selection.length
+      this.ids = selection.map((item) => item.operId);
+      this.multiple = !selection.length;
     },
     /** 排序触发事件 */
     handleSortChange(column, prop, order) {
@@ -290,31 +372,42 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const operIds = row.operId || this.ids;
-      this.$modal.confirm('是否确认删除日志编号为"' + operIds + '"的数据项？').then(function () {
-        return delOperlog(operIds);
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {
-      });
+      this.$modal
+        .confirm('是否确认删除日志编号为"' + operIds + '"的数据项？')
+        .then(function () {
+          return delOperlog(operIds);
+        })
+        .then(() => {
+          this.getList();
+          this.$modal.msgSuccess("删除成功");
+        })
+        .catch(() => {
+        });
     },
     /** 清空按钮操作 */
     handleClean() {
-      this.$modal.confirm('是否确认清空所有操作日志数据项？').then(function () {
-        return cleanOperlog();
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("清空成功");
-      }).catch(() => {
-      });
+      this.$modal
+        .confirm("是否确认清空所有操作日志数据项？")
+        .then(function () {
+          return cleanOperlog();
+        })
+        .then(() => {
+          this.getList();
+          this.$modal.msgSuccess("清空成功");
+        })
+        .catch(() => {
+        });
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('monitor/operlog/export', {
-        ...this.queryParams
-      }, `operlog_${new Date().getTime()}.xlsx`)
-    }
-  }
+      this.download(
+        "monitor/operlog/export",
+        {
+          ...this.queryParams,
+        },
+        `operlog_${new Date().getTime()}.xlsx`
+      );
+    },
+  },
 };
 </script>
-

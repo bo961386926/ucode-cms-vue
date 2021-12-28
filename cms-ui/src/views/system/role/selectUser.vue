@@ -1,6 +1,12 @@
 <template>
   <!-- 授权用户 -->
-  <el-dialog :visible.sync="visible" append-to-body title="选择用户" top="5vh" width="800px">
+  <el-dialog
+    :visible.sync="visible"
+    append-to-body
+    title="选择用户"
+    top="5vh"
+    width="800px"
+  >
     <el-form ref="queryForm" :inline="true" :model="queryParams">
       <el-form-item label="用户名称" prop="userName">
         <el-input
@@ -21,33 +27,72 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" size="mini" type="primary" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button
+          icon="el-icon-search"
+          size="mini"
+          type="primary"
+          @click="handleQuery"
+        >搜索
+        </el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+        >重置
+        </el-button
+        >
       </el-form-item>
     </el-form>
     <el-row>
-      <el-table ref="table" :data="userList" height="260px" @row-click="clickRow"
-                @selection-change="handleSelectionChange">
+      <el-table
+        ref="table"
+        :data="userList"
+        height="260px"
+        @row-click="clickRow"
+        @selection-change="handleSelectionChange"
+      >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column :show-overflow-tooltip="true" label="用户名称" prop="userName"/>
-        <el-table-column :show-overflow-tooltip="true" label="用户昵称" prop="nickName"/>
-        <el-table-column :show-overflow-tooltip="true" label="邮箱" prop="email"/>
-        <el-table-column :show-overflow-tooltip="true" label="手机" prop="phonenumber"/>
+        <el-table-column
+          :show-overflow-tooltip="true"
+          label="用户名称"
+          prop="userName"
+        />
+        <el-table-column
+          :show-overflow-tooltip="true"
+          label="用户昵称"
+          prop="nickName"
+        />
+        <el-table-column
+          :show-overflow-tooltip="true"
+          label="邮箱"
+          prop="email"
+        />
+        <el-table-column
+          :show-overflow-tooltip="true"
+          label="手机"
+          prop="phonenumber"
+        />
         <el-table-column align="center" label="状态" prop="status">
           <template slot-scope="scope">
-            <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
+            <dict-tag
+              :options="dict.type.sys_normal_disable"
+              :value="scope.row.status"
+            />
           </template>
         </el-table-column>
-        <el-table-column align="center" label="创建时间" prop="createTime" width="180">
+        <el-table-column
+          align="center"
+          label="创建时间"
+          prop="createTime"
+          width="180"
+        >
           <template slot-scope="scope">
             <span>{{ parseTime(scope.row.createTime) }}</span>
           </template>
         </el-table-column>
       </el-table>
       <pagination
-        v-show="total>0"
-        :limit.sync="queryParams.pageSize"
-        :page.sync="queryParams.pageNum"
+        v-show="total > 0"
+        :limit.sync="queryParams.size"
+        :page.sync="queryParams.current"
         :total="total"
         @pagination="getList"
       />
@@ -63,12 +108,12 @@
 import {authUserSelectAll, unallocatedUserList} from "@/api/system/role";
 
 export default {
-  dicts: ['sys_normal_disable'],
+  dicts: ["sys_normal_disable"],
   props: {
     // 角色编号
     roleId: {
-      type: [Number, String]
-    }
+      type: [Number, String],
+    },
   },
   data() {
     return {
@@ -82,12 +127,12 @@ export default {
       userList: [],
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
+        current: 1,
+        size: 10,
         roleId: undefined,
         userName: undefined,
-        phonenumber: undefined
-      }
+        phonenumber: undefined,
+      },
     };
   },
   methods: {
@@ -102,18 +147,18 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.userIds = selection.map(item => item.userId);
+      this.userIds = selection.map((item) => item.userId);
     },
     // 查询表数据
     getList() {
-      unallocatedUserList(this.queryParams).then(res => {
+      unallocatedUserList(this.queryParams).then((res) => {
         this.userList = res.rows;
         this.total = res.total;
       });
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
+      this.queryParams.current = 1;
       this.getList();
     },
     /** 重置按钮操作 */
@@ -125,14 +170,14 @@ export default {
     handleSelectUser() {
       const roleId = this.queryParams.roleId;
       const userIds = this.userIds.join(",");
-      authUserSelectAll({roleId: roleId, userIds: userIds}).then(res => {
+      authUserSelectAll({roleId: roleId, userIds: userIds}).then((res) => {
         this.$modal.msgSuccess(res.msg);
         if (res.code === 200) {
           this.visible = false;
           this.$emit("ok");
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>

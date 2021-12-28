@@ -1,6 +1,11 @@
 <template>
   <div class="app-container">
-    <el-form v-show="showSearch" ref="queryForm" :inline="true" :model="queryParams">
+    <el-form
+      v-show="showSearch"
+      ref="queryForm"
+      :inline="true"
+      :model="queryParams"
+    >
       <el-form-item label="用户名称" prop="userName">
         <el-input
           v-model="queryParams.userName"
@@ -22,8 +27,18 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" size="mini" type="primary" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button
+          icon="el-icon-search"
+          size="mini"
+          type="primary"
+          @click="handleQuery"
+        >搜索
+        </el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+        >重置
+        </el-button
+        >
       </el-form-item>
     </el-form>
 
@@ -61,26 +76,61 @@
         >关闭
         </el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar
+        :showSearch.sync="showSearch"
+        @queryTable="getList"
+      ></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
+    <el-table
+      v-loading="loading"
+      :data="userList"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column align="center" type="selection" width="55"/>
-      <el-table-column :show-overflow-tooltip="true" label="用户名称" prop="userName"/>
-      <el-table-column :show-overflow-tooltip="true" label="用户昵称" prop="nickName"/>
-      <el-table-column :show-overflow-tooltip="true" label="邮箱" prop="email"/>
-      <el-table-column :show-overflow-tooltip="true" label="手机" prop="phonenumber"/>
+      <el-table-column
+        :show-overflow-tooltip="true"
+        label="用户名称"
+        prop="userName"
+      />
+      <el-table-column
+        :show-overflow-tooltip="true"
+        label="用户昵称"
+        prop="nickName"
+      />
+      <el-table-column
+        :show-overflow-tooltip="true"
+        label="邮箱"
+        prop="email"
+      />
+      <el-table-column
+        :show-overflow-tooltip="true"
+        label="手机"
+        prop="phonenumber"
+      />
       <el-table-column align="center" label="状态" prop="status">
         <template slot-scope="scope">
-          <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
+          <dict-tag
+            :options="dict.type.sys_normal_disable"
+            :value="scope.row.status"
+          />
         </template>
       </el-table-column>
-      <el-table-column align="center" label="创建时间" prop="createTime" width="180">
+      <el-table-column
+        align="center"
+        label="创建时间"
+        prop="createTime"
+        width="180"
+      >
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" class-name="small-padding fixed-width" label="操作">
+      <el-table-column
+        align="center"
+        class-name="small-padding fixed-width"
+        label="操作"
+      >
         <template slot-scope="scope">
           <el-button
             v-hasPermi="['system:role:remove']"
@@ -95,9 +145,9 @@
     </el-table>
 
     <pagination
-      v-show="total>0"
-      :limit.sync="queryParams.pageSize"
-      :page.sync="queryParams.pageNum"
+      v-show="total > 0"
+      :limit.sync="queryParams.size"
+      :page.sync="queryParams.current"
       :total="total"
       @pagination="getList"
     />
@@ -106,12 +156,12 @@
 </template>
 
 <script>
-import {allocatedUserList, authUserCancel, authUserCancelAll} from "@/api/system/role";
+import {allocatedUserList, authUserCancel, authUserCancelAll,} from "@/api/system/role";
 import selectUser from "./selectUser";
 
 export default {
   name: "AuthUser",
-  dicts: ['sys_normal_disable'],
+  dicts: ["sys_normal_disable"],
   components: {selectUser},
   data() {
     return {
@@ -129,12 +179,12 @@ export default {
       userList: [],
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
+        current: 1,
+        size: 10,
         roleId: undefined,
         userName: undefined,
-        phonenumber: undefined
-      }
+        phonenumber: undefined,
+      },
     };
   },
   created() {
@@ -148,12 +198,11 @@ export default {
     /** 查询授权用户列表 */
     getList() {
       this.loading = true;
-      allocatedUserList(this.queryParams).then(response => {
-          this.userList = response.rows;
-          this.total = response.total;
-          this.loading = false;
-        }
-      );
+      allocatedUserList(this.queryParams).then((response) => {
+        this.userList = response.data.records;
+        this.total = response.data.total;
+        this.loading = false;
+      });
     },
     // 返回按钮
     handleClose() {
@@ -162,7 +211,7 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
+      this.queryParams.current = 1;
       this.getList();
     },
     /** 重置按钮操作 */
@@ -172,8 +221,8 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.userIds = selection.map(item => item.userId)
-      this.multiple = !selection.length
+      this.userIds = selection.map((item) => item.userId);
+      this.multiple = !selection.length;
     },
     /** 打开授权用户表弹窗 */
     openSelectUser() {
@@ -182,26 +231,34 @@ export default {
     /** 取消授权按钮操作 */
     cancelAuthUser(row) {
       const roleId = this.queryParams.roleId;
-      this.$modal.confirm('确认要取消该用户"' + row.userName + '"角色吗？').then(function () {
-        return authUserCancel({userId: row.userId, roleId: roleId});
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("取消授权成功");
-      }).catch(() => {
-      });
+      this.$modal
+        .confirm('确认要取消该用户"' + row.userName + '"角色吗？')
+        .then(function () {
+          return authUserCancel({userId: row.userId, roleId: roleId});
+        })
+        .then(() => {
+          this.getList();
+          this.$modal.msgSuccess("取消授权成功");
+        })
+        .catch(() => {
+        });
     },
     /** 批量取消授权按钮操作 */
     cancelAuthUserAll(row) {
       const roleId = this.queryParams.roleId;
       const userIds = this.userIds.join(",");
-      this.$modal.confirm('是否取消选中用户授权数据项？').then(function () {
-        return authUserCancelAll({roleId: roleId, userIds: userIds});
-      }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("取消授权成功");
-      }).catch(() => {
-      });
-    }
-  }
+      this.$modal
+        .confirm("是否取消选中用户授权数据项？")
+        .then(function () {
+          return authUserCancelAll({roleId: roleId, userIds: userIds});
+        })
+        .then(() => {
+          this.getList();
+          this.$modal.msgSuccess("取消授权成功");
+        })
+        .catch(() => {
+        });
+    },
+  },
 };
 </script>

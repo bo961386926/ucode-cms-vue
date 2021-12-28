@@ -1,6 +1,12 @@
 <template>
   <!-- 导入表 -->
-  <el-dialog :visible.sync="visible" append-to-body title="导入表" top="5vh" width="800px">
+  <el-dialog
+    :visible.sync="visible"
+    append-to-body
+    title="导入表"
+    top="5vh"
+    width="800px"
+  >
     <el-form ref="queryForm" :inline="true" :model="queryParams">
       <el-form-item label="表名称" prop="tableName">
         <el-input
@@ -21,23 +27,46 @@
         />
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-search" size="mini" type="primary" @click="handleQuery">搜索</el-button>
-        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
+        <el-button
+          icon="el-icon-search"
+          size="mini"
+          type="primary"
+          @click="handleQuery"
+        >搜索
+        </el-button
+        >
+        <el-button icon="el-icon-refresh" size="mini" @click="resetQuery"
+        >重置
+        </el-button
+        >
       </el-form-item>
     </el-form>
     <el-row>
-      <el-table ref="table" :data="dbTableList" height="260px" @row-click="clickRow"
-                @selection-change="handleSelectionChange">
+      <el-table
+        ref="table"
+        :data="dbTableList"
+        height="260px"
+        @row-click="clickRow"
+        @selection-change="handleSelectionChange"
+      >
         <el-table-column type="selection" width="55"></el-table-column>
-        <el-table-column :show-overflow-tooltip="true" label="表名称" prop="tableName"></el-table-column>
-        <el-table-column :show-overflow-tooltip="true" label="表描述" prop="tableComment"></el-table-column>
+        <el-table-column
+          :show-overflow-tooltip="true"
+          label="表名称"
+          prop="tableName"
+        ></el-table-column>
+        <el-table-column
+          :show-overflow-tooltip="true"
+          label="表描述"
+          prop="tableComment"
+        ></el-table-column>
         <el-table-column label="创建时间" prop="createTime"></el-table-column>
         <el-table-column label="更新时间" prop="updateTime"></el-table-column>
       </el-table>
       <pagination
-        v-show="total>0"
-        :limit.sync="queryParams.pageSize"
-        :page.sync="queryParams.pageNum"
+        v-show="total > 0"
+        :limit.sync="queryParams.size"
+        :page.sync="queryParams.current"
         :total="total"
         @pagination="getList"
       />
@@ -65,11 +94,11 @@ export default {
       dbTableList: [],
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
+        current: 1,
+        size: 10,
         tableName: undefined,
-        tableComment: undefined
-      }
+        tableComment: undefined,
+      },
     };
   },
   methods: {
@@ -83,11 +112,11 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.tables = selection.map(item => item.tableName);
+      this.tables = selection.map((item) => item.tableName);
     },
     // 查询表数据
     getList() {
-      listDbTable(this.queryParams).then(res => {
+      listDbTable(this.queryParams).then((res) => {
         if (res.code === 200) {
           this.dbTableList = res.rows;
           this.total = res.total;
@@ -96,7 +125,7 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
+      this.queryParams.current = 1;
       this.getList();
     },
     /** 重置按钮操作 */
@@ -111,14 +140,14 @@ export default {
         this.$modal.msgError("请选择要导入的表");
         return;
       }
-      importTable({tables: tableNames}).then(res => {
+      importTable({tables: tableNames}).then((res) => {
         this.$modal.msgSuccess(res.msg);
         if (res.code === 200) {
           this.visible = false;
           this.$emit("ok");
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>

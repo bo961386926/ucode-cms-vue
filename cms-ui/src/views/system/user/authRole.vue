@@ -17,28 +17,50 @@
     </el-form>
 
     <h4 class="form-header h4">角色信息</h4>
-    <el-table ref="table" v-loading="loading" :data="roles.slice((pageNum-1)*pageSize,pageNum*pageSize)" :row-key="getRowKey"
-              @row-click="clickRow" @selection-change="handleSelectionChange">
+    <el-table
+      ref="table"
+      v-loading="loading"
+      :data="roles.slice((current - 1) * size, current * size)"
+      :row-key="getRowKey"
+      @row-click="clickRow"
+      @selection-change="handleSelectionChange"
+    >
       <el-table-column align="center" label="序号" type="index">
         <template slot-scope="scope">
-          <span>{{ (pageNum - 1) * pageSize + scope.$index + 1 }}</span>
+          <span>{{ (current - 1) * size + scope.$index + 1 }}</span>
         </template>
       </el-table-column>
-      <el-table-column :reserve-selection="true" type="selection" width="55"></el-table-column>
+      <el-table-column
+        :reserve-selection="true"
+        type="selection"
+        width="55"
+      ></el-table-column>
       <el-table-column align="center" label="角色编号" prop="roleId"/>
       <el-table-column align="center" label="角色名称" prop="roleName"/>
       <el-table-column align="center" label="权限字符" prop="roleKey"/>
-      <el-table-column align="center" label="创建时间" prop="createTime" width="180">
+      <el-table-column
+        align="center"
+        label="创建时间"
+        prop="createTime"
+        width="180"
+      >
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
     </el-table>
 
-    <pagination v-show="total>0" :limit.sync="pageSize" :page.sync="pageNum" :total="total"/>
+    <pagination
+      v-show="total > 0"
+      :limit.sync="size"
+      :page.sync="current"
+      :total="total"
+    />
 
     <el-form label-width="100px">
-      <el-form-item style="text-align: center;margin-left:-120px;margin-top:30px;">
+      <el-form-item
+        style="text-align: center; margin-left: -120px; margin-top: 30px"
+      >
         <el-button type="primary" @click="submitForm()">提交</el-button>
         <el-button @click="close()">返回</el-button>
       </el-form-item>
@@ -57,14 +79,14 @@ export default {
       loading: true,
       // 分页信息
       total: 0,
-      pageNum: 1,
-      pageSize: 10,
+      current: 1,
+      size: 10,
       // 选中角色编号
       roleIds: [],
       // 角色信息
       roles: [],
       // 用户信息
-      form: {}
+      form: {},
     };
   },
   created() {

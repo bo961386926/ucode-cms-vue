@@ -1,5 +1,6 @@
 package xin.altitude.cms.system.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import xin.altitude.cms.system.domain.SysLogininfor;
 import xin.altitude.cms.system.mapper.SysLogininforMapper;
 import xin.altitude.cms.system.service.ISysLogininforService;
 
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,7 +29,8 @@ public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, S
      */
     @Override
     public void insertLogininfor(SysLogininfor logininfor) {
-        logininforMapper.insertLogininfor(logininfor);
+        // logininforMapper.insertLogininfor(logininfor);
+        save(logininfor);
     }
     
     /**
@@ -38,7 +41,8 @@ public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, S
      */
     @Override
     public List<SysLogininfor> selectLogininforList(SysLogininfor logininfor) {
-        return logininforMapper.selectLogininforList(logininfor);
+        // return logininforMapper.selectLogininforList(logininfor);
+        return list(Wrappers.lambdaQuery(logininfor));
     }
     
     /**
@@ -48,8 +52,9 @@ public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, S
      * @return
      */
     @Override
-    public int deleteLogininforByIds(Long[] infoIds) {
-        return logininforMapper.deleteLogininforByIds(infoIds);
+    public boolean deleteLogininforByIds(Long[] infoIds) {
+        // return logininforMapper.deleteLogininforByIds(infoIds);
+        return removeByIds(Arrays.asList(infoIds));
     }
     
     /**
@@ -57,6 +62,7 @@ public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, S
      */
     @Override
     public void cleanLogininfor() {
-        logininforMapper.cleanLogininfor();
+        // logininforMapper.cleanLogininfor();
+        remove(Wrappers.lambdaQuery());
     }
 }

@@ -50,7 +50,7 @@ public interface ISysDictDataService extends IService<SysDictData> {
      * @param dictData 字典数据信息
      * @return 结果
      */
-    public int insertDictData(SysDictData dictData);
+    public boolean insertDictData(SysDictData dictData);
     
     /**
      * 修改保存字典数据信息
@@ -58,5 +58,5 @@ public interface ISysDictDataService extends IService<SysDictData> {
      * @param dictData 字典数据信息
      * @return 结果
      */
-    public int updateDictData(SysDictData dictData);
+    public boolean updateDictData(SysDictData dictData);
 }

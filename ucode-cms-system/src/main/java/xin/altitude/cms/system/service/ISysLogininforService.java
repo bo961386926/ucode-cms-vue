@@ -32,7 +32,7 @@ public interface ISysLogininforService extends IService<SysLogininfor> {
      * @param infoIds 需要删除的登录日志ID
      * @return
      */
-    public int deleteLogininforByIds(Long[] infoIds);
+    public boolean deleteLogininforByIds(Long[] infoIds);
     
     /**
      * 清空系统登录日志

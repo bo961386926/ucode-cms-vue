@@ -5,15 +5,15 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.0.1</version>
+        <version>1.0.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>${project.artifactId}</name>
     
-    <artifactId>ucode-cms-springboot-starter</artifactId>
+    <artifactId>ucode-cms-spring-boot-starter</artifactId>
     
     <description>
-        Java知识图谱之内容管理系统（CMS）ucode-cms-springboot-starter
+        Java知识图谱之内容管理系统（CMS）ucode-cms-spring-boot-starter
     </description>
     
     <properties>

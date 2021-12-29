@@ -75,7 +75,7 @@ public class SecurityConfig extends SecurityWebSecurityConfigurerAdapter {
         } else {
             httpSecurity.authorizeRequests().anyRequest().permitAll();
         }
-        httpSecurity.logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler);
+        httpSecurity.logout().logoutUrl(CmsConfig.UNIFORM_PREFIX + "/logout").logoutSuccessHandler(logoutSuccessHandler);
         // 添加JWT filter
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 添加CORS filter

@@ -207,7 +207,7 @@
         </dependencies>
     </dependencyManagement>
     
-    <url>https://gitee.com/decsa/u-code</url>
+    <url>https://gitee.com/decsa/ucode-cms-vue</url>
     <licenses>
         <license>
             <name>The Apache License, Version 2.0</name>
@@ -223,9 +223,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:git:https://gitee.com/decsa/u-code.git</connection>
-        <developerConnection>scm:git:https://gitee.com/decsa/u-code.git</developerConnection>
-        <url>https://gitee.com/decsa/u-code</url>
+        <connection>scm:git:https://gitee.com/decsa/ucode-cms-vue.git</connection>
+        <developerConnection>scm:git:https://gitee.com/decsa/ucode-cms-vue.git</developerConnection>
+        <url>https://gitee.com/decsa/ucode-cms-vue</url>
     </scm>
     
     <!--关键地址-->
@@ -283,23 +283,20 @@
                     </execution>
                 </executions>
             </plugin>
+    
+            <!--非部署必须-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-    
-    <!--<build>-->
-    <!--    <plugins>-->
-    <!--        <plugin>-->
-    <!--            <groupId>org.apache.maven.plugins</groupId>-->
-    <!--            <artifactId>maven-compiler-plugin</artifactId>-->
-    <!--            <version>3.1</version>-->
-    <!--            <configuration>-->
-    <!--                <source>${java.version}</source>-->
-    <!--                <target>${java.version}</target>-->
-    <!--                <encoding>${project.build.sourceEncoding}</encoding>-->
-    <!--            </configuration>-->
-    <!--        </plugin>-->
-    <!--    </plugins>-->
-    <!--</build>-->
 
 
 </project>

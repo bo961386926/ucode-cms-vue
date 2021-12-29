@@ -5,9 +5,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
 import xin.altitude.cms.auth.config.SecurityWebSecurityConfigurerAdapter;
-import xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.util.spring.SpringUtils;
 
@@ -19,6 +17,12 @@ import xin.altitude.cms.common.util.spring.SpringUtils;
 // @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends SecurityWebSecurityConfigurerAdapter {
+    /**
+     * 跨域过滤器
+     */
+    // @Autowired
+    // protected CorsFilter corsFilter;
+    
     /**
      * anyRequest          |   匹配所有请求路径
      * access              |   SpringEl表达式结果为true时可以访问
@@ -75,7 +79,7 @@ public class SecurityConfig extends SecurityWebSecurityConfigurerAdapter {
         // 添加JWT filter
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 添加CORS filter
-        httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
-        httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
+        // httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
+        // httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
     }
 }

@@ -6,7 +6,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.filter.CorsFilter;
 import xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter;
 import xin.altitude.cms.auth.security.handle.AuthenticationEntryPointImpl;
 import xin.altitude.cms.auth.security.handle.LogoutSuccessHandlerImpl;
@@ -29,11 +28,7 @@ public class SecurityWebSecurityConfigurerAdapter extends WebSecurityConfigurerA
      */
     @Autowired
     protected JwtAuthenticationTokenFilter authenticationTokenFilter;
-    /**
-     * 跨域过滤器
-     */
-    @Autowired
-    protected CorsFilter corsFilter;
+    
     /**
      * 认证失败处理类
      */

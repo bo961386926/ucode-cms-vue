@@ -33,6 +33,7 @@
         <velocity.version>1.7</velocity.version>
         <jwt.version>0.9.1</jwt.version>
         <lombok.version>1.18.22</lombok.version>
+        <guava.version>21.0</guava.version>
     </properties>
     
     <modules>
@@ -102,12 +103,6 @@
                 <groupId>io.springfox</groupId>
                 <artifactId>springfox-boot-starter</artifactId>
                 <version>${swagger.version}</version>
-                <!--<exclusions>-->
-                <!--    <exclusion>-->
-                <!--        <groupId>io.swagger</groupId>-->
-                <!--        <artifactId>swagger-models</artifactId>-->
-                <!--    </exclusion>-->
-                <!--</exclusions>-->
             </dependency>
             
             <!-- io常用工具类 -->
@@ -130,19 +125,6 @@
                 <artifactId>poi-ooxml</artifactId>
                 <version>${poi.version}</version>
             </dependency>
-            
-            <!-- velocity代码生成使用模板 -->
-            <!--<dependency>-->
-            <!--    <groupId>org.apache.velocity</groupId>-->
-            <!--    <artifactId>velocity</artifactId>-->
-            <!--    <version>${velocity.version}</version>-->
-            <!--    <exclusions>-->
-            <!--        <exclusion>-->
-            <!--            <groupId>commons-collections</groupId>-->
-            <!--            <artifactId>commons-collections</artifactId>-->
-            <!--        </exclusion>-->
-            <!--    </exclusions>-->
-            <!--</dependency>-->
             
             <!-- collections工具类 -->
             <dependency>
@@ -172,13 +154,6 @@
                 <version>${kaptcha.version}</version>
             </dependency>
     
-            <!-- 核心模块-->
-            <!--<dependency>-->
-            <!--    <groupId>xin.altitude.cms.framework</groupId>-->
-            <!--    <artifactId>ucode-cms-framework</artifactId>-->
-            <!--    <version>${ucode-cms.version}</version>-->
-            <!--</dependency>-->
-    
             <!-- 系统模块-->
             <dependency>
                 <groupId>xin.altitude.cms.system</groupId>
@@ -207,6 +182,12 @@
     
             <dependency>
                 <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis-plus-spring-boot.version}</version>
+            </dependency>
+    
+            <dependency>
+                <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
                 <version>${mybatis-plus-spring-boot.version}</version>
             </dependency>
@@ -216,21 +197,15 @@
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
+    
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
-    
-    <dependencies>
-    
-        <!--<dependency>-->
-        <!--    <groupId>com.baomidou</groupId>-->
-        <!--    <artifactId>mybatis-plus-annotation</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--    <groupId>org.projectlombok</groupId>-->
-        <!--    <artifactId>lombok</artifactId>-->
-        <!--</dependency>-->
-    </dependencies>
     
     <build>
         <plugins>

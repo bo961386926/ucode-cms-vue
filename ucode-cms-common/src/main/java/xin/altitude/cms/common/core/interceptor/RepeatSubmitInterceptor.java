@@ -42,7 +42,6 @@ public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
      *
      * @param request
      * @return
-     * @throws Exception
      */
     public abstract boolean isRepeatSubmit(HttpServletRequest request, RepeatSubmit annotation);
 }

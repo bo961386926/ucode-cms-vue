@@ -89,7 +89,6 @@ public class SysLoginService {
      * @param username 用户名
      * @param code     验证码
      * @param uuid     唯一标识
-     * @return 结果
      */
     public void validateCaptcha(String username, String code, String uuid) {
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;

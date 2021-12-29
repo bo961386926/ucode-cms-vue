@@ -148,7 +148,6 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPost> impl
      *
      * @param postIds 需要删除的岗位ID
      * @return 结果
-     * @throws Exception 异常
      */
     @Override
     public boolean deletePostByIds(Long[] postIds) {

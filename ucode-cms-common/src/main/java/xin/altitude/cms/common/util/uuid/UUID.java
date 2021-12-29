@@ -306,7 +306,6 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
      * }
      * </pre>
      *
-     * </blockquote>
      *
      * @return 此{@code UUID} 的字符串表现形式
      * @see #toString(boolean)
@@ -335,7 +334,6 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
      * }
      * </pre>
      *
-     * </blockquote>
      *
      * @param isSimple 是否简单模式，简单模式为不带'-'的UUID字符串
      * @return 此{@code UUID} 的字符串表现形式

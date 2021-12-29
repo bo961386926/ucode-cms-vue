@@ -49,9 +49,8 @@ public class FileUploadUtils {
      *
      * @param file 上传的文件
      * @return 文件名称
-     * @throws Exception
      */
-    public static final String upload(MultipartFile file) throws IOException {
+    public static String upload(MultipartFile file) throws IOException {
         try {
             return upload(getDefaultBaseDir(), file, MimeTypeUtils.DEFAULT_ALLOWED_EXTENSION);
         } catch (Exception e) {
@@ -108,14 +107,14 @@ public class FileUploadUtils {
     /**
      * 编码文件名
      */
-    public static final String extractFilename(MultipartFile file) {
+    public static String extractFilename(MultipartFile file) {
         String fileName = file.getOriginalFilename();
         String extension = getExtension(file);
         fileName = DateUtils.datePath() + "/" + IdUtils.fastUUID() + "." + extension;
         return fileName;
     }
     
-    public static final File getAbsoluteFile(String uploadDir, String fileName) throws IOException {
+    public static File getAbsoluteFile(String uploadDir, String fileName) throws IOException {
         File desc = new File(uploadDir + File.separator + fileName);
         
         if (!desc.exists()) {
@@ -137,11 +136,9 @@ public class FileUploadUtils {
      * 文件大小校验
      *
      * @param file 上传的文件
-     * @return
      * @throws FileSizeLimitExceededException 如果超出最大大小
-     * @throws InvalidExtensionException
      */
-    public static final void assertAllowed(MultipartFile file, String[] allowedExtension)
+    public static void assertAllowed(MultipartFile file, String[] allowedExtension)
             throws FileSizeLimitExceededException, InvalidExtensionException {
         long size = file.getSize();
         if (DEFAULT_MAX_SIZE != -1 && size > DEFAULT_MAX_SIZE) {

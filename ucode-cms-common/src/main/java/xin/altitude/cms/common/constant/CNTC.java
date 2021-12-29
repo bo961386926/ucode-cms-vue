@@ -8,8 +8,8 @@ package xin.altitude.cms.common.constant;
  * 定义标准CacheName名称列表
  * 不同名有不同的过期时间
  *
- * @Author explore
- * @Date 2021/05/12 16:34
+ * @author explore
+ * @since 2021/05/12 16:34
  **/
 public interface CNTC {
     String CACHE_DEFAULT = "CACHE_DEFAULT";

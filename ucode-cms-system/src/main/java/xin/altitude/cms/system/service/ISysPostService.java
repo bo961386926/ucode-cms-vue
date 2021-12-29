@@ -79,7 +79,6 @@ public interface ISysPostService extends IService<SysPost> {
      *
      * @param postIds 需要删除的岗位ID
      * @return 结果
-     * @throws Exception 异常
      */
     public boolean deletePostByIds(Long[] postIds);
     

@@ -6,13 +6,13 @@
     
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <description>Java知识图谱之内容管理系统（pom）</description>
     
     <name>${project.artifactId}</name>
     
     <properties>
-        <ucode-cms.version>1.0.0</ucode-cms.version>
+        <!--<ucode-cms.version>1.0.0</ucode-cms.version>-->
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
@@ -158,14 +158,14 @@
             <dependency>
                 <groupId>xin.altitude.cms.system</groupId>
                 <artifactId>ucode-cms-system</artifactId>
-                <version>${ucode-cms.version}</version>
+                <version>1.0.1</version>
             </dependency>
     
             <!-- 通用工具-->
             <dependency>
                 <groupId>xin.altitude.cms.common</groupId>
                 <artifactId>ucode-cms-common</artifactId>
-                <version>${ucode-cms.version}</version>
+                <version>1.0.1</version>
             </dependency>
             
             <dependency>

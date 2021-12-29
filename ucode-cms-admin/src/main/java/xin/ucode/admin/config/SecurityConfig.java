@@ -1,20 +1,13 @@
 package xin.ucode.admin.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
+import xin.altitude.cms.auth.config.SecurityWebSecurityConfigurerAdapter;
 import xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter;
-import xin.altitude.cms.auth.security.handle.AuthenticationEntryPointImpl;
-import xin.altitude.cms.auth.security.handle.LogoutSuccessHandlerImpl;
-import xin.altitude.cms.auth.web.service.UserDetailsServiceImpl;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.util.spring.SpringUtils;
 
@@ -23,51 +16,9 @@ import xin.altitude.cms.common.util.spring.SpringUtils;
  *
  * @author ucode
  */
-@Configuration
-// @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    /**
-     * 自定义用户认证逻辑
-     */
-    // @Autowired
-    // @Qualifier("userDetailsServiceImpl")
-    // private UserDetailsService userDetailsService;
-    /**
-     * 认证失败处理类
-     */
-    @Autowired
-    private AuthenticationEntryPointImpl unauthorizedHandler;
-    
-    /**
-     * 退出处理类
-     */
-    @Autowired
-    private LogoutSuccessHandlerImpl logoutSuccessHandler;
-    
-    /**
-     * token认证过滤器
-     */
-    @Autowired
-    private JwtAuthenticationTokenFilter authenticationTokenFilter;
-    
-    /**
-     * 跨域过滤器
-     */
-    // @Autowired
-    // private CorsFilter corsFilter;
-    
-    /**
-     * 解决 无法直接注入 AuthenticationManager
-     *
-     * @return
-     * @throws Exception
-     */
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
-    
+// @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+public class SecurityConfig extends SecurityWebSecurityConfigurerAdapter {
     /**
      * anyRequest          |   匹配所有请求路径
      * access              |   SpringEl表达式结果为true时可以访问
@@ -124,25 +75,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 添加JWT filter
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 添加CORS filter
-        // httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
-        // httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
-    }
-    
-    /**
-     * 强散列哈希加密实现
-     */
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-    
-    /**
-     * 身份认证接口
-     */
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-        auth.userDetailsService(SpringUtils.getBean(UserDetailsServiceImpl.class))
-                .passwordEncoder(bCryptPasswordEncoder());
+        httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
+        httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
     }
 }

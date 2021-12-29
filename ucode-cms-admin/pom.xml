@@ -3,9 +3,12 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <groupId>xin.altitude.cms</groupId>
-        <artifactId>ucode-cms</artifactId>
-        <version>1.0.0</version>
+        <!--<groupId>xin.altitude.cms</groupId>-->
+        <!--<artifactId>ucode-cms</artifactId>-->
+        <!--<version>1.0.0</version>-->
+        <artifactId>spring-boot-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>2.3.1.RELEASE</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.admin</groupId>
@@ -14,29 +17,15 @@
     
     <dependencies>
     
-        <!--&lt;!&ndash;&lt;!&ndash; swagger3&ndash;&gt;&ndash;&gt;-->
-        <!--<dependency>-->
-        <!--    <groupId>io.springfox</groupId>-->
-        <!--    <artifactId>springfox-boot-starter</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
     
-        <!--&lt;!&ndash; Mysql驱动包 &ndash;&gt;-->
-        <!--<dependency>-->
-        <!--    <groupId>mysql</groupId>-->
-        <!--    <artifactId>mysql-connector-java</artifactId>-->
-        <!--</dependency>-->
-        <!--<dependency>-->
-        <!--    <groupId>com.alibaba</groupId>-->
-        <!--    <artifactId>druid-spring-boot-starter</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-springboot-starter</artifactId>
-            <version>${ucode-cms.version}</version>
+            <version>1.0.0</version>
         </dependency>
     </dependencies>
     

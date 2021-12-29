@@ -12,17 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.core.io.DefaultResourceLoader;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
-import org.springframework.core.io.support.ResourcePatternResolver;
+import xin.altitude.cms.common.util.ResourceUtil;
 import xin.altitude.cms.common.util.StringUtils;
 
 import javax.sql.DataSource;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Mybatis支持*匹配扫描包
@@ -34,22 +27,6 @@ public class MyBatisConfig {
     @Autowired
     private Environment env;
     
-    public Resource[] resolveMapperLocations(String[] mapperLocations) {
-        ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
-        List<Resource> resources = new ArrayList<>();
-        if (mapperLocations != null) {
-            for (String mapperLocation : mapperLocations) {
-                try {
-                    Resource[] mappers = resourceResolver.getResources(mapperLocation);
-                    resources.addAll(Arrays.asList(mappers));
-                } catch (IOException e) {
-                    // ignore
-                }
-            }
-        }
-        return resources.toArray(new Resource[0]);
-    }
-    
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
         String mapperLocations = env.getProperty("mybatis.mapperLocations");
@@ -58,13 +35,13 @@ public class MyBatisConfig {
     
         final MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setMapperLocations(resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
-        sessionFactory.setConfigLocation(new DefaultResourceLoader().getResource(configLocation));
-        sessionFactory.setPlugins(mybatisPlusInterceptor());
+        sessionFactory.setMapperLocations(ResourceUtil.resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
+        sessionFactory.setConfigLocation(ResourceUtil.resolveConfigLocation(configLocation));
+        sessionFactory.setPlugins(interceptor());
         return sessionFactory.getObject();
     }
     
-    public MybatisPlusInterceptor mybatisPlusInterceptor() {
+    public MybatisPlusInterceptor interceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
         // 分页拦截器
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));

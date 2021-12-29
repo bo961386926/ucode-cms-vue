@@ -4,7 +4,8 @@ import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.domain.AjaxResult;
@@ -26,7 +27,8 @@ import java.util.concurrent.TimeUnit;
  *
  * @author ucode
  */
-@RestController
+@ResponseBody
+@RequestMapping(CmsConfig.UNIFORM_PREFIX)
 public class CaptchaController {
     @Resource(name = "captchaProducer")
     private Producer captchaProducer;

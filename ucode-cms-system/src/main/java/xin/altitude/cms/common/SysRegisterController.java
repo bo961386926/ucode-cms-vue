@@ -3,9 +3,11 @@ package xin.altitude.cms.common;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.auth.web.service.SysRegisterService;
+import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.model.RegisterBody;
 import xin.altitude.cms.common.util.StringUtils;
@@ -16,7 +18,8 @@ import xin.altitude.cms.system.service.ISysConfigService;
  *
  * @author ucode
  */
-@RestController
+@ResponseBody
+@RequestMapping(CmsConfig.UNIFORM_PREFIX)
 public class SysRegisterController extends BaseController {
     @Autowired
     private SysRegisterService registerService;

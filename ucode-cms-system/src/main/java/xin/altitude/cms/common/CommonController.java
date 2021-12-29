@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.config.ServerConfig;
@@ -26,7 +27,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ucode
  */
-@RestController
+@ResponseBody
+@RequestMapping(CmsConfig.UNIFORM_PREFIX)
 public class CommonController {
     private static final Logger log = LoggerFactory.getLogger(CommonController.class);
     

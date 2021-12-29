@@ -3,7 +3,6 @@ package xin.altitude.cms.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.constant.UserConstants;
@@ -36,7 +35,7 @@ import java.util.stream.Collectors;
  *
  * @author ucode
  */
-@Service
+// @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
     public static final String PREMISSION_STRING = "perms[\"{0}\"]";
     

@@ -8,6 +8,7 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <groupId>xin.altitude.cms.ui</groupId>
     <artifactId>ucode-cms-ui</artifactId>
     <description>
         Java知识图谱之内容管理系统前端页面

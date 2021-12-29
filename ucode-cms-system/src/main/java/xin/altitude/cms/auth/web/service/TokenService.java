@@ -5,7 +5,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
@@ -27,7 +26,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author ucode
  */
-@Component
+// @Component
 public class TokenService {
     protected static final long MILLIS_SECOND = 1000;
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
@@ -63,6 +62,7 @@ public class TokenService {
                 LoginUser user = redisCache.getCacheObject(userKey);
                 return user;
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return null;

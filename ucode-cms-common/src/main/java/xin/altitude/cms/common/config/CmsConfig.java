@@ -3,18 +3,17 @@ package xin.altitude.cms.common.config;
 import lombok.Data;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * @author explore
  * @since 2021/12/22 17:09
  **/
 @Data
-@Configuration
+// @Configuration
 @ConfigurationProperties(prefix = "ucode")
 public class CmsConfig {
     /* 接口访问统一前缀 */
-    public final static String UNIFORM_PREFIX = "cms-api/";
+    public final static String UNIFORM_PREFIX = "/cms-api";
     private Cms cms;
     private Token token;
     private Xss xss;

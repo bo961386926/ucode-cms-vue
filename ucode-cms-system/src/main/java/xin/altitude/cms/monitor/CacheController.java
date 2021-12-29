@@ -6,7 +6,8 @@ import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 
 import java.util.ArrayList;
@@ -20,8 +21,8 @@ import java.util.Properties;
  *
  * @author ucode
  */
-@RestController
-@RequestMapping("/monitor/cache")
+@ResponseBody
+@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/cache")
 public class CacheController {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;

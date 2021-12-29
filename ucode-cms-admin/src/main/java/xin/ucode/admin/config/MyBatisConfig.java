@@ -1,4 +1,4 @@
-package xin.altitude.config;
+package xin.ucode.admin.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -36,7 +36,7 @@ public class MyBatisConfig {
     
     public Resource[] resolveMapperLocations(String[] mapperLocations) {
         ResourcePatternResolver resourceResolver = new PathMatchingResourcePatternResolver();
-        List<Resource> resources = new ArrayList<Resource>();
+        List<Resource> resources = new ArrayList<>();
         if (mapperLocations != null) {
             for (String mapperLocation : mapperLocations) {
                 try {

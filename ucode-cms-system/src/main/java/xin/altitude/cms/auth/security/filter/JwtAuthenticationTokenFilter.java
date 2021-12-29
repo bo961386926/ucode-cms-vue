@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
@@ -22,7 +21,7 @@ import java.io.IOException;
  *
  * @author ucode
  */
-@Component
+// @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private TokenService tokenService;

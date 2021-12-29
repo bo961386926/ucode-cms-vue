@@ -3,7 +3,6 @@ package xin.altitude.cms.auth.aspectj;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.annotation.DataScope;
@@ -18,7 +17,7 @@ import xin.altitude.cms.common.util.StringUtils;
  * @author ucode
  */
 @Aspect
-@Component
+// @Component
 public class DataScopeAspect {
     /**
      * 全部数据权限

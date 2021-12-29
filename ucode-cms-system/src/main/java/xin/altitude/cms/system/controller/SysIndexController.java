@@ -2,7 +2,7 @@ package xin.altitude.cms.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.util.StringUtils;
 
@@ -11,7 +11,7 @@ import xin.altitude.cms.common.util.StringUtils;
  *
  * @author ucode
  */
-@RestController
+@ResponseBody
 public class SysIndexController {
     /**
      * 系统基础配置

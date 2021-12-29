@@ -1,6 +1,5 @@
 package xin.altitude.cms.system.service.impl;
 
-import org.springframework.stereotype.Service;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.common.util.StringUtils;
 import xin.altitude.cms.system.domain.SysUserOnline;
@@ -11,7 +10,7 @@ import xin.altitude.cms.system.service.ISysUserOnlineService;
  *
  * @author ucode
  */
-@Service
+// @Service
 public class SysUserOnlineServiceImpl implements ISysUserOnlineService {
     /**
      * 通过登录地址查询信息

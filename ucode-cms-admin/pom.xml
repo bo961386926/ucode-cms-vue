@@ -8,6 +8,7 @@
         <version>1.0.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
+    <groupId>xin.altitude.cms.admin</groupId>
     <artifactId>ucode-cms-admin</artifactId>
     <name>${project.artifactId}</name>
     
@@ -37,13 +38,6 @@
             <artifactId>ucode-cms-springboot-starter</artifactId>
             <version>${ucode-cms.version}</version>
         </dependency>
-    
-        <dependency>
-            <groupId>xin.altitude.cms</groupId>
-            <artifactId>ucode-cms-ui</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
     </dependencies>
     
     <build>

@@ -1,6 +1,5 @@
 package xin.altitude.cms.common.config;
 
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.util.ServletUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -10,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author ucode
  */
-@Component
+// @Component
 public class ServerConfig {
     public static String getDomain(HttpServletRequest request) {
         StringBuffer url = request.getRequestURL();

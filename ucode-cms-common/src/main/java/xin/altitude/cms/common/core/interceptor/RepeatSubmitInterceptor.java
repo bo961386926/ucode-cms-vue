@@ -1,7 +1,6 @@
 package xin.altitude.cms.common.core.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
-import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import xin.altitude.cms.common.annotation.RepeatSubmit;
@@ -17,7 +16,7 @@ import java.lang.reflect.Method;
  *
  * @author ucode
  */
-@Component
+// @Component
 public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {

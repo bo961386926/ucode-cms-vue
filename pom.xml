@@ -40,7 +40,7 @@
         <module>ucode-cms-system</module>
         <module>ucode-cms-common</module>
         <module>ucode-cms-springboot-starter</module>
-        <!--<module>ucode-cms-ui</module>-->
+        <module>ucode-cms-ui</module>
     </modules>
     <packaging>pom</packaging>
     

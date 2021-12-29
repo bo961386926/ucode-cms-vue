@@ -3,7 +3,6 @@ package xin.altitude.cms.common.core.interceptor.impl;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.annotation.RepeatSubmit;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.interceptor.RepeatSubmitInterceptor;
@@ -23,7 +22,7 @@ import java.util.concurrent.TimeUnit;
  *
  * @author ucode
  */
-@Component
+// @Component
 public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
     public final String REPEAT_PARAMS = "repeatParams";
     

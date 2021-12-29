@@ -3,7 +3,6 @@ package xin.altitude.cms.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import xin.altitude.cms.common.constant.UserConstants;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
 import xin.altitude.cms.common.exception.ServiceException;
@@ -25,7 +24,7 @@ import java.util.List;
  *
  * @author ucode
  */
-@Service
+// @Service
 public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPost> implements ISysPostService {
     // @Autowired
     // private SysPostMapper postMapper;

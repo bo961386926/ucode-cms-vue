@@ -3,7 +3,6 @@ package xin.altitude.cms.common.config;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import xin.altitude.cms.common.filter.RepeatableFilter;
 import xin.altitude.cms.common.filter.XssFilter;
 import xin.altitude.cms.common.util.StringUtils;
@@ -19,7 +18,7 @@ import java.util.Map;
  *
  * @author ucode
  */
-@Configuration
+// @Configuration
 public class FilterConfig {
     private final CmsConfig.Xss xss = SpringUtils.getBean(CmsConfig.class).getXss();
     

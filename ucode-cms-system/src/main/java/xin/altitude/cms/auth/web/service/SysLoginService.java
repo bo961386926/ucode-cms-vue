@@ -5,7 +5,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.auth.manager.AsyncManager;
 import xin.altitude.cms.auth.manager.factory.AsyncFactory;
 import xin.altitude.cms.auth.model.LoginUser;
@@ -30,7 +29,7 @@ import javax.annotation.Resource;
  *
  * @author ucode
  */
-@Component
+// @Component
 public class SysLoginService {
     @Autowired
     private TokenService tokenService;

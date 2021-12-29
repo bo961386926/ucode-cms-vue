@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.common.constant.enums.UserStatus;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
@@ -19,7 +18,7 @@ import xin.altitude.cms.system.service.ISysUserService;
  *
  * @author ucode
  */
-@Service
+// @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     private static final Logger log = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
     

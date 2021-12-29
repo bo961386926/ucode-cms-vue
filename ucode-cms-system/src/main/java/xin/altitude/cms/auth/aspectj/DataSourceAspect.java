@@ -9,7 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.annotation.DataSource;
 import xin.altitude.cms.common.core.datasource.DynamicDataSourceContextHolder;
 import xin.altitude.cms.common.util.StringUtils;
@@ -23,7 +22,7 @@ import java.util.Objects;
  */
 @Aspect
 @Order(1)
-@Component
+// @Component
 public class DataSourceAspect {
     protected Logger logger = LoggerFactory.getLogger(getClass());
     

@@ -4,10 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.auth.web.service.SysLoginService;
 import xin.altitude.cms.auth.web.service.SysPermissionService;
+import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.common.core.domain.entity.SysMenu;
@@ -23,7 +25,8 @@ import java.util.Set;
  *
  * @author ucode
  */
-@RestController
+@ResponseBody
+@RequestMapping(CmsConfig.UNIFORM_PREFIX)
 public class SysLoginController {
     @Autowired
     private SysLoginService loginService;

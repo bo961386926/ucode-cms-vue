@@ -3,7 +3,6 @@ package xin.altitude.cms.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 import xin.altitude.cms.common.core.domain.entity.SysDictData;
 import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.system.mapper.SysDictDataMapper;
@@ -16,7 +15,7 @@ import java.util.List;
  *
  * @author ucode
  */
-@Service
+// @Service
 public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDictData> implements ISysDictDataService {
     // @Autowired
     // private SysDictDataMapper dictDataMapper;

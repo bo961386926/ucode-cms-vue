@@ -7,8 +7,6 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Primary;
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.util.StringUtils;
 
 /**
@@ -16,8 +14,7 @@ import xin.altitude.cms.common.util.StringUtils;
  *
  * @author ucode
  */
-@Component
-@Primary
+// @Component
 public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {
     /**
      * Spring应用上下文环境

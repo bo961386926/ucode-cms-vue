@@ -2,7 +2,6 @@ package xin.altitude.cms.common.config;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import xin.altitude.cms.common.util.Threads;
 
@@ -15,7 +14,7 @@ import java.util.concurrent.ThreadPoolExecutor;
  *
  * @author ucode
  **/
-@Configuration
+// @Configuration
 public class ThreadPoolConfig {
     /**
      * 核心线程池大小

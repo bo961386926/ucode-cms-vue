@@ -1,4 +1,4 @@
-package xin.altitude.config;
+package xin.ucode.admin.config;
 
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;

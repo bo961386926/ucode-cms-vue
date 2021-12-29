@@ -2,8 +2,9 @@ package xin.altitude.cms.monitor;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.web.domain.Server;
+import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 
 /**
@@ -11,8 +12,8 @@ import xin.altitude.cms.common.core.domain.AjaxResult;
  *
  * @author ucode
  */
-@RestController
-@RequestMapping("/monitor/server")
+@ResponseBody
+@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/server")
 public class ServerController {
     @GetMapping()
     public AjaxResult getInfo() throws Exception {

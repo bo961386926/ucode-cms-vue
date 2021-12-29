@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import xin.altitude.cms.common.config.properties.DruidProperties;
 import xin.altitude.cms.common.constant.DataSourceName;
@@ -26,7 +25,7 @@ import java.util.Map;
  *
  * @author ucode
  */
-@Configuration
+// @Configuration
 public class DruidConfig {
     
     /**
@@ -36,7 +35,8 @@ public class DruidConfig {
      * @return
      */
     @Bean(DataSourceName.MASTER_DATA_SOURCE)
-    @ConfigurationProperties("spring.datasource.druid.master")
+    // @ConfigurationProperties("spring.datasource.druid.master")
+    @ConfigurationProperties("spring.datasource")
     public DataSource masterDataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
         return druidProperties.dataSource(dataSource);

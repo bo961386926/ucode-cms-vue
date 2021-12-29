@@ -60,6 +60,7 @@ server:
 # 日志配置
 logging:
   level:
+    xin.ucode: debug
     xin.altitude: debug
     org.springframework: warn
 
@@ -70,7 +71,7 @@ spring:
     # 国际化资源文件路径
     basename: i18n/messages
   profiles:
-    active: druid
+    active: dev
   # 文件上传
   servlet:
     multipart:
@@ -105,19 +106,24 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
-
+  main:
+    allow-bean-definition-overriding: true
+#  autoconfigure:
+#    exclude:
+#      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+#      - com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceAutoConfigure
 
 # MyBatis配置
 mybatis:
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
-  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  #  mapperLocations: classpath*:mapper/**/*Mapper.xml
   # 加载全局的配置文件
   configLocation: classpath:mybatis/mybatis-config.xml
 
 # MyBatis配置
 mybatis-plus:
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
-  mapperLocations: classpath*:mapper/**/*Mapper.xml
+  #  mapperLocations: classpath*:mapper/**/*Mapper.xml
   # 加载全局的配置文件
   configLocation: classpath:mybatis/mybatis-config.xml
 

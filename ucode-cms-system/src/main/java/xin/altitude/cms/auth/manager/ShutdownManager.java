@@ -2,7 +2,6 @@ package xin.altitude.cms.auth.manager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
 
@@ -11,7 +10,7 @@ import javax.annotation.PreDestroy;
  *
  * @author ucode
  */
-@Component
+// @Component
 public class ShutdownManager {
     private static final Logger logger = LoggerFactory.getLogger("sys-user");
     

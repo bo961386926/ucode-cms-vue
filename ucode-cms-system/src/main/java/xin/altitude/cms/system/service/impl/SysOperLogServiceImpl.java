@@ -2,7 +2,6 @@ package xin.altitude.cms.system.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import org.springframework.stereotype.Service;
 import xin.altitude.cms.system.domain.SysOperLog;
 import xin.altitude.cms.system.mapper.SysOperLogMapper;
 import xin.altitude.cms.system.service.ISysOperLogService;
@@ -15,7 +14,7 @@ import java.util.List;
  *
  * @author ucode
  */
-@Service
+// @Service
 public class SysOperLogServiceImpl extends ServiceImpl<SysOperLogMapper, SysOperLog> implements ISysOperLogService {
     // @Autowired
     // private SysOperLogMapper operLogMapper;

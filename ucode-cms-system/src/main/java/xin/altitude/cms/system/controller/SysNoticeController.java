@@ -11,9 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.common.annotation.Log;
+import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.enums.BusinessType;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.system.domain.SysNotice;
@@ -24,8 +25,8 @@ import xin.altitude.cms.system.service.ISysNoticeService;
  *
  * @author ucode
  */
-@RestController
-@RequestMapping("/system/notice")
+@ResponseBody
+@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/system/notice")
 public class SysNoticeController extends BaseController {
     @Autowired
     private ISysNoticeService noticeService;

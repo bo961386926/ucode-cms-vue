@@ -7,7 +7,6 @@ import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.util.CollectionUtils;
 import xin.altitude.cms.common.constant.CNTC;
 
@@ -19,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @author explore
  * @since 2021/07/05 14:18
  **/
-@Configuration
+// @Configuration
 public class SpringCaffeineConfig {
     
     @Bean

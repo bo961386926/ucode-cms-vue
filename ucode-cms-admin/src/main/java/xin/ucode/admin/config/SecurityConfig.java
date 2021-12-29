@@ -1,39 +1,37 @@
-package xin.altitude.cms.auth.config;
+package xin.ucode.admin.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.logout.LogoutFilter;
-import org.springframework.web.filter.CorsFilter;
 import xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter;
 import xin.altitude.cms.auth.security.handle.AuthenticationEntryPointImpl;
 import xin.altitude.cms.auth.security.handle.LogoutSuccessHandlerImpl;
+import xin.altitude.cms.auth.web.service.UserDetailsServiceImpl;
 import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.util.spring.SpringUtils;
-
-import javax.annotation.Resource;
 
 /**
  * spring security配置
  *
  * @author ucode
  */
-@EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
+@Configuration
+// @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 自定义用户认证逻辑
      */
-    @Resource
-    private UserDetailsService userDetailsService;
+    // @Autowired
+    // @Qualifier("userDetailsServiceImpl")
+    // private UserDetailsService userDetailsService;
     /**
      * 认证失败处理类
      */
@@ -55,8 +53,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 跨域过滤器
      */
-    @Autowired
-    private CorsFilter corsFilter;
+    // @Autowired
+    // private CorsFilter corsFilter;
     
     /**
      * 解决 无法直接注入 AuthenticationManager
@@ -126,8 +124,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // 添加JWT filter
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
         // 添加CORS filter
-        httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
-        httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
+        // httpSecurity.addFilterBefore(corsFilter, JwtAuthenticationTokenFilter.class);
+        // httpSecurity.addFilterBefore(corsFilter, LogoutFilter.class);
     }
     
     /**
@@ -143,6 +141,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        // auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
+        auth.userDetailsService(SpringUtils.getBean(UserDetailsServiceImpl.class))
+                .passwordEncoder(bCryptPasswordEncoder());
     }
 }

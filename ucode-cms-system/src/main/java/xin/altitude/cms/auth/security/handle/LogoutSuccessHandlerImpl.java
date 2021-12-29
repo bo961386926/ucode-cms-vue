@@ -2,7 +2,6 @@ package xin.altitude.cms.auth.security.handle;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import xin.altitude.cms.auth.manager.AsyncManager;
@@ -25,7 +24,7 @@ import java.io.IOException;
  *
  * @author ucode
  */
-@Configuration
+// @Configuration
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Autowired
     private TokenService tokenService;

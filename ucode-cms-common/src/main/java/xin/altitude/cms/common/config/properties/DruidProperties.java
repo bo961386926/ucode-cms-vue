@@ -2,14 +2,13 @@ package xin.altitude.cms.common.config.properties;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 
 /**
  * druid 配置属性
  *
  * @author ucode
  */
-@Configuration
+// @Configuration
 public class DruidProperties {
     @Value("${spring.datasource.druid.initialSize}")
     private int initialSize;

@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.common.annotation.Log;
+import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.enums.BusinessType;
 import xin.altitude.cms.common.core.domain.AjaxResult;
 import xin.altitude.cms.system.domain.SysOperLog;
@@ -25,8 +26,8 @@ import java.util.List;
  *
  * @author ucode
  */
-@RestController
-@RequestMapping("/monitor/operlog")
+@ResponseBody
+@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/operlog")
 public class SysOperlogController extends BaseController {
     @Autowired
     private ISysOperLogService operLogService;

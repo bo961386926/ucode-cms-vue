@@ -1,15 +1,13 @@
-package xin.altitude.config;
+package xin.altitude.cms.common.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.interceptor.RepeatSubmitInterceptor;
 import xin.altitude.cms.common.util.spring.SpringUtils;
@@ -19,7 +17,7 @@ import xin.altitude.cms.common.util.spring.SpringUtils;
  *
  * @author ucode
  */
-@Configuration
+// @Configuration
 public class ResourcesConfig implements WebMvcConfigurer {
     @Autowired
     private RepeatSubmitInterceptor repeatSubmitInterceptor;
@@ -35,8 +33,7 @@ public class ResourcesConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/META-INF/resources/webjars/springfox-swagger-ui/");
     
         /* cms-ui配置 */
-        registry.addResourceHandler("/cms-web/**")
-                .addResourceLocations("classpath:/META-INF/resources/");
+        registry.addResourceHandler("/cms-web/**").addResourceLocations("classpath:/META-INF/resources/");
     }
     
     /**

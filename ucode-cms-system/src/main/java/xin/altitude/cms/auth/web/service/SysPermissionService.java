@@ -1,7 +1,6 @@
 package xin.altitude.cms.auth.web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.core.domain.entity.SysUser;
 import xin.altitude.cms.system.service.ISysMenuService;
 import xin.altitude.cms.system.service.ISysRoleService;
@@ -14,7 +13,7 @@ import java.util.Set;
  *
  * @author ucode
  */
-@Component
+// @Component
 public class SysPermissionService {
     @Autowired
     private ISysRoleService roleService;

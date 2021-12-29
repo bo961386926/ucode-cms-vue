@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.auth.controller.BaseController;
 import xin.altitude.cms.auth.model.LoginUser;
@@ -31,8 +31,8 @@ import java.io.IOException;
  *
  * @author ucode
  */
-@RestController
-@RequestMapping("/system/user/profile")
+@ResponseBody
+@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/system/user/profile")
 public class SysProfileController extends BaseController {
     @Autowired
     private ISysUserService userService;

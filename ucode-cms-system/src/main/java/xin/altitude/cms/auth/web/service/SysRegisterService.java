@@ -1,7 +1,6 @@
 package xin.altitude.cms.auth.web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.auth.manager.AsyncManager;
 import xin.altitude.cms.auth.manager.factory.AsyncFactory;
 import xin.altitude.cms.auth.util.SecurityUtils;
@@ -22,7 +21,7 @@ import xin.altitude.cms.system.service.ISysUserService;
  *
  * @author ucode
  */
-@Component
+// @Component
 public class SysRegisterService {
     @Autowired
     private ISysUserService userService;

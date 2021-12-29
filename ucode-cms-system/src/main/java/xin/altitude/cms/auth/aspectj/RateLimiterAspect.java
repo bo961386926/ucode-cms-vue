@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
-import org.springframework.stereotype.Component;
 import xin.altitude.cms.common.annotation.RateLimiter;
 import xin.altitude.cms.common.constant.enums.LimitType;
 import xin.altitude.cms.common.exception.ServiceException;
@@ -27,7 +26,7 @@ import java.util.List;
  * @author ucode
  */
 @Aspect
-@Component
+// @Component
 public class RateLimiterAspect {
     private static final Logger log = LoggerFactory.getLogger(RateLimiterAspect.class);
     

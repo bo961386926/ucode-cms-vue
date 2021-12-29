@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.annotation.DataScope;
 import xin.altitude.cms.common.constant.UserConstants;
@@ -36,7 +35,7 @@ import java.util.stream.Collectors;
  *
  * @author ucode
  */
-@Service
+// @Service
 public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> implements ISysDeptService {
     // @Autowired
     // private SysDeptMapper deptMapper;

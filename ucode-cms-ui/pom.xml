@@ -11,7 +11,7 @@
     <groupId>xin.altitude.cms.ui</groupId>
     <artifactId>ucode-cms-ui</artifactId>
     <description>
-        Java知识图谱之内容管理系统前端页面
+        Java知识图谱之内容管理系统（CMS）前端页面
     </description>
     
     <properties>

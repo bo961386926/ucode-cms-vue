@@ -13,7 +13,7 @@
     <name>${project.artifactId}</name>
     
     <description>
-        system系统模块
+        Java知识图谱之内容管理系统（CMS）系统模块
     </description>
     
     <dependencies>

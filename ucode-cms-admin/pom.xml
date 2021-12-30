@@ -22,8 +22,8 @@
     
         <dependency>
             <groupId>xin.altitude.cms</groupId>
-            <artifactId>ucode-cms-springboot-starter</artifactId>
-            <version>1.0.2</version>
+            <artifactId>ucode-cms-spring-boot-starter</artifactId>
+            <version>1.0.3</version>
         </dependency>
     </dependencies>
     

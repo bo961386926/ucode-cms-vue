@@ -6,7 +6,7 @@
     
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <description>Java知识图谱之内容管理系统（pom）</description>
     
     <name>${project.artifactId}</name>
@@ -158,14 +158,14 @@
             <dependency>
                 <groupId>xin.altitude.cms.system</groupId>
                 <artifactId>ucode-cms-system</artifactId>
-                <version>1.0.2</version>
+                <version>1.0.3</version>
             </dependency>
     
             <!-- 通用工具-->
             <dependency>
                 <groupId>xin.altitude.cms.common</groupId>
                 <artifactId>ucode-cms-common</artifactId>
-                <version>1.0.2</version>
+                <version>1.0.3</version>
             </dependency>
             
             <dependency>

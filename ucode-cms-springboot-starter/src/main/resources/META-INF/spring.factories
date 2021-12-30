@@ -25,7 +25,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.common.config.CmsConfig,\
     xin.altitude.cms.common.config.DruidConfig,\
     xin.altitude.cms.common.config.FilterConfig,\
-    xin.altitude.cms.common.config.RedisConfig,\
     xin.altitude.cms.common.config.ServerConfig,\
     xin.altitude.cms.common.config.SpringCaffeineConfig,\
     xin.altitude.cms.common.config.ThreadPoolConfig,\

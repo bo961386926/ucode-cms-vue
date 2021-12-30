@@ -39,7 +39,7 @@ public class DruidConfig {
     @ConfigurationProperties("spring.datasource")
     public DataSource masterDataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
-        return druidProperties.dataSource(dataSource);
+        return druidProperties.createDataSource(dataSource);
     }
     
     /**
@@ -53,7 +53,7 @@ public class DruidConfig {
     @ConditionalOnProperty(prefix = "spring.datasource.druid.slave", name = "enabled", havingValue = "true")
     public DataSource slaveDataSource(DruidProperties druidProperties) {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
-        return druidProperties.dataSource(dataSource);
+        return druidProperties.createDataSource(dataSource);
     }
     
     

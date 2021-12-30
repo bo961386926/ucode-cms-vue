@@ -2,8 +2,8 @@ package xin.altitude.cms.common.core.interceptor.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import xin.altitude.cms.common.annotation.RepeatSubmit;
+import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.core.interceptor.RepeatSubmitInterceptor;
 import xin.altitude.cms.common.core.redis.RedisCache;
@@ -29,8 +29,10 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
     public final String REPEAT_TIME = "repeatTime";
     
     // 令牌自定义标识
-    @Value("${ucode.token.header}")
-    private String header;
+    // @Value("${ucode.token.header}")
+    // private final String header = SpringUtils.getBean(CmsConfig.class).getToken().getHeader();
+    @Autowired
+    private CmsConfig cmsConfig;
     
     @Autowired
     private RedisCache redisCache;
@@ -56,7 +58,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         String url = request.getRequestURI();
         
         // 唯一值（没有消息头则使用请求地址）
-        String submitKey = request.getHeader(header);
+        String submitKey = request.getHeader(cmsConfig.getToken().getHeader());
         if (StringUtils.isEmpty(submitKey)) {
             submitKey = url;
         }

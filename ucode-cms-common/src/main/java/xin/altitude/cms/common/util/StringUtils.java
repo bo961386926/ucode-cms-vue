@@ -61,7 +61,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * * 判断一个对象数组是否为空
      *
      * @param objects 要判断的对象数组
-     *                * @return true：为空 false：非空
+     * @return true：为空 false：非空
      */
     public static boolean isEmpty(Object[] objects) {
         return isNull(objects) || (objects.length == 0);
@@ -251,7 +251,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param sep 分隔符
      * @return set集合
      */
-    public static final Set<String> str2Set(String str, String sep) {
+    public static Set<String> str2Set(String str, String sep) {
         return new HashSet<String>(str2List(str, sep, true, false));
     }
     
@@ -264,7 +264,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @param trim        去掉首尾空白
      * @return list集合
      */
-    public static final List<String> str2List(String str, String sep, boolean filterBlank, boolean trim) {
+    public static List<String> str2List(String str, String sep, boolean filterBlank, boolean trim) {
         List<String> list = new ArrayList<String>();
         if (StringUtils.isEmpty(str)) {
             return list;

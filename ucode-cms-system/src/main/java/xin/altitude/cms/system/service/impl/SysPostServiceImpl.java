@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import xin.altitude.cms.common.util.EntityUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.constant.UserConstants;
 import xin.altitude.cms.framework.core.domain.SysUser;
 import xin.altitude.cms.framework.exception.ServiceException;
@@ -93,10 +93,10 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPost> impl
      */
     @Override
     public String checkPostNameUnique(SysPost post) {
-        Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
+        Long postId = StringUtil.isNull(post.getPostId()) ? -1L : post.getPostId();
         // SysPost info = postMapper.checkPostNameUnique(post.getPostName());
         SysPost info = getOne(Wrappers.lambdaQuery(SysPost.class).eq(SysPost::getPostName, post.getPostName()));
-        if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
+        if (StringUtil.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;
@@ -110,10 +110,10 @@ public class SysPostServiceImpl extends ServiceImpl<SysPostMapper, SysPost> impl
      */
     @Override
     public String checkPostCodeUnique(SysPost post) {
-        Long postId = StringUtils.isNull(post.getPostId()) ? -1L : post.getPostId();
+        Long postId = StringUtil.isNull(post.getPostId()) ? -1L : post.getPostId();
         // SysPost info = postMapper.checkPostCodeUnique(post.getPostCode());
         SysPost info = getOne(Wrappers.lambdaQuery(SysPost.class).eq(SysPost::getPostCode, post.getPostCode()));
-        if (StringUtils.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
+        if (StringUtil.isNotNull(info) && info.getPostId().longValue() != postId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;

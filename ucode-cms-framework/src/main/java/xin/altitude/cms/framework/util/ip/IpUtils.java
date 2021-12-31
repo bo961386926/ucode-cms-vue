@@ -1,6 +1,6 @@
 package xin.altitude.cms.framework.util.ip;
 
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.util.html.EscapeUtil;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,7 +43,7 @@ public class IpUtils {
     }
     
     private static boolean internalIp(byte[] addr) {
-        if (StringUtils.isNull(addr) || addr.length < 2) {
+        if (StringUtil.isNull(addr) || addr.length < 2) {
             return true;
         }
         final byte b0 = addr[0];

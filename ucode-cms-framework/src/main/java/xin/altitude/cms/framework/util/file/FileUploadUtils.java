@@ -4,7 +4,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.SpringUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.exception.file.FileNameLengthLimitExceededException;
 import xin.altitude.cms.framework.exception.file.FileSizeLimitExceededException;
@@ -127,7 +127,7 @@ public class FileUploadUtils {
     
     public static final String getPathFileName(String uploadDir, String fileName) throws IOException {
         int dirLastIndex = SpringUtils.getBean(CmsConfig.class).getCms().getProfile().length() + 1;
-        String currentDir = StringUtils.substring(uploadDir, dirLastIndex);
+        String currentDir = StringUtil.substring(uploadDir, dirLastIndex);
         String pathFileName = Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
         return pathFileName;
     }
@@ -191,7 +191,7 @@ public class FileUploadUtils {
      */
     public static final String getExtension(MultipartFile file) {
         String extension = FilenameUtils.getExtension(file.getOriginalFilename());
-        if (StringUtils.isEmpty(extension)) {
+        if (StringUtil.isEmpty(extension)) {
             extension = MimeTypeUtils.getExtension(file.getContentType());
         }
         return extension;

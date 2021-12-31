@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.ConvertUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.constant.UserConstants;
 import xin.altitude.cms.framework.exception.ServiceException;
 import xin.altitude.cms.system.domain.SysConfig;
@@ -65,11 +65,11 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         config.setConfigKey(configKey);
         // SysConfig retConfig = configMapper.selectConfig(config);
         SysConfig retConfig = getOne(Wrappers.lambdaQuery(config));
-        if (StringUtils.isNotNull(retConfig)) {
+        if (StringUtil.isNotNull(retConfig)) {
             // redisCache.setCacheObject(getCacheKey(configKey), retConfig.getConfigValue());
             return retConfig.getConfigValue();
         }
-        return StringUtils.EMPTY;
+        return StringUtil.EMPTY;
     }
     
     /**
@@ -80,7 +80,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     @Override
     public boolean selectCaptchaOnOff() {
         String captchaOnOff = selectConfigByKey("sys.account.captchaOnOff");
-        if (StringUtils.isEmpty(captchaOnOff)) {
+        if (StringUtil.isEmpty(captchaOnOff)) {
             return true;
         }
         return ConvertUtils.toBool(captchaOnOff);
@@ -140,7 +140,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     public void deleteConfigByIds(Long[] configIds) {
         for (Long configId : configIds) {
             SysConfig config = this.getById(configId);
-            if (StringUtils.equals(UserConstants.YES, config.getConfigType())) {
+            if (StringUtil.equals(UserConstants.YES, config.getConfigType())) {
                 throw new ServiceException(String.format("内置参数【%1$s】不能删除 ", config.getConfigKey()));
             }
             removeById(configId);
@@ -187,10 +187,10 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
      */
     @Override
     public String checkConfigKeyUnique(SysConfig config) {
-        Long configId = StringUtils.isNull(config.getConfigId()) ? -1L : config.getConfigId();
+        Long configId = StringUtil.isNull(config.getConfigId()) ? -1L : config.getConfigId();
         // SysConfig info = configMapper.checkConfigKeyUnique(config.getConfigKey());
         SysConfig info = getOne(Wrappers.lambdaQuery(SysConfig.class).eq(SysConfig::getConfigKey, config.getConfigKey()));
-        if (StringUtils.isNotNull(info) && info.getConfigId().longValue() != configId.longValue()) {
+        if (StringUtil.isNotNull(info) && info.getConfigId().longValue() != configId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }
         return UserConstants.UNIQUE;

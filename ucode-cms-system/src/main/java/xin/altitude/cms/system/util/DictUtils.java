@@ -3,7 +3,7 @@ package xin.altitude.cms.system.util;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.SpringUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.core.domain.SysDictData;
 import xin.altitude.cms.framework.core.redis.RedisCache;
 import xin.altitude.cms.system.service.ISysDictDataService;
@@ -40,8 +40,8 @@ public class DictUtils {
      */
     public static List<SysDictData> getDictCache(String key) {
         Object cacheObj = SpringUtils.getBean(RedisCache.class).getCacheObject(getCacheKey(key));
-        if (StringUtils.isNotNull(cacheObj)) {
-            return StringUtils.cast(cacheObj);
+        if (StringUtil.isNotNull(cacheObj)) {
+            return StringUtil.cast(cacheObj);
         }
         return null;
     }
@@ -81,7 +81,7 @@ public class DictUtils {
         // List<SysDictData> datas = getDictCache(dictType);
         ISysDictDataService service = SpringUtils.getBean(ISysDictDataService.class);
         List<SysDictData> datas = service.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType));
-        if (StringUtils.containsAny(separator, dictValue) && StringUtils.isNotEmpty(datas)) {
+        if (StringUtil.containsAny(separator, dictValue) && StringUtil.isNotEmpty(datas)) {
             for (SysDictData dict : datas) {
                 for (String value : dictValue.split(separator)) {
                     if (value.equals(dict.getDictValue())) {
@@ -97,7 +97,7 @@ public class DictUtils {
                 }
             }
         }
-        return StringUtils.stripEnd(propertyString.toString(), separator);
+        return StringUtil.stripEnd(propertyString.toString(), separator);
     }
     
     /**
@@ -113,7 +113,7 @@ public class DictUtils {
         // List<SysDictData> datas = getDictCache(dictType);
         ISysDictDataService service = SpringUtils.getBean(ISysDictDataService.class);
         List<SysDictData> datas = service.list(Wrappers.lambdaQuery(SysDictData.class).eq(SysDictData::getDictType, dictType));
-        if (StringUtils.containsAny(separator, dictLabel) && StringUtils.isNotEmpty(datas)) {
+        if (StringUtil.containsAny(separator, dictLabel) && StringUtil.isNotEmpty(datas)) {
             for (SysDictData dict : datas) {
                 for (String label : dictLabel.split(separator)) {
                     if (label.equals(dict.getDictLabel())) {
@@ -129,7 +129,7 @@ public class DictUtils {
                 }
             }
         }
-        return StringUtils.stripEnd(propertyString.toString(), separator);
+        return StringUtil.stripEnd(propertyString.toString(), separator);
     }
     
     /**

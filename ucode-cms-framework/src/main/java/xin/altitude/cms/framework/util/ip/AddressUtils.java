@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.SpringUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.util.http.HttpUtils;
 
@@ -29,7 +29,7 @@ public class AddressUtils {
         if (SpringUtils.getBean(CmsConfig.class).getCms().isAddressEnabled()) {
             try {
                 String rspStr = HttpUtils.sendGet(IP_URL, "ip=" + ip + "&json=true", Constants.GBK);
-                if (StringUtils.isEmpty(rspStr)) {
+                if (StringUtil.isEmpty(rspStr)) {
                     log.error("获取地理位置异常 {}", ip);
                     return UNKNOWN;
                 }

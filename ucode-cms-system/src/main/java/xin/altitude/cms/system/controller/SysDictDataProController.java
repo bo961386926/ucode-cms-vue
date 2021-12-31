@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xin.altitude.cms.auth.controller.BaseController;
+import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.enums.BusinessType;
@@ -34,7 +34,7 @@ import java.util.List;
  */
 @ResponseBody
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/system/dict/data")
-public class SysDictDataController extends BaseController {
+public class SysDictDataProController extends BaseProController {
     @Autowired
     private ISysDictDataService dictDataService;
     
@@ -74,7 +74,7 @@ public class SysDictDataController extends BaseController {
     @GetMapping(value = "/type/{dictType}")
     public AjaxResult dictType(@PathVariable String dictType) {
         List<SysDictData> data = dictTypeService.selectDictDataByType(dictType);
-        if (StringUtils.isNull(data)) {
+        if (StringUtil.isNull(data)) {
             data = new ArrayList<SysDictData>();
         }
         return AjaxResult.success(data);

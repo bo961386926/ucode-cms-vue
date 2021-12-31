@@ -2,7 +2,7 @@ package xin.altitude.cms.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.config.CmsConfig;
 
 /**
@@ -24,6 +24,6 @@ public class SysIndexController {
     // @RequestMapping("/")
     @GetMapping("/")
     public String index() {
-        return StringUtils.format("欢迎使用{}后台管理框架，当前版本：v{}，请通过前端地址访问。", cmsConfig.getCms().getName(), cmsConfig.getCms().getVersion());
+        return StringUtil.format("欢迎使用{}后台管理框架，当前版本：v{}，请通过前端地址访问。", cmsConfig.getCms().getName(), cmsConfig.getCms().getVersion());
     }
 }

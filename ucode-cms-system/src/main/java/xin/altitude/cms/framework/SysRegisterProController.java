@@ -5,10 +5,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xin.altitude.cms.auth.controller.BaseController;
+import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.auth.web.service.SysRegisterService;
 import xin.altitude.cms.common.entity.AjaxResult;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.core.model.RegisterBody;
 import xin.altitude.cms.system.service.ISysConfigService;
@@ -20,7 +20,7 @@ import xin.altitude.cms.system.service.ISysConfigService;
  */
 @ResponseBody
 @RequestMapping(CmsConfig.UNIFORM_PREFIX)
-public class SysRegisterController extends BaseController {
+public class SysRegisterProController extends BaseProController {
     @Autowired
     private SysRegisterService registerService;
     
@@ -33,6 +33,6 @@ public class SysRegisterController extends BaseController {
             return error("当前系统没有开启注册功能！");
         }
         String msg = registerService.register(user);
-        return StringUtils.isEmpty(msg) ? success() : error(msg);
+        return StringUtil.isEmpty(msg) ? success() : error(msg);
     }
 }

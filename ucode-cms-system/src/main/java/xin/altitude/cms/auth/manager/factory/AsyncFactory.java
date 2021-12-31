@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.SpringUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.util.LogUtils;
 import xin.altitude.cms.framework.util.ip.AddressUtils;
 import xin.altitude.cms.framework.util.ip.IpUtils;
@@ -63,7 +63,7 @@ public class AsyncFactory {
                 logininfor.setOs(os);
                 logininfor.setMsg(message);
                 // 日志状态
-                if (StringUtils.equalsAny(status, Constants.LOGIN_SUCCESS, Constants.LOGOUT, Constants.REGISTER)) {
+                if (StringUtil.equalsAny(status, Constants.LOGIN_SUCCESS, Constants.LOGOUT, Constants.REGISTER)) {
                     logininfor.setStatus(Constants.SUCCESS);
                 } else if (Constants.LOGIN_FAIL.equals(status)) {
                     logininfor.setStatus(Constants.FAIL);

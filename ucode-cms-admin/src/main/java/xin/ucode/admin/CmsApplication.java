@@ -16,6 +16,6 @@ public class CmsApplication {
         // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(CmsApplication.class, args);
         // System.out.println(SpringUtils.getBean(CmsConfig.class));
-        System.out.println("项目启动成功");
+        // System.out.println("项目启动成功");
     }
 }

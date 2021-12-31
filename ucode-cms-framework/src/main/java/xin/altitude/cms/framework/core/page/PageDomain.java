@@ -1,6 +1,6 @@
 package xin.altitude.cms.framework.core.page;
 
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 
 /**
  * 分页数据
@@ -34,10 +34,10 @@ public class PageDomain {
     private Boolean reasonable = true;
     
     public String getOrderBy() {
-        if (StringUtils.isEmpty(orderByColumn)) {
+        if (StringUtil.isEmpty(orderByColumn)) {
             return "";
         }
-        return StringUtils.toUnderScoreCase(orderByColumn) + " " + isAsc;
+        return StringUtil.toUnderScoreCase(orderByColumn) + " " + isAsc;
     }
     
     public Integer getPageNum() {
@@ -69,7 +69,7 @@ public class PageDomain {
     }
     
     public void setIsAsc(String isAsc) {
-        if (StringUtils.isNotEmpty(isAsc)) {
+        if (StringUtil.isNotEmpty(isAsc)) {
             // 兼容前端排序类型
             if ("ascending".equals(isAsc)) {
                 isAsc = "asc";
@@ -81,7 +81,7 @@ public class PageDomain {
     }
     
     public Boolean getReasonable() {
-        if (StringUtils.isNull(reasonable)) {
+        if (StringUtil.isNull(reasonable)) {
             return Boolean.TRUE;
         }
         return reasonable;

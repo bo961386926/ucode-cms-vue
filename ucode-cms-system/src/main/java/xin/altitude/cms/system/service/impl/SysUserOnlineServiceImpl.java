@@ -1,7 +1,7 @@
 package xin.altitude.cms.system.service.impl;
 
 import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.system.domain.SysUserOnline;
 import xin.altitude.cms.system.service.ISysUserOnlineService;
 
@@ -21,7 +21,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService {
      */
     @Override
     public SysUserOnline selectOnlineByIpaddr(String ipaddr, LoginUser user) {
-        if (StringUtils.equals(ipaddr, user.getIpaddr())) {
+        if (StringUtil.equals(ipaddr, user.getIpaddr())) {
             return loginUserToUserOnline(user);
         }
         return null;
@@ -36,7 +36,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService {
      */
     @Override
     public SysUserOnline selectOnlineByUserName(String userName, LoginUser user) {
-        if (StringUtils.equals(userName, user.getUsername())) {
+        if (StringUtil.equals(userName, user.getUsername())) {
             return loginUserToUserOnline(user);
         }
         return null;
@@ -52,7 +52,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService {
      */
     @Override
     public SysUserOnline selectOnlineByInfo(String ipaddr, String userName, LoginUser user) {
-        if (StringUtils.equals(ipaddr, user.getIpaddr()) && StringUtils.equals(userName, user.getUsername())) {
+        if (StringUtil.equals(ipaddr, user.getIpaddr()) && StringUtil.equals(userName, user.getUsername())) {
             return loginUserToUserOnline(user);
         }
         return null;
@@ -66,7 +66,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService {
      */
     @Override
     public SysUserOnline loginUserToUserOnline(LoginUser user) {
-        if (StringUtils.isNull(user) || StringUtils.isNull(user.getUser())) {
+        if (StringUtil.isNull(user) || StringUtil.isNull(user.getUser())) {
             return null;
         }
         SysUserOnline sysUserOnline = new SysUserOnline();
@@ -77,7 +77,7 @@ public class SysUserOnlineServiceImpl implements ISysUserOnlineService {
         sysUserOnline.setBrowser(user.getBrowser());
         sysUserOnline.setOs(user.getOs());
         sysUserOnline.setLoginTime(user.getLoginTime());
-        if (StringUtils.isNotNull(user.getUser().getDept())) {
+        if (StringUtil.isNotNull(user.getUser().getDept())) {
             sysUserOnline.setDeptName(user.getUser().getDept().getDeptName());
         }
         return sysUserOnline;

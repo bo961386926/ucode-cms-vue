@@ -5,7 +5,7 @@ import xin.altitude.cms.auth.manager.AsyncManager;
 import xin.altitude.cms.auth.manager.factory.AsyncFactory;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.constant.UserConstants;
 import xin.altitude.cms.framework.core.domain.SysUser;
 import xin.altitude.cms.framework.core.model.RegisterBody;
@@ -43,10 +43,10 @@ public class SysRegisterService {
         if (captchaOnOff) {
             validateCaptcha(username, registerBody.getCode(), registerBody.getUuid());
         }
-        
-        if (StringUtils.isEmpty(username)) {
+    
+        if (StringUtil.isEmpty(username)) {
             msg = "用户名不能为空";
-        } else if (StringUtils.isEmpty(password)) {
+        } else if (StringUtil.isEmpty(password)) {
             msg = "用户密码不能为空";
         } else if (username.length() < UserConstants.USERNAME_MIN_LENGTH
                 || username.length() > UserConstants.USERNAME_MAX_LENGTH) {

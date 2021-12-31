@@ -1,6 +1,6 @@
 package xin.altitude.cms.common.text;
 
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -44,7 +44,7 @@ public class CharsetKit {
      * @return Charset
      */
     public static Charset charset(String charset) {
-        return StringUtils.isEmpty(charset) ? Charset.defaultCharset() : Charset.forName(charset);
+        return StringUtil.isEmpty(charset) ? Charset.defaultCharset() : Charset.forName(charset);
     }
     
     /**
@@ -75,8 +75,8 @@ public class CharsetKit {
         if (null == destCharset) {
             destCharset = StandardCharsets.UTF_8;
         }
-        
-        if (StringUtils.isEmpty(source) || srcCharset.equals(destCharset)) {
+    
+        if (StringUtil.isEmpty(source) || srcCharset.equals(destCharset)) {
             return source;
         }
         return new String(source.getBytes(srcCharset), destCharset);

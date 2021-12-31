@@ -3,7 +3,7 @@ package xin.altitude.cms.framework.util.file;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import xin.altitude.cms.common.util.SpringUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.util.DateUtils;
 import xin.altitude.cms.framework.util.uuid.IdUtils;
@@ -124,7 +124,7 @@ public class FileUtils {
      */
     public static boolean checkAllowDownload(String resource) {
         // 禁止目录上跳级别
-        if (StringUtils.contains(resource, "..")) {
+        if (StringUtil.contains(resource, "..")) {
             return false;
         }
         

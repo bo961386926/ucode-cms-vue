@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 import xin.altitude.cms.common.util.ServletUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.annotation.RateLimiter;
 import xin.altitude.cms.framework.constant.enums.LimitType;
 import xin.altitude.cms.framework.exception.ServiceException;
@@ -54,7 +54,7 @@ public class RateLimiterAspect {
         List<Object> keys = Collections.singletonList(combineKey);
         try {
             Long number = redisTemplate.execute(limitScript, keys, count, time);
-            if (StringUtils.isNull(number) || number.intValue() > count) {
+            if (StringUtil.isNull(number) || number.intValue() > count) {
                 throw new ServiceException("访问过于频繁，请稍候再试");
             }
             log.info("限制请求'{}',当前请求'{}',缓存key'{}'", count, number.intValue(), key);

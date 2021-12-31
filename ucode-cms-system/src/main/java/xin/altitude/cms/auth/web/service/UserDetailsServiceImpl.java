@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.constant.enums.UserStatus;
 import xin.altitude.cms.framework.core.domain.SysUser;
 import xin.altitude.cms.framework.exception.ServiceException;
@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         SysUser user = userService.selectUserByUserName(username);
-        if (StringUtils.isNull(user)) {
+        if (StringUtil.isNull(user)) {
             log.info("登录用户：{} 不存在.", username);
             throw new ServiceException("登录用户：" + username + " 不存在");
         } else if (UserStatus.DELETED.getCode().equals(user.getDelFlag())) {

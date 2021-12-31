@@ -3,23 +3,23 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.framework.CaptchaController,\
     xin.altitude.cms.framework.CommonController,\
     xin.altitude.cms.framework.SysLoginController,\
-    xin.altitude.cms.framework.SysProfileController,\
-    xin.altitude.cms.framework.SysRegisterController,\
+    xin.altitude.cms.framework.SysProfileProController,\
+    xin.altitude.cms.framework.SysRegisterProController,\
     xin.altitude.cms.monitor.CacheController,\
     xin.altitude.cms.monitor.ServerController,\
-    xin.altitude.cms.monitor.SysOperlogController,\
-    xin.altitude.cms.monitor.SysUserOnlineController,\
-    xin.altitude.cms.system.controller.SysConfigController,\
-    xin.altitude.cms.system.controller.SysDeptController,\
-    xin.altitude.cms.system.controller.SysDictDataController,\
-    xin.altitude.cms.system.controller.SysDictTypeController,\
+    xin.altitude.cms.monitor.SysOperlogProController,\
+    xin.altitude.cms.monitor.SysUserOnlineProController,\
+    xin.altitude.cms.system.controller.SysConfigProController,\
+    xin.altitude.cms.system.controller.SysDeptProController,\
+    xin.altitude.cms.system.controller.SysDictDataProController,\
+    xin.altitude.cms.system.controller.SysDictTypeProController,\
     xin.altitude.cms.system.controller.SysIndexController,\
-    xin.altitude.cms.system.controller.SysLogininforController,\
-    xin.altitude.cms.system.controller.SysMenuController,\
-    xin.altitude.cms.system.controller.SysNoticeController,\
-    xin.altitude.cms.system.controller.SysPostController,\
-    xin.altitude.cms.system.controller.SysRoleController,\
-    xin.altitude.cms.system.controller.SysUserController,\
+    xin.altitude.cms.system.controller.SysLogininforProController,\
+    xin.altitude.cms.system.controller.SysMenuProController,\
+    xin.altitude.cms.system.controller.SysNoticeProController,\
+    xin.altitude.cms.system.controller.SysPostProController,\
+    xin.altitude.cms.system.controller.SysRoleProController,\
+    xin.altitude.cms.system.controller.SysUserProController,\
     xin.altitude.cms.framework.config.properties.DruidProperties,\
     xin.altitude.cms.framework.config.CaptchaConfig,\
     xin.altitude.cms.framework.config.CmsConfig,\

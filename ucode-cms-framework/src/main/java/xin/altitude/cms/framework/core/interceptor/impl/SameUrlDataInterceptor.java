@@ -3,7 +3,7 @@ package xin.altitude.cms.framework.core.interceptor.impl;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.annotation.RepeatSubmit;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.core.interceptor.RepeatSubmitInterceptor;
@@ -47,7 +47,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         }
         
         // body参数为空，获取Parameter的数据
-        if (StringUtils.isEmpty(nowParams)) {
+        if (StringUtil.isEmpty(nowParams)) {
             nowParams = JSONObject.toJSONString(request.getParameterMap());
         }
         Map<String, Object> nowDataMap = new HashMap<String, Object>();
@@ -59,7 +59,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
         
         // 唯一值（没有消息头则使用请求地址）
         String submitKey = request.getHeader(cmsConfig.getToken().getHeader());
-        if (StringUtils.isEmpty(submitKey)) {
+        if (StringUtil.isEmpty(submitKey)) {
             submitKey = url;
         }
         

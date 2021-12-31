@@ -3,7 +3,7 @@ package xin.altitude.cms.framework.filter;
 import org.apache.commons.io.IOUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.util.html.EscapeUtil;
 
 import javax.servlet.ReadListener;
@@ -50,7 +50,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         
         // 为空，直接返回
         String json = IOUtils.toString(super.getInputStream(), "utf-8");
-        if (StringUtils.isEmpty(json)) {
+        if (StringUtil.isEmpty(json)) {
             return super.getInputStream();
         }
         
@@ -91,6 +91,6 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
      */
     public boolean isJsonRequest() {
         String header = super.getHeader(HttpHeaders.CONTENT_TYPE);
-        return StringUtils.startsWithIgnoreCase(header, MediaType.APPLICATION_JSON_VALUE);
+        return StringUtil.startsWithIgnoreCase(header, MediaType.APPLICATION_JSON_VALUE);
     }
 }

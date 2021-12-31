@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xin.altitude.cms.auth.controller.BaseController;
+import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
@@ -30,7 +30,7 @@ import java.util.List;
  */
 @ResponseBody
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/logininfor")
-public class SysLogininforController extends BaseController {
+public class SysLogininforProController extends BaseProController {
     @Autowired
     private ISysLogininforService logininforService;
     

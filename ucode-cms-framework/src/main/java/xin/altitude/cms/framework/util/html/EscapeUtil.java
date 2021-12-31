@@ -1,6 +1,6 @@
 package xin.altitude.cms.framework.util.html;
 
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 
 /**
  * 转义和反转义工具类
@@ -62,10 +62,10 @@ public class EscapeUtil {
      * @return 编码后的字符
      */
     private static String encode(String text) {
-        if (StringUtils.isEmpty(text)) {
-            return StringUtils.EMPTY;
+        if (StringUtil.isEmpty(text)) {
+            return StringUtil.EMPTY;
         }
-        
+    
         final StringBuilder tmp = new StringBuilder(text.length() * 6);
         char c;
         for (int i = 0; i < text.length(); i++) {
@@ -95,7 +95,7 @@ public class EscapeUtil {
      * @return 解码后的字符串
      */
     public static String decode(String content) {
-        if (StringUtils.isEmpty(content)) {
+        if (StringUtil.isEmpty(content)) {
             return content;
         }
         

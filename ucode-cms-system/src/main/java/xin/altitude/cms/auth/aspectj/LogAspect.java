@@ -15,7 +15,7 @@ import xin.altitude.cms.auth.manager.factory.AsyncFactory;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.util.ServletUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.constant.enums.BusinessStatus;
 import xin.altitude.cms.framework.constant.enums.HttpMethod;
@@ -77,7 +77,7 @@ public class LogAspect {
             
             if (e != null) {
                 operLog.setStatus(BusinessStatus.FAIL.ordinal());
-                operLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
+                operLog.setErrorMsg(StringUtil.substring(e.getMessage(), 0, 2000));
             }
             // 设置方法名称
             String className = joinPoint.getTarget().getClass().getName();
@@ -117,8 +117,8 @@ public class LogAspect {
             setRequestValue(joinPoint, operLog);
         }
         // 是否需要保存response，参数和值
-        if (log.isSaveResponseData() && StringUtils.isNotNull(jsonResult)) {
-            operLog.setJsonResult(StringUtils.substring(JSON.toJSONString(jsonResult), 0, 2000));
+        if (log.isSaveResponseData() && StringUtil.isNotNull(jsonResult)) {
+            operLog.setJsonResult(StringUtil.substring(JSON.toJSONString(jsonResult), 0, 2000));
         }
     }
     
@@ -132,10 +132,10 @@ public class LogAspect {
         String requestMethod = operLog.getRequestMethod();
         if (HttpMethod.PUT.name().equals(requestMethod) || HttpMethod.POST.name().equals(requestMethod)) {
             String params = argsArrayToString(joinPoint.getArgs());
-            operLog.setOperParam(StringUtils.substring(params, 0, 2000));
+            operLog.setOperParam(StringUtil.substring(params, 0, 2000));
         } else {
             Map<?, ?> paramsMap = (Map<?, ?>) ServletUtils.getRequest().getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-            operLog.setOperParam(StringUtils.substring(paramsMap.toString(), 0, 2000));
+            operLog.setOperParam(StringUtil.substring(paramsMap.toString(), 0, 2000));
         }
     }
     
@@ -146,7 +146,7 @@ public class LogAspect {
         String params = "";
         if (paramsArray != null && paramsArray.length > 0) {
             for (Object o : paramsArray) {
-                if (StringUtils.isNotNull(o) && !isFilterObject(o)) {
+                if (StringUtil.isNotNull(o) && !isFilterObject(o)) {
                     try {
                         Object jsonObj = JSON.toJSON(o);
                         params += jsonObj.toString() + " ";

@@ -117,11 +117,11 @@ public class ServletUtils {
         }
         
         String uri = request.getRequestURI();
-        if (StringUtils.inStringIgnoreCase(uri, ".json", ".xml")) {
+        if (StringUtil.inStringIgnoreCase(uri, ".json", ".xml")) {
             return true;
         }
         
         String ajax = request.getParameter("__ajax");
-        return StringUtils.inStringIgnoreCase(ajax, "json", "xml");
+        return StringUtil.inStringIgnoreCase(ajax, "json", "xml");
     }
 }

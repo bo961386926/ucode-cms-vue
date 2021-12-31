@@ -1,6 +1,6 @@
 package xin.altitude.cms.framework.filter;
 
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -28,7 +28,7 @@ public class XssFilter implements Filter {
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         String tempExcludes = filterConfig.getInitParameter("excludes");
-        if (StringUtils.isNotEmpty(tempExcludes)) {
+        if (StringUtil.isNotEmpty(tempExcludes)) {
             String[] url = tempExcludes.split(",");
             for (int i = 0; url != null && i < url.length; i++) {
                 excludes.add(url[i]);
@@ -56,7 +56,7 @@ public class XssFilter implements Filter {
         if (method == null || method.matches("GET") || method.matches("DELETE")) {
             return true;
         }
-        return StringUtils.matches(url, excludes);
+        return StringUtil.matches(url, excludes);
     }
     
     @Override

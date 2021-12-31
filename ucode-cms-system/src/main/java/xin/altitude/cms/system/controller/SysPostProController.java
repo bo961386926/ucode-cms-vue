@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xin.altitude.cms.auth.controller.BaseController;
+import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
@@ -31,7 +31,7 @@ import java.util.List;
  */
 @ResponseBody
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/system/post")
-public class SysPostController extends BaseController {
+public class SysPostProController extends BaseProController {
     @Autowired
     private ISysPostService postService;
     

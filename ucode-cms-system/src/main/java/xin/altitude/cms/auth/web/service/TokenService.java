@@ -9,7 +9,7 @@ import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.SpringUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.core.redis.RedisCache;
 import xin.altitude.cms.framework.util.ip.AddressUtils;
@@ -53,7 +53,7 @@ public class TokenService {
     public LoginUser getLoginUser(HttpServletRequest request) {
         // 获取请求携带的令牌
         String token = getToken(request);
-        if (StringUtils.isNotEmpty(token)) {
+        if (StringUtil.isNotEmpty(token)) {
             try {
                 Claims claims = parseToken(token);
                 // 解析对应的权限以及用户信息
@@ -72,7 +72,7 @@ public class TokenService {
      * 设置用户身份信息
      */
     public void setLoginUser(LoginUser loginUser) {
-        if (StringUtils.isNotNull(loginUser) && StringUtils.isNotEmpty(loginUser.getToken())) {
+        if (StringUtil.isNotNull(loginUser) && StringUtil.isNotEmpty(loginUser.getToken())) {
             refreshToken(loginUser);
         }
     }
@@ -81,7 +81,7 @@ public class TokenService {
      * 删除用户身份信息
      */
     public void delLoginUser(String token) {
-        if (StringUtils.isNotEmpty(token)) {
+        if (StringUtil.isNotEmpty(token)) {
             String userKey = getTokenKey(token);
             redisCache.deleteObject(userKey);
         }
@@ -188,7 +188,7 @@ public class TokenService {
      */
     private String getToken(HttpServletRequest request) {
         String token = request.getHeader(this.token.getHeader());
-        if (StringUtils.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
+        if (StringUtil.isNotEmpty(token) && token.startsWith(Constants.TOKEN_PREFIX)) {
             token = token.replace(Constants.TOKEN_PREFIX, "");
         }
         return token;

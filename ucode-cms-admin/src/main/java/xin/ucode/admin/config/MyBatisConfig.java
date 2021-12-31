@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import xin.altitude.cms.common.util.ResourceUtil;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 
 import javax.sql.DataSource;
 
@@ -35,7 +35,7 @@ public class MyBatisConfig {
     
         final MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setMapperLocations(ResourceUtil.resolveMapperLocations(StringUtils.split(mapperLocations, ",")));
+        sessionFactory.setMapperLocations(ResourceUtil.resolveMapperLocations(StringUtil.split(mapperLocations, ",")));
         sessionFactory.setConfigLocation(ResourceUtil.resolveConfigLocation(configLocation));
         sessionFactory.setPlugins(interceptor());
         return sessionFactory.getObject();

@@ -1,7 +1,7 @@
 package xin.altitude.cms.framework.util;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -32,6 +32,6 @@ public class ExceptionUtil {
         if (msg == null) {
             return "null";
         }
-        return StringUtils.defaultString(msg);
+        return StringUtil.defaultString(msg);
     }
 }

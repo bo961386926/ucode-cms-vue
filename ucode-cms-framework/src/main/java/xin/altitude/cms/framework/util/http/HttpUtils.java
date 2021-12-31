@@ -3,7 +3,7 @@ package xin.altitude.cms.framework.util.http;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
@@ -38,7 +38,7 @@ public class HttpUtils {
      * @return 所代表远程资源的响应结果
      */
     public static String sendGet(String url) {
-        return sendGet(url, StringUtils.EMPTY);
+        return sendGet(url, StringUtil.EMPTY);
     }
     
     /**
@@ -64,7 +64,7 @@ public class HttpUtils {
         StringBuilder result = new StringBuilder();
         BufferedReader in = null;
         try {
-            String urlNameString = StringUtils.isNotBlank(param) ? url + "?" + param : url;
+            String urlNameString = StringUtil.isNotBlank(param) ? url + "?" + param : url;
             log.info("sendGet - {}", urlNameString);
             URL realUrl = new URL(urlNameString);
             URLConnection connection = realUrl.openConnection();

@@ -24,7 +24,7 @@ public class ResourceUtil {
     public static Resource[] resolveMapperLocations(String mapperLocations) {
         Optional<String> optional = Optional.ofNullable(mapperLocations);
         if (optional.isPresent()) {
-            return resolveMapperLocations(StringUtils.split(mapperLocations, ","));
+            return resolveMapperLocations(StringUtil.split(mapperLocations, ","));
         }
         return new Resource[0];
     }

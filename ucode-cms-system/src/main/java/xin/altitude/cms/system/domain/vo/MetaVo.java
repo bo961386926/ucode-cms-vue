@@ -1,6 +1,6 @@
 package xin.altitude.cms.system.domain.vo;
 
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 
 /**
  * 路由显示信息
@@ -52,7 +52,7 @@ public class MetaVo {
         this.title = title;
         this.icon = icon;
         this.noCache = noCache;
-        if (StringUtils.ishttp(link)) {
+        if (StringUtil.ishttp(link)) {
             this.link = link;
         }
     }

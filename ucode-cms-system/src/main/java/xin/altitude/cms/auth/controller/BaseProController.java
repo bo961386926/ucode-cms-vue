@@ -1,23 +1,17 @@
 package xin.altitude.cms.auth.controller;
 
 import com.github.pagehelper.PageHelper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
+import xin.altitude.cms.common.controller.BaseController;
 import xin.altitude.cms.common.entity.AjaxResult;
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.constant.HttpStatus;
 import xin.altitude.cms.framework.core.page.PageDomain;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.framework.core.page.TableSupport;
-import xin.altitude.cms.framework.util.DateUtils;
 import xin.altitude.cms.framework.util.sql.SqlUtil;
 
-import java.beans.PropertyEditorSupport;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,22 +19,8 @@ import java.util.List;
  *
  * @author ucode
  */
-public class BaseController {
-    protected final Logger logger = LoggerFactory.getLogger(this.getClass());
+public class BaseProController implements BaseController {
     
-    /**
-     * 将前台传递过来的日期格式的字符串，自动转化为Date类型
-     */
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        // Date 类型转换
-        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
-            @Override
-            public void setAsText(String text) {
-                setValue(DateUtils.parseDate(text));
-            }
-        });
-    }
     
     /**
      * 设置请求分页数据
@@ -49,7 +29,7 @@ public class BaseController {
         PageDomain pageDomain = TableSupport.buildPageRequest();
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
-        if (StringUtils.isNotNull(pageNum) && StringUtils.isNotNull(pageSize)) {
+        if (StringUtil.isNotNull(pageNum) && StringUtil.isNotNull(pageSize)) {
             String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
             Boolean reasonable = pageDomain.getReasonable();
             PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
@@ -61,7 +41,7 @@ public class BaseController {
      */
     protected void startOrderBy() {
         PageDomain pageDomain = TableSupport.buildPageRequest();
-        if (StringUtils.isNotEmpty(pageDomain.getOrderBy())) {
+        if (StringUtil.isNotEmpty(pageDomain.getOrderBy())) {
             String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
             PageHelper.orderBy(orderBy);
         }
@@ -79,13 +59,6 @@ public class BaseController {
         // rspData.setRows(list);
         // rspData.setTotal(new PageInfo(list).getTotal());
         return rspData;
-    }
-    
-    /**
-     * 返回成功
-     */
-    public AjaxResult success() {
-        return AjaxResult.success();
     }
     
     /**
@@ -133,7 +106,7 @@ public class BaseController {
      * 页面跳转
      */
     public String redirect(String url) {
-        return StringUtils.format("redirect:{}", url);
+        return StringUtil.format("redirect:{}", url);
     }
     
     /**

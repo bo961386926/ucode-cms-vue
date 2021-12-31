@@ -16,7 +16,7 @@ import java.util.Set;
  *
  * @author ucode
  */
-public class StringUtils extends org.apache.commons.lang3.StringUtils {
+public class StringUtil extends org.apache.commons.lang3.StringUtils {
     /**
      * 空字符串
      */
@@ -241,7 +241,7 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 结果
      */
     public static boolean ishttp(String link) {
-        return StringUtils.startsWithAny(link, Constants.HTTP, Constants.HTTPS);
+        return StringUtil.startsWithAny(link, Constants.HTTP, Constants.HTTPS);
     }
     
     /**
@@ -266,17 +266,17 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      */
     public static List<String> str2List(String str, String sep, boolean filterBlank, boolean trim) {
         List<String> list = new ArrayList<String>();
-        if (StringUtils.isEmpty(str)) {
+        if (StringUtil.isEmpty(str)) {
             return list;
         }
         
         // 过滤空白字符串
-        if (filterBlank && StringUtils.isBlank(str)) {
+        if (filterBlank && StringUtil.isBlank(str)) {
             return list;
         }
         String[] split = str.split(sep);
         for (String string : split) {
-            if (filterBlank && StringUtils.isBlank(string)) {
+            if (filterBlank && StringUtil.isBlank(string)) {
                 continue;
             }
             if (trim) {
@@ -296,11 +296,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 是否包含任意一个字符串
      */
     public static boolean containsAnyIgnoreCase(CharSequence cs, CharSequence... searchCharSequences) {
-        if (StringUtils.isEmpty(cs) || isEmpty(searchCharSequences)) {
+        if (StringUtil.isEmpty(cs) || isEmpty(searchCharSequences)) {
             return false;
         }
         for (CharSequence testStr : searchCharSequences) {
-            if (StringUtils.containsIgnoreCase(cs, testStr)) {
+            if (StringUtil.containsIgnoreCase(cs, testStr)) {
                 return true;
             }
         }

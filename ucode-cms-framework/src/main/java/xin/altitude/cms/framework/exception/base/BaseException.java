@@ -1,6 +1,6 @@
 package xin.altitude.cms.framework.exception.base;
 
-import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.util.MessageUtils;
 
 /**
@@ -57,7 +57,7 @@ public class BaseException extends RuntimeException {
     @Override
     public String getMessage() {
         String message = null;
-        if (!StringUtils.isEmpty(code)) {
+        if (!StringUtil.isEmpty(code)) {
             message = MessageUtils.message(code, args);
         }
         if (message == null) {

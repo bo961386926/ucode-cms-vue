@@ -70,6 +70,7 @@ public class BeanCopyUtils {
         try {
             T target = clazz.newInstance();
             BeanUtils.copyProperties(source, target);
+            return target;
         } catch (InstantiationException | IllegalAccessException e) {
             e.printStackTrace();
         }

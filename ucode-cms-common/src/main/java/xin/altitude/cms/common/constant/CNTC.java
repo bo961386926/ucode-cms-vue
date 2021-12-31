@@ -12,7 +12,8 @@ package xin.altitude.cms.common.constant;
  * @since 2021/05/12 16:34
  **/
 public interface CNTC {
-    String CACHE_DEFAULT = "CACHE_DEFAULT";
+    String CACHE_01SECS = "CACHE_01SECS";
+    String CACHE_03SECS = "CACHE_03SECS";
     String CACHE_05SECS = "CACHE_05SECS";
     String CACHE_10SECS = "CACHE_10SECS";
     String CACHE_15SECS = "CACHE_15SECS";

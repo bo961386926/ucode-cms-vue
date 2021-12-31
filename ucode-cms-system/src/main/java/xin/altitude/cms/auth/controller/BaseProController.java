@@ -1,6 +1,8 @@
 package xin.altitude.cms.auth.controller;
 
 import com.github.pagehelper.PageHelper;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.controller.BaseController;
@@ -10,8 +12,11 @@ import xin.altitude.cms.framework.constant.HttpStatus;
 import xin.altitude.cms.framework.core.page.PageDomain;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.framework.core.page.TableSupport;
+import xin.altitude.cms.framework.util.DateUtils;
 import xin.altitude.cms.framework.util.sql.SqlUtil;
 
+import java.beans.PropertyEditorSupport;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -135,5 +140,21 @@ public class BaseProController implements BaseController {
      */
     public String getUsername() {
         return getLoginUser().getUsername();
+    }
+    
+    /**
+     * 将前台传递过来的
+     *
+     * @param binder 数据绑定器
+     */
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        /* Date 类型转换 */
+        binder.registerCustomEditor(Date.class, new PropertyEditorSupport() {
+            @Override
+            public void setAsText(String text) {
+                setValue(DateUtils.parseDate(text));
+            }
+        });
     }
 }

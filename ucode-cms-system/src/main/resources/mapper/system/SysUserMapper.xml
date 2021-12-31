@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xin.altitude.cms.system.mapper.SysUserMapper">
     
-    <resultMap type="xin.altitude.cms.common.core.domain.entity.SysUser" id="SysUserResult">
+    <resultMap type="xin.altitude.cms.framework.core.domain.SysUser" id="SysUserResult">
         <id property="userId" column="user_id"/>
         <result property="deptId" column="dept_id"/>
         <result property="userName" column="user_name"/>
@@ -23,12 +23,12 @@
         <result property="updateBy" column="update_by"/>
         <result property="updateTime" column="update_time"/>
         <result property="remark" column="remark"/>
-        <association property="dept" column="dept_id" javaType="xin.altitude.cms.common.core.domain.entity.SysDept"
+        <association property="dept" column="dept_id" javaType="xin.altitude.cms.framework.core.domain.SysDept"
                      resultMap="deptResult"/>
         <collection property="roles" javaType="java.util.List" resultMap="RoleResult"/>
     </resultMap>
     
-    <resultMap id="deptResult" type="xin.altitude.cms.common.core.domain.entity.SysDept">
+    <resultMap id="deptResult" type="xin.altitude.cms.framework.core.domain.SysDept">
         <id property="deptId" column="dept_id"/>
         <result property="parentId" column="parent_id"/>
         <result property="deptName" column="dept_name"/>
@@ -37,7 +37,7 @@
         <result property="status" column="dept_status"/>
     </resultMap>
     
-    <resultMap id="RoleResult" type="xin.altitude.cms.common.core.domain.entity.SysRole">
+    <resultMap id="RoleResult" type="xin.altitude.cms.framework.core.domain.SysRole">
         <id property="roleId" column="role_id"/>
         <result property="roleName" column="role_name"/>
         <result property="roleKey" column="role_key"/>
@@ -81,7 +81,7 @@
                  left join sys_role r on r.role_id = ur.role_id
     </sql>
     
-    <select id="selectUserList" parameterType="xin.altitude.cms.common.core.domain.entity.SysUser"
+    <select id="selectUserList" parameterType="xin.altitude.cms.framework.core.domain.SysUser"
             resultMap="SysUserResult">
         select u.user_id, u.dept_id, u.nick_name, u.user_name, u.email, u.avatar, u.phonenumber, u.password, u.sex,
         u.status, u.del_flag, u.login_ip, u.login_date, u.create_by, u.create_time, u.remark, d.dept_name, d.leader from
@@ -114,7 +114,7 @@
         ${params.dataScope}
     </select>
     
-    <select id="selectAllocatedList" parameterType="xin.altitude.cms.common.core.domain.entity.SysUser"
+    <select id="selectAllocatedList" parameterType="xin.altitude.cms.framework.core.domain.SysUser"
             resultMap="SysUserResult">
         select distinct u.user_id, u.dept_id, u.user_name, u.nick_name, u.email, u.phonenumber, u.status, u.create_time
         from sys_user u
@@ -132,7 +132,7 @@
         ${params.dataScope}
     </select>
     
-    <select id="selectUnallocatedList" parameterType="xin.altitude.cms.common.core.domain.entity.SysUser"
+    <select id="selectUnallocatedList" parameterType="xin.altitude.cms.framework.core.domain.SysUser"
             resultMap="SysUserResult">
         select distinct u.user_id, u.dept_id, u.user_name, u.nick_name, u.email, u.phonenumber, u.status, u.create_time
         from sys_user u
@@ -180,7 +180,7 @@
         where email = #{email} limit 1
     </select>
     
-    <insert id="insertUser" parameterType="xin.altitude.cms.common.core.domain.entity.SysUser" useGeneratedKeys="true"
+    <insert id="insertUser" parameterType="xin.altitude.cms.framework.core.domain.SysUser" useGeneratedKeys="true"
             keyProperty="userId">
         insert into sys_user(
         <if test="userId != null and userId != 0">user_id,</if>
@@ -213,7 +213,7 @@
         )
     </insert>
     
-    <update id="updateUser" parameterType="xin.altitude.cms.common.core.domain.entity.SysUser">
+    <update id="updateUser" parameterType="xin.altitude.cms.framework.core.domain.SysUser">
         update sys_user
         <set>
             <if test="deptId != null and deptId != 0">dept_id = #{deptId},</if>
@@ -234,19 +234,19 @@
         where user_id = #{userId}
     </update>
     
-    <update id="updateUserStatus" parameterType="xin.altitude.cms.common.core.domain.entity.SysUser">
+    <update id="updateUserStatus" parameterType="xin.altitude.cms.framework.core.domain.SysUser">
         update sys_user
         set status = #{status}
         where user_id = #{userId}
     </update>
     
-    <update id="updateUserAvatar" parameterType="xin.altitude.cms.common.core.domain.entity.SysUser">
+    <update id="updateUserAvatar" parameterType="xin.altitude.cms.framework.core.domain.SysUser">
         update sys_user
         set avatar = #{avatar}
         where user_name = #{userName}
     </update>
     
-    <update id="resetUserPwd" parameterType="xin.altitude.cms.common.core.domain.entity.SysUser">
+    <update id="resetUserPwd" parameterType="xin.altitude.cms.framework.core.domain.SysUser">
         update sys_user
         set password = #{password}
         where user_name = #{userName}

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xin.altitude.cms.system.mapper.SysRoleMapper">
     
-    <resultMap type="xin.altitude.cms.common.core.domain.entity.SysRole" id="SysRoleResult">
+    <resultMap type="xin.altitude.cms.framework.core.domain.SysRole" id="SysRoleResult">
         <id property="roleId" column="role_id"/>
         <result property="roleName" column="role_name"/>
         <result property="roleKey" column="role_key"/>
@@ -39,7 +39,7 @@
                  left join sys_dept d on u.dept_id = d.dept_id
     </sql>
     
-    <select id="selectRoleList" parameterType="xin.altitude.cms.common.core.domain.entity.SysRole"
+    <select id="selectRoleList" parameterType="xin.altitude.cms.framework.core.domain.SysRole"
             resultMap="SysRoleResult">
         <include refid="selectRoleVo"/>
         where r.del_flag = '0'
@@ -103,7 +103,7 @@
         where r.role_key=#{roleKey} limit 1
     </select>
     
-    <insert id="insertRole" parameterType="xin.altitude.cms.common.core.domain.entity.SysRole" useGeneratedKeys="true"
+    <insert id="insertRole" parameterType="xin.altitude.cms.framework.core.domain.SysRole" useGeneratedKeys="true"
             keyProperty="roleId">
         insert into sys_role(
         <if test="roleId != null and roleId != 0">role_id,</if>
@@ -132,7 +132,7 @@
         )
     </insert>
     
-    <update id="updateRole" parameterType="xin.altitude.cms.common.core.domain.entity.SysRole">
+    <update id="updateRole" parameterType="xin.altitude.cms.framework.core.domain.SysRole">
         update sys_role
         <set>
             <if test="roleName != null and roleName != ''">role_name = #{roleName},</if>

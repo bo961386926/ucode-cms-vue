@@ -5,17 +5,17 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import xin.altitude.cms.auth.util.SecurityUtils;
-import xin.altitude.cms.common.annotation.DataScope;
-import xin.altitude.cms.common.constant.UserConstants;
-import xin.altitude.cms.common.core.domain.TreeSelect;
-import xin.altitude.cms.common.core.domain.entity.SysDept;
-import xin.altitude.cms.common.core.domain.entity.SysRole;
-import xin.altitude.cms.common.core.domain.entity.SysUser;
-import xin.altitude.cms.common.core.text.Convert;
-import xin.altitude.cms.common.exception.ServiceException;
+import xin.altitude.cms.common.util.ConvertUtils;
 import xin.altitude.cms.common.util.EntityUtils;
+import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtils;
-import xin.altitude.cms.common.util.spring.SpringUtils;
+import xin.altitude.cms.framework.annotation.DataScope;
+import xin.altitude.cms.framework.constant.UserConstants;
+import xin.altitude.cms.framework.core.domain.SysDept;
+import xin.altitude.cms.framework.core.domain.SysRole;
+import xin.altitude.cms.framework.core.domain.SysUser;
+import xin.altitude.cms.framework.entity.TreeSelect;
+import xin.altitude.cms.framework.exception.ServiceException;
 import xin.altitude.cms.system.domain.SysRoleDept;
 import xin.altitude.cms.system.mapper.SysDeptMapper;
 import xin.altitude.cms.system.service.ISysDeptService;
@@ -265,7 +265,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
      */
     private void updateParentDeptStatusNormal(SysDept dept) {
         String ancestors = dept.getAncestors();
-        Long[] deptIds = Convert.toLongArray(ancestors);
+        Long[] deptIds = ConvertUtils.toLongArray(ancestors);
         List<SysDept> sysDepts = EntityUtils.toList(Arrays.asList(deptIds), e -> new SysDept(e, "0"));
         updateBatchById(sysDepts);
         // deptMapper.updateDeptStatusNormal(deptIds);

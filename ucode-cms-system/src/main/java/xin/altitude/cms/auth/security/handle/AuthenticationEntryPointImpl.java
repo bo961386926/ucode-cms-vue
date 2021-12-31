@@ -3,10 +3,10 @@ package xin.altitude.cms.auth.security.handle;
 import com.alibaba.fastjson.JSON;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import xin.altitude.cms.common.constant.HttpStatus;
-import xin.altitude.cms.common.core.domain.AjaxResult;
+import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.framework.constant.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

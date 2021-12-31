@@ -3,10 +3,10 @@ package xin.altitude.cms.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.constant.UserConstants;
-import xin.altitude.cms.common.core.text.Convert;
-import xin.altitude.cms.common.exception.ServiceException;
+import xin.altitude.cms.common.util.ConvertUtils;
 import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.framework.constant.UserConstants;
+import xin.altitude.cms.framework.exception.ServiceException;
 import xin.altitude.cms.system.domain.SysConfig;
 import xin.altitude.cms.system.mapper.SysConfigMapper;
 import xin.altitude.cms.system.service.ISysConfigService;
@@ -83,7 +83,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         if (StringUtils.isEmpty(captchaOnOff)) {
             return true;
         }
-        return Convert.toBool(captchaOnOff);
+        return ConvertUtils.toBool(captchaOnOff);
     }
     
     /**

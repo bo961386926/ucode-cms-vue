@@ -12,7 +12,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import xin.altitude.cms.common.config.FastJson2JsonRedisSerializer;
+import xin.altitude.cms.framework.config.FastJson2JsonRedisSerializer;
 
 /**
  * redis配置

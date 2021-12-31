@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import xin.altitude.cms.common.core.domain.BaseEntity;
+import xin.altitude.cms.common.entity.BaseEntity;
 
 /**
  * 角色和部门关联 sys_role_dept

@@ -5,11 +5,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
-import xin.altitude.cms.common.annotation.DataScope;
-import xin.altitude.cms.common.core.domain.BaseEntity;
-import xin.altitude.cms.common.core.domain.entity.SysRole;
-import xin.altitude.cms.common.core.domain.entity.SysUser;
+import xin.altitude.cms.common.entity.BaseEntity;
 import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.framework.annotation.DataScope;
+import xin.altitude.cms.framework.core.domain.SysRole;
+import xin.altitude.cms.framework.core.domain.SysUser;
 
 /**
  * 数据过滤处理

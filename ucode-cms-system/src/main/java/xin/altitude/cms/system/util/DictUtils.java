@@ -2,10 +2,10 @@ package xin.altitude.cms.system.util;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.core.domain.entity.SysDictData;
-import xin.altitude.cms.common.core.redis.RedisCache;
+import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtils;
-import xin.altitude.cms.common.util.spring.SpringUtils;
+import xin.altitude.cms.framework.core.domain.SysDictData;
+import xin.altitude.cms.framework.core.redis.RedisCache;
 import xin.altitude.cms.system.service.ISysDictDataService;
 
 import java.util.Collection;

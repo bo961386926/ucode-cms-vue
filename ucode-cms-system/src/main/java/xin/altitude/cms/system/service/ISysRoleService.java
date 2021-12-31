@@ -1,7 +1,7 @@
 package xin.altitude.cms.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import xin.altitude.cms.common.core.domain.entity.SysRole;
+import xin.altitude.cms.framework.core.domain.SysRole;
 import xin.altitude.cms.system.domain.SysUserRole;
 
 import java.util.List;

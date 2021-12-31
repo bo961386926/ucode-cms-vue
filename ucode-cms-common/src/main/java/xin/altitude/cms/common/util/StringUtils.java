@@ -2,7 +2,7 @@ package xin.altitude.cms.common.util;
 
 import org.springframework.util.AntPathMatcher;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.core.text.StrFormatter;
+import xin.altitude.cms.common.text.StrFormatter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -296,11 +296,11 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils {
      * @return 是否包含任意一个字符串
      */
     public static boolean containsAnyIgnoreCase(CharSequence cs, CharSequence... searchCharSequences) {
-        if (isEmpty(cs) || isEmpty(searchCharSequences)) {
+        if (StringUtils.isEmpty(cs) || isEmpty(searchCharSequences)) {
             return false;
         }
         for (CharSequence testStr : searchCharSequences) {
-            if (containsIgnoreCase(cs, testStr)) {
+            if (StringUtils.containsIgnoreCase(cs, testStr)) {
                 return true;
             }
         }

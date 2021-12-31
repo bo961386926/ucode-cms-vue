@@ -1,7 +1,7 @@
 package xin.altitude.cms.auth.web.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import xin.altitude.cms.common.core.domain.entity.SysUser;
+import xin.altitude.cms.framework.core.domain.SysUser;
 import xin.altitude.cms.system.service.ISysMenuService;
 import xin.altitude.cms.system.service.ISysRoleService;
 

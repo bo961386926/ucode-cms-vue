@@ -3,7 +3,7 @@ package xin.altitude.cms.system.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.CacheNamespace;
 import org.apache.ibatis.cache.decorators.ScheduledCache;
-import xin.altitude.cms.common.core.domain.entity.SysUser;
+import xin.altitude.cms.framework.core.domain.SysUser;
 
 /**
  * 用户表 数据层

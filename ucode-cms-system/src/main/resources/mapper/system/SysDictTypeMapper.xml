@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xin.altitude.cms.system.mapper.SysDictTypeMapper">
     
-    <resultMap type="xin.altitude.cms.common.core.domain.entity.SysDictType" id="SysDictTypeResult">
+    <resultMap type="xin.altitude.cms.framework.core.domain.SysDictType" id="SysDictTypeResult">
         <id property="dictId" column="dict_id"/>
         <result property="dictName" column="dict_name"/>
         <result property="dictType" column="dict_type"/>
@@ -20,7 +20,7 @@
         from sys_dict_type
     </sql>
     
-    <select id="selectDictTypeList" parameterType="xin.altitude.cms.common.core.domain.entity.SysDictType"
+    <select id="selectDictTypeList" parameterType="xin.altitude.cms.framework.core.domain.SysDictType"
             resultMap="SysDictTypeResult">
         <include refid="selectDictTypeVo"/>
         <where>
@@ -74,7 +74,7 @@
         </foreach>
     </delete>
     
-    <update id="updateDictType" parameterType="xin.altitude.cms.common.core.domain.entity.SysDictType">
+    <update id="updateDictType" parameterType="xin.altitude.cms.framework.core.domain.SysDictType">
         update sys_dict_type
         <set>
             <if test="dictName != null and dictName != ''">dict_name = #{dictName},</if>
@@ -87,7 +87,7 @@
         where dict_id = #{dictId}
     </update>
     
-    <insert id="insertDictType" parameterType="xin.altitude.cms.common.core.domain.entity.SysDictType">
+    <insert id="insertDictType" parameterType="xin.altitude.cms.framework.core.domain.SysDictType">
         insert into sys_dict_type(
         <if test="dictName != null and dictName != ''">dict_name,</if>
         <if test="dictType != null and dictType != ''">dict_type,</if>

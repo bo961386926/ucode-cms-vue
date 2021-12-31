@@ -8,11 +8,11 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import xin.altitude.cms.common.constant.HttpStatus;
-import xin.altitude.cms.common.core.domain.AjaxResult;
-import xin.altitude.cms.common.exception.DemoModeException;
-import xin.altitude.cms.common.exception.ServiceException;
+import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.framework.constant.HttpStatus;
+import xin.altitude.cms.framework.exception.DemoModeException;
+import xin.altitude.cms.framework.exception.ServiceException;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -1,8 +1,8 @@
 package xin.altitude.cms.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import xin.altitude.cms.common.core.domain.TreeSelect;
-import xin.altitude.cms.common.core.domain.entity.SysMenu;
+import xin.altitude.cms.framework.core.domain.SysMenu;
+import xin.altitude.cms.framework.entity.TreeSelect;
 import xin.altitude.cms.system.domain.vo.RouterVo;
 
 import java.util.List;

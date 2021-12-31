@@ -3,7 +3,7 @@ package xin.altitude.cms.auth.model;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import xin.altitude.cms.common.core.domain.entity.SysUser;
+import xin.altitude.cms.framework.core.domain.SysUser;
 
 import java.util.Collection;
 import java.util.Set;

@@ -1,8 +1,8 @@
 package xin.altitude.cms.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import xin.altitude.cms.common.core.domain.entity.SysDictData;
-import xin.altitude.cms.common.core.domain.entity.SysDictType;
+import xin.altitude.cms.framework.core.domain.SysDictData;
+import xin.altitude.cms.framework.core.domain.SysDictType;
 
 import java.util.List;
 

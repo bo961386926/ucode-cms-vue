@@ -6,8 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import xin.altitude.cms.auth.config.SecurityWebSecurityConfigurerAdapter;
-import xin.altitude.cms.common.config.CmsConfig;
-import xin.altitude.cms.common.util.spring.SpringUtils;
+import xin.altitude.cms.common.util.SpringUtils;
+import xin.altitude.cms.framework.config.CmsConfig;
 
 /**
  * spring security配置

@@ -10,7 +10,7 @@ import xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter;
 import xin.altitude.cms.auth.security.handle.AuthenticationEntryPointImpl;
 import xin.altitude.cms.auth.security.handle.LogoutSuccessHandlerImpl;
 import xin.altitude.cms.auth.web.service.UserDetailsServiceImpl;
-import xin.altitude.cms.common.util.spring.SpringUtils;
+import xin.altitude.cms.common.util.SpringUtils;
 
 /**
  * spring security配置

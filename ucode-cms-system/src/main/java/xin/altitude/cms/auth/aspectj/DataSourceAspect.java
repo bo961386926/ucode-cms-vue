@@ -9,9 +9,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
-import xin.altitude.cms.common.annotation.DataSource;
-import xin.altitude.cms.common.core.datasource.DynamicDataSourceContextHolder;
 import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.framework.annotation.DataSource;
+import xin.altitude.cms.framework.core.datasource.DynamicDataSourceContextHolder;
 
 import java.util.Objects;
 
@@ -26,8 +26,8 @@ import java.util.Objects;
 public class DataSourceAspect {
     protected Logger logger = LoggerFactory.getLogger(getClass());
     
-    @Pointcut("@annotation(xin.altitude.cms.common.annotation.DataSource)"
-            + "|| @within(xin.altitude.cms.common.annotation.DataSource)")
+    @Pointcut("@annotation(xin.altitude.cms.framework.annotation.DataSource)"
+            + "|| @within(xin.altitude.cms.framework.annotation.DataSource)")
     public void dsPointCut() {
     
     }
@@ -35,7 +35,7 @@ public class DataSourceAspect {
     @Around("dsPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         DataSource dataSource = getDataSource(point);
-    
+        
         if (StringUtils.isNotNull(dataSource)) {
             DynamicDataSourceContextHolder.setDataSourceType(dataSource.value().name());
         }

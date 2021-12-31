@@ -39,6 +39,7 @@
     <modules>
         <!--<module>ucode-cms-admin</module>-->
         <module>ucode-cms-system</module>
+        <module>ucode-cms-framework</module>
         <module>ucode-cms-common</module>
         <module>ucode-cms-springboot-starter</module>
         <module>ucode-cms-ui</module>
@@ -163,11 +164,18 @@
     
             <!-- 通用工具-->
             <dependency>
+                <groupId>xin.altitude.cms.framework</groupId>
+                <artifactId>ucode-cms-framework</artifactId>
+                <version>1.0.3</version>
+            </dependency>
+    
+            <!-- 通用工具-->
+            <dependency>
                 <groupId>xin.altitude.cms.common</groupId>
                 <artifactId>ucode-cms-common</artifactId>
                 <version>1.0.3</version>
             </dependency>
-            
+    
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>

@@ -9,10 +9,10 @@ import xin.altitude.cms.auth.manager.factory.AsyncFactory;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.web.service.TokenService;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.constant.HttpStatus;
-import xin.altitude.cms.common.core.domain.AjaxResult;
+import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.framework.constant.HttpStatus;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;

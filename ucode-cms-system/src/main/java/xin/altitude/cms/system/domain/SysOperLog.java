@@ -3,10 +3,11 @@ package xin.altitude.cms.system.domain;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import xin.altitude.cms.common.annotation.Excel;
-import xin.altitude.cms.common.annotation.Excel.ColumnType;
-import xin.altitude.cms.common.core.domain.BaseEntity;
+import xin.altitude.cms.common.entity.BaseEntity;
+import xin.altitude.cms.framework.annotation.Excel;
+import xin.altitude.cms.framework.annotation.Excel.ColumnType;
 
 import java.util.Date;
 
@@ -15,6 +16,7 @@ import java.util.Date;
  *
  * @author ucode
  */
+@TableName("sys_oper_log")
 public class SysOperLog extends BaseEntity {
     private static final long serialVersionUID = 1L;
     

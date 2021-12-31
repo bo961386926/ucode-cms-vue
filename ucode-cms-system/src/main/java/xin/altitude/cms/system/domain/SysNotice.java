@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import xin.altitude.cms.common.core.domain.BaseEntity;
+import xin.altitude.cms.common.entity.BaseEntity;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

@@ -2,8 +2,8 @@ package xin.altitude.cms.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import xin.altitude.cms.common.config.CmsConfig;
 import xin.altitude.cms.common.util.StringUtils;
+import xin.altitude.cms.framework.config.CmsConfig;
 
 /**
  * 首页

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="xin.altitude.cms.system.mapper.SysDictDataMapper">
     
-    <resultMap type="xin.altitude.cms.common.core.domain.entity.SysDictData" id="SysDictDataResult">
+    <resultMap type="xin.altitude.cms.framework.core.domain.SysDictData" id="SysDictDataResult">
         <id property="dictCode" column="dict_code"/>
         <result property="dictSort" column="dict_sort"/>
         <result property="dictLabel" column="dict_label"/>
@@ -36,7 +36,7 @@
         from sys_dict_data
     </sql>
     
-    <select id="selectDictDataList" parameterType="xin.altitude.cms.common.core.domain.entity.SysDictData"
+    <select id="selectDictDataList" parameterType="xin.altitude.cms.framework.core.domain.SysDictData"
             resultMap="SysDictDataResult">
         <include refid="selectDictDataVo"/>
         <where>
@@ -53,7 +53,7 @@
         order by dict_sort asc
     </select>
     
-    <select id="selectDictDataByType" parameterType="xin.altitude.cms.common.core.domain.entity.SysDictData"
+    <select id="selectDictDataByType" parameterType="xin.altitude.cms.framework.core.domain.SysDictData"
             resultMap="SysDictDataResult">
         <include refid="selectDictDataVo"/>
         where status = '0' and dict_type = #{dictType} order by dict_sort asc
@@ -90,7 +90,7 @@
         </foreach>
     </delete>
     
-    <update id="updateDictData" parameterType="xin.altitude.cms.common.core.domain.entity.SysDictData">
+    <update id="updateDictData" parameterType="xin.altitude.cms.framework.core.domain.SysDictData">
         update sys_dict_data
         <set>
             <if test="dictSort != null">dict_sort = #{dictSort},</if>
@@ -114,7 +114,7 @@
         where dict_type = #{oldDictType}
     </update>
     
-    <insert id="insertDictData" parameterType="xin.altitude.cms.common.core.domain.entity.SysDictData">
+    <insert id="insertDictData" parameterType="xin.altitude.cms.framework.core.domain.SysDictData">
         insert into sys_dict_data(
         <if test="dictSort != null">dict_sort,</if>
         <if test="dictLabel != null and dictLabel != ''">dict_label,</if>

@@ -1,10 +1,10 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    xin.altitude.cms.common.CaptchaController,\
-    xin.altitude.cms.common.CommonController,\
-    xin.altitude.cms.common.SysLoginController,\
-    xin.altitude.cms.common.SysProfileController,\
-    xin.altitude.cms.common.SysRegisterController,\
+    xin.altitude.cms.framework.CaptchaController,\
+    xin.altitude.cms.framework.CommonController,\
+    xin.altitude.cms.framework.SysLoginController,\
+    xin.altitude.cms.framework.SysProfileController,\
+    xin.altitude.cms.framework.SysRegisterController,\
     xin.altitude.cms.monitor.CacheController,\
     xin.altitude.cms.monitor.ServerController,\
     xin.altitude.cms.monitor.SysOperlogController,\
@@ -20,19 +20,19 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.system.controller.SysPostController,\
     xin.altitude.cms.system.controller.SysRoleController,\
     xin.altitude.cms.system.controller.SysUserController,\
-    xin.altitude.cms.common.config.properties.DruidProperties,\
-    xin.altitude.cms.common.config.CaptchaConfig,\
-    xin.altitude.cms.common.config.CmsConfig,\
-    xin.altitude.cms.common.config.DruidConfig,\
-    xin.altitude.cms.common.config.FilterConfig,\
-    xin.altitude.cms.common.config.ServerConfig,\
-    xin.altitude.cms.common.config.SpringCaffeineConfig,\
-    xin.altitude.cms.common.config.ThreadPoolConfig,\
-    xin.altitude.cms.common.config.ApplicationConfig,\
-    xin.altitude.cms.common.config.ResourcesConfig,\
-    xin.altitude.cms.common.core.interceptor.impl.SameUrlDataInterceptor,\
-    xin.altitude.cms.common.core.redis.RedisCache,\
-    xin.altitude.cms.common.util.spring.SpringUtils,\
+    xin.altitude.cms.framework.config.properties.DruidProperties,\
+    xin.altitude.cms.framework.config.CaptchaConfig,\
+    xin.altitude.cms.framework.config.CmsConfig,\
+    xin.altitude.cms.framework.config.DruidConfig,\
+    xin.altitude.cms.framework.config.FilterConfig,\
+    xin.altitude.cms.framework.config.ServerConfig,\
+    xin.altitude.cms.framework.config.SpringCaffeineConfig,\
+    xin.altitude.cms.framework.config.ThreadPoolConfig,\
+    xin.altitude.cms.framework.config.ApplicationConfig,\
+    xin.altitude.cms.framework.config.ResourcesConfig,\
+    xin.altitude.cms.framework.core.interceptor.impl.SameUrlDataInterceptor,\
+    xin.altitude.cms.framework.core.redis.RedisCache,\
+    xin.altitude.cms.common.util.SpringUtils,\
     xin.altitude.cms.auth.aspectj.DataScopeAspect,\
     xin.altitude.cms.auth.aspectj.DataSourceAspect,\
     xin.altitude.cms.auth.aspectj.LogAspect,\

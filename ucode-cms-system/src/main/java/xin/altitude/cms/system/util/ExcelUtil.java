@@ -23,20 +23,20 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import xin.altitude.cms.common.annotation.Excel;
-import xin.altitude.cms.common.annotation.Excels;
-import xin.altitude.cms.common.config.CmsConfig;
-import xin.altitude.cms.common.core.domain.AjaxResult;
-import xin.altitude.cms.common.core.text.Convert;
-import xin.altitude.cms.common.exception.UtilException;
-import xin.altitude.cms.common.util.DateUtils;
+import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.util.ConvertUtils;
+import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtils;
-import xin.altitude.cms.common.util.file.FileTypeUtils;
-import xin.altitude.cms.common.util.file.FileUtils;
-import xin.altitude.cms.common.util.file.ImageUtils;
-import xin.altitude.cms.common.util.poi.ExcelHandlerAdapter;
-import xin.altitude.cms.common.util.reflect.ReflectUtils;
-import xin.altitude.cms.common.util.spring.SpringUtils;
+import xin.altitude.cms.framework.annotation.Excel;
+import xin.altitude.cms.framework.annotation.Excels;
+import xin.altitude.cms.framework.config.CmsConfig;
+import xin.altitude.cms.framework.exception.UtilException;
+import xin.altitude.cms.framework.util.DateUtils;
+import xin.altitude.cms.framework.util.file.FileTypeUtils;
+import xin.altitude.cms.framework.util.file.FileUtils;
+import xin.altitude.cms.framework.util.file.ImageUtils;
+import xin.altitude.cms.framework.util.poi.ExcelHandlerAdapter;
+import xin.altitude.cms.framework.util.reflect.ReflectUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -392,7 +392,7 @@ public class ExcelUtil<T> {
                     // 取得类型,并根据对象类型设置值.
                     Class<?> fieldType = field.getType();
                     if (String.class == fieldType) {
-                        String s = Convert.toStr(val);
+                        String s = ConvertUtils.toStr(val);
                         if (StringUtils.endsWith(s, ".0")) {
                             val = StringUtils.substringBefore(s, ".0");
                         } else {
@@ -400,19 +400,19 @@ public class ExcelUtil<T> {
                             if (StringUtils.isNotEmpty(dateFormat)) {
                                 val = DateUtils.parseDateToStr(dateFormat, (Date) val);
                             } else {
-                                val = Convert.toStr(val);
+                                val = ConvertUtils.toStr(val);
                             }
                         }
-                    } else if ((Integer.TYPE == fieldType || Integer.class == fieldType) && StringUtils.isNumeric(Convert.toStr(val))) {
-                        val = Convert.toInt(val);
+                    } else if ((Integer.TYPE == fieldType || Integer.class == fieldType) && StringUtils.isNumeric(ConvertUtils.toStr(val))) {
+                        val = ConvertUtils.toInt(val);
                     } else if (Long.TYPE == fieldType || Long.class == fieldType) {
-                        val = Convert.toLong(val);
+                        val = ConvertUtils.toLong(val);
                     } else if (Double.TYPE == fieldType || Double.class == fieldType) {
-                        val = Convert.toDouble(val);
+                        val = ConvertUtils.toDouble(val);
                     } else if (Float.TYPE == fieldType || Float.class == fieldType) {
-                        val = Convert.toFloat(val);
+                        val = ConvertUtils.toFloat(val);
                     } else if (BigDecimal.class == fieldType) {
-                        val = Convert.toBigDecimal(val);
+                        val = ConvertUtils.toBigDecimal(val);
                     } else if (Date.class == fieldType) {
                         if (val instanceof String) {
                             val = DateUtils.parseDate(val);
@@ -420,15 +420,15 @@ public class ExcelUtil<T> {
                             val = DateUtil.getJavaDate((Double) val);
                         }
                     } else if (Boolean.TYPE == fieldType || Boolean.class == fieldType) {
-                        val = Convert.toBool(val, false);
+                        val = ConvertUtils.toBool(val, false);
                     }
                     String propertyName = field.getName();
                     if (StringUtils.isNotEmpty(attr.targetAttr())) {
                         propertyName = field.getName() + "." + attr.targetAttr();
                     } else if (StringUtils.isNotEmpty(attr.readConverterExp())) {
-                        val = reverseByExp(Convert.toStr(val), attr.readConverterExp(), attr.separator());
+                        val = reverseByExp(ConvertUtils.toStr(val), attr.readConverterExp(), attr.separator());
                     } else if (StringUtils.isNotEmpty(attr.dictType())) {
-                        val = reverseDictByExp(Convert.toStr(val), attr.dictType(), attr.separator());
+                        val = reverseDictByExp(ConvertUtils.toStr(val), attr.dictType(), attr.separator());
                     } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
                         val = dataFormatHandlerAdapter(val, attr);
                     } else if (Excel.ColumnType.IMAGE == attr.cellType() && StringUtils.isNotEmpty(pictures)) {
@@ -727,11 +727,11 @@ public class ExcelUtil<T> {
             cell.setCellValue(StringUtils.isNull(value) ? attr.defaultValue() : value + attr.suffix());
         } else if (Excel.ColumnType.NUMERIC == attr.cellType()) {
             if (StringUtils.isNotNull(value)) {
-                cell.setCellValue(StringUtils.contains(Convert.toStr(value), ".") ? Convert.toDouble(value) : Convert.toInt(value));
+                cell.setCellValue(StringUtils.contains(ConvertUtils.toStr(value), ".") ? ConvertUtils.toDouble(value) : ConvertUtils.toInt(value));
             }
         } else if (Excel.ColumnType.IMAGE == attr.cellType()) {
             ClientAnchor anchor = new XSSFClientAnchor(0, 0, 0, 0, (short) cell.getColumnIndex(), cell.getRow().getRowNum(), (short) (cell.getColumnIndex() + 1), cell.getRow().getRowNum() + 1);
-            String imagePath = Convert.toStr(value);
+            String imagePath = ConvertUtils.toStr(value);
             if (StringUtils.isNotEmpty(imagePath)) {
                 byte[] data = ImageUtils.getImage(imagePath);
                 getDrawingPatriarch(cell.getSheet()).createPicture(anchor,
@@ -799,9 +799,9 @@ public class ExcelUtil<T> {
                 if (StringUtils.isNotEmpty(dateFormat) && StringUtils.isNotNull(value)) {
                     cell.setCellValue(DateUtils.parseDateToStr(dateFormat, (Date) value));
                 } else if (StringUtils.isNotEmpty(readConverterExp) && StringUtils.isNotNull(value)) {
-                    cell.setCellValue(convertByExp(Convert.toStr(value), readConverterExp, separator));
+                    cell.setCellValue(convertByExp(ConvertUtils.toStr(value), readConverterExp, separator));
                 } else if (StringUtils.isNotEmpty(dictType) && StringUtils.isNotNull(value)) {
-                    cell.setCellValue(convertDictByExp(Convert.toStr(value), dictType, separator));
+                    cell.setCellValue(convertDictByExp(ConvertUtils.toStr(value), dictType, separator));
                 } else if (value instanceof BigDecimal && -1 != attr.scale()) {
                     cell.setCellValue((((BigDecimal) value).setScale(attr.scale(), attr.roundingMode())).toString());
                 } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
@@ -810,7 +810,7 @@ public class ExcelUtil<T> {
                     // 设置列类型
                     setCellVo(value, attr, cell);
                 }
-                addStatisticsData(column, Convert.toStr(value), attr);
+                addStatisticsData(column, ConvertUtils.toStr(value), attr);
             }
         } catch (Exception e) {
             log.error("导出Excel失败{}", e);
@@ -884,7 +884,7 @@ public class ExcelUtil<T> {
         } catch (Exception e) {
             log.error("不能格式化数据 " + excel.handler(), e.getMessage());
         }
-        return Convert.toStr(value);
+        return ConvertUtils.toStr(value);
     }
     
     /**

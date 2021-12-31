@@ -1,7 +1,5 @@
 package xin.altitude.cms.common.constant;
 
-import io.jsonwebtoken.Claims;
-
 /**
  * 通用常量信息
  *
@@ -106,7 +104,7 @@ public class Constants {
     /**
      * 用户名称
      */
-    public static final String JWT_USERNAME = Claims.SUBJECT;
+    // public static final String JWT_USERNAME = Claims.SUBJECT;
     
     /**
      * 用户头像

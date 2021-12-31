@@ -22,6 +22,11 @@
             <groupId>xin.altitude.cms.common</groupId>
             <artifactId>ucode-cms-common</artifactId>
         </dependency>
+    
+        <dependency>
+            <groupId>xin.altitude.cms.framework</groupId>
+            <artifactId>ucode-cms-framework</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
@@ -53,6 +58,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
         </dependency>
     </dependencies>
 

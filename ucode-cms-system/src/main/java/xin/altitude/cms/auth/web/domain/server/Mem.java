@@ -1,6 +1,6 @@
 package xin.altitude.cms.auth.web.domain.server;
 
-import xin.altitude.cms.common.util.Arith;
+import xin.altitude.cms.framework.util.Arith;
 
 /**
  * 內存相关信息

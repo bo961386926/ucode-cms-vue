@@ -9,12 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
-import xin.altitude.cms.common.annotation.RateLimiter;
-import xin.altitude.cms.common.constant.enums.LimitType;
-import xin.altitude.cms.common.exception.ServiceException;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.StringUtils;
-import xin.altitude.cms.common.util.ip.IpUtils;
+import xin.altitude.cms.framework.annotation.RateLimiter;
+import xin.altitude.cms.framework.constant.enums.LimitType;
+import xin.altitude.cms.framework.exception.ServiceException;
+import xin.altitude.cms.framework.util.ip.IpUtils;
 
 import java.lang.reflect.Method;
 import java.util.Collections;

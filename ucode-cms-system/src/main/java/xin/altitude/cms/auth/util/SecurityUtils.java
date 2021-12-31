@@ -4,8 +4,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.common.constant.HttpStatus;
-import xin.altitude.cms.common.exception.ServiceException;
+import xin.altitude.cms.framework.constant.HttpStatus;
+import xin.altitude.cms.framework.exception.ServiceException;
 
 /**
  * 安全服务工具类

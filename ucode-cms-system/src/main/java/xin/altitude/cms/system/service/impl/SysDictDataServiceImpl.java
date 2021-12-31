@@ -3,8 +3,8 @@ package xin.altitude.cms.system.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import xin.altitude.cms.common.core.domain.entity.SysDictData;
 import xin.altitude.cms.common.util.EntityUtils;
+import xin.altitude.cms.framework.core.domain.SysDictData;
 import xin.altitude.cms.system.mapper.SysDictDataMapper;
 import xin.altitude.cms.system.service.ISysDictDataService;
 

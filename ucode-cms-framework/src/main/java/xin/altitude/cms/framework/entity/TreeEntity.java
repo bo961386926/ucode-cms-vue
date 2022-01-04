@@ -1,7 +1,6 @@
 package xin.altitude.cms.framework.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import xin.altitude.cms.common.entity.BaseEntity;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +11,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public class TreeEntity extends BaseEntity {
+public class TreeEntity extends BaseProEntity {
     private static final long serialVersionUID = 1L;
     
     /**

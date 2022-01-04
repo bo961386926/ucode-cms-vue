@@ -24,9 +24,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public class BaseProController implements BaseController {
-    
-    
+public class BaseProController extends BaseController {
     /**
      * 设置请求分页数据
      */

@@ -5,11 +5,11 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
-import xin.altitude.cms.common.entity.BaseEntity;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.annotation.DataScope;
 import xin.altitude.cms.framework.core.domain.SysRole;
 import xin.altitude.cms.framework.core.domain.SysUser;
+import xin.altitude.cms.framework.entity.BaseProEntity;
 
 /**
  * 数据过滤处理
@@ -86,8 +86,8 @@ public class DataScopeAspect {
     
         if (StringUtil.isNotBlank(sqlString.toString())) {
             Object params = joinPoint.getArgs()[0];
-            if (StringUtil.isNotNull(params) && params instanceof BaseEntity) {
-                BaseEntity baseEntity = (BaseEntity) params;
+            if (StringUtil.isNotNull(params) && params instanceof BaseProEntity) {
+                BaseProEntity baseEntity = (BaseProEntity) params;
                 baseEntity.getParams().put(DATA_SCOPE, " AND (" + sqlString.substring(4) + ")");
             }
         }
@@ -117,8 +117,8 @@ public class DataScopeAspect {
      */
     private void clearDataScope(final JoinPoint joinPoint) {
         Object params = joinPoint.getArgs()[0];
-        if (StringUtil.isNotNull(params) && params instanceof BaseEntity) {
-            BaseEntity baseEntity = (BaseEntity) params;
+        if (StringUtil.isNotNull(params) && params instanceof BaseProEntity) {
+            BaseProEntity baseEntity = (BaseProEntity) params;
             baseEntity.getParams().put(DATA_SCOPE, "");
         }
     }

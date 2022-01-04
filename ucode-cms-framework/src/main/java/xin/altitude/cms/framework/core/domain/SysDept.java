@@ -7,7 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import xin.altitude.cms.common.entity.BaseEntity;
+import xin.altitude.cms.framework.entity.BaseProEntity;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -22,7 +22,7 @@ import java.util.List;
  * @author ucode
  */
 @TableName("sys_dept")
-public class SysDept extends BaseEntity {
+public class SysDept extends BaseProEntity {
     private static final long serialVersionUID = 1L;
     
     /**

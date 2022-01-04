@@ -9,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import xin.altitude.cms.common.entity.BaseEntity;
 import xin.altitude.cms.framework.annotation.Excel;
 import xin.altitude.cms.framework.annotation.Excels;
+import xin.altitude.cms.framework.entity.BaseProEntity;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -25,7 +25,7 @@ import java.util.List;
  * @author ucode
  */
 @TableName("sys_user")
-public class SysUser extends BaseEntity {
+public class SysUser extends BaseProEntity {
     private static final long serialVersionUID = 1L;
     
     /**

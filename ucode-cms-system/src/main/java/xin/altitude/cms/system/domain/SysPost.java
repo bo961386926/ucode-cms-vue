@@ -7,9 +7,9 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
-import xin.altitude.cms.common.entity.BaseEntity;
 import xin.altitude.cms.framework.annotation.Excel;
 import xin.altitude.cms.framework.annotation.Excel.ColumnType;
+import xin.altitude.cms.framework.entity.BaseProEntity;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -21,7 +21,7 @@ import java.util.Date;
  * @author ucode
  */
 @TableName("sys_post")
-public class SysPost extends BaseEntity {
+public class SysPost extends BaseProEntity {
     private static final long serialVersionUID = 1L;
     
     /**

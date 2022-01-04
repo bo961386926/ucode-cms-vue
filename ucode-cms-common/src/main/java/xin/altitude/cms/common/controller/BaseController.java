@@ -6,14 +6,14 @@ import xin.altitude.cms.common.entity.AjaxResult;
  * @author explore
  * @since 2021/12/31 13:13
  **/
-public interface BaseController {
+public abstract class BaseController {
     
     /**
      * 返回成功
      *
      * @return AjaxResult
      */
-    default AjaxResult success() {
+    public AjaxResult success() {
         return AjaxResult.success();
     }
     
@@ -23,7 +23,7 @@ public interface BaseController {
      * @param data 具体响应体数据
      * @return AjaxResult
      */
-    default AjaxResult success(Object data) {
+    public AjaxResult success(Object data) {
         return AjaxResult.success(data);
     }
 }

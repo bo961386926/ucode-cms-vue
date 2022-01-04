@@ -5,9 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import xin.altitude.cms.common.entity.BaseEntity;
 import xin.altitude.cms.framework.annotation.Excel;
 import xin.altitude.cms.framework.annotation.Excel.ColumnType;
+import xin.altitude.cms.framework.entity.BaseProEntity;
 
 import java.util.Date;
 
@@ -17,7 +17,7 @@ import java.util.Date;
  * @author ucode
  */
 @TableName("sys_logininfor")
-public class SysLogininfor extends BaseEntity {
+public class SysLogininfor extends BaseProEntity {
     private static final long serialVersionUID = 1L;
     
     /**

@@ -9,6 +9,7 @@ import xin.altitude.cms.auth.config.SecurityWebSecurityConfigurerAdapter;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.framework.config.CmsConfig;
 
+
 /**
  * spring security配置
  *

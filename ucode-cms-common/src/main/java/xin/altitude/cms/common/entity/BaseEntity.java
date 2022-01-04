@@ -1,47 +1,55 @@
 package xin.altitude.cms.common.entity;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.time.LocalTime;
 
 /**
  * Entity基类
  *
  * @author ucode
  */
-public class BaseEntity implements Serializable {
+public abstract class BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-    
     /**
-     * 搜索值
+     * 创建时间
      */
-    @TableField(exist = false)
-    private String searchValue;
-    
+    private LocalTime createTime;
     /**
-     * 请求参数
+     * 更新时间
      */
-    @TableField(exist = false)
-    private Map<String, Object> params;
+    private LocalTime updateTime;
+    /**
+     * 逻辑删除
+     */
+    private Boolean deleted;
     
-    public String getSearchValue() {
-        return searchValue;
+    public BaseEntity(BaseEntity baseEntity) {
+        this.createTime = baseEntity.createTime;
+        this.updateTime = baseEntity.updateTime;
+        this.deleted = baseEntity.deleted;
     }
     
-    public void setSearchValue(String searchValue) {
-        this.searchValue = searchValue;
+    public LocalTime getCreateTime() {
+        return createTime;
     }
     
-    public Map<String, Object> getParams() {
-        if (params == null) {
-            params = new HashMap<>();
-        }
-        return params;
+    public void setCreateTime(LocalTime createTime) {
+        this.createTime = createTime;
     }
     
-    public void setParams(Map<String, Object> params) {
-        this.params = params;
+    public LocalTime getUpdateTime() {
+        return updateTime;
+    }
+    
+    public void setUpdateTime(LocalTime updateTime) {
+        this.updateTime = updateTime;
+    }
+    
+    public Boolean getDeleted() {
+        return deleted;
+    }
+    
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

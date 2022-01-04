@@ -11,7 +11,7 @@ import java.util.List;
  *
  * @author ucode
  */
-public class TreeEntity extends BaseProEntity {
+public class TreeProEntity extends BaseProEntity {
     private static final long serialVersionUID = 1L;
     
     /**

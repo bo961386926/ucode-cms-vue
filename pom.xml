@@ -6,7 +6,7 @@
     
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.1.0.1</version>
+    <version>1.1.1</version>
     <description>Java知识图谱之内容管理系统（pom）</description>
     
     <name>${project.artifactId}</name>
@@ -33,15 +33,17 @@
         <jwt.version>0.9.1</jwt.version>
         <lombok.version>1.18.22</lombok.version>
         <guava.version>21.0</guava.version>
+        <hutool.version>5.7.9</hutool.version>
     </properties>
     
     <modules>
-        <!--<module>ucode-cms-admin</module>-->
         <module>ucode-cms-system</module>
         <module>ucode-cms-framework</module>
         <module>ucode-cms-common</module>
         <module>ucode-cms-springboot-starter</module>
         <module>ucode-cms-ui</module>
+        <module>ucode-cms-code</module>
+        <module>ucode-cms-code-spring-boot-starter</module>
     </modules>
     <packaging>pom</packaging>
     
@@ -146,71 +148,82 @@
                 <artifactId>jjwt</artifactId>
                 <version>${jwt.version}</version>
             </dependency>
-    
+            
             <!-- 验证码 -->
             <dependency>
                 <groupId>com.github.penggle</groupId>
                 <artifactId>kaptcha</artifactId>
                 <version>${kaptcha.version}</version>
             </dependency>
-    
+            
             <!-- 系统模块-->
             <dependency>
                 <groupId>xin.altitude.cms.system</groupId>
                 <artifactId>ucode-cms-system</artifactId>
-                <version>1.1.0.1</version>
+                <version>1.1.1</version>
             </dependency>
-    
-            <!-- 通用工具-->
+            
+            <!-- 核心模块-->
             <dependency>
                 <groupId>xin.altitude.cms.framework</groupId>
                 <artifactId>ucode-cms-framework</artifactId>
-                <version>1.1.0.1</version>
+                <version>1.1.1</version>
             </dependency>
-    
+            
             <!-- 通用工具-->
             <dependency>
                 <groupId>xin.altitude.cms.common</groupId>
                 <artifactId>ucode-cms-common</artifactId>
-                <version>1.1.0.1</version>
+                <version>1.1.1</version>
             </dependency>
-    
+            
+            <dependency>
+                <groupId>xin.altitude.cms.code</groupId>
+                <artifactId>ucode-cms-code</artifactId>
+                <version>1.1.1</version>
+            </dependency>
+            
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus-spring-boot.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
                 <version>${mybatis-plus-spring-boot.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-core</artifactId>
                 <version>${mybatis-plus-spring-boot.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
                 <version>${mybatis-plus-spring-boot.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
-
+            
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     
@@ -290,7 +303,7 @@
                     </execution>
                 </executions>
             </plugin>
-    
+            
             <!--非部署必须-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

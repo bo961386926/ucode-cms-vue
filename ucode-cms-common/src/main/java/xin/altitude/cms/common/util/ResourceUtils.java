@@ -12,7 +12,7 @@ import java.util.Optional;
 /**
  * @author explore
  */
-public class ResourceUtil {
+public class ResourceUtils {
     private static final PathMatchingResourcePatternResolver RESOLVER = new PathMatchingResourcePatternResolver();
     
     /**

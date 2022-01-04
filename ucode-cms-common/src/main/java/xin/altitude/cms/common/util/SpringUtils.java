@@ -14,7 +14,7 @@ import org.springframework.context.ApplicationContextAware;
  * @author ucode
  */
 // @Component
-public final class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {
+public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {
     /**
      * Spring应用上下文环境
      */

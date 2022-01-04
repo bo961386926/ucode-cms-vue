@@ -12,7 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import xin.altitude.cms.common.util.ResourceUtil;
+import xin.altitude.cms.common.util.ResourceUtils;
 import xin.altitude.cms.common.util.StringUtil;
 
 import javax.sql.DataSource;
@@ -32,11 +32,11 @@ public class MyBatisConfig {
         String mapperLocations = env.getProperty("mybatis.mapperLocations");
         String configLocation = env.getProperty("mybatis.configLocation");
         VFS.addImplClass(SpringBootVFS.class);
-    
+        
         final MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
-        sessionFactory.setMapperLocations(ResourceUtil.resolveMapperLocations(StringUtil.split(mapperLocations, ",")));
-        sessionFactory.setConfigLocation(ResourceUtil.resolveConfigLocation(configLocation));
+        sessionFactory.setMapperLocations(ResourceUtils.resolveMapperLocations(StringUtil.split(mapperLocations, ",")));
+        sessionFactory.setConfigLocation(ResourceUtils.resolveConfigLocation(configLocation));
         sessionFactory.setPlugins(interceptor());
         return sessionFactory.getObject();
     }

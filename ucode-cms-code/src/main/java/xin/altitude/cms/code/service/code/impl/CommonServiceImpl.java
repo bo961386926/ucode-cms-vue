@@ -1,0 +1,155 @@
+package xin.altitude.cms.code.service.code.impl;
+
+import cn.hutool.core.collection.CollectionUtil;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.springframework.beans.factory.annotation.Autowired;
+import xin.altitude.cms.code.config.property.AutoCodeProperties;
+import xin.altitude.cms.code.constant.MysqlToJava;
+import xin.altitude.cms.code.domain.KeyColumnUsage;
+import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
+import xin.altitude.cms.code.entity.vo.MetaColumnVo;
+import xin.altitude.cms.code.service.code.ICommonService;
+import xin.altitude.cms.code.service.core.IKeyColumnUsage;
+import xin.altitude.cms.code.service.core.IMetaTableService;
+import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.TemplateMethod;
+import xin.altitude.cms.code.util.VelocityInitializer;
+import xin.altitude.cms.code.domain.MetaColumn;
+import xin.altitude.cms.code.domain.MetaTable;
+import xin.altitude.cms.code.service.core.IMetaColumnService;
+import xin.altitude.cms.common.util.EntityUtils;
+
+import java.io.StringWriter;
+import java.nio.charset.Charset;
+import java.util.List;
+
+
+/**
+ * @author explore
+ */
+public abstract class CommonServiceImpl implements ICommonService {
+    @Autowired
+    protected AutoCodeProperties config;
+    
+    @Autowired
+    private IKeyColumnUsage keyColumnUsage;
+    
+    @Autowired
+    private IMetaTableService metaTableService;
+    
+    @Autowired
+    private IMetaColumnService metaColumnService;
+    
+    /**
+     * 查询表信息
+     */
+    @Override
+    public MetaTable getTableInfo(String tableName) {
+        return metaTableService.getMetaTable(tableName);
+    }
+    
+    /**
+     * 查询列信息
+     */
+    @Override
+    public List<MetaColumnVo> getColumnVos(String tableName) {
+        return metaColumnService.getColumnVos(tableName);
+    }
+    
+    /**
+     * 获取两表列名信息的差集
+     *
+     * @param tableNameA 表名A
+     * @param tableNameB 表名B
+     * @return 差集合
+     */
+    @Override
+    public List<MetaColumn> listColumns(String tableNameA, String tableNameB) {
+        List<MetaColumn> a = metaColumnService.listColumns(tableNameA);
+        List<MetaColumn> b = metaColumnService.listColumns(tableNameB);
+        return CollectionUtil.subtractToList(a, b);
+    }
+    
+    /**
+     * 通过连接ID，判断所有权，获取连接，查询列信息
+     *
+     * @return 列实体VO
+     */
+    @Override
+    public MetaColumnVo getPkColumn(String tableName) {
+        List<MetaColumnVo> columnsVoList = getColumnVos(tableName);
+        columnsVoList.forEach(AutoCodeUtils::handleColumnField);
+        return columnsVoList.stream().filter(MetaColumnVo::getPkColumn).findFirst().orElse(null);
+    }
+    
+    /**
+     * 查询外键索引信息
+     *
+     * @param tableName 当前表名
+     * @return 外键集合
+     */
+    @Override
+    public List<KeyColumnUsage> listKeyColumns(String tableName) {
+        return keyColumnUsage.listKeyColumns(tableName);
+    }
+    
+    
+    /**
+     * 处理一对一引用主键问题
+     *
+     * @param keyColumnUsage
+     * @return
+     */
+    @Override
+    public KeyColumnUsageVo toKeyColumnUsageVo(KeyColumnUsage keyColumnUsage) {
+        KeyColumnUsageVo vo = EntityUtils.toObj(keyColumnUsage, KeyColumnUsageVo::new);
+        /* 先处理两表名 */
+        vo.setClassName(AutoCodeUtils.getClassName(vo.getTableName()));
+        vo.setReferencedClassName(AutoCodeUtils.getClassName(vo.getReferencedTableName()));
+        
+        /* 处理列名及列类型 */
+        vo.setFieldName(AutoCodeUtils.getFieldName(vo.getColumnName()));
+        vo.setReferencedFieldName(AutoCodeUtils.getFieldName(vo.getReferencedColumnName()));
+        
+        vo.setFieldType(MysqlToJava.getJavaType(EntityUtils.toObj(metaColumnService.getOneColumn(vo.getTableName(), vo.getColumnName()), MetaColumn::getDataType)));
+        vo.setReferencedFieldType(MysqlToJava.getJavaType(EntityUtils.toObj(metaColumnService.getOneColumn(vo.getReferencedTableName(), vo.getReferencedColumnName()), MetaColumn::getDataType)));
+        return vo;
+    }
+    
+    public List<MetaColumnVo> getMetaColumnVoList(String tableNameA, String tableNameB) {
+        List<MetaColumn> columns = listColumns(tableNameA, tableNameB);
+        List<MetaColumnVo> columnsVoList = EntityUtils.toList(columns, MetaColumnVo::new);
+        columnsVoList.forEach(AutoCodeUtils::handleColumnField);
+        return columnsVoList;
+    }
+    
+    /**
+     * 创建全局Context
+     *
+     * @return Context
+     */
+    public VelocityContext createContext() {
+        VelocityContext context = new VelocityContext();
+        context.put("t", new TemplateMethod());
+        context.put("configEntity", config);
+        context.put("packageName", config.getPackageName());
+        return context;
+    }
+    
+    /**
+     * 将模板渲染
+     *
+     * @param context  数据
+     * @param template 模版
+     * @return StringWriter
+     */
+    public StringWriter renderTemplate(VelocityContext context, String template) {
+        StringWriter sw = new StringWriter();
+        VelocityInitializer.initVelocity();
+        Template tpl = Velocity.getTemplate(template, Charset.defaultCharset().displayName());
+        tpl.merge(context, sw);
+        return sw;
+    }
+}

@@ -30,7 +30,7 @@ ucode:
     # 是否开启swagger
     enabled: true
     # 请求前缀
-    pathMapping: /dev-api
+    pathMapping: /
 
   # 防止XSS攻击
   xss:
@@ -47,12 +47,12 @@ ucode:
     moduleName: front
     useLombok: true
     useMybatisPlus: true
-    useSwagger: false
+    useSwagger: true
     functionAuthor: explore
     domain:
       overrideToString: false
       addConstructionMethod: true
-      useActiveRecord: true
+      useActiveRecord: false
       addImportList: true
       addNoteInfo: true
       pkInc: true

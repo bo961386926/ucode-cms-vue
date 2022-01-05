@@ -31,7 +31,7 @@ public class MyBatisConfig extends AbstractMyBatisConfig {
         String mapperLocations = env.getProperty("mybatis.mapperLocations");
         String configLocation = env.getProperty("mybatis.configLocation");
         VFS.addImplClass(SpringBootVFS.class);
-        
+        /* 注入MybatisPlus会话工厂 */
         final MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setMapperLocations(ResourceUtils.resolveMapperLocations(StringUtil.split(mapperLocations, ",")));

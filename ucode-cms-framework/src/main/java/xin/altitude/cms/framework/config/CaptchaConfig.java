@@ -61,7 +61,7 @@ public class CaptchaConfig {
         // KAPTCHA_SESSION_KEY
         properties.setProperty(Constants.KAPTCHA_SESSION_CONFIG_KEY, "kaptchaCodeMath");
         // 验证码文本生成器
-        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, "xin.altitude.cms.common.config.KaptchaTextCreator");
+        properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_IMPL, "xin.altitude.cms.framework.config.KaptchaTextCreator");
         // 验证码文本字符间距 默认为2
         properties.setProperty(Constants.KAPTCHA_TEXTPRODUCER_CHAR_SPACE, "3");
         // 验证码文本字符长度 默认为5

@@ -25,7 +25,7 @@ import java.util.List;
  * @since 2021/07/07 15:27
  **/
 @ResponseBody
-// @Profile(value = RunEnv.ENV)
+@Profile(value = RunEnv.ENV)
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/auto/code")
 public class AutoCodeHomeController {
     @Autowired

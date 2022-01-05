@@ -6,6 +6,9 @@ import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerIntercep
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.Resource;
+import xin.altitude.cms.common.util.ResourceUtils;
+import xin.altitude.cms.common.util.StringUtil;
 
 /**
  * @author explore
@@ -22,5 +25,13 @@ public abstract class AbstractMyBatisConfig {
         // 阻止全表更新（此配置非常有用，不能不遵守规范的开发者）
         interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
         return interceptor;
+    }
+    
+    protected Resource[] getMapperLocations(String mapperLocations) {
+        return ResourceUtils.resolveMapperLocations(StringUtil.split(mapperLocations, ","));
+    }
+    
+    protected Resource getConfigLocation(String configLocation) {
+        return ResourceUtils.resolveConfigLocation(configLocation);
     }
 }

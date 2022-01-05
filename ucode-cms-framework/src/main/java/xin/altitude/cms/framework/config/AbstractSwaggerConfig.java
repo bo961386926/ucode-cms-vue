@@ -9,7 +9,9 @@ import springfox.documentation.service.AuthorizationScope;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.SecurityReference;
 import springfox.documentation.service.SecurityScheme;
+import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
+import springfox.documentation.spring.web.plugins.Docket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,19 @@ public abstract class AbstractSwaggerConfig {
      */
     @Autowired
     protected CmsConfig cmsConfig;
+    
+    protected Docket createBaseDocket() {
+        Docket docket = new Docket(DocumentationType.OAS_30)
+                // 是否启用Swagger
+                .enable(cmsConfig.getSwagger().getEnabled())
+                // 用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
+                .apiInfo(apiInfo())
+                /* 设置安全模式，swagger可以设置访问token */
+                .securitySchemes(securitySchemes())
+                .securityContexts(securityContexts())
+                .pathMapping(cmsConfig.getSwagger().getPathMapping());
+        return docket;
+    }
     
     /**
      * 安全模式

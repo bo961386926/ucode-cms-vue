@@ -3,12 +3,12 @@ package xin.altitude.cms.code.config.property;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.NestedConfigurationProperty;
+import xin.altitude.cms.code.constant.enums.CodeModeEnum;
 import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.entity.bo.ControllerConfig;
 import xin.altitude.cms.code.entity.bo.DomainConfig;
 import xin.altitude.cms.code.entity.bo.MapperConfig;
 import xin.altitude.cms.code.entity.bo.XmlConfig;
-import xin.altitude.cms.code.constant.enums.CodeModeEnum;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ import static java.util.Objects.nonNull;
  * @since 2021/07/07 13:41
  **/
 // @Configuration
-@ConfigurationProperties("ucode.configuration")
+@ConfigurationProperties(prefix = "ucode.code")
 public class AutoCodeProperties {
     /**
      * 项目的相对路径，如果为空则使用默认值

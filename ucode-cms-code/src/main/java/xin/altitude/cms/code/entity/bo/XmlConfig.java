@@ -9,7 +9,7 @@ public class XmlConfig {
     /**
      * 是否需要初始化Xml文件
      */
-    private Boolean addXml = true;
+    private Boolean addXml = false;
     
     public Boolean getAddXml() {
         return addXml;

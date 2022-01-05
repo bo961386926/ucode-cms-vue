@@ -40,6 +40,26 @@ ucode:
     excludes: /system/notice
     # 匹配链接
     urlPatterns: /system/*,/monitor/*,/tool/*
+  code:
+    projectDir: ucode-cms-admin
+    removeTablePrefix: false
+    packageName: xin.ucode.front
+    moduleName: front
+    useLombok: true
+    useMybatisPlus: true
+    useSwagger: false
+    functionAuthor: explore
+    domain:
+      overrideToString: false
+      addConstructionMethod: true
+      useActiveRecord: true
+      addImportList: true
+      addNoteInfo: true
+      pkInc: true
+      dateSerialize: false
+      dateFormat: true
+    xml:
+      add-xml: false
 
 # 开发环境配置
 server:

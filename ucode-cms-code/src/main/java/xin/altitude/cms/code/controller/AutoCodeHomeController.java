@@ -6,13 +6,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.code.constant.RunEnv;
-import xin.altitude.cms.code.service.core.ILocalAutoCodeHomeService;
 import xin.altitude.cms.code.domain.MetaTable;
 import xin.altitude.cms.code.entity.vo.MetaTableBo;
+import xin.altitude.cms.code.service.core.ILocalAutoCodeHomeService;
 import xin.altitude.cms.code.service.core.IMetaTableService;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.entity.PageEntity;
 import xin.altitude.cms.common.util.EntityUtils;
+import xin.altitude.cms.framework.config.CmsConfig;
 
 import java.util.List;
 
@@ -24,8 +25,8 @@ import java.util.List;
  * @since 2021/07/07 15:27
  **/
 @ResponseBody
-@Profile(value = RunEnv.ENV)
-@RequestMapping("auto/code")
+// @Profile(value = RunEnv.ENV)
+@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/auto/code")
 public class AutoCodeHomeController {
     @Autowired
     private ILocalAutoCodeHomeService entranceService;

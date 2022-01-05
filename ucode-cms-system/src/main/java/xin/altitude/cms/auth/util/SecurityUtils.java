@@ -52,7 +52,8 @@ public class SecurityUtils {
     public static LoginUser getLoginUser() {
         try {
             // 如果用户为空，则使用默认配置的全局用户
-            return (LoginUser) getAuthentication().getPrincipal();
+            LoginUser loginUser = (LoginUser) getAuthentication().getPrincipal();
+            return loginUser;
         } catch (Exception e) {
             throw new ServiceException("获取用户信息异常", HttpStatus.UNAUTHORIZED);
         }

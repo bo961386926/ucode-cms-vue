@@ -17,7 +17,7 @@ import xin.altitude.cms.common.util.SpringUtils;
  *
  * @author ucode
  */
-public class SecurityWebSecurityConfigurerAdapter extends WebSecurityConfigurerAdapter {
+public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapter {
     /**
      * 退出处理类
      */

@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
 import xin.altitude.cms.common.util.ResourceUtils;
 import xin.altitude.cms.common.util.StringUtil;
+import xin.altitude.cms.framework.config.AbstractMyBatisConfig;
 
 import javax.sql.DataSource;
 
@@ -23,9 +24,7 @@ import javax.sql.DataSource;
  * @author ucode
  */
 @Configuration
-public class MyBatisConfig {
-    @Autowired
-    private Environment env;
+public class MyBatisConfig extends AbstractMyBatisConfig {
     
     @Bean
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
@@ -41,12 +40,4 @@ public class MyBatisConfig {
         return sessionFactory.getObject();
     }
     
-    public MybatisPlusInterceptor interceptor() {
-        MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
-        // 分页拦截器
-        interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
-        // 阻止全表更新（此配置非常有用，不能不遵守规范的开发者）
-        interceptor.addInnerInterceptor(new BlockAttackInnerInterceptor());
-        return interceptor;
-    }
 }

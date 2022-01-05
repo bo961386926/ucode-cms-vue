@@ -5,7 +5,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import xin.altitude.cms.auth.config.SecurityWebSecurityConfigurerAdapter;
+import xin.altitude.cms.auth.config.AbstractSecurityConfig;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.framework.config.CmsConfig;
 
@@ -17,7 +17,7 @@ import xin.altitude.cms.framework.config.CmsConfig;
  */
 // @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
-public class SecurityConfig extends SecurityWebSecurityConfigurerAdapter {
+public class SecurityConfig extends AbstractSecurityConfig {
     /**
      * 跨域过滤器
      */

@@ -1,9 +1,16 @@
 import request from '@/utils/request'
 
 // 查询生成表数据
+// export function listTable(query) {
+//   return request({
+//     url: '/tool/gen/list',
+//     method: 'get',
+//     params: query
+//   })
+// }
 export function listTable(query) {
   return request({
-    url: '/tool/gen/list',
+    url: '/auto/code/table/page',
     method: 'get',
     params: query
   })
@@ -63,7 +70,7 @@ export function delTable(tableId) {
 // 生成代码（自定义路径）
 export function genCode(tableName) {
   return request({
-    url: '/tool/gen/genCode/' + tableName,
+    url: '/auto/code/table/gen?tableName=' + tableName,
     method: 'get'
   })
 }

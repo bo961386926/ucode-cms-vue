@@ -15,4 +15,8 @@ public interface DataSourceName {
      * 从数据源名称
      */
     String SLAVE_DATA_SOURCE = "slaveDataSource";
+    /**
+     * 动态数据源名称
+     */
+    String DYNAMIC_DATA_SOURCE = "dynamicDataSource";
 }

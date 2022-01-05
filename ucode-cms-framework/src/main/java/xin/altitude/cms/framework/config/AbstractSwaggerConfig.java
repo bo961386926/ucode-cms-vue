@@ -2,6 +2,8 @@ package xin.altitude.cms.framework.config;
 
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
+import org.springframework.context.annotation.Bean;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.ApiKey;
@@ -12,9 +14,12 @@ import springfox.documentation.service.SecurityScheme;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
+import xin.altitude.cms.FlagClass;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static springfox.documentation.builders.RequestHandlerSelectors.basePackage;
 
 /**
  * @author explore
@@ -37,7 +42,23 @@ public abstract class AbstractSwaggerConfig {
                 .securitySchemes(securitySchemes())
                 .securityContexts(securityContexts())
                 .pathMapping(cmsConfig.getSwagger().getPathMapping());
+        docket.select()
+                /* 排除系统内置接口 */
+                .apis(basePackage(FlagClass.class.getPackage().getName()).negate())
+                /* 排除默认错误接口 */
+                .apis(basePackage(BasicErrorController.class.getPackage().getName()).negate())
+                .build();
         return docket;
+    }
+    
+    /**
+     * 系统内置接口列表
+     */
+    @Bean("system")
+    public Docket systemDocket() {
+        Docket docket = createBaseDocket();
+        docket.select().apis(basePackage(FlagClass.class.getPackage().getName())).build();
+        return docket.groupName("系统内置");
     }
     
     /**

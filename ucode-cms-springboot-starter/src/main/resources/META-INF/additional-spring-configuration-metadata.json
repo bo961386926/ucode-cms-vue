@@ -12,7 +12,7 @@
     },
     {
       "name": "ucode.cms.demoEnabled",
-      "type": "java.lang.String",
+      "type": "java.lang.Boolean",
       "description": "演示开关."
     },
     {
@@ -22,13 +22,23 @@
     },
     {
       "name": "ucode.cms.addressEnabled",
-      "type": "java.lang.String",
+      "type": "java.lang.Boolean",
       "description": "获取ip地址开关."
     },
     {
       "name": "ucode.cms.captchaType",
       "type": "java.lang.String",
       "description": "验证码类型."
+    },
+    {
+      "name": "ucode.code.projectDir",
+      "type": "java.lang.String",
+      "description": "代码生成相对路径."
+    },
+    {
+      "name": "ucode.code.removeTablePrefix",
+      "type": "java.lang.Boolean",
+      "description": "是否移除表前缀."
     }
   ]
 }

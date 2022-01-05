@@ -3,7 +3,6 @@ package xin.ucode.admin.config;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.spring.web.plugins.Docket;
 import xin.altitude.cms.framework.config.AbstractSwaggerConfig;
 
@@ -21,7 +20,7 @@ public class SwaggerConfig extends AbstractSwaggerConfig {
     @Bean
     public Docket createRestApi() {
         Docket docket = createBaseDocket();
-        return docket.select().paths(PathSelectors.any()).build();
+        return docket;
     }
     
 }

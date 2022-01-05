@@ -10,14 +10,12 @@ import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.session.SqlSessionFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import org.springframework.jdbc.datasource.SingleConnectionDataSource;
-import xin.altitude.cms.code.config.property.HikariProperties;
 import xin.altitude.cms.code.constant.CodeConstant;
 import xin.altitude.cms.code.util.CodeSpringUtils;
 import xin.altitude.cms.common.util.ResourceUtils;
+import xin.altitude.cms.framework.constant.DataSourceName;
 
 
 /**
@@ -46,13 +44,14 @@ public class MyBatisPlusConfig {
         VFS.addImplClass(SpringBootVFS.class);
         String mapperLocations = "classpath*:mapper/metadata/*Mapper.xml";
         final MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
-        SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
-        HikariProperties properties = CodeSpringUtils.getBean(HikariProperties.class);
-        BeanUtils.copyProperties(properties, dataSource);
+        // SingleConnectionDataSource dataSource = new SingleConnectionDataSource();
+        // HikariProperties properties = CodeSpringUtils.getBean(DataSourceName.MASTER_DATA_SOURCE);
+        // BeanUtils.copyProperties(properties, dataSource);
         MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setCacheEnabled(true);
         configuration.setLogImpl(StdOutImpl.class);
-        sessionFactory.setDataSource(dataSource);
+        /* 读取动态数据源 */
+        sessionFactory.setDataSource(CodeSpringUtils.getBean(DataSourceName.DYNAMIC_DATA_SOURCE));
         sessionFactory.setPlugins(mybatisPlusInterceptor());
         sessionFactory.setConfiguration(configuration);
         sessionFactory.setMapperLocations(ResourceUtils.resolveMapperLocations(mapperLocations));

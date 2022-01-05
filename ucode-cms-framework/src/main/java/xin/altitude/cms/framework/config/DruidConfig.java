@@ -4,7 +4,9 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import com.alibaba.druid.util.Utils;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -26,6 +28,7 @@ import java.util.Map;
  * @author ucode
  */
 // @Configuration
+// @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 public class DruidConfig {
     
     /**
@@ -58,7 +61,7 @@ public class DruidConfig {
     
     
     @Primary
-    @Bean(name = "dynamicDataSource")
+    @Bean(DataSourceName.DYNAMIC_DATA_SOURCE)
     public DynamicDataSource dataSource(DataSource masterDataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>();
         targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);

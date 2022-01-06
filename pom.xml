@@ -3,12 +3,6 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <!--<parent>-->
-    <!--    <artifactId>spring-boot-parent</artifactId>-->
-    <!--    <groupId>org.springframework.boot</groupId>-->
-    <!--    <version>2.3.1.RELEASE</version>-->
-    <!--    <relativePath/>-->
-    <!--</parent>-->
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
     <version>1.1.5</version>
@@ -340,28 +334,7 @@
                     <encoding>${project.build.sourceEncoding}</encoding>
                 </configuration>
             </plugin>
-            
-            <!--&lt;!&ndash;排除log4j&ndash;&gt;-->
-            <!--<plugin>-->
-            <!--    <groupId>org.springframework.boot</groupId>-->
-            <!--    <artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--    <configuration>-->
-            <!--        <excludes>-->
-            <!--            <exclude>-->
-            <!--                <groupId>org.apache.logging.log4j</groupId>-->
-            <!--                <artifactId>log4j-api</artifactId>-->
-            <!--            </exclude>-->
-            <!--            <exclude>-->
-            <!--                <groupId>org.apache.logging.log4j</groupId>-->
-            <!--                <artifactId>log4j-core</artifactId>-->
-            <!--            </exclude>-->
-            <!--            <exclude>-->
-            <!--                <groupId>org.apache.logging.log4j</groupId>-->
-            <!--                <artifactId>log4j-to-slf4j</artifactId>-->
-            <!--            </exclude>-->
-            <!--        </excludes>-->
-            <!--    </configuration>-->
-            <!--</plugin>-->
+        
         </plugins>
     </build>
 

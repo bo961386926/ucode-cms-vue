@@ -1,13 +1,11 @@
 package xin.altitude.cms.framework.config;
 
 import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.caffeine.CaffeineCache;
-import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
-import org.springframework.util.CollectionUtils;
 import xin.altitude.cms.common.constant.CNTC;
 
 import java.util.ArrayList;
@@ -19,16 +17,8 @@ import java.util.concurrent.TimeUnit;
  * @since 2019/07/05 14:18
  **/
 // @Configuration
-public class SpringCaffeineConfig {
-    
-    @Bean
-    public KeyGenerator keyGenerator() {
-        return (target, method, params) -> {
-            String name = target.getClass().getName();
-            String methodName = method.getName();
-            return String.format("%s:%s(%s)", name, methodName, CollectionUtils.arrayToList(params));
-        };
-    }
+@ConditionalOnClass({Cache.class})
+public class SpringCaffeineConfig extends AbstractCaffeineConfig {
     
     @Bean
     public CacheManager caffeineCacheManager() {
@@ -42,12 +32,9 @@ public class SpringCaffeineConfig {
         caches.add(new CaffeineCache(CNTC.CACHE_05MINS, expire(5, TimeUnit.MINUTES)));
         caches.add(new CaffeineCache(CNTC.CACHE_1HOURS, expire(1, TimeUnit.HOURS)));
         caches.add(new CaffeineCache(CNTC.CACHE_1DAYS, expire(1, TimeUnit.DAYS)));
-    
+        
         cacheManager.setCaches(caches);
         return cacheManager;
     }
     
-    protected Cache<Object, Object> expire(long duration, TimeUnit unit) {
-        return Caffeine.newBuilder().expireAfterWrite(duration, unit).build();
-    }
 }

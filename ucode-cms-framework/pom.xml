@@ -142,9 +142,11 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-core</artifactId>
         </dependency>
+        <!--项目需要使用自行配置-->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -191,10 +193,10 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-ui</artifactId>
         </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>ch.qos.logback</groupId>-->
+        <!--    <artifactId>logback-classic</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
 
 </project>

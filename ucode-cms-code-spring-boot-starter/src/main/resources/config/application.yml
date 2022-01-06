@@ -1,0 +1,21 @@
+# 项目相关配置
+ucode:
+  code:
+    removeTablePrefix: false
+    packageName: xin.ucode.front
+    moduleName: front
+    useLombok: true
+    useMybatisPlus: true
+    useSwagger: true
+    functionAuthor: explore
+    domain:
+      overrideToString: false
+      addConstructionMethod: true
+      useActiveRecord: false
+      addImportList: true
+      addNoteInfo: true
+      pkInc: true
+      dateSerialize: false
+      dateFormat: true
+    xml:
+      add-xml: false

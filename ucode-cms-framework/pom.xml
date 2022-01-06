@@ -5,7 +5,7 @@
     <parent>
         <groupId>xin.altitude.cms</groupId>
         <artifactId>ucode-cms</artifactId>
-        <version>1.1.6</version>
+        <version>1.1.6.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.framework</groupId>
@@ -195,10 +195,14 @@
             <groupId>com.github.xiaoymin</groupId>
             <artifactId>knife4j-spring-ui</artifactId>
         </dependency>
-        <!--<dependency>-->
-        <!--    <groupId>ch.qos.logback</groupId>-->
-        <!--    <artifactId>logback-classic</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

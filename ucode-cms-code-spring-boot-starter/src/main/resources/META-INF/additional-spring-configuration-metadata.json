@@ -1,59 +1,14 @@
 {
   "properties": [
     {
-      "name": "ucode.code.removeTablePrefix",
-      "type": "java.lang.Boolean",
-      "description": "是否移除表前缀."
-    },
-    {
       "name": "ucode.code.packageName",
       "type": "java.lang.String",
-      "description": "基础包名."
+      "description": "代码生成包前缀名."
     },
     {
-      "type": "java.lang.Boolean",
-      "name": "ucode.code.domainConfig.overrideToString",
-      "description": "是否覆盖默认ToString方法."
-    },
-    {
-      "name": "ucode.code.domainConfig.addConstructorMethod",
-      "type": "java.lang.Boolean",
-      "description": "是否添加构造器方法."
-    },
-    {
-      "name": "ucode.code.domainConfig.useActiveRecord",
-      "type": "java.lang.Boolean",
-      "description": "是否使用MP AR."
-    },
-    {
-      "name": "ucode.code.domainConfig.addImportList",
-      "type": "java.lang.Boolean",
-      "description": "是否添加import列表."
-    },
-    {
-      "name": "ucode.code.domainConfig.addNoteInfo",
-      "type": "java.lang.Boolean",
-      "description": "是否添加实体类注释信息."
-    },
-    {
-      "name": "ucode.code.domainConfig.pkInc",
-      "type": "java.lang.Boolean",
-      "description": "是否强制使用主键自增."
-    },
-    {
-      "name": "ucode.code.domainConfig.dateSerialize",
-      "type": "java.lang.Boolean",
-      "description": "日期字段序列化."
-    },
-    {
-      "name": "ucode.code.domainConfig.dateFormat",
-      "type": "java.lang.Boolean",
-      "description": "日期字段格式化."
-    },
-    {
-      "name": "ucode.code.projectDir",
+      "name": "ucode.code.moduleName",
       "type": "java.lang.String",
-      "description": "代码生成的相对根目录，如果检测绝对路径合法，则使用完整路径."
+      "description": "代码生成模块名称."
     }
   ]
 }

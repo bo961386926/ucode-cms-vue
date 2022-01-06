@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.1.6</version>
+    <version>1.1.6.1</version>
     <description>Java知识图谱之内容管理系统（pom）</description>
     
     <name>${project.artifactId}</name>
@@ -34,6 +34,7 @@
         <guava.version>21.0</guava.version>
         <hutool.version>5.7.9</hutool.version>
         <knife4j.version>3.0.3</knife4j.version>
+        <commons.collections4.version>4.4</commons.collections4.version>
     </properties>
     
     <modules>
@@ -228,6 +229,12 @@
                 <groupId>com.github.xiaoymin</groupId>
                 <artifactId>knife4j-spring-ui</artifactId>
                 <version>${knife4j.version}</version>
+            </dependency>
+    
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-collections4</artifactId>
+                <version>${commons.collections4.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

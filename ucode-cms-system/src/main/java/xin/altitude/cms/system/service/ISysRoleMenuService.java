@@ -5,7 +5,7 @@ import xin.altitude.cms.system.domain.SysRoleMenu;
 
 /**
  * @author explore
- * @since 2021/12/26 15:47
+ * @since 2019/12/26 15:47
  **/
 public interface ISysRoleMenuService extends IService<SysRoleMenu> {
 }

@@ -1,0 +1,7 @@
+# 数据源配置
+spring:
+  datasource:
+    # 主库数据源
+    url: jdbc:mysql://localhost:3306/ucode-cms?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456

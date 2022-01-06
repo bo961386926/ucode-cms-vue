@@ -6,15 +6,15 @@ import xin.altitude.cms.code.constant.enums.JoinQueryEnum;
 import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
-import xin.altitude.cms.code.service.core.ILocalAutoCodeHomeService;
+import xin.altitude.cms.code.service.core.ICodeHomeService;
 import xin.altitude.cms.code.service.join.impl.DomainBoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreVoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
 import xin.altitude.cms.code.util.AutoCodeUtils;
-import xin.altitude.cms.common.util.ColUtils;
 import xin.altitude.cms.code.util.CodeSpringUtils;
+import xin.altitude.cms.common.util.ColUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -25,17 +25,16 @@ import java.util.stream.Collectors;
  * 入口代码
  *
  * @author explore
- * @since 2021/07/08 19:28
+ * @since 2019/07/08 19:28
  **/
 // @Service
-public class AutoCodeHomeServiceImpl extends CommonServiceImpl implements ILocalAutoCodeHomeService {
-    
+// @Import({DomainServiceImpl.class, One2OneVoServiceImpl.class, DomainBoServiceImpl.class, ControllerServiceImpl.class,
+//         MapperServiceImpl.class, ServiceServiceImpl.class, ServiceImplServiceImpl.class, XmlServiceImpl.class})
+public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeService {
     @Autowired
     private DomainServiceImpl domainService;
     @Autowired
     private One2OneVoServiceImpl one2OneVoService;
-    // @Autowired
-    // private More2MoreVoServiceImpl more2MoreVoService;
     @Autowired
     private DomainBoServiceImpl domainBoService;
     @Autowired

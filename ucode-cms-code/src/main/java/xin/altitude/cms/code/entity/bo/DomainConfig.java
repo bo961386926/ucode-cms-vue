@@ -2,7 +2,7 @@ package xin.altitude.cms.code.entity.bo;
 
 /**
  * @author explore
- * @since 2021/07/07 13:53
+ * @since 2019/07/07 13:53
  **/
 // @Data
 public class DomainConfig {

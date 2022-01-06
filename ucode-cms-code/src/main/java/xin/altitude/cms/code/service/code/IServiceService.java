@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author explore
- * @since 2021/12/03 16:57
+ * @since 2019/12/03 16:57
  **/
 public interface IServiceService {
     void writeToLocalFile(String tableName, String className);

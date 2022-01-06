@@ -5,6 +5,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import xin.altitude.cms.code.config.property.AutoCodeProperties;
 import xin.altitude.cms.code.constant.MysqlToJava;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
@@ -13,6 +14,7 @@ import xin.altitude.cms.code.entity.vo.MetaColumnVo;
 import xin.altitude.cms.code.service.code.ICommonService;
 import xin.altitude.cms.code.service.core.IKeyColumnUsage;
 import xin.altitude.cms.code.service.core.IMetaTableService;
+import xin.altitude.cms.code.service.core.impl.KeyColumnUsageImpl;
 import xin.altitude.cms.code.util.AutoCodeUtils;
 import xin.altitude.cms.code.util.TemplateMethod;
 import xin.altitude.cms.code.util.VelocityInitializer;
@@ -29,6 +31,7 @@ import java.util.List;
 /**
  * @author explore
  */
+// @Import({KeyColumnUsageImpl.class})
 public abstract class CommonServiceImpl implements ICommonService {
     @Autowired
     protected AutoCodeProperties config;

@@ -4,7 +4,7 @@ import org.apache.velocity.VelocityContext;
 
 /**
  * @author explore
- * @since 2021/12/03 16:58
+ * @since 2019/12/03 16:58
  **/
 public interface IXmlService {
     void writeToLocalFile(String tableName, String className);

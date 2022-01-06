@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
  * 数据库系统内置的表实体
  *
  * @author explore
- * @since 2021/06/19 13:02
+ * @since 2019/06/19 13:02
  **/
 @TableName(schema = "information_schema", value = "tables")
 public class MetaTable extends Model<MetaTable> {

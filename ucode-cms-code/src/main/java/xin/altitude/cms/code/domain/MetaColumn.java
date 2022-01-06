@@ -7,7 +7,7 @@ import java.util.Objects;
 
 /**
  * @author explore
- * @since 2021/06/19 14:26
+ * @since 2019/06/19 14:26
  **/
 @TableName(schema = "information_schema", value = "columns")
 public class MetaColumn extends Model<MetaColumn> {

@@ -18,7 +18,7 @@ import static java.util.Objects.nonNull;
  * 动态配置实体类
  *
  * @author explore
- * @since 2021/07/07 13:41
+ * @since 2019/07/07 13:41
  **/
 // @Configuration
 @ConfigurationProperties(prefix = "ucode.code")

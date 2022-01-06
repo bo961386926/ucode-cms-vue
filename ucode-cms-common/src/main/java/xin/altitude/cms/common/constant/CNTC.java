@@ -9,7 +9,7 @@ package xin.altitude.cms.common.constant;
  * 不同名有不同的过期时间
  *
  * @author explore
- * @since 2021/05/12 16:34
+ * @since 2019/05/12 16:34
  **/
 public interface CNTC {
     String CACHE_01SECS = "CACHE_01SECS";

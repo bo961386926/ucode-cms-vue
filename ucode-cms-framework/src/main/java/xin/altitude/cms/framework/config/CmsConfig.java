@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author explore
- * @since 2021/12/22 17:09
+ * @since 2019/12/22 17:09
  **/
 @Data
 // @Configuration

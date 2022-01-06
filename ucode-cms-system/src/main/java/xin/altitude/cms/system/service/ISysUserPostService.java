@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author explore
- * @since 2021/12/24 13:18
+ * @since 2019/12/24 13:18
  **/
 public interface ISysUserPostService extends IService<SysUserPost> {
     void deleteUserPostByUserId(Long userId);

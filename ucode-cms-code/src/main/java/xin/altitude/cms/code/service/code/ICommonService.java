@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  * @author explore
- * @since 2021/12/03 16:55
+ * @since 2019/12/03 16:55
  **/
 public interface ICommonService {
     MetaTable getTableInfo(String tableName);

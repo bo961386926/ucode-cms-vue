@@ -5,7 +5,7 @@ import xin.altitude.cms.code.domain.KeyColumnUsage;
 
 /**
  * @author explore
- * @since 2021/12/19 14:40
+ * @since 2019/12/19 14:40
  **/
 public class KeyColumnUsageVo extends KeyColumnUsage {
     /**

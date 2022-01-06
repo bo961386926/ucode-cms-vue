@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 
 /**
  * @author explore
- * @since 2021/12/18 19:28
+ * @since 2019/12/18 19:28
  **/
 @TableName(schema = "information_schema", value = "KEY_COLUMN_USAGE")
 public class KeyColumnUsage extends Model<KeyColumnUsage> {

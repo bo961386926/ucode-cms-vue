@@ -2,7 +2,7 @@ package xin.altitude.cms.code.entity.vo;
 
 /**
  * @author explore
- * @since 2021/07/14 14:36
+ * @since 2019/07/14 14:36
  **/
 public class MetaTableBo {
     /**

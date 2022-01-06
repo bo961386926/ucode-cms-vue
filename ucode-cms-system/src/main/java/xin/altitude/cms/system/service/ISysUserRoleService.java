@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @author explore
- * @since 2021/12/26 13:09
+ * @since 2019/12/26 13:09
  **/
 public interface ISysUserRoleService extends IService<SysUserRole> {
     void deleteUserRoleByUserId(Long userId);

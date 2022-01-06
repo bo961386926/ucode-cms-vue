@@ -24,7 +24,7 @@ import java.util.List;
  * 处理domain部分代码生成的业务逻辑
  *
  * @author explore
- * @since 2021/07/07 14:11
+ * @since 2019/07/07 14:11
  **/
 public class More2MoreVoServiceImpl extends CommonServiceImpl {
     private final static String TEMPLATE = "vm10/java/more2more/domainVo.java.vm";

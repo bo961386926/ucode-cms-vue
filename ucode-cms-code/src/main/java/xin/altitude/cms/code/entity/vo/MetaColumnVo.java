@@ -5,7 +5,7 @@ import xin.altitude.cms.code.domain.MetaColumn;
 
 /**
  * @author explore
- * @since 2021/06/19 18:27
+ * @since 2019/06/19 18:27
  **/
 public class MetaColumnVo extends MetaColumn {
     /**

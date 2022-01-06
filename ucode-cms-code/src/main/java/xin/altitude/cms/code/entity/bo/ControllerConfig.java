@@ -4,7 +4,7 @@ package xin.altitude.cms.code.entity.bo;
  * 控制器部分代码配置类
  *
  * @author explore
- * @since 2021/07/08 15:17
+ * @since 2019/07/08 15:17
  **/
 // @Data
 public class ControllerConfig {

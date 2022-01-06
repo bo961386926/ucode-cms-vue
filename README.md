@@ -1,10 +1,25 @@
-### 一、Ucode-Cms简介
+### 项目简介
 
-`ucode-cms`是一款快速搭建管理类软件系统的脚手架，只需引入一个Maven依赖便可以快速构建SpringBoot Web应用。
+`ucode-cms`是一款Maven版的后台管理系统，是快速构建简单项目的利器。
 
-### 二、快速使用
+### 产品逻辑
+UCode-Cms是按照设计模式中的开闭原则、高内聚低藕聚等原则，在开源项目上进行的一次封装，目的是标准化快速构建项目。
 
-快速获取简单[demo项目](https://gitee.com/decsa/demo-cms)。
 
-### 三、效果图
+### 项目结构
+```text
+├── cms-ui                                  // 后台系统前端源代码（vue版）
+├── sql                                     // 初始化SQL脚本
+├── ucode-cms-admin                         // 测试starter使用项目
+├── ucode-cms-code                          // 代码生成模块
+├── ucode-cms-code-spring-boot-starter      // 代码生成模块starter
+├── ucode-cms-common                        // Cms通用模块（依赖可跨项目使用）
+├── ucode-cms-framework                     // Cms核心模块
+├── ucode-cms-springboot-starter            // Cms starter（核心依赖）
+├── ucode-cms-system                        // Cms 系统模块
+└── ucode-cms-ui                            // 前端源码编译后依赖
+```
 
+### 快速使用
+
+快速获取简单[cms demo项目](https://gitee.com/decsa/demo-cms)。

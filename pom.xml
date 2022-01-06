@@ -159,27 +159,27 @@
             <dependency>
                 <groupId>xin.altitude.cms.system</groupId>
                 <artifactId>ucode-cms-system</artifactId>
-                <version>1.1.6</version>
+                <version>${project.version}</version>
             </dependency>
             
             <!-- 核心模块-->
             <dependency>
                 <groupId>xin.altitude.cms.framework</groupId>
                 <artifactId>ucode-cms-framework</artifactId>
-                <version>1.1.6</version>
+                <version>${project.version}</version>
             </dependency>
             
             <!-- 通用工具-->
             <dependency>
                 <groupId>xin.altitude.cms.common</groupId>
                 <artifactId>ucode-cms-common</artifactId>
-                <version>1.1.6</version>
+                <version>${project.version}</version>
             </dependency>
             
             <dependency>
                 <groupId>xin.altitude.cms.code</groupId>
                 <artifactId>ucode-cms-code</artifactId>
-                <version>1.1.6</version>
+                <version>${project.version}</version>
             </dependency>
             
             <dependency>

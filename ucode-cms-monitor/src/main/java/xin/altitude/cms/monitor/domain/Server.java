@@ -1,4 +1,4 @@
-package xin.altitude.cms.auth.web.domain;
+package xin.altitude.cms.monitor.domain;
 
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
@@ -9,11 +9,11 @@ import oshi.software.os.FileSystem;
 import oshi.software.os.OSFileStore;
 import oshi.software.os.OperatingSystem;
 import oshi.util.Util;
-import xin.altitude.cms.auth.web.domain.server.Cpu;
-import xin.altitude.cms.auth.web.domain.server.Jvm;
-import xin.altitude.cms.auth.web.domain.server.Mem;
-import xin.altitude.cms.auth.web.domain.server.Sys;
-import xin.altitude.cms.auth.web.domain.server.SysFile;
+import xin.altitude.cms.monitor.domain.server.Cpu;
+import xin.altitude.cms.monitor.domain.server.Jvm;
+import xin.altitude.cms.monitor.domain.server.Mem;
+import xin.altitude.cms.monitor.domain.server.Sys;
+import xin.altitude.cms.monitor.domain.server.SysFile;
 import xin.altitude.cms.framework.util.Arith;
 import xin.altitude.cms.framework.util.ip.IpUtils;
 

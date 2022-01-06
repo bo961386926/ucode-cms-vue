@@ -1,4 +1,4 @@
-package xin.altitude.cms.auth.web.domain.server;
+package xin.altitude.cms.monitor.domain.server;
 
 /**
  * 系统文件相关信息

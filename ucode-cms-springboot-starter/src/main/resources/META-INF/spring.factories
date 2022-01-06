@@ -5,8 +5,8 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.framework.SysLoginController,\
     xin.altitude.cms.framework.SysProfileProController,\
     xin.altitude.cms.framework.SysRegisterProController,\
-    xin.altitude.cms.monitor.CacheController,\
-    xin.altitude.cms.monitor.ServerController,\
+    xin.altitude.cms.monitor.controller.CacheController,\
+    xin.altitude.cms.monitor.controller.ServerController,\
     xin.altitude.cms.monitor.SysOperlogProController,\
     xin.altitude.cms.monitor.SysUserOnlineProController,\
     xin.altitude.cms.system.controller.SysConfigProController,\

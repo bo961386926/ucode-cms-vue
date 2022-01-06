@@ -45,6 +45,7 @@
         <module>ucode-cms-ui</module>
         <module>ucode-cms-code</module>
         <module>ucode-cms-code-spring-boot-starter</module>
+        <module>ucode-cms-monitor</module>
     </modules>
     <packaging>pom</packaging>
     
@@ -160,6 +161,17 @@
             <dependency>
                 <groupId>xin.altitude.cms.system</groupId>
                 <artifactId>ucode-cms-system</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+    
+            <dependency>
+                <groupId>xin.altitude.cms.ui</groupId>
+                <artifactId>ucode-cms-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>xin.altitude.cms.monitor</groupId>
+                <artifactId>ucode-cms-monitor</artifactId>
                 <version>${project.version}</version>
             </dependency>
             

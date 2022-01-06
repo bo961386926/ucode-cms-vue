@@ -1,4 +1,4 @@
-package xin.altitude.cms.auth.web.domain.server;
+package xin.altitude.cms.monitor.domain.server;
 
 import xin.altitude.cms.framework.util.Arith;
 

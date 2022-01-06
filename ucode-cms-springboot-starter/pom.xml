@@ -42,6 +42,11 @@
             <artifactId>ucode-cms-ui</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>xin.altitude.cms.monitor</groupId>
+            <artifactId>ucode-cms-monitor</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
         
         <dependency>
             <groupId>org.springframework.boot</groupId>

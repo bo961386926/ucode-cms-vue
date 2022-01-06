@@ -5,7 +5,7 @@
     <parent>
         <groupId>xin.altitude.cms</groupId>
         <artifactId>ucode-cms</artifactId>
-        <version>1.1.5</version>
+        <version>1.1.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.system</groupId>
@@ -21,15 +21,18 @@
         <dependency>
             <groupId>xin.altitude.cms.common</groupId>
             <artifactId>ucode-cms-common</artifactId>
+            <optional>true</optional>
         </dependency>
     
         <dependency>
             <groupId>xin.altitude.cms.framework</groupId>
             <artifactId>ucode-cms-framework</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
+            <optional>true</optional>
         </dependency>
         <!--<dependency>-->
         <!--    <groupId>org.springframework.boot</groupId>-->
@@ -59,10 +62,11 @@
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-        <!--<dependency>-->
-        <!--    <groupId>org.springframework.security</groupId>-->
-        <!--    <artifactId>spring-security-config</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <optional>true</optional>
+        </dependency>
     </dependencies>
 
 </project>

@@ -14,45 +14,21 @@
     <name>${project.artifactId}</name>
     
     <dependencies>
-        
-        <!--<dependency>-->
-        <!--    <groupId>org.springframework.boot</groupId>-->
-        <!--    <artifactId>spring-boot-starter-web</artifactId>-->
-        <!--</dependency>-->
         <!--ucode-cms核心依赖-->
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-spring-boot-starter</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6</version>
         </dependency>
         <!--代码生成器模块（非必选）-->
         <dependency>
             <groupId>xin.altitude.cms.code</groupId>
             <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-            <version>1.1.5</version>
+            <version>1.1.6</version>
         </dependency>
-        <!--<dependency>-->
-        <!--    <groupId>org.springframework.boot</groupId>-->
-        <!--    <artifactId>spring-boot-starter-security</artifactId>-->
-        <!--</dependency>-->
     
         
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-to-slf4j</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.logging.log4j</groupId>
-                    <artifactId>log4j-api</artifactId>
-                </exclusion>
-            </exclusions>
-            <version>2.17.1</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.logging.log4j</groupId>
-            <artifactId>log4j-api</artifactId>
-            <version>2.17.1</version>
-        </dependency>
+        
     </dependencies>
     
     <build>

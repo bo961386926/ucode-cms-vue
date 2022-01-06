@@ -5,7 +5,7 @@
     <parent>
         <groupId>xin.altitude.cms</groupId>
         <artifactId>ucode-cms</artifactId>
-        <version>1.1.5</version>
+        <version>1.1.6</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.framework</groupId>
@@ -26,8 +26,9 @@
         
         <!-- SpringWeb模块 -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+            <optional>true</optional>
         </dependency>
         
         <!-- spring security 安全认证 -->
@@ -126,10 +127,10 @@
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
         
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>org.springframework</groupId>-->
+        <!--    <artifactId>spring-webmvc</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.github.penggle</groupId>
             <artifactId>kaptcha</artifactId>
@@ -141,12 +142,12 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-core</artifactId>
+            <optional>true</optional>
         </dependency>
         <!--项目需要使用自行配置-->
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
-            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -174,6 +175,7 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
+            <optional>true</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

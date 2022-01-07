@@ -46,7 +46,6 @@
         <module>ucode-cms-code</module>
         <module>ucode-cms-code-spring-boot-starter</module>
         <module>ucode-cms-monitor</module>
-        <module>ucode-cms-api-ui</module>
     </modules>
     <packaging>pom</packaging>
     

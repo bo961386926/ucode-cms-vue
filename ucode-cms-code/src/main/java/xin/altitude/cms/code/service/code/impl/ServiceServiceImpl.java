@@ -6,7 +6,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
 
@@ -35,18 +35,18 @@ public class ServiceServiceImpl extends CommonServiceImpl {
     public void writeToLocalFile(String tableName, String className) {
         String fileName = String.format("I%sService.java", className);
         String value = realtimePreview(tableName);
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath("service");
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath("service");
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     
     public void writeToLocalFile(String tableName, String className, KeyColumnUsageVo keyColumnUsageVo) {
         String fileName = String.format("I%sService.java", className);
         String value = realtimePreview(tableName, keyColumnUsageVo);
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath("service");
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath("service");
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     /**
@@ -80,8 +80,8 @@ public class ServiceServiceImpl extends CommonServiceImpl {
     public VelocityContext createContext(String tableName) {
         VelocityContext context = createContext();
         context.put("tableName", tableName);
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
-        context.put("className", AutoCodeUtils.getInstanceName(tableName));
+        context.put("ClassName", CodeUtils.getClassName(tableName));
+        context.put("className", CodeUtils.getInstanceName(tableName));
         // 添加导包列表
         context.put("importList", getImportList(tableName));
         // 添加表备注
@@ -106,7 +106,7 @@ public class ServiceServiceImpl extends CommonServiceImpl {
         ArrayList<String> rs = new ArrayList<>();
         if (config.getUseMybatisPlus()) {
             rs.add(String.format("import %s;", IService.class.getName()));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
         }
         rs.sort(Comparator.naturalOrder());
         return rs;

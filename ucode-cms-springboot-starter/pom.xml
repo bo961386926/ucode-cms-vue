@@ -25,33 +25,33 @@
         <dependency>
             <groupId>xin.altitude.cms.framework</groupId>
             <artifactId>ucode-cms-framework</artifactId>
-            <version>${project.parent.version}</version>
+            <!--<version>${project.parent.version}</version>-->
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.common</groupId>
             <artifactId>ucode-cms-common</artifactId>
-            <version>${project.parent.version}</version>
+            <!--<version>${project.parent.version}</version>-->
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.system</groupId>
             <artifactId>ucode-cms-system</artifactId>
-            <version>${project.parent.version}</version>
+            <!--<version>${project.parent.version}</version>-->
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.ui</groupId>
             <artifactId>ucode-cms-ui</artifactId>
-            <version>${project.parent.version}</version>
+            <!--<version>${project.parent.version}</version>-->
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.monitor</groupId>
             <artifactId>ucode-cms-monitor</artifactId>
-            <version>${project.parent.version}</version>
+            <!--<version>${project.parent.version}</version>-->
         </dependency>
         
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
-            <optional>true</optional>
+            <!--<optional>true</optional>-->
         </dependency>
         
         <!--外部项目运行核心依赖-->
@@ -68,7 +68,7 @@
             <artifactId>spring-security-config</artifactId>
         </dependency>
         
-        <!--处理log4j-->
+        <!-- 处理log4j漏洞 -->
         <dependency>
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-to-slf4j</artifactId>

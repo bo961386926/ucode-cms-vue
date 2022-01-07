@@ -4,7 +4,7 @@ import com.google.common.base.CaseFormat;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.springframework.util.StringUtils;
-import xin.altitude.cms.code.config.property.AutoCodeProperties;
+import xin.altitude.cms.code.config.property.CodeProperties;
 import xin.altitude.cms.code.constant.CodeConstant;
 import xin.altitude.cms.code.constant.MysqlToJava;
 import xin.altitude.cms.code.constant.enums.ColumnDataEnum;
@@ -27,7 +27,7 @@ import java.util.Set;
  * @author explore
  * @since 2019/07/07 14:32
  **/
-public class AutoCodeUtils {
+public class CodeUtils {
     private static final Set<String> SET = new HashSet<>();
     
     /* Java关键字列表 */
@@ -52,9 +52,9 @@ public class AutoCodeUtils {
      * @return 获取业务控制器前缀
      */
     public static String getBusinessName(String tableName) {
-        AutoCodeProperties configEntity = CodeSpringUtils.getBean(AutoCodeProperties.class);
+        CodeProperties configEntity = CodeSpringUtils.getBean(CodeProperties.class);
         String newTableName = newTableName(tableName);
-        return Optional.of(configEntity).map(AutoCodeProperties::getController).map(ControllerConfig::getBusinessName).orElse(newTableName.replace("_", "/"));
+        return Optional.of(configEntity).map(CodeProperties::getController).map(ControllerConfig::getBusinessName).orElse(newTableName.replace("_", "/"));
     }
     
     /**
@@ -112,7 +112,7 @@ public class AutoCodeUtils {
      * @return 新表名
      */
     public static String newTableName(String tableName) {
-        AutoCodeProperties configEntity = CodeSpringUtils.getBean(AutoCodeProperties.class);
+        CodeProperties configEntity = CodeSpringUtils.getBean(CodeProperties.class);
         if (configEntity == null) {
             return tableName;
         }
@@ -213,7 +213,7 @@ public class AutoCodeUtils {
      * @return
      */
     public static String createRelativJavaDirFilePath(String layer) {
-        AutoCodeProperties config = CodeSpringUtils.getBean(AutoCodeProperties.class);
+        CodeProperties config = CodeSpringUtils.getBean(CodeProperties.class);
         // 包路径
         String replace = config.getPackageName().replace(".", "/");
         String s = FilenameUtils.concat(getProjectDir() + "/" + CodeConstant.PROJECT_RELATIVE_JAVA_PATH, replace);
@@ -233,8 +233,8 @@ public class AutoCodeUtils {
      */
     public static String getProjectDir() {
         String path = System.getProperty("user.dir");
-        Optional<String> optional = Optional.ofNullable(CodeSpringUtils.getBean(AutoCodeProperties.class))
-                .map(AutoCodeProperties::getProjectDir);
+        Optional<String> optional = Optional.ofNullable(CodeSpringUtils.getBean(CodeProperties.class))
+                .map(CodeProperties::getProjectDir);
         if (optional.isPresent()) {
             String value = optional.get();
             if (new File(value).exists()) {

@@ -1,7 +1,7 @@
 package xin.altitude.cms.code.service.code.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import xin.altitude.cms.code.config.property.AutoCodeProperties;
+import xin.altitude.cms.code.config.property.CodeProperties;
 import xin.altitude.cms.code.constant.enums.JoinQueryEnum;
 import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
@@ -12,7 +12,7 @@ import xin.altitude.cms.code.service.join.impl.More2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreVoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.CodeSpringUtils;
 import xin.altitude.cms.common.util.ColUtils;
 
@@ -54,8 +54,8 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
      * @param tableName 表名
      */
     public void multiTableGen(String tableName) {
-        AutoCodeProperties config = CodeSpringUtils.getBean(AutoCodeProperties.class);
-        String className = AutoCodeUtils.getClassName(tableName);
+        CodeProperties config = CodeSpringUtils.getBean(CodeProperties.class);
+        String className = CodeUtils.getClassName(tableName);
         List<KeyColumnUsage> keyColumns = listKeyColumns(tableName);
         for (String layerType : config.getLayerTypes()) {
             if (LayerEnum.DOMAIN.getValue().equals(layerType)) {

@@ -7,7 +7,7 @@ import org.apache.velocity.app.Velocity;
 import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.entity.vo.MetaColumnVo;
 import xin.altitude.cms.code.service.code.IDomainService;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
 
@@ -54,9 +54,9 @@ public class DomainServiceImpl extends CommonServiceImpl implements IDomainServi
     public void writeToLocalFile(String tableName, String className) {
         String fileName = String.format("%s.java", className);
         String value = realtimePreview(tableName);
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath(LayerEnum.DOMAIN.getValue());
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath(LayerEnum.DOMAIN.getValue());
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     
@@ -70,9 +70,9 @@ public class DomainServiceImpl extends CommonServiceImpl implements IDomainServi
         context.put("configEntity", config);
         context.put("packageName", config.getPackageName());
         context.put("tableName", tableName);
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
-        context.put("className", AutoCodeUtils.getInstanceName(tableName));
-        List<MetaColumnVo> columnVos = getColumnVos(tableName).stream().filter(e -> AutoCodeUtils.notJavaKey(e.getFieldName())).collect(Collectors.toList());
+        context.put("ClassName", CodeUtils.getClassName(tableName));
+        context.put("className", CodeUtils.getInstanceName(tableName));
+        List<MetaColumnVo> columnVos = getColumnVos(tableName).stream().filter(e -> CodeUtils.notJavaKey(e.getFieldName())).collect(Collectors.toList());
         context.put("columns", columnVos);
         // 添加导包列表
         context.put("importList", getImportList());

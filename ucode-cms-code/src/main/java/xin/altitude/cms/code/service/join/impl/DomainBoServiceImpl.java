@@ -8,7 +8,7 @@ import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.service.join.IDomainBoService;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.service.code.impl.CommonServiceImpl;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
 
@@ -38,13 +38,13 @@ public class DomainBoServiceImpl extends CommonServiceImpl implements IDomainBoS
      */
     @Override
     public void writeToLocalFile(KeyColumnUsage keyColumnUsage, String midClassName) {
-        String className = AutoCodeUtils.getClassName(keyColumnUsage.getReferencedTableName());
+        String className = CodeUtils.getClassName(keyColumnUsage.getReferencedTableName());
         String fileName = String.format("%sBo.java", className);
         VelocityContext context = createContext(midClassName, keyColumnUsage);
         String value = realtimePreview(className, keyColumnUsage, context);
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath(FilenameUtils.concat(LayerEnum.DOMAINBO.getValue(), midClassName));
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath(FilenameUtils.concat(LayerEnum.DOMAINBO.getValue(), midClassName));
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     /**
@@ -69,8 +69,8 @@ public class DomainBoServiceImpl extends CommonServiceImpl implements IDomainBoS
         VelocityContext context = createContext();
         context.put("MidClassName", midClassName);
         
-        context.put("ClassName", AutoCodeUtils.getClassName(keyColumnUsage.getReferencedTableName()));
-        context.put("className", AutoCodeUtils.getInstanceName(keyColumnUsage.getReferencedTableName()));
+        context.put("ClassName", CodeUtils.getClassName(keyColumnUsage.getReferencedTableName()));
+        context.put("className", CodeUtils.getInstanceName(keyColumnUsage.getReferencedTableName()));
         
         context.put("columns", getMetaColumnVoList(keyColumnUsage.getTableName(), keyColumnUsage.getReferencedTableName()));
         // 添加导包列表
@@ -93,7 +93,7 @@ public class DomainBoServiceImpl extends CommonServiceImpl implements IDomainBoS
             rs.add(String.format("import %s;", LocalDateTime.class.getName()));
             rs.add(String.format("import %s;", LocalDate.class.getName()));
             rs.add(String.format("import %s;", Date.class.getName()));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
             if (config.getDomain().getDateFormat()) {
                 rs.add("import com.fasterxml.jackson.annotation.JsonFormat;");
             }

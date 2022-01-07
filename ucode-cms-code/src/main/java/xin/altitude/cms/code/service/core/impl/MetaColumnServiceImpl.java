@@ -10,7 +10,7 @@ import xin.altitude.cms.code.service.core.IKeyColumnUsage;
 import xin.altitude.cms.code.domain.MetaColumn;
 import xin.altitude.cms.code.service.core.IMetaColumnService;
 import xin.altitude.cms.code.service.core.IThirdSqlSessionService;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.common.util.EntityUtils;
 
 import java.util.List;
@@ -86,7 +86,7 @@ public class MetaColumnServiceImpl implements IMetaColumnService {
                     .apply("table_schema = database()");
             List<MetaColumn> columns = sqlSession.getMapper(MetaColumnMapper.class).selectList(eq);
             List<MetaColumnVo> columnsVoList = EntityUtils.toList(columns, MetaColumnVo::new);
-            columnsVoList.forEach(AutoCodeUtils::handleColumnField);
+            columnsVoList.forEach(CodeUtils::handleColumnField);
             columnsVoList.forEach(e -> e.setPkColumn(keyColumnUsage.isPk(tableName, e.getColumnName())));
             return columnsVoList;
         }

@@ -6,7 +6,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.service.code.impl.CommonServiceImpl;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
 import xin.altitude.cms.common.util.ColUtils;
@@ -39,22 +39,22 @@ public class More2MoreVoServiceImpl extends CommonServiceImpl {
     }
     
     public void writeToLocalFile(List<String> tableNames, String midClassName) {
-        String fileName = String.format("%sVo.java", AutoCodeUtils.getClassName(ColUtils.toObj(tableNames)));
+        String fileName = String.format("%sVo.java", CodeUtils.getClassName(ColUtils.toObj(tableNames)));
         List<String> importList = getImportList(tableNames, midClassName);
         VelocityContext context = createContext(tableNames, importList, midClassName);
         String value = realtimePreview(context, tableNames.toArray(new String[0]));
         // 文件路径增加关联表关联
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath(FilenameUtils.concat(LayerEnum.DOMAINVO.getValue(), midClassName));
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath(FilenameUtils.concat(LayerEnum.DOMAINVO.getValue(), midClassName));
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     
     public VelocityContext createContext(List<String> tableNames, List<String> importList, String midClassName) {
         VelocityContext context = createContext();
         context.put("MidClassName", midClassName);
-        context.put("leftClassName", AutoCodeUtils.getClassName(tableNames.get(0)));
-        context.put("rightClassName", AutoCodeUtils.getClassName(tableNames.get(1)));
+        context.put("leftClassName", CodeUtils.getClassName(tableNames.get(0)));
+        context.put("rightClassName", CodeUtils.getClassName(tableNames.get(1)));
         
         // 添加导包列表
         context.put("importList", importList);
@@ -73,8 +73,8 @@ public class More2MoreVoServiceImpl extends CommonServiceImpl {
             rs.add(String.format("import %s;", LocalDateTime.class.getName()));
             rs.add(String.format("import %s;", LocalDate.class.getName()));
             rs.add(String.format("import %s;", Date.class.getName()));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(tableNames.get(0))));
-            rs.add(String.format("import %s.entity.bo.%s.%sBo;", config.getPackageName(), midClassName, AutoCodeUtils.getClassName(tableNames.get(1))));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableNames.get(0))));
+            rs.add(String.format("import %s.entity.bo.%s.%sBo;", config.getPackageName(), midClassName, CodeUtils.getClassName(tableNames.get(1))));
         }
         rs.sort(Comparator.naturalOrder());
         return rs;

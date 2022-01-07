@@ -5,8 +5,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import xin.altitude.cms.code.service.code.IMapperService;
-import xin.altitude.cms.code.config.property.AutoCodeProperties;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.config.property.CodeProperties;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
 import xin.altitude.cms.code.util.CodeSpringUtils;
@@ -31,9 +31,9 @@ public class MapperServiceImpl extends CommonServiceImpl implements IMapperServi
     public void writeToLocalFile(String tableName, String className) {
         String fileName = String.format("%sMapper.java", className);
         String value = realtimePreview(tableName);
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath("mapper");
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath("mapper");
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     /**
@@ -41,7 +41,7 @@ public class MapperServiceImpl extends CommonServiceImpl implements IMapperServi
      */
     @Override
     public String realtimePreview(String tableName) {
-        AutoCodeProperties config = CodeSpringUtils.getBean(AutoCodeProperties.class);
+        CodeProperties config = CodeSpringUtils.getBean(CodeProperties.class);
         StringWriter sw = new StringWriter();
         VelocityInitializer.initVelocity();
         VelocityContext context = createContext(tableName);
@@ -58,8 +58,8 @@ public class MapperServiceImpl extends CommonServiceImpl implements IMapperServi
     public VelocityContext createContext(String tableName) {
         VelocityContext context = createContext();
         context.put("tableName", tableName);
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
-        context.put("className", AutoCodeUtils.getInstanceName(tableName));
+        context.put("ClassName", CodeUtils.getClassName(tableName));
+        context.put("className", CodeUtils.getInstanceName(tableName));
         // 添加导包列表
         context.put("importList", getImportList(tableName));
         // 添加表备注
@@ -77,7 +77,7 @@ public class MapperServiceImpl extends CommonServiceImpl implements IMapperServi
         rs.add("import org.apache.ibatis.annotations.Mapper;");
         if (config.getUseMybatisPlus()) {
             rs.add("import com.baomidou.mybatisplus.core.mapper.BaseMapper;");
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
         }
         if (config.getMapper().getUseCache()) {
             rs.add("import org.apache.ibatis.annotations.CacheNamespace;");

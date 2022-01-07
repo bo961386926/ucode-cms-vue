@@ -5,7 +5,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import xin.altitude.cms.code.service.code.IXmlService;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 
 import java.io.StringWriter;
@@ -25,9 +25,9 @@ public class XmlServiceImpl extends CommonServiceImpl implements IXmlService {
     public void writeToLocalFile(String tableName, String className) {
         String fileName = String.format("%sMapper.xml", className);
         String value = realtimePreview(tableName);
-        String parentDirPath = AutoCodeUtils.createRelativXmlDirFilePath(config.getModuleName());
+        String parentDirPath = CodeUtils.createRelativXmlDirFilePath(config.getModuleName());
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     /**
@@ -50,7 +50,7 @@ public class XmlServiceImpl extends CommonServiceImpl implements IXmlService {
     public VelocityContext createContext(String tableName) {
         VelocityContext context = new VelocityContext();
         context.put("packageName", config.getPackageName());
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
+        context.put("ClassName", CodeUtils.getClassName(tableName));
         return context;
     }
 }

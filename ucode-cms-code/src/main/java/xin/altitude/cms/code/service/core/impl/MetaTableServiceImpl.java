@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
+import xin.altitude.cms.code.config.property.CodeProperties;
+import xin.altitude.cms.code.constant.CodeConstant;
 import xin.altitude.cms.code.domain.MetaTable;
 import xin.altitude.cms.code.entity.vo.MetaTableBo;
 import xin.altitude.cms.code.mapper.MetaTableMapper;
@@ -28,6 +30,9 @@ public class MetaTableServiceImpl implements IMetaTableService {
     @Autowired
     private IThirdSqlSessionService sessionService;
     
+    @Autowired
+    private CodeProperties codeProperties;
+    
     
     /**
      * 查询当前数据库所有列信息
@@ -48,9 +53,13 @@ public class MetaTableServiceImpl implements IMetaTableService {
     @Transactional(rollbackFor = Exception.class)
     public List<MetaTable> listTables(MetaTable metaTable) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
-            LambdaQueryWrapper<MetaTable> eq = Wrappers.lambdaQuery(metaTable)
+            LambdaQueryWrapper<MetaTable> wrapper = Wrappers.lambdaQuery(metaTable)
                     .apply("table_schema = database()");
-            return sqlSession.getMapper(MetaTableMapper.class).selectList(eq);
+            if (codeProperties.getFilterSysTable()) {
+                /* 不包含系统表 */
+                wrapper.notLike(MetaTable::getTableName, CodeConstant.SYS_TABLE_PREFIX);
+            }
+            return sqlSession.getMapper(MetaTableMapper.class).selectList(wrapper);
         }
     }
     
@@ -92,7 +101,11 @@ public class MetaTableServiceImpl implements IMetaTableService {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaTable> wrapper = Wrappers.lambdaQuery(metaTable).apply("table_schema = database()");
             String tableName = metaTable.getTableName();
-            wrapper.like(MetaTable::getTableName, tableName).getEntity().setTableName(null);
+            wrapper.like(tableName != null, MetaTable::getTableName, tableName).getEntity().setTableName(null);
+            if (codeProperties.getFilterSysTable()) {
+                /* 不包含系统表 */
+                wrapper.notLike(MetaTable::getTableName, CodeConstant.SYS_TABLE_PREFIX);
+            }
             return sqlSession.getMapper(MetaTableMapper.class).selectPage(page, wrapper);
         }
     }

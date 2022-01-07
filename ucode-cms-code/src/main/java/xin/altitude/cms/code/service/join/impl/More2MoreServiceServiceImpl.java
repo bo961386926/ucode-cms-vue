@@ -8,7 +8,7 @@ import org.apache.velocity.app.Velocity;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
 import xin.altitude.cms.code.service.code.impl.CommonServiceImpl;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
 import xin.altitude.cms.common.util.EntityUtils;
@@ -34,9 +34,9 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         String fileName = String.format("I%sService.java", className);
         VelocityContext context = createContext(tableName, keyColumnUsageVos);
         String value = JavaFormat4Domain.formJava(renderTemplate(context, TEMPLATE).toString());
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath("service");
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath("service");
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     /**
@@ -62,7 +62,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
     public VelocityContext createContext(String tableName, List<KeyColumnUsageVo> keyColumnUsageVos) {
         VelocityContext context = createContext();
         context.put("tableName", tableName);
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
+        context.put("ClassName", CodeUtils.getClassName(tableName));
         if (keyColumnUsageVos.size() == 2 && !keyColumnUsageVos.get(0).getReferencedTableName().equalsIgnoreCase(keyColumnUsageVos.get(1).getReferencedTableName())) {
             context.put("LKeyColumn", keyColumnUsageVos.get(0));
             context.put("RKeyColumn", keyColumnUsageVos.get(1));
@@ -80,8 +80,8 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         context.put("configEntity", config);
         context.put("packageName", config.getPackageName());
         context.put("tableName", tableName);
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
-        context.put("className", AutoCodeUtils.getInstanceName(tableName));
+        context.put("ClassName", CodeUtils.getClassName(tableName));
+        context.put("className", CodeUtils.getInstanceName(tableName));
         // 添加导包列表
         context.put("importList", getImportList(tableName));
         // 添加表备注
@@ -104,7 +104,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         ArrayList<String> rs = new ArrayList<>();
         if (config.getUseMybatisPlus()) {
             rs.add(String.format("import %s;", IService.class.getName()));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
         }
         rs.sort(Comparator.naturalOrder());
         return rs;

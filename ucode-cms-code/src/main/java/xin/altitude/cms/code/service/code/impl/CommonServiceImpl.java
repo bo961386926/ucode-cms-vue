@@ -5,8 +5,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
-import xin.altitude.cms.code.config.property.AutoCodeProperties;
+import xin.altitude.cms.code.config.property.CodeProperties;
 import xin.altitude.cms.code.constant.MysqlToJava;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
@@ -14,8 +13,7 @@ import xin.altitude.cms.code.entity.vo.MetaColumnVo;
 import xin.altitude.cms.code.service.code.ICommonService;
 import xin.altitude.cms.code.service.core.IKeyColumnUsage;
 import xin.altitude.cms.code.service.core.IMetaTableService;
-import xin.altitude.cms.code.service.core.impl.KeyColumnUsageImpl;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.TemplateMethod;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.domain.MetaColumn;
@@ -34,7 +32,7 @@ import java.util.List;
 // @Import({KeyColumnUsageImpl.class})
 public abstract class CommonServiceImpl implements ICommonService {
     @Autowired
-    protected AutoCodeProperties config;
+    protected CodeProperties config;
     
     @Autowired
     private IKeyColumnUsage keyColumnUsage;
@@ -83,7 +81,7 @@ public abstract class CommonServiceImpl implements ICommonService {
     @Override
     public MetaColumnVo getPkColumn(String tableName) {
         List<MetaColumnVo> columnsVoList = getColumnVos(tableName);
-        columnsVoList.forEach(AutoCodeUtils::handleColumnField);
+        columnsVoList.forEach(CodeUtils::handleColumnField);
         return columnsVoList.stream().filter(MetaColumnVo::getPkColumn).findFirst().orElse(null);
     }
     
@@ -109,12 +107,12 @@ public abstract class CommonServiceImpl implements ICommonService {
     public KeyColumnUsageVo toKeyColumnUsageVo(KeyColumnUsage keyColumnUsage) {
         KeyColumnUsageVo vo = EntityUtils.toObj(keyColumnUsage, KeyColumnUsageVo::new);
         /* 先处理两表名 */
-        vo.setClassName(AutoCodeUtils.getClassName(vo.getTableName()));
-        vo.setReferencedClassName(AutoCodeUtils.getClassName(vo.getReferencedTableName()));
+        vo.setClassName(CodeUtils.getClassName(vo.getTableName()));
+        vo.setReferencedClassName(CodeUtils.getClassName(vo.getReferencedTableName()));
         
         /* 处理列名及列类型 */
-        vo.setFieldName(AutoCodeUtils.getFieldName(vo.getColumnName()));
-        vo.setReferencedFieldName(AutoCodeUtils.getFieldName(vo.getReferencedColumnName()));
+        vo.setFieldName(CodeUtils.getFieldName(vo.getColumnName()));
+        vo.setReferencedFieldName(CodeUtils.getFieldName(vo.getReferencedColumnName()));
         
         vo.setFieldType(MysqlToJava.getJavaType(EntityUtils.toObj(metaColumnService.getOneColumn(vo.getTableName(), vo.getColumnName()), MetaColumn::getDataType)));
         vo.setReferencedFieldType(MysqlToJava.getJavaType(EntityUtils.toObj(metaColumnService.getOneColumn(vo.getReferencedTableName(), vo.getReferencedColumnName()), MetaColumn::getDataType)));
@@ -124,7 +122,7 @@ public abstract class CommonServiceImpl implements ICommonService {
     public List<MetaColumnVo> getMetaColumnVoList(String tableNameA, String tableNameB) {
         List<MetaColumn> columns = listColumns(tableNameA, tableNameB);
         List<MetaColumnVo> columnsVoList = EntityUtils.toList(columns, MetaColumnVo::new);
-        columnsVoList.forEach(AutoCodeUtils::handleColumnField);
+        columnsVoList.forEach(CodeUtils::handleColumnField);
         return columnsVoList;
     }
     

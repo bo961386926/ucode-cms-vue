@@ -5,7 +5,7 @@ import org.apache.velocity.VelocityContext;
 import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.format.JavaFormat4Controller;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.entity.PageEntity;
@@ -32,15 +32,15 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         VelocityContext context = createContext(tableName, flagCode, keyColumnUsageVos);
         // 渲染后并格式化代码字符串
         String value = JavaFormat4Controller.formJava(renderTemplate(context, TEMPLATE).toString());
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath(LayerEnum.CONTROLLER.getValue());
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath(LayerEnum.CONTROLLER.getValue());
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     public VelocityContext createContext(String tableName) {
         VelocityContext context = createContext();
         context.put("tableName", tableName);
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
+        context.put("ClassName", CodeUtils.getClassName(tableName));
         // 主键列
         context.put("pkColumn", getPkColumn(tableName));
         // 添加导包列表
@@ -48,7 +48,7 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         // 添加表备注
         context.put("tableComment", getTableInfo(tableName).getTableComment());
         // 处理业务名
-        context.put("businessName", AutoCodeUtils.getBusinessName(tableName));
+        context.put("businessName", CodeUtils.getBusinessName(tableName));
         return context;
     }
     
@@ -94,9 +94,9 @@ public class ControllerServiceImpl extends CommonServiceImpl {
             rs.add("import java.util.List;");
             rs.add(String.format("import %s;", AjaxResult.class.getName()));
             rs.add(String.format("import %s;", PageEntity.class.getName()));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
-            rs.add(String.format("import %s.service.I%sService;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
-            rs.add(String.format("import %s.mapper.%sMapper;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.service.I%sService;", config.getPackageName(), CodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.mapper.%sMapper;", config.getPackageName(), CodeUtils.getClassName(tableName)));
             if (config.getUseMybatisPlus()) {
                 rs.add("import com.baomidou.mybatisplus.core.toolkit.Wrappers;");
             }
@@ -111,8 +111,8 @@ public class ControllerServiceImpl extends CommonServiceImpl {
     public List<String> getImportList(String tableName, List<KeyColumnUsageVo> keyColumnUsageVos) {
         List<String> rs = getImportList(tableName);
         if (keyColumnUsageVos.size() == 2) {
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(keyColumnUsageVos.get(0).getReferencedClassName())));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(keyColumnUsageVos.get(1).getReferencedClassName())));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(keyColumnUsageVos.get(0).getReferencedClassName())));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(keyColumnUsageVos.get(1).getReferencedClassName())));
         }
         rs.sort(Comparator.naturalOrder());
         return rs;

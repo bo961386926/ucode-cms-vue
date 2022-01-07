@@ -22,7 +22,7 @@ import static java.util.Objects.nonNull;
  **/
 // @Configuration
 @ConfigurationProperties(prefix = "ucode.code")
-public class AutoCodeProperties {
+public class CodeProperties {
     /**
      * 项目的相对路径，如果为空则使用默认值
      */
@@ -66,6 +66,10 @@ public class AutoCodeProperties {
      */
     private Boolean useSwagger = false;
     /**
+     * 是否过滤系统表
+     */
+    private Boolean filterSysTable = true;
+    /**
      * 实体类配置
      */
     @NestedConfigurationProperty
@@ -90,6 +94,14 @@ public class AutoCodeProperties {
      */
     @JsonIgnore
     private List<String> layerTypes = LayerEnum.toList(this.getXml());
+    
+    public Boolean getFilterSysTable() {
+        return filterSysTable;
+    }
+    
+    public void setFilterSysTable(Boolean filterSysTable) {
+        this.filterSysTable = filterSysTable;
+    }
     
     public Boolean getRemoveTablePrefix() {
         return removeTablePrefix;

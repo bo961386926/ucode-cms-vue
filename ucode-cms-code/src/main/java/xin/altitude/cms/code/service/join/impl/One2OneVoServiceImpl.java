@@ -8,7 +8,7 @@ import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.service.code.impl.CommonServiceImpl;
 import xin.altitude.cms.code.service.join.IOne2OneVoService;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
 
@@ -54,9 +54,9 @@ public class One2OneVoServiceImpl extends CommonServiceImpl implements IOne2OneV
         String fileName = String.format("%sVo.java", className);
         VelocityContext context = createContext(tableName, keyColumnUsage);
         String value = realtimePreview(tableName, keyColumnUsage, context);
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath(LayerEnum.DOMAINVO.getValue());
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath(LayerEnum.DOMAINVO.getValue());
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     
@@ -66,8 +66,8 @@ public class One2OneVoServiceImpl extends CommonServiceImpl implements IOne2OneV
     @Override
     public VelocityContext createContext(String tableName, KeyColumnUsage keyColumnUsage) {
         VelocityContext context = createContext();
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
-        context.put("className", AutoCodeUtils.getInstanceName(tableName));
+        context.put("ClassName", CodeUtils.getClassName(tableName));
+        context.put("className", CodeUtils.getInstanceName(tableName));
         
         context.put("columns", getMetaColumnVoList(keyColumnUsage.getReferencedTableName(), keyColumnUsage.getTableName()));
         // 添加导包列表
@@ -90,7 +90,7 @@ public class One2OneVoServiceImpl extends CommonServiceImpl implements IOne2OneV
             rs.add(String.format("import %s;", LocalDateTime.class.getName()));
             rs.add(String.format("import %s;", LocalDate.class.getName()));
             rs.add(String.format("import %s;", Date.class.getName()));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
             if (config.getDomain().getDateFormat()) {
                 rs.add("import com.fasterxml.jackson.annotation.JsonFormat;");
             }

@@ -5,8 +5,8 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import xin.altitude.cms.code.service.code.IServiceImplService;
-import xin.altitude.cms.code.util.AutoCodeUtils;
-import xin.altitude.cms.code.config.property.AutoCodeProperties;
+import xin.altitude.cms.code.util.CodeUtils;
+import xin.altitude.cms.code.config.property.CodeProperties;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Controller;
 import xin.altitude.cms.code.util.CodeSpringUtils;
@@ -32,9 +32,9 @@ public class ServiceImplServiceImpl extends CommonServiceImpl implements IServic
     public void writeToLocalFile(String tableName, String className) {
         String fileName = String.format("%sServiceImpl.java", className);
         String value = realtimePreview(tableName);
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath("service/impl");
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath("service/impl");
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     /**
@@ -42,7 +42,7 @@ public class ServiceImplServiceImpl extends CommonServiceImpl implements IServic
      */
     @Override
     public String realtimePreview(String tableName) {
-        AutoCodeProperties configEntity = CodeSpringUtils.getBean(AutoCodeProperties.class);
+        CodeProperties configEntity = CodeSpringUtils.getBean(CodeProperties.class);
         StringWriter sw = new StringWriter();
         VelocityInitializer.initVelocity();
         VelocityContext context = createContext(tableName);
@@ -61,8 +61,8 @@ public class ServiceImplServiceImpl extends CommonServiceImpl implements IServic
         context.put("configEntity", config);
         context.put("packageName", config.getPackageName());
         context.put("tableName", tableName);
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
-        context.put("className", AutoCodeUtils.getInstanceName(tableName));
+        context.put("ClassName", CodeUtils.getClassName(tableName));
+        context.put("className", CodeUtils.getInstanceName(tableName));
         // 添加导包列表
         context.put("importList", getImportList(tableName));
         // 添加表备注
@@ -80,9 +80,9 @@ public class ServiceImplServiceImpl extends CommonServiceImpl implements IServic
         if (config.getUseMybatisPlus()) {
             rs.add("import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;");
             // rs.add(String.format("import %s.domain.%s;", configEntity.getPackageName(), CodeUtils.getClassName(tableName, configEntity)));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
-            rs.add(String.format("import %s.mapper.%sMapper;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
-            rs.add(String.format("import %s.service.I%sService;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.mapper.%sMapper;", config.getPackageName(), CodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.service.I%sService;", config.getPackageName(), CodeUtils.getClassName(tableName)));
         }
         rs.sort(Comparator.naturalOrder());
         return rs;

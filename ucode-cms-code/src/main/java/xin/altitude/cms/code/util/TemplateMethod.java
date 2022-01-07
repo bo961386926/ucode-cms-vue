@@ -30,7 +30,7 @@ public class TemplateMethod {
      * @return 类名（首字母大写）
      */
     public String getClassName(String tableName) {
-        return AutoCodeUtils.getClassName(tableName);
+        return CodeUtils.getClassName(tableName);
     }
     
     /**
@@ -40,7 +40,7 @@ public class TemplateMethod {
      * @return 字段名（首字母小写）
      */
     public String getFieldName(String columnName) {
-        return AutoCodeUtils.getFieldName(columnName);
+        return CodeUtils.getFieldName(columnName);
     }
     
 }

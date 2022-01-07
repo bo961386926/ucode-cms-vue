@@ -9,7 +9,7 @@ import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
 import xin.altitude.cms.code.entity.vo.MetaColumnVo;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
 import xin.altitude.cms.code.service.code.impl.CommonServiceImpl;
-import xin.altitude.cms.code.util.AutoCodeUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 
 import java.io.StringWriter;
@@ -31,9 +31,9 @@ public class One2OneServiceServiceImpl extends CommonServiceImpl {
     public void writeToLocalFile(String tableName, String className) {
         String fileName = String.format("I%sService.java", className);
         String value = realtimePreview(tableName);
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath("service");
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath("service");
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     
@@ -41,9 +41,9 @@ public class One2OneServiceServiceImpl extends CommonServiceImpl {
         String fileName = String.format("I%sService.java", className);
         VelocityContext context = createContext(tableName, keyColumnUsageVo);
         String value = realtimePreview(context);
-        String parentDirPath = AutoCodeUtils.createRelativJavaDirFilePath("service");
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath("service");
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        AutoCodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
     
     /**
@@ -79,8 +79,8 @@ public class One2OneServiceServiceImpl extends CommonServiceImpl {
         context.put("pkFieldType", pkColumn.getFieldType());
         context.put("pkFieldName", pkColumn.getFieldName());
         context.put("tableName", tableName);
-        context.put("ClassName", AutoCodeUtils.getClassName(tableName));
-        context.put("className", AutoCodeUtils.getInstanceName(tableName));
+        context.put("ClassName", CodeUtils.getClassName(tableName));
+        context.put("className", CodeUtils.getInstanceName(tableName));
         // 添加导包列表
         context.put("importList", getImportList(tableName));
         // 添加表备注
@@ -105,7 +105,7 @@ public class One2OneServiceServiceImpl extends CommonServiceImpl {
         ArrayList<String> rs = new ArrayList<>();
         if (config.getUseMybatisPlus()) {
             rs.add(String.format("import %s;", IService.class.getName()));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), AutoCodeUtils.getClassName(tableName)));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
         }
         rs.sort(Comparator.naturalOrder());
         return rs;

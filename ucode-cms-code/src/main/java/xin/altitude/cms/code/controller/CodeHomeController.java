@@ -3,11 +3,12 @@ package xin.altitude.cms.code.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.code.config.MyBatisPlusConfig;
-import xin.altitude.cms.code.config.property.AutoCodeProperties;
+import xin.altitude.cms.code.config.property.CodeProperties;
 import xin.altitude.cms.code.constant.RunEnv;
 import xin.altitude.cms.code.domain.MetaTable;
 import xin.altitude.cms.code.entity.vo.MetaTableBo;
@@ -32,7 +33,6 @@ import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
 import xin.altitude.cms.code.util.CodeSpringUtils;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.entity.PageEntity;
-import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.framework.config.CmsConfig;
 
 import java.util.List;
@@ -46,12 +46,13 @@ import java.util.List;
  * @since 2019/07/07 15:27
  **/
 @ResponseBody
+@Controller
 @Profile(value = RunEnv.ENV)
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/auto/code")
 @Import({CodeHomeServiceImpl.class, MetaTableServiceImpl.class,
         DomainServiceImpl.class, One2OneVoServiceImpl.class, DomainBoServiceImpl.class, ControllerServiceImpl.class,
         MapperServiceImpl.class, ServiceServiceImpl.class, ServiceImplServiceImpl.class, XmlServiceImpl.class,
-        AutoCodeProperties.class, MyBatisPlusConfig.class, KeyColumnUsageImpl.class, CodeSpringUtils.class,
+        CodeProperties.class, MyBatisPlusConfig.class, KeyColumnUsageImpl.class, CodeSpringUtils.class,
         More2MoreVoServiceImpl.class, MetaColumnServiceImpl.class, More2MoreServiceServiceImpl.class, One2OneServiceServiceImpl.class,
         ThirdSqlSessionServiceImpl.class})
 public class CodeHomeController {
@@ -65,7 +66,8 @@ public class CodeHomeController {
         MetaTable metaTable = new MetaTable();
         List<MetaTableBo> tableList = metaTableService.selectTableList(metaTable);
         if (tableName == null) {
-            tableName = EntityUtils.toList(tableList, MetaTableBo::getTableName).toArray(new String[0]);
+            // tableName = EntityUtils.toList(tableList, MetaTableBo::getTableName).toArray(new String[0]);
+            return AjaxResult.success("请选择表名");
         }
         entranceService.multiTableGen(tableName);
         return AjaxResult.success();

@@ -90,8 +90,9 @@ public class MetaTableServiceImpl implements IMetaTableService {
     public IPage<MetaTable> pageMetaTable(Page<MetaTable> page, MetaTable metaTable) {
         page.setOptimizeCountSql(false);
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
-            LambdaQueryWrapper<MetaTable> wrapper = Wrappers.lambdaQuery(metaTable)
-                    .apply("table_schema = database()");
+            LambdaQueryWrapper<MetaTable> wrapper = Wrappers.lambdaQuery(metaTable).apply("table_schema = database()");
+            String tableName = metaTable.getTableName();
+            wrapper.like(MetaTable::getTableName, tableName).getEntity().setTableName(null);
             return sqlSession.getMapper(MetaTableMapper.class).selectPage(page, wrapper);
         }
     }

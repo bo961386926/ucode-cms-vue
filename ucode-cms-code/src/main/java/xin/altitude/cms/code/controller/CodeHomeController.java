@@ -3,7 +3,6 @@ package xin.altitude.cms.code.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -46,7 +45,6 @@ import java.util.List;
  * @since 2019/07/07 15:27
  **/
 @ResponseBody
-@Controller
 @Profile(value = RunEnv.ENV)
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/auto/code")
 @Import({CodeHomeServiceImpl.class, MetaTableServiceImpl.class,

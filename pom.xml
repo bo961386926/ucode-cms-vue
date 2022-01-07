@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.1.8</version>
+    <version>1.1.9</version>
     <description>Java知识图谱之内容管理系统（pom）</description>
     
     <name>${project.artifactId}</name>
@@ -46,6 +46,7 @@
         <module>ucode-cms-code</module>
         <module>ucode-cms-code-spring-boot-starter</module>
         <module>ucode-cms-monitor</module>
+        <module>ucode-cms-api-ui</module>
     </modules>
     <packaging>pom</packaging>
     

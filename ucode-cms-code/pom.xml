@@ -5,7 +5,7 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.1.8</version>
+        <version>1.1.9</version>
     </parent>
     <groupId>xin.altitude.cms.code</groupId>
     <artifactId>ucode-cms-code</artifactId>

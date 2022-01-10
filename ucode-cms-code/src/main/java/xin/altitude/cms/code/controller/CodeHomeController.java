@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.code.config.MyBatisPlusConfig;
 import xin.altitude.cms.code.config.property.CodeProperties;
@@ -19,7 +20,9 @@ import xin.altitude.cms.code.service.code.impl.ServiceImplServiceImpl;
 import xin.altitude.cms.code.service.code.impl.ServiceServiceImpl;
 import xin.altitude.cms.code.service.code.impl.XmlServiceImpl;
 import xin.altitude.cms.code.service.core.ICodeHomeService;
+import xin.altitude.cms.code.service.core.IDdlTableService;
 import xin.altitude.cms.code.service.core.IMetaTableService;
+import xin.altitude.cms.code.service.core.impl.DdlTableServiceImpl;
 import xin.altitude.cms.code.service.core.impl.KeyColumnUsageImpl;
 import xin.altitude.cms.code.service.core.impl.MetaColumnServiceImpl;
 import xin.altitude.cms.code.service.core.impl.MetaTableServiceImpl;
@@ -34,6 +37,7 @@ import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.entity.PageEntity;
 import xin.altitude.cms.framework.config.CmsConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -52,12 +56,14 @@ import java.util.List;
         MapperServiceImpl.class, ServiceServiceImpl.class, ServiceImplServiceImpl.class, XmlServiceImpl.class,
         CodeProperties.class, MyBatisPlusConfig.class, KeyColumnUsageImpl.class, CodeSpringUtils.class,
         More2MoreVoServiceImpl.class, MetaColumnServiceImpl.class, More2MoreServiceServiceImpl.class, One2OneServiceServiceImpl.class,
-        ThirdSqlSessionServiceImpl.class})
+        ThirdSqlSessionServiceImpl.class, DdlTableServiceImpl.class})
 public class CodeHomeController {
     @Autowired
     private ICodeHomeService entranceService;
     @Autowired
     private IMetaTableService metaTableService;
+    @Autowired
+    private IDdlTableService ddlTableService;
     
     @GetMapping("/table/gen")
     public AjaxResult multiTableGen(String[] tableName) {
@@ -92,5 +98,22 @@ public class CodeHomeController {
     @GetMapping("/table/list")
     public AjaxResult list(MetaTable metaTable) {
         return AjaxResult.success(metaTableService.listTables(metaTable));
+    }
+    
+    /**
+     * 修改列信息
+     *
+     * @param tableNames 表名
+     * @return AjaxResult
+     */
+    @GetMapping("/modify/column")
+    public AjaxResult modifyColumn(@RequestParam List<String> tableNames) {
+        if (tableNames == null) {
+            ddlTableService.handleAllColumn(new ArrayList<>());
+        } else {
+            ddlTableService.handleAllColumn(tableNames);
+        }
+        
+        return AjaxResult.success();
     }
 }

@@ -10,6 +10,8 @@ import xin.altitude.cms.auth.manager.factory.AsyncFactory;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.ServletUtils;
+import xin.altitude.cms.common.util.SpringUtils;
+import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.core.domain.SysUser;
 import xin.altitude.cms.framework.core.redis.RedisCache;
 import xin.altitude.cms.framework.exception.ServiceException;
@@ -56,8 +58,8 @@ public class SysLoginService {
      * @return 结果
      */
     public String login(String username, String password, String code, String uuid) {
-        boolean captchaOnOff = configService.selectCaptchaOnOff();
-        // 验证码开关
+        /* 验证码开关 */
+        boolean captchaOnOff = SpringUtils.getBean(CmsConfig.class).getCms().isCaptchaEnabled();
         if (captchaOnOff) {
             validateCaptcha(username, code, uuid);
         }

@@ -1,4 +1,4 @@
-package xin.ucode.admin.config;
+package xin.altitude.cms.framework.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -7,22 +7,26 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
-import xin.altitude.cms.framework.config.FastJson2JsonRedisSerializer;
 
 /**
  * redis配置
  *
  * @author ucode
  */
-@Configuration
-// @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport {
-    @Bean
+    public static final String CMS_REDIS_TEMPLATE_NAME = "cms_redis_template_name";
+    
+    /**
+     * 自定义redisTemplate
+     *
+     * @param connectionFactory Redis连接工厂
+     * @return RedisTemplate
+     */
+    @Bean(CMS_REDIS_TEMPLATE_NAME)
     @SuppressWarnings(value = {"unchecked", "rawtypes"})
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();

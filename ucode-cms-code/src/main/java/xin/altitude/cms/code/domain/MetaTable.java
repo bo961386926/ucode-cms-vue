@@ -45,7 +45,6 @@ public class MetaTable extends Model<MetaTable> {
     }
     
     public MetaTable(MetaTable metaTable) {
-        // this.tableCatalog = metaTable.tableCatalog;
         this.tableSchema = metaTable.tableSchema;
         this.tableName = metaTable.tableName;
         this.createTime = metaTable.createTime;
@@ -53,14 +52,6 @@ public class MetaTable extends Model<MetaTable> {
         this.tableComment = metaTable.tableComment;
         this.tableType = metaTable.tableType;
     }
-    
-    // public String getTableCatalog() {
-    //     return tableCatalog;
-    // }
-    //
-    // public void setTableCatalog(String tableCatalog) {
-    //     this.tableCatalog = tableCatalog;
-    // }
     
     public String getTableType() {
         return tableType;

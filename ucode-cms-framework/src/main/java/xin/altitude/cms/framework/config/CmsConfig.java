@@ -26,8 +26,6 @@ public class CmsConfig {
         private String profile;
         /* 获取地址开关 */
         private boolean addressEnabled;
-        /* 验证码类型 */
-        private String captchaType;
         /* 项目名称 */
         private String name;
         /* 版本 */
@@ -38,6 +36,10 @@ public class CmsConfig {
         private boolean demoEnabled;
         /* 启用认证开关 */
         private boolean authEnabled;
+        /* 是否开启验证码 */
+        private boolean captchaEnabled;
+        /* 验证码类型 */
+        private String captchaType;
         
         /**
          * 获取导入上传路径

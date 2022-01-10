@@ -24,7 +24,7 @@ public class Threads {
         try {
             Thread.sleep(milliseconds);
         } catch (InterruptedException e) {
-            return;
+            e.fillInStackTrace();
         }
     }
     

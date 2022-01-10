@@ -26,4 +26,4 @@ spring:
 
 ucode:
   code:
-    projectDir: ucode-cms-admin
+    project-dir: ucode-cms-admin

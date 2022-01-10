@@ -6,11 +6,11 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.2.0</version>
+        <version>1.2.1</version>
     </parent>
     <groupId>xin.altitude.cms.ui</groupId>
     <artifactId>ucode-cms-ui</artifactId>
-    <version>1.2.0</version>
+    <version>1.2.1</version>
     <description>
         Java知识图谱之内容管理系统（CMS）前端页面
     </description>

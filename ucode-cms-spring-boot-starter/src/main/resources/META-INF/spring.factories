@@ -33,6 +33,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.framework.core.interceptor.impl.SameUrlDataInterceptor,\
     xin.altitude.cms.framework.config.MyBatisConfig,\
     xin.altitude.cms.framework.core.redis.RedisCache,\
+    xin.altitude.cms.framework.config.JacksonSerializerConfig,\
     xin.altitude.cms.common.util.SpringUtils,\
     xin.altitude.cms.auth.aspectj.DataScopeAspect,\
     xin.altitude.cms.auth.aspectj.DataSourceAspect,\

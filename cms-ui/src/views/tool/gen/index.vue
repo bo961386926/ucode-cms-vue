@@ -14,6 +14,8 @@
           placeholder="请输入表名称"
           size="small"
           @keyup.enter.native="handleQuery"
+          auto-complete=""
+          @change="handleQuery"
         />
       </el-form-item>
       <el-form-item label="表描述" prop="tableComment">
@@ -62,6 +64,15 @@
           @click="handleGenTable"
           >生成
         </el-button>
+        <el-button
+          v-hasPermi="['tool:gen:code']"
+          icon="el-icon-edit"
+          plain
+          size="mini"
+          type="primary"
+          @click="handleTableCommonField"
+          >修改表字段
+        </el-button>
       </el-col>
       <right-toolbar
         :showSearch.sync="showSearch"
@@ -88,17 +99,17 @@
       </el-table-column>
       <el-table-column
         :show-overflow-tooltip="true"
-        align="center"
+        align="left"
         label="表名称"
         prop="tableName"
-        width="120"
+        width="200"
       />
       <el-table-column
         :show-overflow-tooltip="true"
         align="center"
         label="表描述"
         prop="tableComment"
-        width="120"
+        width="200"
       />
       <el-table-column
         align="center"
@@ -135,12 +146,18 @@
             >编辑
           </el-button> -->
           <el-button
-            v-hasPermi="['tool:gen:code']"
             icon="el-icon-download"
             size="small"
             type="text"
             @click="handleGenTable(scope.row)"
             >生成代码
+          </el-button>
+          <el-button
+            icon="el-icon-edit"
+            size="small"
+            type="text"
+            @click="handleTableCommonField(scope.row)"
+            >修改表字段
           </el-button>
         </template>
       </el-table-column>
@@ -180,6 +197,7 @@
 import {
   delTable,
   genCode,
+  modifyColumn,
   listTable,
   previewTable,
   synchDb,
@@ -284,6 +302,18 @@ export default {
       //     "ruoyi"
       //   );
       // }
+    },
+    /** 生成代码操作 */
+    handleTableCommonField(row) {
+      const tableNames = row.tableName || this.tableNames;
+      if (tableNames == "") {
+        this.$modal.msgError("请选择要修改的表名");
+        return;
+      }
+
+      modifyColumn(tableNames).then((response) => {
+        this.$modal.msgSuccess("通用表属性修改成功");
+      });
     },
     /** 同步数据库操作 */
     handleSynchDb(row) {

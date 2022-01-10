@@ -19,3 +19,10 @@ ucode:
       dateFormat: true
     xml:
       add-xml: false
+
+# 日志配置
+logging:
+  level:
+    org.apache.velocity: error
+    xin.altitude: warn
+    org.springframework: warn

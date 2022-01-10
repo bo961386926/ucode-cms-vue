@@ -113,9 +113,6 @@ public class CodeUtils {
      */
     public static String newTableName(String tableName) {
         CodeProperties configEntity = CodeSpringUtils.getBean(CodeProperties.class);
-        if (configEntity == null) {
-            return tableName;
-        }
         // 将表名转化为小写字母
         String tmp = tableName.toLowerCase(Locale.getDefault());
         if (configEntity.getRemoveTablePrefix()) {
@@ -126,8 +123,9 @@ public class CodeUtils {
                     tmp = tmp.replace(configEntity.getTablePrefix(), "");
                 }
             } else {
+                /* 当前缀仅有3个字符时方去除 */
                 int index = tmp.indexOf("_");
-                if (index > 0) {
+                if (index > 0 && index <= 3) {
                     return tmp.substring(index + 1);
                 }
             }

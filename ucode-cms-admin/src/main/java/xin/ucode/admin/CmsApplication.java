@@ -8,11 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  *
  * @author ucode
  */
-// @SpringBootApplication(exclude = {DataSourceAutoConfiguration.class})
 @SpringBootApplication
 public class CmsApplication {
     public static void main(String[] args) {
-        // System.setProperty("spring.devtools.restart.enabled", "false");
         SpringApplication.run(CmsApplication.class, args);
     }
 }

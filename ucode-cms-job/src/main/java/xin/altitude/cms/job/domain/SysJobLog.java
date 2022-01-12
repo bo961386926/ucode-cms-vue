@@ -15,10 +15,8 @@ import java.util.Date;
  *
  * @author ucode
  */
-@TableName("sys_job_log")
+@TableName("qrtz_sys_job_log")
 public class SysJobLog extends BaseEntity {
-    private static final long serialVersionUID = 1L;
-    
     /**
      * ID
      */

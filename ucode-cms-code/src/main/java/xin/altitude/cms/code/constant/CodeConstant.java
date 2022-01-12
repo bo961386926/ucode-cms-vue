@@ -31,4 +31,8 @@ public class CodeConstant {
      * 系统表前缀
      */
     public static final String SYS_TABLE_PREFIX = "sys_";
+    /**
+     * 任务表前缀
+     */
+    public static final String QRTZ_TABLE_PREFIX = "qrtz_";
 }

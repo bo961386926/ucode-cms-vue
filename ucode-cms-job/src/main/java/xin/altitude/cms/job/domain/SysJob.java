@@ -16,11 +16,11 @@ import javax.validation.constraints.Size;
 import java.util.Date;
 
 /**
- * 定时任务调度表 sys_job
+ * 定时任务调度表 qrtz_sys_job
  *
  * @author ucode
  */
-@TableName("sys_job")
+@TableName("qrtz_sys_job")
 public class SysJob extends BaseEntity {
     /**
      * 任务ID

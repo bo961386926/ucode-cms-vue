@@ -50,6 +50,7 @@ public class DdlTableServiceImpl implements IDdlTableService {
                 /* 是否过滤系统表系统表 */
                 if (SpringUtils.getBean(CodeProperties.class).getFilterSysTable()) {
                     wrapper.notLike(MetaTable::getTableName, CodeConstant.SYS_TABLE_PREFIX);
+                    wrapper.notLike(MetaTable::getTableName, CodeConstant.QRTZ_TABLE_PREFIX);
                 }
                 tableNames.addAll(EntityUtils.toSet(sqlSession.getMapper(MetaTableMapper.class).selectList(wrapper), MetaTable::getTableName));
             }

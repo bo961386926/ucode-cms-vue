@@ -58,6 +58,7 @@ public class MetaTableServiceImpl implements IMetaTableService {
             if (codeProperties.getFilterSysTable()) {
                 /* 不包含系统表 */
                 wrapper.notLike(MetaTable::getTableName, CodeConstant.SYS_TABLE_PREFIX);
+                wrapper.notLike(MetaTable::getTableName, CodeConstant.QRTZ_TABLE_PREFIX);
             }
             return sqlSession.getMapper(MetaTableMapper.class).selectList(wrapper);
         }
@@ -105,6 +106,7 @@ public class MetaTableServiceImpl implements IMetaTableService {
             if (codeProperties.getFilterSysTable()) {
                 /* 不包含系统表 */
                 wrapper.notLike(MetaTable::getTableName, CodeConstant.SYS_TABLE_PREFIX);
+                wrapper.notLike(MetaTable::getTableName, CodeConstant.QRTZ_TABLE_PREFIX);
             }
             return sqlSession.getMapper(MetaTableMapper.class).selectPage(page, wrapper);
         }

@@ -3,6 +3,7 @@ package xin.altitude.cms.job.controller;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,9 +22,9 @@ import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.enums.BusinessType;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
-import xin.altitude.cms.framework.exception.job.TaskException;
 import xin.altitude.cms.job.config.ScheduleConfig;
 import xin.altitude.cms.job.domain.SysJob;
+import xin.altitude.cms.job.exception.TaskException;
 import xin.altitude.cms.job.service.ISysJobService;
 import xin.altitude.cms.job.service.impl.SysJobServiceImpl;
 import xin.altitude.cms.job.util.CronUtils;
@@ -35,8 +36,8 @@ import java.util.List;
  *
  * @author ucode
  */
-// @RestController
 @Import({ScheduleConfig.class, SysJobServiceImpl.class})
+@ConditionalOnProperty(value = "ucode.job.enabled", havingValue = "true")
 @ResponseBody
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/job")
 public class SysJobController extends BaseProController {

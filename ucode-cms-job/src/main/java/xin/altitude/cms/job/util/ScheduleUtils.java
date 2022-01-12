@@ -1,9 +1,9 @@
 package xin.altitude.cms.job.util;
 
 import org.quartz.*;
-import xin.altitude.cms.framework.constant.ScheduleConstants;
-import xin.altitude.cms.framework.exception.job.TaskException;
+import xin.altitude.cms.job.constant.ScheduleConstants;
 import xin.altitude.cms.job.domain.SysJob;
+import xin.altitude.cms.job.exception.TaskException;
 
 /**
  * 定时任务工具类

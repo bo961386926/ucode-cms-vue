@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.constant;
+package xin.altitude.cms.job.constant;
 
 /**
  * 任务调度通用常量

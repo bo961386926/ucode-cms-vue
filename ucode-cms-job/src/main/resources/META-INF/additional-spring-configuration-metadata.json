@@ -1,0 +1,10 @@
+{
+  "properties": [
+    {
+      "name": "ucode.job.enabled",
+      "type": "java.lang.Boolean",
+      "description": "是否启动定时任务.",
+      "defaultValue": false
+    }
+  ]
+}

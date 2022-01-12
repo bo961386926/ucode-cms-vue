@@ -9,9 +9,9 @@ import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
-import xin.altitude.cms.framework.constant.ScheduleConstants;
-import xin.altitude.cms.framework.exception.job.TaskException;
+import xin.altitude.cms.job.constant.ScheduleConstants;
 import xin.altitude.cms.job.domain.SysJob;
+import xin.altitude.cms.job.exception.TaskException;
 import xin.altitude.cms.job.mapper.SysJobMapper;
 import xin.altitude.cms.job.service.ISysJobService;
 import xin.altitude.cms.job.util.CronUtils;
@@ -125,7 +125,6 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
      * 批量删除调度信息
      *
      * @param jobIds 需要删除的任务ID
-     * @return 结果
      */
     @Override
     @Transactional(rollbackFor = Exception.class)

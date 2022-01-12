@@ -2,8 +2,8 @@ package xin.altitude.cms.job.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.quartz.SchedulerException;
-import xin.altitude.cms.framework.exception.job.TaskException;
 import xin.altitude.cms.job.domain.SysJob;
+import xin.altitude.cms.job.exception.TaskException;
 
 import java.util.List;
 
@@ -57,7 +57,6 @@ public interface ISysJobService extends IService<SysJob> {
      * 批量删除调度信息
      *
      * @param jobIds 需要删除的任务ID
-     * @return 结果
      */
     void deleteJobByIds(Long[] jobIds) throws SchedulerException;
     
@@ -73,7 +72,6 @@ public interface ISysJobService extends IService<SysJob> {
      * 立即运行任务
      *
      * @param job 调度信息
-     * @return 结果
      */
     void run(SysJob job) throws SchedulerException;
     

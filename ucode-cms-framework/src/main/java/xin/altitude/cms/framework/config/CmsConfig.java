@@ -19,6 +19,7 @@ public class CmsConfig {
     private Token token;
     private Xss xss;
     private Swagger swagger;
+    private Job job;
     
     @Data
     public static class Cms {
@@ -102,5 +103,11 @@ public class CmsConfig {
         private Boolean enabled = true;
         /* 请求前缀 */
         private String pathMapping;
+    }
+    
+    @Data
+    public static class Job {
+        /* 是否开启定时任务 */
+        private Boolean enabled = false;
     }
 }

@@ -1,6 +1,7 @@
 package xin.altitude.cms.job.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,6 +27,7 @@ import java.util.List;
  * @author ucode
  */
 @Import({SysJobLogServiceImpl.class})
+@ConditionalOnProperty(value = "ucode.job.enabled", havingValue = "true")
 // @RestController
 @ResponseBody
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/jobLog")

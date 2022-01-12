@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.exception.job;
+package xin.altitude.cms.job.exception;
 
 /**
  * 计划策略异常

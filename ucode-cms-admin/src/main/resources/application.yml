@@ -27,3 +27,6 @@ spring:
 ucode:
   code:
     project-dir: ucode-cms-admin
+
+  job:
+    enabled: true

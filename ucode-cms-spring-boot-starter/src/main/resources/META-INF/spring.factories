@@ -47,7 +47,7 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.auth.web.service.SysLoginService,\
     xin.altitude.cms.auth.web.service.SysPermissionService,\
     xin.altitude.cms.auth.web.service.SysRegisterService,\
-    xin.altitude.cms.auth.web.service.TokenService,\
+    xin.altitude.cms.auth.web.service.CmsTokenService,\
     xin.altitude.cms.auth.web.service.UserDetailsServiceImpl,\
     xin.altitude.cms.system.service.impl.SysConfigServiceImpl,\
     xin.altitude.cms.system.service.impl.SysDeptServiceImpl,\

@@ -1,7 +1,7 @@
 package xin.altitude.cms.framework.annotation;
 
 
-import xin.altitude.cms.framework.util.poi.ExcelHandlerAdapter;
+import xin.altitude.cms.framework.handler.ExcelHandlerAdapter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

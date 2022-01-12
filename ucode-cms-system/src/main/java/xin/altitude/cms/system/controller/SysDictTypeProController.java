@@ -20,7 +20,7 @@ import xin.altitude.cms.framework.constant.UserConstants;
 import xin.altitude.cms.framework.constant.enums.BusinessType;
 import xin.altitude.cms.framework.core.domain.SysDictType;
 import xin.altitude.cms.system.service.ISysDictTypeService;
-import xin.altitude.cms.system.util.ExcelUtil;
+import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

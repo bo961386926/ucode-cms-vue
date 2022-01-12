@@ -12,7 +12,7 @@ import xin.altitude.cms.common.util.StringUtil;
 
 /**
  * @author explore
- * @since 2022/01/05 16:18
+ * @since 2019/01/05 16:18
  **/
 public abstract class AbstractMyBatisConfig {
     @Autowired

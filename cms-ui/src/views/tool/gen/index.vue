@@ -102,14 +102,14 @@
         align="left"
         label="表名称"
         prop="tableName"
-        width="200"
+        width="250"
       />
       <el-table-column
         :show-overflow-tooltip="true"
         align="center"
         label="表描述"
         prop="tableComment"
-        width="200"
+        width="300"
       />
       <el-table-column
         align="center"
@@ -167,6 +167,7 @@
       :limit.sync="queryParams.size"
       :page.sync="queryParams.current"
       :total="total"
+      :page-sizes="[10, 20, 50, 100, 200, 500]"
       @pagination="getList"
     />
     <!-- 预览界面 -->
@@ -206,15 +207,15 @@ import importTable from "./importTable";
 import hljs from "highlight.js/lib/highlight";
 import "highlight.js/styles/github-gist.css";
 
-hljs.registerLanguage("java", require("highlight.js/lib/languages/java"));
-hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
-hljs.registerLanguage("html", require("highlight.js/lib/languages/xml"));
-hljs.registerLanguage("vue", require("highlight.js/lib/languages/xml"));
-hljs.registerLanguage(
-  "javascript",
-  require("highlight.js/lib/languages/javascript")
-);
-hljs.registerLanguage("sql", require("highlight.js/lib/languages/sql"));
+// hljs.registerLanguage("java", require("highlight.js/lib/languages/java"));
+// hljs.registerLanguage("xml", require("highlight.js/lib/languages/xml"));
+// hljs.registerLanguage("html", require("highlight.js/lib/languages/xml"));
+// hljs.registerLanguage("vue", require("highlight.js/lib/languages/xml"));
+// hljs.registerLanguage(
+//   "javascript",
+//   require("highlight.js/lib/languages/javascript")
+// );
+// hljs.registerLanguage("sql", require("highlight.js/lib/languages/sql"));
 
 export default {
   name: "Gen",
@@ -244,7 +245,7 @@ export default {
       // 查询参数
       queryParams: {
         current: 1,
-        size: 10,
+        size: 50,
         tableName: undefined,
         tableComment: undefined,
       },

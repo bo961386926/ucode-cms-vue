@@ -8,25 +8,31 @@
         <version>1.2.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <groupId>xin.altitude.cms.monitor</groupId>
-    <artifactId>ucode-cms-monitor</artifactId>
+    <groupId>xin.altitude.cms.excel</groupId>
+    <artifactId>ucode-cms-excel</artifactId>
     <version>1.2.2</version>
     <dependencies>
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
         </dependency>
         <dependency>
-            <groupId>xin.altitude.cms.framework</groupId>
-            <artifactId>ucode-cms-framework</artifactId>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>4.1.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.common</groupId>
             <artifactId>ucode-cms-common</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.github.oshi</groupId>
-            <artifactId>oshi-core</artifactId>
+            <groupId>xin.altitude.cms.framework</groupId>
+            <artifactId>ucode-cms-framework</artifactId>
         </dependency>
     </dependencies>
     

@@ -7,7 +7,7 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 import xin.altitude.cms.auth.manager.AsyncManager;
 import xin.altitude.cms.auth.manager.factory.AsyncFactory;
 import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.auth.web.service.TokenService;
+import xin.altitude.cms.auth.web.service.CmsTokenService;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.ServletUtils;
@@ -27,7 +27,7 @@ import java.io.IOException;
 // @Configuration
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Autowired
-    private TokenService tokenService;
+    private CmsTokenService cmsTokenService;
     
     /**
      * 退出处理
@@ -36,11 +36,11 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
             throws IOException, ServletException {
-        LoginUser loginUser = tokenService.getLoginUser(request);
+        LoginUser loginUser = cmsTokenService.getLoginUser(request);
         if (StringUtil.isNotNull(loginUser)) {
             String userName = loginUser.getUsername();
             // 删除用户缓存记录
-            tokenService.delLoginUser(loginUser.getToken());
+            cmsTokenService.delLoginUser(loginUser.getToken());
             // 记录用户退出日志
             AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGOUT, "退出成功"));
         }

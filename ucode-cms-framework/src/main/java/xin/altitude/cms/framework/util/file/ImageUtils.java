@@ -1,6 +1,6 @@
 package xin.altitude.cms.framework.util.file;
 
-import org.apache.poi.util.IOUtils;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xin.altitude.cms.common.constant.Constants;

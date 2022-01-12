@@ -27,21 +27,13 @@ import java.util.concurrent.TimeUnit;
  * @author ucode
  */
 // @Component
-public class TokenService {
+public class CmsTokenService {
     protected static final long MILLIS_SECOND = 1000;
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
     private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L;
     
     private final CmsConfig.Token token = SpringUtils.getBean(CmsConfig.class).getToken();
-    // // 令牌自定义标识
-    // @Value("${ucode.token.header}")
-    // private String header;
-    // // 令牌秘钥
-    // @Value("${ucode.token.secret}")
-    // private String secret;
-    // // 令牌有效期（默认30分钟）
-    // @Value("${ucode.token.expireTime}")
-    // private int expireTime;
+
     @Autowired
     private RedisCache redisCache;
     

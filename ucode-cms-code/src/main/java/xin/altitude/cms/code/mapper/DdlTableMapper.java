@@ -6,7 +6,7 @@ import org.apache.ibatis.annotations.Update;
 
 /**
  * @author explore
- * @since 2021/11/23 14:55
+ * @since 2019/11/23 14:55
  **/
 @Mapper
 public interface DdlTableMapper {

@@ -34,7 +34,7 @@ import javax.annotation.Resource;
 // @Component
 public class SysLoginService {
     @Autowired
-    private TokenService tokenService;
+    private CmsTokenService cmsTokenService;
     
     @Resource
     private AuthenticationManager authenticationManager;
@@ -82,7 +82,7 @@ public class SysLoginService {
         LoginUser loginUser = (LoginUser) authentication.getPrincipal();
         recordLoginInfo(loginUser.getUserId());
         // 生成token
-        return tokenService.createToken(loginUser);
+        return cmsTokenService.createToken(loginUser);
     }
     
     /**

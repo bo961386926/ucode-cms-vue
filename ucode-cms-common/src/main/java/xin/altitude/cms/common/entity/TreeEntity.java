@@ -8,7 +8,7 @@ import java.util.List;
  * 树形统一结构
  *
  * @author explore
- * @since 2022/01/04 15:38
+ * @since 2019/01/04 15:38
  **/
 public abstract class TreeEntity<T> {
     private static final long serialVersionUID = 1L;

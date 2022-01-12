@@ -36,10 +36,7 @@ public class AsyncManager {
      * @param task 任务
      */
     public void execute(TimerTask task) {
-        /*
-         * 操作延迟10毫秒
-         */
-        
+        /* 操作延迟10毫秒 */
         executor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
     }
     

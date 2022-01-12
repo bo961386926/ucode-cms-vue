@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * @author explore
- * @since 2022/01/06 16:11
+ * @since 2019/01/06 16:11
  **/
 public abstract class AbstractCaffeineConfig {
     @Bean

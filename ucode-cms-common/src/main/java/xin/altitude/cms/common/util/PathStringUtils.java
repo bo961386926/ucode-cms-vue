@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * 有关路径的工具类
  *
  * @author explore
- * @since 2022/01/10 19:20
+ * @since 2019/01/10 19:20
  **/
 public class PathStringUtils {
     private final static String PATTERN = String.format("yyyy%sMM%sdd", File.separatorChar, File.separatorChar);

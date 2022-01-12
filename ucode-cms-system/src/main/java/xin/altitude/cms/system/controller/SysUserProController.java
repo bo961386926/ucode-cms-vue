@@ -27,7 +27,7 @@ import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.system.service.ISysPostService;
 import xin.altitude.cms.system.service.ISysRoleService;
 import xin.altitude.cms.system.service.ISysUserService;
-import xin.altitude.cms.system.util.ExcelUtil;
+import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

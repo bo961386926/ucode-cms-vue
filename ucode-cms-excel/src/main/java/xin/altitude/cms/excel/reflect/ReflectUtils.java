@@ -1,4 +1,4 @@
-package xin.altitude.cms.framework.util.reflect;
+package xin.altitude.cms.excel.reflect;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;

@@ -13,7 +13,7 @@ public abstract class BaseController {
      *
      * @return AjaxResult
      */
-    public AjaxResult success() {
+    protected AjaxResult success() {
         return AjaxResult.success();
     }
     
@@ -23,7 +23,27 @@ public abstract class BaseController {
      * @param data 具体响应体数据
      * @return AjaxResult
      */
-    public AjaxResult success(Object data) {
+    protected AjaxResult success(Object data) {
         return AjaxResult.success(data);
+    }
+    
+    /**
+     * 响应返回结果
+     *
+     * @param result 结果
+     * @return 操作结果
+     */
+    protected AjaxResult toAjax(boolean result) {
+        return result ? AjaxResult.success() : AjaxResult.error();
+    }
+    
+    /**
+     * 响应返回结果
+     *
+     * @param rows 影响行数
+     * @return 操作结果
+     */
+    protected AjaxResult toAjax(int rows) {
+        return rows > 0 ? AjaxResult.success() : AjaxResult.error();
     }
 }

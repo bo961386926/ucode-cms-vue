@@ -5,7 +5,7 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.2.1</version>
+        <version>1.2.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>${project.artifactId}</name>
@@ -25,27 +25,26 @@
         <dependency>
             <groupId>xin.altitude.cms.framework</groupId>
             <artifactId>ucode-cms-framework</artifactId>
-            <!--<version>${project.parent.version}</version>-->
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.common</groupId>
             <artifactId>ucode-cms-common</artifactId>
-            <!--<version>${project.parent.version}</version>-->
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.system</groupId>
             <artifactId>ucode-cms-system</artifactId>
-            <!--<version>${project.parent.version}</version>-->
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.ui</groupId>
             <artifactId>ucode-cms-ui</artifactId>
-            <!--<version>${project.parent.version}</version>-->
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms.monitor</groupId>
             <artifactId>ucode-cms-monitor</artifactId>
-            <!--<version>${project.parent.version}</version>-->
+        </dependency>
+        <dependency>
+            <groupId>xin.altitude.cms.excel</groupId>
+            <artifactId>ucode-cms-excel</artifactId>
         </dependency>
         
         <dependency>

@@ -7,7 +7,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.web.filter.OncePerRequestFilter;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
-import xin.altitude.cms.auth.web.service.TokenService;
+import xin.altitude.cms.auth.web.service.CmsTokenService;
 import xin.altitude.cms.common.util.StringUtil;
 
 import javax.servlet.FilterChain;
@@ -24,14 +24,14 @@ import java.io.IOException;
 // @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
-    private TokenService tokenService;
+    private CmsTokenService cmsTokenService;
     
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
-        LoginUser loginUser = tokenService.getLoginUser(request);
+        LoginUser loginUser = cmsTokenService.getLoginUser(request);
         if (StringUtil.isNotNull(loginUser) && StringUtil.isNull(SecurityUtils.getAuthentication())) {
-            tokenService.verifyToken(loginUser);
+            cmsTokenService.verifyToken(loginUser);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

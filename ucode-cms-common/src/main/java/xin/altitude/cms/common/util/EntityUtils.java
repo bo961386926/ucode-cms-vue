@@ -39,7 +39,7 @@ import java.util.stream.Collectors;
  * 3. 转换参数均为不可变类型，业务更加安全
  *
  * @author explore
- * @since 2020/06/19 17:23
+ * @since 2019/06/19 17:23
  **/
 public class EntityUtils {
     /**

@@ -1,4 +1,4 @@
-package xin.altitude.cms.system.util;
+package xin.altitude.cms.excel.util;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.poi.hssf.usermodel.HSSFClientAnchor;
@@ -29,14 +29,14 @@ import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.annotation.Excel;
 import xin.altitude.cms.framework.annotation.Excels;
+import xin.altitude.cms.framework.handler.ExcelHandlerAdapter;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.exception.UtilException;
 import xin.altitude.cms.framework.util.DateUtils;
 import xin.altitude.cms.framework.util.file.FileTypeUtils;
 import xin.altitude.cms.framework.util.file.FileUtils;
 import xin.altitude.cms.framework.util.file.ImageUtils;
-import xin.altitude.cms.framework.util.poi.ExcelHandlerAdapter;
-import xin.altitude.cms.framework.util.reflect.ReflectUtils;
+import xin.altitude.cms.excel.reflect.ReflectUtils;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -182,7 +182,7 @@ public class ExcelUtil<T> {
             if (StringUtil.containsAny(separator, propertyValue)) {
                 for (String value : propertyValue.split(separator)) {
                     if (itemArray[1].equals(value)) {
-                        propertyString.append(itemArray[0] + separator);
+                        propertyString.append(itemArray[0]).append(separator);
                         break;
                     }
                 }
@@ -195,29 +195,30 @@ public class ExcelUtil<T> {
         return StringUtil.stripEnd(propertyString.toString(), separator);
     }
     
-    /**
-     * 解析字典值
-     *
-     * @param dictValue 字典值
-     * @param dictType  字典类型
-     * @param separator 分隔符
-     * @return 字典标签
-     */
-    public static String convertDictByExp(String dictValue, String dictType, String separator) {
-        return DictUtils.getDictLabel(dictType, dictValue, separator);
-    }
-    
-    /**
-     * 反向解析值字典值
-     *
-     * @param dictLabel 字典标签
-     * @param dictType  字典类型
-     * @param separator 分隔符
-     * @return 字典值
-     */
-    public static String reverseDictByExp(String dictLabel, String dictType, String separator) {
-        return DictUtils.getDictValue(dictType, dictLabel, separator);
-    }
+    // /**
+    //  * 解析字典值
+    //  *
+    //  * @param dictValue 字典值
+    //  * @param dictType  字典类型
+    //  * @param separator 分隔符
+    //  * @return 字典标签
+    //  */
+    // public static String convertDictByExp(String dictValue, String dictType, String separator) {
+    //     return DictUtils.getDictLabel(dictType, dictValue, separator);
+    // }
+    //
+    // /**
+    //  * 反向解析值字典值
+    //  *
+    //  * @param dictLabel 字典标签
+    //  * @param dictType  字典类型
+    //  * @param separator 分隔符
+    //  * @return 字典值
+    //  */
+    // public static String reverseDictByExp(String dictLabel, String dictType, String separator) {
+    //     return DictUtils.getDictValue(dictType, dictLabel, separator);
+    // }
+    //
     
     /**
      * 获取Excel2003图片
@@ -428,7 +429,8 @@ public class ExcelUtil<T> {
                     } else if (StringUtil.isNotEmpty(attr.readConverterExp())) {
                         val = reverseByExp(ConvertUtils.toStr(val), attr.readConverterExp(), attr.separator());
                     } else if (StringUtil.isNotEmpty(attr.dictType())) {
-                        val = reverseDictByExp(ConvertUtils.toStr(val), attr.dictType(), attr.separator());
+                        System.out.println(1);
+                        // val = reverseDictByExp(ConvertUtils.toStr(val), attr.dictType(), attr.separator());
                     } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
                         val = dataFormatHandlerAdapter(val, attr);
                     } else if (Excel.ColumnType.IMAGE == attr.cellType() && StringUtil.isNotEmpty(pictures)) {
@@ -544,7 +546,6 @@ public class ExcelUtil<T> {
     
     /**
      * 对list数据源将其里面的数据导入到excel表单
-     *
      */
     public void exportExcel(HttpServletResponse response) {
         try {
@@ -801,7 +802,8 @@ public class ExcelUtil<T> {
                 } else if (StringUtil.isNotEmpty(readConverterExp) && StringUtil.isNotNull(value)) {
                     cell.setCellValue(convertByExp(ConvertUtils.toStr(value), readConverterExp, separator));
                 } else if (StringUtil.isNotEmpty(dictType) && StringUtil.isNotNull(value)) {
-                    cell.setCellValue(convertDictByExp(ConvertUtils.toStr(value), dictType, separator));
+                    System.out.println(2);
+                    // cell.setCellValue(convertDictByExp(ConvertUtils.toStr(value), dictType, separator));
                 } else if (value instanceof BigDecimal && -1 != attr.scale()) {
                     cell.setCellValue((((BigDecimal) value).setScale(attr.scale(), attr.roundingMode())).toString());
                 } else if (!attr.handler().equals(ExcelHandlerAdapter.class)) {
@@ -813,6 +815,7 @@ public class ExcelUtil<T> {
                 addStatisticsData(column, ConvertUtils.toStr(value), attr);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             log.error("导出Excel失败{}", e);
         }
         return cell;

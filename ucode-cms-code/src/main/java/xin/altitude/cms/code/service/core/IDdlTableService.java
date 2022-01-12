@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @author explore
- * @since 2021/11/23 16:07
+ * @since 2019/11/23 16:07
  **/
 public interface IDdlTableService {
     void handleAllColumn(List<String> tableNames);

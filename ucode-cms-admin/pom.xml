@@ -12,19 +12,22 @@
     <groupId>xin.ucode.cms.admin</groupId>
     <artifactId>ucode-cms-admin</artifactId>
     <name>${project.artifactId}</name>
+    <description>
+        测试项目
+    </description>
     
     <dependencies>
         <!--ucode-cms核心依赖-->
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-spring-boot-starter</artifactId>
-            <version>1.2.1</version>
+            <version>1.2.2</version>
         </dependency>
         <!--代码生成器模块（非必选）-->
         <dependency>
             <groupId>xin.altitude.cms.code</groupId>
             <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-            <version>1.2.1</version>
+            <version>1.2.2</version>
         </dependency>
     
     

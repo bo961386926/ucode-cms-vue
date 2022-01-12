@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
-import xin.altitude.cms.auth.web.service.TokenService;
+import xin.altitude.cms.auth.web.service.CmsTokenService;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtil;
@@ -38,7 +38,7 @@ public class SysProfileProController extends BaseProController {
     private ISysUserService userService;
     
     @Autowired
-    private TokenService tokenService;
+    private CmsTokenService cmsTokenService;
     
     /**
      * 个人信息
@@ -77,7 +77,7 @@ public class SysProfileProController extends BaseProController {
             sysUser.setPhonenumber(user.getPhonenumber());
             sysUser.setEmail(user.getEmail());
             sysUser.setSex(user.getSex());
-            tokenService.setLoginUser(loginUser);
+            cmsTokenService.setLoginUser(loginUser);
             return AjaxResult.success();
         }
         return AjaxResult.error("修改个人信息异常，请联系管理员");
@@ -101,7 +101,7 @@ public class SysProfileProController extends BaseProController {
         if (userService.resetUserPwd(userName, SecurityUtils.encryptPassword(newPassword))) {
             // 更新缓存用户密码
             loginUser.getUser().setPassword(SecurityUtils.encryptPassword(newPassword));
-            tokenService.setLoginUser(loginUser);
+            cmsTokenService.setLoginUser(loginUser);
             return AjaxResult.success();
         }
         return AjaxResult.error("修改密码异常，请联系管理员");
@@ -121,7 +121,7 @@ public class SysProfileProController extends BaseProController {
                 ajax.put("imgUrl", avatar);
                 // 更新缓存用户头像
                 loginUser.getUser().setAvatar(avatar);
-                tokenService.setLoginUser(loginUser);
+                cmsTokenService.setLoginUser(loginUser);
                 return ajax;
             }
         }

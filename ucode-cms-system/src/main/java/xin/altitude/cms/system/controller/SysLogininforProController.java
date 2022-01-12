@@ -18,7 +18,7 @@ import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysLogininfor;
 import xin.altitude.cms.system.service.ISysLogininforService;
-import xin.altitude.cms.system.util.ExcelUtil;
+import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

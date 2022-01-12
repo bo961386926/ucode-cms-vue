@@ -143,19 +143,20 @@ public class LogAspect {
      * 参数拼装
      */
     private String argsArrayToString(Object[] paramsArray) {
-        String params = "";
+        StringBuilder params = new StringBuilder();
         if (paramsArray != null && paramsArray.length > 0) {
             for (Object o : paramsArray) {
                 if (StringUtil.isNotNull(o) && !isFilterObject(o)) {
                     try {
                         Object jsonObj = JSON.toJSON(o);
-                        params += jsonObj.toString() + " ";
+                        params.append(jsonObj.toString()).append(" ");
                     } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
             }
         }
-        return params.trim();
+        return params.toString().trim();
     }
     
     /**

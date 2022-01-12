@@ -23,7 +23,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 
 /**
  * @author explore
- * @since 2022/01/05 16:10
+ * @since 2019/01/05 16:10
  **/
 public abstract class AbstractSwaggerConfig {
     /**

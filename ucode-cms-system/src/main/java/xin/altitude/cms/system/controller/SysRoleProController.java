@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.web.service.SysPermissionService;
-import xin.altitude.cms.auth.web.service.TokenService;
+import xin.altitude.cms.auth.web.service.CmsTokenService;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.annotation.Log;
@@ -28,7 +28,7 @@ import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.system.domain.SysUserRole;
 import xin.altitude.cms.system.service.ISysRoleService;
 import xin.altitude.cms.system.service.ISysUserService;
-import xin.altitude.cms.system.util.ExcelUtil;
+import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -45,7 +45,7 @@ public class SysRoleProController extends BaseProController {
     private ISysRoleService roleService;
     
     @Autowired
-    private TokenService tokenService;
+    private CmsTokenService cmsTokenService;
     
     @Autowired
     private SysPermissionService permissionService;
@@ -119,7 +119,7 @@ public class SysRoleProController extends BaseProController {
             if (StringUtil.isNotNull(loginUser.getUser()) && !loginUser.getUser().isAdmin()) {
                 loginUser.setPermissions(permissionService.getMenuPermission(loginUser.getUser()));
                 loginUser.setUser(userService.selectUserByUserName(loginUser.getUser().getUserName()));
-                tokenService.setLoginUser(loginUser);
+                cmsTokenService.setLoginUser(loginUser);
             }
             return AjaxResult.success();
         }

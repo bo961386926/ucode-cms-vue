@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 
 /**
  * @author explore
- * @since 2021/05/28 23:51
+ * @since 2019/05/28 23:51
  **/
 // @Configuration
 public class JacksonSerializerConfig {

@@ -18,7 +18,7 @@ import xin.altitude.cms.framework.constant.DataSourceName;
 /**
  * Mybatis支持*匹配扫描包
  *
- * @author ruoyi
+ * @author ucode
  */
 public class MyBatisPlusConfig extends AbstractMyBatisConfig {
     /**

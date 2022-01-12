@@ -1,7 +1,14 @@
 package xin.altitude.cms.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+
 import java.io.Serializable;
-import java.time.LocalTime;
+import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
 /**
  * Entity基类
@@ -13,15 +20,24 @@ public abstract class BaseEntity implements Serializable {
     /**
      * 创建时间
      */
-    private LocalTime createTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime createTime;
     /**
      * 更新时间
      */
-    private LocalTime updateTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    private LocalDateTime updateTime;
     /**
      * 逻辑删除
      */
     private Boolean deleted;
+    
+    public BaseEntity() {
+    }
     
     public BaseEntity(BaseEntity baseEntity) {
         this.createTime = baseEntity.createTime;
@@ -29,19 +45,19 @@ public abstract class BaseEntity implements Serializable {
         this.deleted = baseEntity.deleted;
     }
     
-    public LocalTime getCreateTime() {
+    public LocalDateTime getCreateTime() {
         return createTime;
     }
     
-    public void setCreateTime(LocalTime createTime) {
+    public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
     }
     
-    public LocalTime getUpdateTime() {
+    public LocalDateTime getUpdateTime() {
         return updateTime;
     }
     
-    public void setUpdateTime(LocalTime updateTime) {
+    public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
     }
     

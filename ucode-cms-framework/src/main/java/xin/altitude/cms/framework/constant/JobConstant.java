@@ -1,4 +1,4 @@
-package xin.altitude.cms.job.constant;
+package xin.altitude.cms.framework.constant;
 
 /**
  * 定时任务常量类

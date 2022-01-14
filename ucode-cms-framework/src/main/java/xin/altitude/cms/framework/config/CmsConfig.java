@@ -72,7 +72,7 @@ public class CmsConfig {
     }
     
     /**
-     * Token全局配置
+     * Token全局配置文件
      */
     @Data
     public static class Token {
@@ -85,7 +85,7 @@ public class CmsConfig {
     }
     
     /**
-     * xss全局配置
+     * xss全局配置文件
      */
     @Data
     public static class Xss {
@@ -97,6 +97,9 @@ public class CmsConfig {
         private String urlPatterns;
     }
     
+    /**
+     * Swagger全局配置文件
+     */
     @Data
     public static class Swagger {
         /* 是否开启swagger */
@@ -105,9 +108,23 @@ public class CmsConfig {
         private String pathMapping;
     }
     
+    /**
+     * 定时任务全局配置文件
+     */
     @Data
     public static class Job {
         /* 是否开启定时任务 */
         private Boolean enabled = false;
+    }
+    
+    /**
+     * 线程池全局配置文件
+     */
+    @Data
+    public static class Thread {
+        /* 是否开启swagger */
+        private Boolean enabled = true;
+        /* 核心线程池大小 */
+        private int corePoolSize = 10;
     }
 }

@@ -6,16 +6,16 @@ import org.quartz.JobDataMap;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.transaction.annotation.Transactional;
+import xin.altitude.cms.common.util.SpringUtils;
+import xin.altitude.cms.job.config.ScheduleConfig;
 import xin.altitude.cms.job.constant.ScheduleConstants;
 import xin.altitude.cms.job.domain.SysJob;
 import xin.altitude.cms.job.exception.TaskException;
 import xin.altitude.cms.job.mapper.SysJobMapper;
 import xin.altitude.cms.job.service.ISysJobService;
 import xin.altitude.cms.job.util.CronUtils;
-import xin.altitude.cms.job.util.ScheduleUtils;
+import xin.altitude.cms.job.util.QuartzUtils;
 
 import javax.annotation.PostConstruct;
 import java.util.List;
@@ -27,19 +27,19 @@ import java.util.List;
  */
 // @Service
 public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> implements ISysJobService {
-    @Autowired
-    @Qualifier("schedulerFactoryBean")
-    private Scheduler scheduler;
+    private final Scheduler scheduler = SpringUtils.getBean(ScheduleConfig.SCHEDULER_FACTORYBEAN);
     
     /**
-     * 项目启动时，初始化定时器 主要是防止手动修改数据库导致未同步到定时任务处理（注：不能手动修改数据库ID和任务组名，否则会导致脏数据）
+     * 项目启动时，初始化定时器
+     * 主要是防止手动修改数据库导致未同步到定时任务处理
+     * （注：不能手动修改数据库ID和任务组名，否则会导致脏数据）
      */
     @PostConstruct
     public void init() throws SchedulerException, TaskException {
         scheduler.clear();
         List<SysJob> jobList = list();
         for (SysJob job : jobList) {
-            ScheduleUtils.createScheduleJob(scheduler, job);
+            QuartzUtils.createScheduleJob(scheduler, job);
         }
     }
     
@@ -47,7 +47,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
      * 获取quartz调度器的计划任务列表
      *
      * @param job 调度信息
-     * @return
+     * @return 任务列表
      */
     @Override
     public List<SysJob> selectJobList(SysJob job) {
@@ -79,7 +79,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         job.setStatus(ScheduleConstants.Status.PAUSE.getValue());
         boolean rows = updateById(job);
         if (rows) {
-            scheduler.pauseJob(ScheduleUtils.getJobKey(jobId, jobGroup));
+            scheduler.pauseJob(QuartzUtils.createJobKey(jobId, jobGroup));
         }
         return rows;
     }
@@ -98,7 +98,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         job.setStatus(ScheduleConstants.Status.NORMAL.getValue());
         boolean rows = updateById(job);
         if (rows) {
-            scheduler.resumeJob(ScheduleUtils.getJobKey(jobId, jobGroup));
+            scheduler.resumeJob(QuartzUtils.createJobKey(jobId, jobGroup));
         }
         return rows;
     }
@@ -116,7 +116,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         String jobGroup = job.getJobGroup();
         boolean rows = removeById(jobId);
         if (rows) {
-            scheduler.deleteJob(ScheduleUtils.getJobKey(jobId, jobGroup));
+            scheduler.deleteJob(QuartzUtils.createJobKey(jobId, jobGroup));
         }
         return rows;
     }
@@ -168,7 +168,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         // 参数
         JobDataMap dataMap = new JobDataMap();
         dataMap.put(ScheduleConstants.TASK_PROPERTIES, properties);
-        scheduler.triggerJob(ScheduleUtils.getJobKey(jobId, jobGroup), dataMap);
+        scheduler.triggerJob(QuartzUtils.createJobKey(jobId, jobGroup), dataMap);
     }
     
     /**
@@ -183,7 +183,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         job.setStatus(ScheduleConstants.Status.PAUSE.getValue());
         boolean rows = save(job);
         if (rows) {
-            ScheduleUtils.createScheduleJob(scheduler, job);
+            QuartzUtils.createScheduleJob(scheduler, job);
         }
         return rows;
     }
@@ -214,12 +214,12 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     public void updateSchedulerJob(SysJob job, String jobGroup) throws SchedulerException, TaskException {
         Long jobId = job.getJobId();
         // 判断是否存在
-        JobKey jobKey = ScheduleUtils.getJobKey(jobId, jobGroup);
+        JobKey jobKey = QuartzUtils.createJobKey(jobId, jobGroup);
         if (scheduler.checkExists(jobKey)) {
             // 防止创建时存在数据问题 先移除，然后在执行创建操作
             scheduler.deleteJob(jobKey);
         }
-        ScheduleUtils.createScheduleJob(scheduler, job);
+        QuartzUtils.createScheduleJob(scheduler, job);
     }
     
     /**

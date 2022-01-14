@@ -7,11 +7,6 @@ server:
 spring:
   profiles:
     active: dev
-  # 服务模块
-  devtools:
-    restart:
-      # 热部署开关
-      enabled: true
 
   # redis 配置
   redis:
@@ -29,4 +24,4 @@ ucode:
     project-dir: ucode-cms-admin
 
   job:
-    enabled: true
+    enabled: false

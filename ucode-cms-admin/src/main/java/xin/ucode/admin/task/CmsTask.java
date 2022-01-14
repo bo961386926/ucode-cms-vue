@@ -1,8 +1,8 @@
 package xin.ucode.admin.task;
 
 import org.springframework.stereotype.Component;
-import xin.altitude.cms.job.constant.JobConstant;
-import xin.altitude.cms.job.task.AbstractCmsTask;
+import xin.altitude.cms.framework.constant.JobConstant;
+import xin.altitude.cms.framework.task.AbstractCmsTask;
 
 /**
  * 定时任务调度测试

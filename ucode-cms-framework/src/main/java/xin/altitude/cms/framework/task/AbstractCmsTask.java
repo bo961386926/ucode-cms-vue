@@ -1,4 +1,4 @@
-package xin.altitude.cms.job.task;
+package xin.altitude.cms.framework.task;
 
 /**
  * 这里提供定时任务编写的演示示例，分别包含无参数方法、单一参数方法、多参数方法

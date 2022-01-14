@@ -98,8 +98,8 @@ public class JobInvokeUtil {
         }
         String[] methodParams = methodStr.split(",");
         List<Object[]> classs = new LinkedList<>();
-        for (int i = 0; i < methodParams.length; i++) {
-            String str = StringUtils.trimToEmpty(methodParams[i]);
+        for (String methodParam : methodParams) {
+            String str = StringUtils.trimToEmpty(methodParam);
             // String字符串类型，包含'
             if (StringUtils.contains(str, "'")) {
                 classs.add(new Object[]{StringUtils.replace(str, "'", ""), String.class});

@@ -3,6 +3,12 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <groupId>org.springframework.boot</groupId>
+        <version>2.3.4.RELEASE</version>
+        <relativePath/>
+    </parent>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
     <version>1.2.5</version>
@@ -54,13 +60,13 @@
     <!-- 依赖声明 -->
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-dependencies</artifactId>
-                <version>2.3.1.RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+            <!--<dependency>-->
+            <!--    <groupId>org.springframework.boot</groupId>-->
+            <!--    <artifactId>spring-boot-dependencies</artifactId>-->
+            <!--    <version>2.3.1.RELEASE</version>-->
+            <!--    <type>pom</type>-->
+            <!--    <scope>import</scope>-->
+            <!--</dependency>-->
             
             
             <!-- 阿里数据库连接池 -->
@@ -165,13 +171,13 @@
                 <artifactId>ucode-cms-system</artifactId>
                 <version>${project.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>xin.altitude.cms.job</groupId>
                 <artifactId>ucode-cms-job</artifactId>
                 <version>${project.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>xin.altitude.cms.ui</groupId>
                 <artifactId>ucode-cms-ui</artifactId>
@@ -202,7 +208,7 @@
                 <artifactId>ucode-cms-code</artifactId>
                 <version>${project.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>xin.altitude.cms.excel</groupId>
                 <artifactId>ucode-cms-excel</artifactId>
@@ -256,7 +262,7 @@
                 <artifactId>knife4j-spring-ui</artifactId>
                 <version>${knife4j.version}</version>
             </dependency>
-    
+            
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-collections4</artifactId>

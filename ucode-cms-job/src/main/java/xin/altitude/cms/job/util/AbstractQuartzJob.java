@@ -3,7 +3,6 @@ package xin.altitude.cms.job.util;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
-import org.quartz.JobExecutionException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xin.altitude.cms.common.constant.Constants;
@@ -33,7 +32,8 @@ public abstract class AbstractQuartzJob implements Job {
     @Override
     public void execute(JobExecutionContext context) {
         SysJob sysJob = new SysJob();
-        BeanUtils.copyBeanProp(sysJob, context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES));
+        BeanUtils.copyBeanProp(sysJob, context.getMergedJobDataMap()
+                .get(ScheduleConstants.TASK_PROPERTIES));
         try {
             before(context, sysJob);
             doExecute(context, sysJob);

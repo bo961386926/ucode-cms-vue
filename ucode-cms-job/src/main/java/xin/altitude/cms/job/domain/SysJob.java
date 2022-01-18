@@ -20,7 +20,7 @@ import java.util.Date;
  *
  * @author ucode
  */
-@TableName("qrtz_sys_job")
+@TableName("sys_qrtz_job")
 public class SysJob extends BaseEntity {
     /**
      * 任务ID

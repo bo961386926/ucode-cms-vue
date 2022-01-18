@@ -15,7 +15,7 @@ import java.util.Date;
  *
  * @author ucode
  */
-@TableName("qrtz_sys_job_log")
+@TableName("sys_qrtz_job_log")
 public class SysJobLog extends BaseEntity {
     /**
      * ID

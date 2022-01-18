@@ -14,6 +14,8 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.job</groupId>
     <artifactId>ucode-cms-job</artifactId>
+    <name>${project.artifactId}</name>
+    <url>http://www.altitude.xin</url>
     <description>
         UCode Cms 定时任务模块（可选）
     </description>

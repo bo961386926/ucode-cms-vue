@@ -16,9 +16,9 @@
     <groupId>xin.altitude.cms.common</groupId>
     <artifactId>ucode-cms-common</artifactId>
     <name>${project.artifactId}</name>
-    
+    <url>http://www.altitude.xin</url>
     <description>
-        Java知识图谱之内容管理系统（CMS）通用模块，此部分仅仅依赖常见的公共模块
+        Java知识图谱之内容管理系统（CMS）通用模块
     </description>
     <dependencies>
         <dependency>

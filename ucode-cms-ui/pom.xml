@@ -11,6 +11,8 @@
     <groupId>xin.altitude.cms.ui</groupId>
     <artifactId>ucode-cms-ui</artifactId>
     <version>1.2.6</version>
+    <name>${project.artifactId}</name>
+    <url>http://www.altitude.xin</url>
     <description>
         Java知识图谱之内容管理系统（CMS）前端页面
     </description>

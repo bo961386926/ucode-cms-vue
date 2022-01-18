@@ -11,6 +11,8 @@
     <groupId>xin.altitude.cms.excel</groupId>
     <artifactId>ucode-cms-excel</artifactId>
     <version>1.2.6</version>
+    <name>${project.artifactId}</name>
+    <url>http://www.altitude.xin</url>
     <dependencies>
         <dependency>
             <groupId>commons-io</groupId>

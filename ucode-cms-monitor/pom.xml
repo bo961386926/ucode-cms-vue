@@ -11,6 +11,8 @@
     <groupId>xin.altitude.cms.monitor</groupId>
     <artifactId>ucode-cms-monitor</artifactId>
     <version>1.2.6</version>
+    <name>${project.artifactId}</name>
+    <url>http://www.altitude.xin</url>
     <dependencies>
         <dependency>
             <groupId>org.springframework</groupId>

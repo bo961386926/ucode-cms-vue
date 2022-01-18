@@ -12,7 +12,7 @@
     <artifactId>ucode-cms-framework</artifactId>
     <version>${project.parent.version}</version>
     <name>${project.artifactId}</name>
-    
+    <url>http://www.altitude.xin</url>
     <description>
         Java知识图谱之内容管理系统（CMS）核心模块
     </description>

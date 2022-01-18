@@ -69,3 +69,27 @@ spring:
 <img src="https://www.altitude.xin/typora/image-20220118111705421.png" alt="image-20220118111705421" style="zoom:50%;" />
 
 ### 定时任务模块
+可视化定时任务有利于加强对任务的管理，提高对任务执行过程的跟踪能力。此模块属于系统内置，可根据需要是否排斥此模块。
+```xml
+<!--ucode-cms核心依赖-->
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-spring-boot-starter</artifactId>
+    <version>1.2.6</version>
+    <exclusions>
+        <exclusion>
+            <groupId>xin.altitude.cms.job</groupId>
+            <artifactId>ucode-cms-job</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+默认starter依赖内置定时任务模块，不需要直接排除依赖即可。
+#### 全局配置
+```yml
+ucode:
+  job:
+    enabled: true
+    persist: false
+```
+在全局配置文件开启定时任务开关，根据需要是否需要持久化定时任务（持久化需要配合执行`quartz.sql`脚本）

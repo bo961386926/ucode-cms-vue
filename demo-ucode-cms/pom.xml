@@ -22,12 +22,12 @@
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-spring-boot-starter</artifactId>
             <version>1.2.6</version>
-            <!--<exclusions>-->
-            <!--    <exclusion>-->
-            <!--        <groupId>xin.altitude.cms.job</groupId>-->
-            <!--        <artifactId>ucode-cms-job</artifactId>-->
-            <!--    </exclusion>-->
-            <!--</exclusions>-->
+            <exclusions>
+                <exclusion>
+                    <groupId>xin.altitude.cms.job</groupId>
+                    <artifactId>ucode-cms-job</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <!--代码生成器模块（非必选）-->
         <dependency>

@@ -24,4 +24,4 @@ ucode:
     project-dir: ucode-cms-admin
 
   job:
-    enabled: false
+    enabled: true

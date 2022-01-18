@@ -115,6 +115,8 @@ public class CmsConfig {
     public static class Job {
         /* 是否开启定时任务 */
         private Boolean enabled = false;
+        /* 定时任务数据是否持久化到数据库 */
+        private Boolean persist = false;
     }
     
     /**

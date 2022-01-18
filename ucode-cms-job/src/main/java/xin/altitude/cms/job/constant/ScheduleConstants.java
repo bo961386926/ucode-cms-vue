@@ -33,24 +33,4 @@ public class ScheduleConstants {
      */
     public static final String MISFIRE_DO_NOTHING = "3";
     
-    public enum Status {
-        /**
-         * 正常
-         */
-        NORMAL("0"),
-        /**
-         * 暂停
-         */
-        PAUSE("1");
-        
-        private final String value;
-        
-        Status(String value) {
-            this.value = value;
-        }
-        
-        public String getValue() {
-            return value;
-        }
-    }
 }

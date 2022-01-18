@@ -9,6 +9,7 @@ import org.quartz.SchedulerException;
 import org.springframework.transaction.annotation.Transactional;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.job.config.ScheduleConfig;
+import xin.altitude.cms.job.constant.JobStatus;
 import xin.altitude.cms.job.constant.ScheduleConstants;
 import xin.altitude.cms.job.domain.SysJob;
 import xin.altitude.cms.job.exception.TaskException;
@@ -27,6 +28,9 @@ import java.util.List;
  */
 // @Service
 public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> implements ISysJobService {
+    /**
+     * 调度器（核心参数）
+     */
     private final Scheduler scheduler = SpringUtils.getBean(ScheduleConfig.SCHEDULER_FACTORYBEAN);
     
     /**
@@ -76,7 +80,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     public boolean pauseJob(SysJob job) throws SchedulerException {
         Long jobId = job.getJobId();
         String jobGroup = job.getJobGroup();
-        job.setStatus(ScheduleConstants.Status.PAUSE.getValue());
+        job.setStatus(JobStatus.PAUSE.getValue());
         boolean rows = updateById(job);
         if (rows) {
             scheduler.pauseJob(QuartzUtils.createJobKey(jobId, jobGroup));
@@ -95,7 +99,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     public boolean resumeJob(SysJob job) throws SchedulerException {
         Long jobId = job.getJobId();
         String jobGroup = job.getJobGroup();
-        job.setStatus(ScheduleConstants.Status.NORMAL.getValue());
+        job.setStatus(JobStatus.NORMAL.getValue());
         boolean rows = updateById(job);
         if (rows) {
             scheduler.resumeJob(QuartzUtils.createJobKey(jobId, jobGroup));
@@ -146,9 +150,9 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     public boolean changeStatus(SysJob job) throws SchedulerException {
         boolean rows = false;
         String status = job.getStatus();
-        if (ScheduleConstants.Status.NORMAL.getValue().equals(status)) {
+        if (JobStatus.NORMAL.getValue().equals(status)) {
             rows = resumeJob(job);
-        } else if (ScheduleConstants.Status.PAUSE.getValue().equals(status)) {
+        } else if (JobStatus.PAUSE.getValue().equals(status)) {
             rows = pauseJob(job);
         }
         return rows;
@@ -180,7 +184,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean insertJob(SysJob job) throws SchedulerException, TaskException {
-        job.setStatus(ScheduleConstants.Status.PAUSE.getValue());
+        job.setStatus(JobStatus.PAUSE.getValue());
         boolean rows = save(job);
         if (rows) {
             QuartzUtils.createScheduleJob(scheduler, job);

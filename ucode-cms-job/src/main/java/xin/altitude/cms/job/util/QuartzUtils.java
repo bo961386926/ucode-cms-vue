@@ -1,6 +1,7 @@
 package xin.altitude.cms.job.util;
 
 import org.quartz.*;
+import xin.altitude.cms.job.constant.JobStatus;
 import xin.altitude.cms.job.constant.ScheduleConstants;
 import xin.altitude.cms.job.domain.SysJob;
 import xin.altitude.cms.job.exception.TaskException;
@@ -76,7 +77,7 @@ public class QuartzUtils {
         
         scheduler.scheduleJob(jobDetail, trigger);
         
-        if (sysJob.getStatus().equals(ScheduleConstants.Status.PAUSE.getValue())) {
+        if (sysJob.getStatus().equals(JobStatus.PAUSE.getValue())) {
             /* 暂停任务 */
             scheduler.pauseJob(QuartzUtils.createJobKey(jobId, jobGroup));
         }

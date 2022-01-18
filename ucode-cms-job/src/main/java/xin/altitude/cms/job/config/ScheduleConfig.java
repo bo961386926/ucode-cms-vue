@@ -2,6 +2,8 @@ package xin.altitude.cms.job.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
+import xin.altitude.cms.common.util.SpringUtils;
+import xin.altitude.cms.framework.config.CmsConfig;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -23,9 +25,13 @@ public class ScheduleConfig {
     @Bean(SCHEDULER_FACTORYBEAN)
     public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource) {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
-        factory.setDataSource(dataSource);
+        /* 获取定时任务配置 */
+        CmsConfig.Job job = SpringUtils.getBean(CmsConfig.class).getJob();
+        if (job.getPersist()) {
+            factory.setDataSource(dataSource);
+        }
         
-        Properties prop = getProperties();
+        Properties prop = getProperties(job.getPersist());
         factory.setQuartzProperties(prop);
         
         factory.setSchedulerName("UCodeCmsScheduler");
@@ -42,11 +48,12 @@ public class ScheduleConfig {
     }
     
     /**
-     * 获取属性配置
+     * 获取Quartz属性配置
      *
-     * @return
+     * @param persist 是否持久化到数据库
+     * @return Properties
      */
-    private Properties getProperties() {
+    private Properties getProperties(boolean persist) {
         /* quartz参数 */
         Properties prop = new Properties();
         prop.put("org.quartz.scheduler.instanceName", "UCodeCmsScheduler");
@@ -55,16 +62,22 @@ public class ScheduleConfig {
         prop.put("org.quartz.threadPool.class", "org.quartz.simpl.SimpleThreadPool");
         prop.put("org.quartz.threadPool.threadCount", "20");
         prop.put("org.quartz.threadPool.threadPriority", "5");
-        // JobStore配置
-        prop.put("org.quartz.jobStore.class", "org.quartz.impl.jdbcjobstore.JobStoreTX");
-        // 集群配置
-        prop.put("org.quartz.jobStore.isClustered", "true");
-        prop.put("org.quartz.jobStore.clusterCheckinInterval", "15000");
-        prop.put("org.quartz.jobStore.maxMisfiresToHandleAtATime", "1");
-        prop.put("org.quartz.jobStore.txIsolationLevelSerializable", "true");
+        if (persist) {
+            // JobStore配置
+            prop.put("org.quartz.jobStore.class", "org.quartz.impl.jdbcjobstore.JobStoreTX");
+            // 集群配置
+            prop.put("org.quartz.jobStore.isClustered", "true");
+            prop.put("org.quartz.jobStore.clusterCheckinInterval", "15000");
+            prop.put("org.quartz.jobStore.maxMisfiresToHandleAtATime", "1");
+            prop.put("org.quartz.jobStore.txIsolationLevelSerializable", "true");
+            
+            prop.put("org.quartz.jobStore.misfireThreshold", "12000");
+            prop.put("org.quartz.jobStore.tablePrefix", "qrtz_");
+        } else {
+            // JobStore配置
+            prop.put("org.quartz.jobStore.class", "org.quartz.simpl.RAMJobStore");
+        }
         
-        prop.put("org.quartz.jobStore.misfireThreshold", "12000");
-        prop.put("org.quartz.jobStore.tablePrefix", "qrtz_");
         return prop;
     }
 }

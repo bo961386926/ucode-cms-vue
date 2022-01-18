@@ -59,7 +59,7 @@ public class SysJobLogController extends BaseProController {
     /**
      * 根据调度编号获取详细信息
      */
-    @GetMapping(value = "/{configId}")
+    @GetMapping(value = "/{jobLogId}")
     public AjaxResult getInfo(@PathVariable Long jobLogId) {
         return AjaxResult.success(jobLogService.selectJobLogById(jobLogId));
     }

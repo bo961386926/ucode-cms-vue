@@ -1,3 +1,4 @@
 ucode:
   job:
     enabled: false
+    persist: false

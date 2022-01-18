@@ -6,7 +6,7 @@ package xin.altitude.cms.framework.task;
  * 添加到此类或者子类中，并且加载到容器中的方法方能被正确调用
  *
  * @author explore
- * @since 2022/01/12 16:01
+ * @since 2021/01/12 16:01
  **/
 public abstract class AbstractCmsTask {
     public void mutiParams(String s, Boolean b, Long l, Double d, Integer i) {

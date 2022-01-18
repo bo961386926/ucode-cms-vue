@@ -124,7 +124,7 @@ public class CmsConfig {
      */
     @Data
     public static class Thread {
-        /* 是否开启swagger */
+        /* 是否开启内置线程池 */
         private Boolean enabled = true;
         /* 核心线程池大小 */
         private int corePoolSize = 10;

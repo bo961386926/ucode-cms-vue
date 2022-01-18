@@ -42,9 +42,6 @@ public class SysJobLogController {
      */
     @GetMapping("/list")
     public AjaxResult list(Page<SysJobLog> page, SysJobLog sysJobLog) {
-        // startPage();
-        // List<SysJobLog> list = jobLogService.selectJobLogList(sysJobLog);
-        // return getDataTable(list);
         return AjaxResult.success(jobLogService.page(page, Wrappers.lambdaQuery(sysJobLog)));
     }
     

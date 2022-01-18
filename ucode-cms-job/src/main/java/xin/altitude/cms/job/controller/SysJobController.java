@@ -51,9 +51,6 @@ public class SysJobController {
      */
     @GetMapping("/list")
     public AjaxResult list(Page<SysJob> page, SysJob sysJob) {
-        // startPage();
-        // List<SysJob> list = jobService.selectJobList(sysJob);
-        // return getDataTable(list);
         return AjaxResult.success(jobService.page(page, Wrappers.lambdaQuery(sysJob)));
     }
     
@@ -141,7 +138,7 @@ public class SysJobController {
      */
     @Log(title = "定时任务", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobIds}")
-    public AjaxResult remove(@PathVariable Long[] jobIds) throws SchedulerException, TaskException {
+    public AjaxResult remove(@PathVariable Long[] jobIds) throws SchedulerException {
         jobService.deleteJobByIds(jobIds);
         return AjaxResult.success();
     }

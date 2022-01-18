@@ -1,3 +1,7 @@
+/*
+ * Copyright (Java知识图谱) 2022.
+ */
+
 package xin.altitude.cms.code.constant.enums;
 
 import xin.altitude.cms.code.entity.bo.XmlConfig;

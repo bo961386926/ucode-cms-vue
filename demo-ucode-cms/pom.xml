@@ -10,7 +10,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.ucode.cms.admin</groupId>
-    <artifactId>ucode-cms-admin</artifactId>
+    <artifactId>demo-ucode-cms</artifactId>
     <name>${project.artifactId}</name>
     <description>
         测试项目

@@ -1,3 +1,7 @@
+/*
+ * Copyright (Java知识图谱) 2022.
+ */
+
 package xin.altitude.cms.common.util;
 
 import org.springframework.web.context.request.RequestAttributes;

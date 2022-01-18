@@ -1,3 +1,7 @@
+/*
+ * Copyright (Java知识图谱) 2022.
+ */
+
 package xin.altitude.cms.job.util;
 
 import org.apache.commons.lang3.StringUtils;

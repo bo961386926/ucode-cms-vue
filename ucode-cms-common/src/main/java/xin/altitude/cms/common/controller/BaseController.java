@@ -1,3 +1,7 @@
+/*
+ * Copyright (Java知识图谱) 2022.
+ */
+
 package xin.altitude.cms.common.controller;
 
 import xin.altitude.cms.common.entity.AjaxResult;

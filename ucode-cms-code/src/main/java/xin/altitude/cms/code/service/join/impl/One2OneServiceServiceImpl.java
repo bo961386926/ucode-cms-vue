@@ -1,3 +1,7 @@
+/*
+ * Copyright (Java知识图谱) 2022.
+ */
+
 package xin.altitude.cms.code.service.join.impl;
 
 import com.baomidou.mybatisplus.extension.service.IService;

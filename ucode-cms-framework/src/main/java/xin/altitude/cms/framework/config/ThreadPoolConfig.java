@@ -1,43 +1,77 @@
 package xin.altitude.cms.framework.config;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import xin.altitude.cms.common.util.SpringUtils;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 线程池配置
  *
  * @author ucode
  **/
-// @Configuration
+// @ConditionalOnProperty(value = "ucode.thread.enabled", havingValue = "true")
 public class ThreadPoolConfig {
     /**
-     * 核心线程池大小
+     * 定时任务线程池名称
      */
-    private final int corePoolSize = 10;
-    /*
-     * 最大可创建的线程数
+    public static final String SCHEDULED_POOL_NAME = "CMS_SCHEDULED_POOL";
+    /**
+     * 定时任务线程池名称
      */
-    int maxPoolSize = 200;
-    /*
-     * 队列最大长度
+    public static final String FIXED_POOL_NAME = "CMS_FIXED_POOL";
+    /**
+     * 定时任务线程池名称
      */
-    int queueCapacity = 1000;
-    /*
-     * 线程池维护线程所允许的空闲时间
+    public static final String CACHED_POOL_NAME = "CMS_CACHED_POOL";
+    
+    /**
+     * 外部配置线程池对象
      */
-    int keepAliveSeconds = 300;
+    private final CmsConfig.Thread thread = SpringUtils.getBean(CmsConfig.class).getThread();
+    
     
     /**
      * 执行周期性或定时任务
+     *
+     * @return ScheduledExecutorService
      */
-    @Bean(name = "scheduledExecutorService")
-    protected ScheduledExecutorService scheduledExecutorService() {
-        BasicThreadFactory threadFactory = new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build();
-        return new ScheduledThreadPoolExecutor(corePoolSize, threadFactory);
+    @Bean(SCHEDULED_POOL_NAME)
+    @ConditionalOnProperty(value = "ucode.thread.scheduleEnabled", havingValue = "true")
+    protected ScheduledExecutorService scheduledThreadPool() {
+        BasicThreadFactory threadFactory = new BasicThreadFactory.Builder().namingPattern("scheduled-thread-pool-%d").daemon(true).build();
+        return new ScheduledThreadPoolExecutor(thread.getCorePoolSize(), threadFactory);
+    }
+    
+    /**
+     * 固定大小线程池
+     *
+     * @return ThreadPoolExecutor
+     */
+    @Bean(FIXED_POOL_NAME)
+    @ConditionalOnProperty(value = "ucode.thread.fixEnabled", havingValue = "true")
+    public ThreadPoolExecutor fixedThreadPool() {
+        BasicThreadFactory threadFactory = new BasicThreadFactory.Builder().namingPattern("fixed-thread-pool-%d").daemon(true).build();
+        return new ThreadPoolExecutor(thread.getCorePoolSize(), thread.getCorePoolSize(), 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), threadFactory);
+    }
+    
+    /**
+     * 可伸缩大小线程池
+     *
+     * @return ExecutorService
+     */
+    @Bean(CACHED_POOL_NAME)
+    @ConditionalOnProperty(value = "ucode.thread.cacheEnabled", havingValue = "true")
+    public ExecutorService cachedThreadPool() {
+        BasicThreadFactory threadFactory = new BasicThreadFactory.Builder().namingPattern("cached-thread-pool-%d").daemon(true).build();
+        return new ThreadPoolExecutor(thread.getCorePoolSize(), thread.getMaxPoolSize(), thread.getKeepAliveSeconds(), TimeUnit.SECONDS, new SynchronousQueue<>(), threadFactory);
     }
 }

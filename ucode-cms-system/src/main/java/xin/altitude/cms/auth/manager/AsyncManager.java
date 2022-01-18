@@ -1,6 +1,7 @@
 package xin.altitude.cms.auth.manager;
 
 import xin.altitude.cms.common.util.SpringUtils;
+import xin.altitude.cms.framework.config.ThreadPoolConfig;
 import xin.altitude.cms.framework.util.Threads;
 
 import java.util.TimerTask;
@@ -18,7 +19,7 @@ public class AsyncManager {
     /**
      * 异步操作任务调度线程池
      */
-    private final ScheduledExecutorService executor = SpringUtils.getBean("scheduledExecutorService");
+    private final ScheduledExecutorService executor = SpringUtils.getBean(ThreadPoolConfig.SCHEDULED_POOL_NAME);
     
     /**
      * 单例模式

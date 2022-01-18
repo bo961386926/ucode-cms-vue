@@ -20,6 +20,7 @@ public class CmsConfig {
     private Xss xss;
     private Swagger swagger;
     private Job job;
+    private Thread thread;
     
     @Data
     public static class Cms {
@@ -125,8 +126,19 @@ public class CmsConfig {
     @Data
     public static class Thread {
         /* 是否开启内置线程池 */
-        private Boolean enabled = true;
+        // private Boolean enabled = true;
         /* 核心线程池大小 */
         private int corePoolSize = 10;
+        /* 最大可创建的线程数 */
+        private int maxPoolSize = 200;
+        /* 线程池维护线程所允许的空闲时间 */
+        private int keepAliveSeconds = 300;
+        /* 定时任务类线程池开关 */
+        private boolean scheduleEnabled = true;
+        /* 固定大小类线程池开关 */
+        private boolean fixEnabled = false;
+        /* 可伸缩大小类线程池开关 */
+        private boolean cacheEnabled = false;
+        
     }
 }

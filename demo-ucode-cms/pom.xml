@@ -21,7 +21,7 @@
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-spring-boot-starter</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.6</version>
             <!--<exclusions>-->
             <!--    <exclusion>-->
             <!--        <groupId>xin.altitude.cms.job</groupId>-->
@@ -33,13 +33,13 @@
         <dependency>
             <groupId>xin.altitude.cms.code</groupId>
             <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-            <version>1.2.5</version>
+            <version>1.2.6</version>
         </dependency>
     
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>org.springframework.boot</groupId>-->
+        <!--    <artifactId>spring-boot-configuration-processor</artifactId>-->
+        <!--</dependency>-->
     </dependencies>
     
     <build>

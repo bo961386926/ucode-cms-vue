@@ -1,5 +1,7 @@
 package xin.altitude.cms.job.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Import;
@@ -8,13 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.enums.BusinessType;
-import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.job.domain.SysJobLog;
 import xin.altitude.cms.job.service.ISysJobLogService;
 import xin.altitude.cms.job.service.impl.SysJobLogServiceImpl;
@@ -31,18 +31,21 @@ import java.util.List;
 // @RestController
 @ResponseBody
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/jobLog")
-public class SysJobLogController extends BaseProController {
+public class SysJobLogController {
     @Autowired
     private ISysJobLogService jobLogService;
     
     /**
      * 查询定时任务调度日志列表
+     *
+     * @return
      */
     @GetMapping("/list")
-    public TableDataInfo list(SysJobLog sysJobLog) {
-        startPage();
-        List<SysJobLog> list = jobLogService.selectJobLogList(sysJobLog);
-        return getDataTable(list);
+    public AjaxResult list(Page<SysJobLog> page, SysJobLog sysJobLog) {
+        // startPage();
+        // List<SysJobLog> list = jobLogService.selectJobLogList(sysJobLog);
+        // return getDataTable(list);
+        return AjaxResult.success(jobLogService.page(page, Wrappers.lambdaQuery(sysJobLog)));
     }
     
     /**
@@ -71,7 +74,7 @@ public class SysJobLogController extends BaseProController {
     @Log(title = "定时任务调度日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobLogIds}")
     public AjaxResult remove(@PathVariable Long[] jobLogIds) {
-        return toAjax(jobLogService.deleteJobLogByIds(jobLogIds));
+        return AjaxResult.success(jobLogService.deleteJobLogByIds(jobLogIds));
     }
     
     /**

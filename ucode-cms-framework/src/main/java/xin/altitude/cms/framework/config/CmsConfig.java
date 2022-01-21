@@ -9,18 +9,17 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
  * @since 2019/12/22 17:09
  **/
 @Data
-// @Configuration
 @ConfigurationProperties(prefix = "ucode")
 public class CmsConfig {
     /* 接口访问统一前缀 */
     public final static String UNIFORM_PREFIX = "/cms-api";
     // public final static String UNIFORM_PREFIX = "";
-    private Cms cms;
-    private Token token;
-    private Xss xss;
-    private Swagger swagger;
-    private Job job;
-    private Thread thread;
+    private Cms cms = new CmsConfig.Cms();
+    private Token token = new CmsConfig.Token();
+    private Xss xss = new CmsConfig.Xss();
+    private Swagger swagger = new CmsConfig.Swagger();
+    private Job job = new CmsConfig.Job();
+    private Thread thread = new CmsConfig.Thread();
     
     @Data
     public static class Cms {
@@ -134,7 +133,7 @@ public class CmsConfig {
         /* 线程池维护线程所允许的空闲时间 */
         private int keepAliveSeconds = 300;
         /* 定时任务类线程池开关 */
-        private boolean scheduleEnabled = true;
+        // private boolean scheduleEnabled = true;
         /* 固定大小类线程池开关 */
         private boolean fixEnabled = false;
         /* 可伸缩大小类线程池开关 */

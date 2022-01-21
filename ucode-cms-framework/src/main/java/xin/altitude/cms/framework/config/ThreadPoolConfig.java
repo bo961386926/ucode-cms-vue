@@ -44,8 +44,8 @@ public class ThreadPoolConfig {
      *
      * @return ScheduledExecutorService
      */
-    @Bean(SCHEDULED_POOL_NAME)
-    @ConditionalOnProperty(value = "ucode.thread.scheduleEnabled", havingValue = "true")
+    @Bean(name = SCHEDULED_POOL_NAME)
+    // @ConditionalOnProperty(value = "ucode.thread.scheduleEnabled", havingValue = "true")
     protected ScheduledExecutorService scheduledThreadPool() {
         BasicThreadFactory threadFactory = new BasicThreadFactory.Builder().namingPattern("scheduled-thread-pool-%d").daemon(true).build();
         return new ScheduledThreadPoolExecutor(thread.getCorePoolSize(), threadFactory);

@@ -78,9 +78,9 @@
       </el-form-item>
     </el-form>
     <!--  底部  -->
-    <div class="el-login-footer">
+    <!-- <div class="el-login-footer">
       <span>Copyright © 2018-2021 ruoyi.vip All Rights Reserved.</span>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -109,7 +109,6 @@ export default {
         password: [
           { required: true, trigger: "blur", message: "请输入您的密码" },
         ],
-        code: [{ required: true, trigger: "change", message: "请输入验证码" }],
       },
       loading: false,
       // 验证码开关

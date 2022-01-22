@@ -88,9 +88,9 @@
       </el-form-item>
     </el-form>
     <!--  底部  -->
-    <div class="el-register-footer">
+    <!-- <div class="el-register-footer">
       <span>Copyright © 2018-2021 ruoyi.vip All Rights Reserved.</span>
-    </div>
+    </div> -->
   </div>
 </template>
 

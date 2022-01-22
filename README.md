@@ -11,8 +11,8 @@ UCode-Cms是按照设计模式中的开闭原则、高内聚低藕聚等原则�
 数据库脚本有两个
 ```text
 sql/
-├── cms.sql                                 // 核心脚本（必选）     
-└── quartz.sql                              // 定时任务脚本（可选）
+├── cms（必选）.sql                                 // 核心脚本（必选）     
+└── quartz（可选）.sql                              // 定时任务脚本（可选）
 ```
 定时任务脚本只有在开启定时任务，并且配置持久化的情况下才必选。
 ```text
@@ -41,7 +41,7 @@ sql/
 <dependency>
     <groupId>xin.altitude.cms.code</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.2.8</version>
+    <version>1.2.9</version>
 </dependency>
 ```
 #### 全局配置
@@ -75,7 +75,7 @@ spring:
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.2.8</version>
+    <version>1.2.9</version>
     <exclusions>
         <exclusion>
             <groupId>xin.altitude.cms.job</groupId>
@@ -92,4 +92,4 @@ ucode:
     enabled: true
     persist: false
 ```
-在全局配置文件开启定时任务开关，根据需要是否需要持久化定时任务（持久化需要配合执行`quartz.sql`脚本）
+在全局配置文件开启定时任务开关，根据需要是否需要持久化定时任务（持久化需要配合执行`quartz（可选）.sql`脚本）

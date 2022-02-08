@@ -66,10 +66,15 @@ spring:
         max-wait: -1ms
   main:
     allow-bean-definition-overriding: true
+    # 允许循环引用
+    allow-circular-references: true
   autoconfigure:
     exclude:
       - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
-
+  mvc:
+    pathmatch:
+      # 兼容Swagger3.0.0
+      matching-strategy: ant_path_matcher
 # 日志配置
 logging:
   level:
@@ -83,11 +88,11 @@ mybatis:
   configLocation: classpath:mybatis/mybatis-config.xml
 
 
-# PageHelper分页插件
-pagehelper:
-  helperDialect: mysql
-  supportMethodsArguments: true
-  params: count=countSql
+## PageHelper分页插件
+#pagehelper:
+#  helperDialect: mysql
+#  supportMethodsArguments: true
+#  params: count=countSql
 
 # 项目相关配置
 ucode:

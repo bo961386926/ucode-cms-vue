@@ -5,6 +5,8 @@ server:
 
 # Spring配置
 spring:
+  config:
+    use-legacy-processing: true
   profiles:
     active: dev
 

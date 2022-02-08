@@ -45,26 +45,15 @@ import java.util.Set;
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
     private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
     
-    // @Autowired
-    // private SysUserMapper userMapper;
-    
-    // @Autowired
-    // private SysRoleMapper roleMapper;
     @Autowired
     private ISysRoleService sysRoleService;
     
-    // @Autowired
-    // private SysPostMapper postMapper;
     @Autowired
     private ISysPostService sysPostService;
     
-    // @Autowired
-    // private SysUserRoleMapper userRoleMapper;
     @Autowired
     private ISysUserRoleService sysUserRoleService;
     
-    // @Autowired
-    // private SysUserPostMapper userPostMapper;
     @Autowired
     private ISysUserPostService sysUserPostService;
     

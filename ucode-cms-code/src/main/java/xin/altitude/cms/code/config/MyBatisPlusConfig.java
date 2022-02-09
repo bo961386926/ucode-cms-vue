@@ -30,7 +30,7 @@ public class MyBatisPlusConfig extends AbstractMyBatisConfig {
      *
      * @return SqlSessionFactory
      */
-    @Primary
+    // @Primary
     @Bean(name = CodeConstant.CODE_SQL_SESSION_FACTORY)
     public SqlSessionFactory sqlSessionFactory() {
         VFS.addImplClass(SpringBootVFS.class);

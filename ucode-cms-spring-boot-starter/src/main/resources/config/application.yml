@@ -85,8 +85,14 @@ logging:
 # MyBatis配置
 mybatis:
   # 加载全局的配置文件
-  configLocation: classpath:mybatis/mybatis-config.xml
-
+  #  configLocation: classpath:mybatis/mybatis-config2.xml
+  configuration:
+    cache-enabled: false
+    use-generated-keys: true
+    default-executor-type: reuse
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    map-underscore-to-camel-case: true
+    local-cache-scope: statement
 
 ## PageHelper分页插件
 #pagehelper:

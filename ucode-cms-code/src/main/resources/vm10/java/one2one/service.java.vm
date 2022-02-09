@@ -9,7 +9,7 @@ public interface I${ClassName}Service
  extends IService<${ClassName}>
 #end
 {
-#if($keyColumn)
+#if($joinQuery&&$keyColumn)
     I${keyColumn.referencedClassName}Service ${t.sc($keyColumn.referencedClassName)}Service = SpringUtils.getBean(I${keyColumn.referencedClassName}Service.class);
 
     /**查询用户实体类Vo*/

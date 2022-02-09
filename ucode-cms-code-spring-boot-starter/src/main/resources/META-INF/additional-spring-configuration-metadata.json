@@ -9,6 +9,11 @@
       "name": "ucode.code.moduleName",
       "type": "java.lang.String",
       "description": "代码生成模块名称."
+    },
+    {
+      "name": "ucode.code.joinQuery",
+      "type": "java.lang.Boolean",
+      "description": "是否开启连接查询."
     }
   ]
 }

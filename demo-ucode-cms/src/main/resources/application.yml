@@ -23,7 +23,4 @@ spring:
 
 ucode:
   code:
-    project-dir: ucode-cms-admin
-
-  job:
-    enabled: true
+    project-dir: demo-ucode-cms

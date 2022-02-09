@@ -13,6 +13,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import xin.altitude.cms.code.constant.CodeConstant;
+import xin.altitude.cms.code.mapper.MetaTableMapper;
 import xin.altitude.cms.code.util.CodeSpringUtils;
 import xin.altitude.cms.common.util.ResourceUtils;
 import xin.altitude.cms.framework.config.AbstractMyBatisConfig;
@@ -30,7 +31,6 @@ public class MyBatisPlusConfig extends AbstractMyBatisConfig {
      *
      * @return SqlSessionFactory
      */
-    // @Primary
     @Bean(name = CodeConstant.CODE_SQL_SESSION_FACTORY)
     public SqlSessionFactory sqlSessionFactory() {
         VFS.addImplClass(SpringBootVFS.class);
@@ -43,7 +43,8 @@ public class MyBatisPlusConfig extends AbstractMyBatisConfig {
         sessionFactory.setDataSource(CodeSpringUtils.getBean(DataSourceName.DYNAMIC_DATA_SOURCE));
         sessionFactory.setPlugins(interceptor());
         sessionFactory.setConfiguration(configuration);
-        sessionFactory.setMapperLocations(ResourceUtils.resolveMapperLocations(mapperLocations));
+        configuration.getMapperRegistry().addMappers(MetaTableMapper.class.getPackage().getName());
+        // sessionFactory.setMapperLocations(ResourceUtils.resolveMapperLocations(mapperLocations));
         try {
             return sessionFactory.getObject();
         } catch (Exception e) {

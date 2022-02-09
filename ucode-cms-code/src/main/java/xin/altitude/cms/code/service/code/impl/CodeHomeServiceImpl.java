@@ -16,8 +16,8 @@ import xin.altitude.cms.code.service.join.impl.More2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreVoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
-import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.CodeSpringUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.common.util.ColUtils;
 
 import java.util.Collections;
@@ -64,7 +64,7 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
         for (String layerType : config.getLayerTypes()) {
             if (LayerEnum.DOMAIN.getValue().equals(layerType)) {
                 domainService.writeToLocalFile(tableName, className);
-            } else if (LayerEnum.DOMAINVO.getValue().equals(layerType)) {
+            } else if (config.getJoinQuery() && LayerEnum.DOMAINVO.getValue().equals(layerType)) {
                 if (keyColumns.size() == 1) {
                     one2OneVoService.writeToLocalFile(tableName, className, ColUtils.toObj(keyColumns));
                 } else if (keyColumns.size() == 2) {
@@ -73,7 +73,7 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
                     Collections.reverse(tableNames);
                     CodeSpringUtils.getBean(More2MoreVoServiceImpl.class).writeToLocalFile(tableNames, className);
                 }
-            } else if (LayerEnum.DOMAINBO.getValue().equals(layerType)) {
+            } else if (config.getJoinQuery() && LayerEnum.DOMAINBO.getValue().equals(layerType)) {
                 if (keyColumns.size() == 2) {
                     keyColumns.forEach(e -> domainBoService.writeToLocalFile(e, className));
                 }

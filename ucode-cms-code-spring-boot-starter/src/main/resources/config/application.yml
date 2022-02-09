@@ -8,6 +8,7 @@ ucode:
     useMybatisPlus: true
     useSwagger: true
     functionAuthor: explore
+    joinQuery: false
     domain:
       overrideToString: false
       addConstructionMethod: true

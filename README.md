@@ -41,7 +41,7 @@ sql/
 <dependency>
     <groupId>xin.altitude.cms.code</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
 </dependency>
 ```
 #### 全局配置
@@ -75,7 +75,7 @@ spring:
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.3.1</version>
+    <version>1.3.2</version>
     <exclusions>
         <exclusion>
             <groupId>xin.altitude.cms.job</groupId>

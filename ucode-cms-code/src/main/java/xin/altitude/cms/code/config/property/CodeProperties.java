@@ -24,7 +24,6 @@ import static java.util.Objects.nonNull;
  * @author explore
  * @since 2019/07/07 13:41
  **/
-// @Configuration
 @ConfigurationProperties(prefix = "ucode.code")
 public class CodeProperties {
     /**
@@ -39,7 +38,6 @@ public class CodeProperties {
      * 是否去除表前缀
      */
     private Boolean removeTablePrefix = false;
-    
     /**
      * 表前缀
      */
@@ -56,7 +54,6 @@ public class CodeProperties {
      * 作者
      */
     private String functionAuthor = "explore";
-    
     /**
      * 是否使用Lombok
      */
@@ -73,6 +70,10 @@ public class CodeProperties {
      * 是否过滤系统表
      */
     private Boolean filterSysTable = true;
+    /**
+     * 是否开启连接查询
+     */
+    private Boolean joinQuery = false;
     /**
      * 实体类配置
      */
@@ -217,6 +218,14 @@ public class CodeProperties {
     
     public void setProjectDir(String projectDir) {
         this.projectDir = projectDir;
+    }
+    
+    public Boolean getJoinQuery() {
+        return joinQuery;
+    }
+    
+    public void setJoinQuery(Boolean joinQuery) {
+        this.joinQuery = joinQuery;
     }
     
     /**

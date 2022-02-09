@@ -6,6 +6,7 @@ package xin.altitude.cms.code.service.code.impl;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.velocity.VelocityContext;
+import xin.altitude.cms.code.config.property.CodeProperties;
 import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
@@ -14,6 +15,7 @@ import xin.altitude.cms.code.util.format.JavaFormat4Controller;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.entity.PageEntity;
 import xin.altitude.cms.common.util.EntityUtils;
+import xin.altitude.cms.common.util.SpringUtils;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -63,7 +65,7 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         VelocityContext context = createContext(tableName);
         // 标识是否增强Vo
         context.put("flagCode", flagCode);
-        
+        context.put("joinQuery", SpringUtils.getBean(CodeProperties.class).getJoinQuery());
         return context;
     }
     
@@ -114,7 +116,8 @@ public class ControllerServiceImpl extends CommonServiceImpl {
     
     public List<String> getImportList(String tableName, List<KeyColumnUsageVo> keyColumnUsageVos) {
         List<String> rs = getImportList(tableName);
-        if (keyColumnUsageVos.size() == 2) {
+        Boolean joinQuery = SpringUtils.getBean(CodeProperties.class).getJoinQuery();
+        if (joinQuery && keyColumnUsageVos.size() == 2) {
             rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(keyColumnUsageVos.get(0).getReferencedClassName())));
             rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(keyColumnUsageVos.get(1).getReferencedClassName())));
         }

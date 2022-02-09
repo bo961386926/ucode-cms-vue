@@ -9,12 +9,14 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import xin.altitude.cms.code.config.property.CodeProperties;
 import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
 import xin.altitude.cms.code.entity.vo.MetaColumnVo;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
 import xin.altitude.cms.code.service.code.impl.CommonServiceImpl;
 import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
+import xin.altitude.cms.common.util.SpringUtils;
 
 import java.io.StringWriter;
 import java.nio.charset.Charset;
@@ -96,6 +98,7 @@ public class One2OneServiceServiceImpl extends CommonServiceImpl {
     public VelocityContext createContext(String tableName, KeyColumnUsageVo keyColumnUsageVo) {
         VelocityContext context = createContext(tableName);
         context.put("keyColumn", keyColumnUsageVo);
+        context.put("joinQuery", SpringUtils.getBean(CodeProperties.class).getJoinQuery());
         // 添加导包列表
         context.put("importList", getImportList(tableName, keyColumnUsageVo));
         return context;
@@ -118,16 +121,19 @@ public class One2OneServiceServiceImpl extends CommonServiceImpl {
     
     public List<String> getImportList(String tableName, KeyColumnUsageVo keyColumnUsageVo) {
         List<String> rs = getImportList(tableName);
-        rs.add("import com.baomidou.mybatisplus.core.metadata.IPage;");
-        rs.add("import com.baomidou.mybatisplus.core.toolkit.Wrappers;");
-        rs.add("import xin.altitude.cms.common.util.BeanCopyUtils;");
-        rs.add("import xin.altitude.cms.common.util.EntityUtils;");
-        rs.add("import xin.altitude.cms.common.util.SpringUtils;");
-        rs.add(String.format("import %s.domain.%s;", config.getPackageName(), keyColumnUsageVo.getReferencedClassName()));
-        rs.add(String.format("import %s.entity.vo.%sVo;", config.getPackageName(), keyColumnUsageVo.getClassName()));
-        rs.add("import java.util.List;");
-        rs.add("import java.util.Map;");
-        rs.add("import java.util.Set;");
+        Boolean joinQuery = SpringUtils.getBean(CodeProperties.class).getJoinQuery();
+        if (joinQuery) {
+            rs.add("import com.baomidou.mybatisplus.core.metadata.IPage;");
+            rs.add("import com.baomidou.mybatisplus.core.toolkit.Wrappers;");
+            rs.add("import xin.altitude.cms.common.util.BeanCopyUtils;");
+            rs.add("import xin.altitude.cms.common.util.EntityUtils;");
+            rs.add("import xin.altitude.cms.common.util.SpringUtils;");
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), keyColumnUsageVo.getReferencedClassName()));
+            rs.add(String.format("import %s.entity.vo.%sVo;", config.getPackageName(), keyColumnUsageVo.getClassName()));
+            rs.add("import java.util.List;");
+            rs.add("import java.util.Map;");
+            rs.add("import java.util.Set;");
+        }
         rs.sort(Comparator.naturalOrder());
         return rs;
     }

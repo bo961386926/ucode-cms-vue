@@ -14,14 +14,14 @@ public class ${ClassName}Controller
     public AjaxResult page(PageEntity pageEntity,${ClassName} ${t.sc($ClassName)}){
         return AjaxResult.success(${t.sc($ClassName)}Service.page(pageEntity.toPage(), Wrappers.lambdaQuery(${t.sc($ClassName)})));
     }
-#if($flagCode == 11)
+#if($joinQuery&&$flagCode == 11)
     @GetMapping("/vo/page")
     public AjaxResult pageVo(PageEntity pageEntity,${ClassName} ${t.sc($ClassName)}){
         return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($ClassName)}));
     }
 #end
 
-#if($flagCode == 22 && $LKeyColumn && $RKeyColumn)
+#if($joinQuery&&$flagCode == 22 && $LKeyColumn && $RKeyColumn)
     @GetMapping("/${t.sc($LKeyColumn.referencedClassName)}/page")
     public AjaxResult pageVo(PageEntity pageEntity,${LKeyColumn.referencedClassName} ${t.sc($LKeyColumn.referencedClassName)}){
         return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($LKeyColumn.referencedClassName)}));
@@ -38,13 +38,13 @@ public class ${ClassName}Controller
         return AjaxResult.success(${t.sc($ClassName)}Service.list(Wrappers.lambdaQuery(${t.sc($ClassName)})));
     }
 
-#if($flagCode == 11)
+#if($joinQuery&&$flagCode == 11)
     @GetMapping("/vo/list")
     public AjaxResult listVo(${ClassName} ${t.sc($ClassName)}){
         return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($ClassName)}));
     }
 #end
-#if($flagCode == 22 && $LKeyColumn && $RKeyColumn)
+#if($joinQuery&&$flagCode == 22 && $LKeyColumn && $RKeyColumn)
     @GetMapping("/${t.sc($LKeyColumn.referencedClassName)}/list")
     public AjaxResult listVo(${LKeyColumn.referencedClassName} ${t.sc($LKeyColumn.referencedClassName)}){
         return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($LKeyColumn.referencedClassName)}));
@@ -75,14 +75,14 @@ public class ${ClassName}Controller
     public AjaxResult detail(@PathVariable("${pkColumn.fieldName}") ${pkColumn.fieldType} ${pkColumn.fieldName}) {
         return AjaxResult.success(${t.sc($ClassName)}Service.getById(${pkColumn.fieldName}));
     }
-#if($flagCode == 11)
+#if($joinQuery&&$flagCode == 11)
     @GetMapping(value = "/vo/detail/{${pkColumn.fieldName}}")
     public AjaxResult detailVo(@PathVariable("${pkColumn.fieldName}") ${pkColumn.fieldType} ${pkColumn.fieldName}) {
         return AjaxResult.success(${t.sc($ClassName)}Service.getOneVo(${pkColumn.fieldName}));
     }
 #end
 
-#if($flagCode == 22 && $LKeyColumn && $RKeyColumn)
+#if($joinQuery&&$flagCode == 22 && $LKeyColumn && $RKeyColumn)
     @GetMapping(value = "/${t.sc($LKeyColumn.referencedClassName)}/detail/{${LKeyColumn.referencedFieldName}}")
     public AjaxResult detail${LKeyColumn.referencedClassName}Vo(@PathVariable("${LKeyColumn.referencedFieldName}") ${LKeyColumn.referencedFieldType} ${LKeyColumn.referencedFieldName}) {
         return AjaxResult.success(${t.sc($ClassName)}Service.get${LKeyColumn.referencedClassName}Vo(${LKeyColumn.referencedFieldName}));

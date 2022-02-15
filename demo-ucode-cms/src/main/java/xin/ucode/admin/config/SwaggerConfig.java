@@ -11,8 +11,8 @@ import xin.altitude.cms.framework.config.AbstractSwaggerConfig;
  *
  * @author ucode
  */
-// @Configuration
-// @ConditionalOnProperty(value = "ucode.swagger.enabled", havingValue = "true")
+@Configuration
+@ConditionalOnProperty(value = "ucode.swagger.enabled", havingValue = "true")
 public class SwaggerConfig extends AbstractSwaggerConfig {
     /**
      * 创建API

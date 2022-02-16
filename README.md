@@ -77,46 +77,52 @@ Maven对外提供的依赖清单如下：
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
     <version>1.3.3</version>
 </dependency>
-<!--代码生成器模块（非必选）-->
-<dependency>
-    <groupId>xin.altitude.cms.code</groupId>
-    <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.3.3</version>
-</dependency>
 ```
 
 #### （三）可选依赖
-
-其中内置如下Maven依赖，对于未使用到的模块，可按需排除。
-
+可选依赖有两重含义：一是 `ucode-cms-spring-boot-starter`中未包含的依赖可按需添加，二是 `ucode-cms-spring-boot-starter`中包含尚使用不到的依赖可按需移除。
+##### 通用代码
+通用代码依赖可跨项目使用，不仅限于此项目。其中内置的工具类`EntityUtils`在MybatisPlus多表连接查询中发挥重要作用。
 ```xml
-<dependency>
-    <groupId>xin.altitude.cms.framework</groupId>
-    <artifactId>ucode-cms-framework</artifactId>
-</dependency>
 <dependency>
     <groupId>xin.altitude.cms.common</groupId>
     <artifactId>ucode-cms-common</artifactId>
+    <version>1.3.3</version>
 </dependency>
-<dependency>
-    <groupId>xin.altitude.cms.system</groupId>
-    <artifactId>ucode-cms-system</artifactId>
-</dependency>
-<dependency>
-    <groupId>xin.altitude.cms.job</groupId>
-    <artifactId>ucode-cms-job</artifactId>
-</dependency>
+```
+##### 可视化界面
+可根据需要是否引入可视化界面。
+```xml
 <dependency>
     <groupId>xin.altitude.cms.ui</groupId>
     <artifactId>ucode-cms-ui</artifactId>
+    <version>1.3.3</version>
 </dependency>
+```
+##### 定时任务
+若有定时任务可视化管理的需求，可引入此模块。
+```xml
+<dependency>
+    <groupId>xin.altitude.cms.job</groupId>
+    <artifactId>ucode-cms-job</artifactId>
+    <version>1.3.3</version>
+</dependency>
+```
+##### 系统监控
+若有系统监控的需求，可引入此模块。
+```xml
 <dependency>
     <groupId>xin.altitude.cms.monitor</groupId>
     <artifactId>ucode-cms-monitor</artifactId>
+    <version>1.3.3</version>
 </dependency>
+```
+##### 表格处理
+```xml
 <dependency>
     <groupId>xin.altitude.cms.excel</groupId>
     <artifactId>ucode-cms-excel</artifactId>
+    <version>1.3.3</version>
 </dependency>
 ```
 
@@ -124,9 +130,9 @@ Maven对外提供的依赖清单如下：
 
 ##### 1、代码生成器
 
-通过可视化界面勾选库表结构，即可达到本地化快速生成代码的效果。
-
-对于表间含有外键关系的库表结构同样支持，一对一、一对多、多对多可无缝衔接。
+通过可视化界面勾选库表结构，即可达到本地化快速生成代码的效果。对于表间含有外键关系的库表结构同样支持，一对一、一对多、多对多可无缝衔接。
+[快速体验](https://gitee.com/decsa/demo-code)地址
+![img.png](https://www.altitude.xin/typora/image-20220216105356896.png)
 
 ##### 2、内置接口列表
 
@@ -136,6 +142,6 @@ Maven对外提供的依赖清单如下：
 
 ##### 3、可视化任务调度
 
-项目出厂内置可视化任务调度模块，对于任务调度的管理非常友好。
+可视化任务调度模块需要单独引入，对于任务调度的管理非常友好。
 
 上手文档见demo项目。

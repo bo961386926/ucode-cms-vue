@@ -1,6 +1,7 @@
 ### 一、序言
 
 `UCode Cms`内容管理系统是Java知识图谱的重要组成部分，是面向企业级应用软件开发的脚手架。当前版本`1.3.3`。
+
 使用简易demo项目[快速体验](https://gitee.com/decsa/demo-cms)地址 。
 
 #### （一）项目特点
@@ -81,9 +82,13 @@ Maven对外提供的依赖清单如下：
 ```
 
 #### （三）可选依赖
+
 可选依赖有两重含义：一是 `ucode-cms-spring-boot-starter`中未包含的依赖可按需添加，二是 `ucode-cms-spring-boot-starter`中包含尚使用不到的依赖可按需移除。
-##### 通用代码
+
+##### 1、通用代码
+
 通用代码依赖可跨项目使用，不仅限于此项目。其中内置的工具类`EntityUtils`在MybatisPlus多表连接查询中发挥重要作用。
+
 ```xml
 <dependency>
     <groupId>xin.altitude.cms.common</groupId>
@@ -91,8 +96,11 @@ Maven对外提供的依赖清单如下：
     <version>1.3.3</version>
 </dependency>
 ```
-##### 可视化界面
+
+##### 2、可视化界面
+
 可根据需要是否引入可视化界面。
+
 ```xml
 <dependency>
     <groupId>xin.altitude.cms.ui</groupId>
@@ -100,8 +108,11 @@ Maven对外提供的依赖清单如下：
     <version>1.3.3</version>
 </dependency>
 ```
-##### 定时任务
+
+##### 3、定时任务
+
 若有定时任务可视化管理的需求，可引入此模块。
+
 ```xml
 <dependency>
     <groupId>xin.altitude.cms.job</groupId>
@@ -109,8 +120,11 @@ Maven对外提供的依赖清单如下：
     <version>1.3.3</version>
 </dependency>
 ```
-##### 系统监控
+
+##### 4、系统监控
+
 若有系统监控的需求，可引入此模块。
+
 ```xml
 <dependency>
     <groupId>xin.altitude.cms.monitor</groupId>
@@ -118,7 +132,9 @@ Maven对外提供的依赖清单如下：
     <version>1.3.3</version>
 </dependency>
 ```
-##### 表格处理
+
+##### 5、表格处理
+
 ```xml
 <dependency>
     <groupId>xin.altitude.cms.excel</groupId>
@@ -129,20 +145,40 @@ Maven对外提供的依赖清单如下：
 
 #### （三）特色功能
 
+`CmsConfig`配置类控制系统运行的行为，所有内置的配置可以在全局配置文件中修改。
+
 ##### 1、代码生成器
 
-通过可视化界面勾选库表结构，即可达到本地化快速生成代码的效果。对于表间含有外键关系的库表结构同样支持，一对一、一对多、多对多可无缝衔接。
-[快速体验](https://gitee.com/decsa/demo-code)地址
-![img.png](https://www.altitude.xin/typora/image-20220216105356896.png)
+通过可视化界面勾选库表结构，即可达到本地化快速生成代码的效果。对于表间含有外键关系的库表结构同样支持，一对一、一对多、多对多可无缝衔接。 [快速体验](https://gitee.com/decsa/demo-code)地址 。![imgpng](https://www.altitude.xin/typora/image-20220216105356896.png)
 
 ##### 2、内置接口列表
 
 项目出厂时便自带接口列表特性，可快速实现接口联调与对接，降低沟通成本。
 
-<img src="https://www.altitude.xin/typora/image-20220117123240376.png" alt="image-20220117123240376" style="zoom:50%;" />
+![image-20220216172127541](https://www.altitude.xin/typora/image-20220216172127541.png)
+
+可在全局配置文件中开启或者关闭接口列表。
 
 ##### 3、可视化任务调度
 
 可视化任务调度模块需要单独引入，对于任务调度的管理非常友好。
 
-上手文档见demo项目。
+![image-20220216172703350](https://www.altitude.xin/typora/image-20220216172703350.png)
+
+引入依赖
+
+```xml
+<!--定时任务依赖（非必选）-->
+<dependency>
+    <groupId>xin.altitude.cms.job</groupId>
+    <artifactId>ucode-cms-job</artifactId>
+    <version>1.3.3</version>
+</dependency>
+```
+
+全局配置文件启用
+
+```properties
+ucode.job.enabled: true
+```
+

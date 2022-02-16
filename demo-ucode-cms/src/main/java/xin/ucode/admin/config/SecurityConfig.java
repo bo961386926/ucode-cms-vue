@@ -11,7 +11,7 @@ import xin.altitude.cms.auth.config.AbstractSecurityConfig;
  *
  * @author ucode
  */
-// @Configuration
+@Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfig extends AbstractSecurityConfig {
     /**

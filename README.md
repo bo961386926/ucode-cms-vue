@@ -1,7 +1,7 @@
 ### 一、序言
 
 `UCode Cms`内容管理系统是Java知识图谱的重要组成部分，是面向企业级应用软件开发的脚手架。当前版本`1.3.3`。
-使用简易demo项目[快速体验](https://gitee.com/decsa/demo-code)地址 。
+使用简易demo项目[快速体验](https://gitee.com/decsa/demo-cms)地址 。
 
 #### （一）项目特点
 

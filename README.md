@@ -201,6 +201,6 @@ Maven对外提供的依赖清单如下：
 
 如果在使用过程中有任何疑问，欢迎与我联系，当然尽量把相关文档书写规范。
 
-<img src="https://www.altitude.xin/typora/IMG_504373920069-1.jpeg" alt="IMG_504373920069-1" style="zoom:20%;" />
+![IMG_504373920069-2](https://www.altitude.xin/typora/IMG_504373920069-2.png)
 
 如果二维码失效，请添加微信号`dream4s`联系入群，谢谢。

@@ -73,6 +73,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
             context.put("LKeyColumn", keyColumnUsageVos.get(0));
             context.put("RKeyColumn", keyColumnUsageVos.get(1));
         }
+        context.put("joinQuery", SpringUtils.getBean(CodeProperties.class).getJoinQuery());
         context.put("importList", new HashSet<>(getImportList(tableName, keyColumnUsageVos)));
         return context;
     }

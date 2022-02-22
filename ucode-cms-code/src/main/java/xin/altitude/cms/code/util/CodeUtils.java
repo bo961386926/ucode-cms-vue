@@ -215,11 +215,12 @@ public class CodeUtils {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        try {
-            IOUtils.write(value, new FileOutputStream(file), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            try {
+                IOUtils.write(value, new FileOutputStream(file), StandardCharsets.UTF_8);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 

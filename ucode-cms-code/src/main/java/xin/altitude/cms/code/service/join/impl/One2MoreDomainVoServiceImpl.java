@@ -91,6 +91,7 @@ public class One2MoreDomainVoServiceImpl extends CommonServiceImpl {
             rs.add(String.format("import %s;", LocalDateTime.class.getName()));
             rs.add(String.format("import %s;", LocalDate.class.getName()));
             rs.add(String.format("import %s;", Date.class.getName()));
+            rs.add(String.format("import %s;", List.class.getName()));
             rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
             if (config.getDomain().getDateFormat()) {
                 rs.add("import com.fasterxml.jackson.annotation.JsonFormat;");

@@ -15,6 +15,7 @@ import xin.altitude.cms.code.service.join.impl.DomainBoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreVoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2MoreDomainVoServiceImpl;
+import xin.altitude.cms.code.service.join.impl.One2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
 import xin.altitude.cms.code.util.CodeSpringUtils;
@@ -90,6 +91,7 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
                 } else if (keyColumns.size() == 1) {
                     KeyColumnUsageVo keyColumnUsageVo = toKeyColumnUsageVo(ColUtils.toObj(keyColumns));
                     CodeSpringUtils.getBean(One2OneServiceServiceImpl.class).writeToLocalFile(tableName, className, keyColumnUsageVo);
+                    SpringUtils.getBean(One2MoreServiceServiceImpl.class).writeToLocalFile(tableName, keyColumnUsageVo);
                 } else if (keyColumns.size() == 2) {
                     CodeSpringUtils.getBean(More2MoreServiceServiceImpl.class).writeToLocalFile(tableName, className, keyColumns);
                 }
@@ -99,6 +101,7 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
                 Integer flagCode = 0;
                 if (keyColumns.size() == 1) {
                     flagCode = JoinQueryEnum.ONE_ONE.getValue();
+                    controllerService.writeToLocalFile(tableName, JoinQueryEnum.ONE_MORE.getValue(), ColUtils.toObj(keyColumns));
                 } else if (keyColumns.size() == 2) {
                     flagCode = JoinQueryEnum.MORE_MORE.getValue();
                 }

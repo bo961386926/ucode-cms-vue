@@ -42,6 +42,19 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
 
+    public void writeToLocalFile(String tableName, Integer flagCode, KeyColumnUsage keyColumnUsage) {
+        // List<KeyColumnUsageVo> keyColumnUsageVos = EntityUtils.toList(keyColumnUsages, this::toKeyColumnUsageVo);
+        KeyColumnUsageVo keyColumnUsageVo = EntityUtils.toObj(keyColumnUsage, this::toKeyColumnUsageVo);
+        String fileName = String.format("%sController.java", keyColumnUsageVo.getReferencedClassName());
+        VelocityContext context = createContext(keyColumnUsageVo.getReferencedTableName(), flagCode, keyColumnUsageVo);
+        // 渲染后并格式化代码字符串
+        String value = JavaFormat4Controller.formJava(renderTemplate(context, TEMPLATE).toString());
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath(LayerEnum.CONTROLLER.getValue());
+        String filePath = FilenameUtils.concat(parentDirPath, fileName);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath, true);
+    }
+
+
     public VelocityContext createContext(String tableName) {
         VelocityContext context = createContext();
         context.put("tableName", tableName);
@@ -76,6 +89,14 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         }
         // 添加导包列表
         context.put("importList", new HashSet<>(getImportList(tableName, keyColumnUsageVos)));
+        return context;
+    }
+
+    public VelocityContext createContext(String tableName, Integer flagCode, KeyColumnUsageVo keyColumnUsageVo) {
+        VelocityContext context = createContext(tableName, flagCode);
+
+        // 添加导包列表
+        context.put("importList", new HashSet<>(getImportList(tableName, keyColumnUsageVo)));
         return context;
     }
 
@@ -120,6 +141,13 @@ public class ControllerServiceImpl extends CommonServiceImpl {
             rs.add(String.format("import %s.domain.%s;", config.getPackageName(), keyColumnUsageVos.get(0).getReferencedClassName()));
             rs.add(String.format("import %s.domain.%s;", config.getPackageName(), keyColumnUsageVos.get(1).getReferencedClassName()));
         }
+        rs.sort(Comparator.naturalOrder());
+        return rs;
+    }
+
+    public List<String> getImportList(String tableName, KeyColumnUsageVo keyColumnUsageVo) {
+        List<String> rs = getImportList(tableName);
+        Boolean joinQuery = config.getJoinQuery();
         rs.sort(Comparator.naturalOrder());
         return rs;
     }

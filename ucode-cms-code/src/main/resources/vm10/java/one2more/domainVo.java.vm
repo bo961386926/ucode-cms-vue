@@ -13,7 +13,7 @@ ${item}
 public class ${rightClassName}Vo extends ${rightClassName}
 {
     private static final long serialVersionUID = 1L;
-    private ${leftClassName} ${leftInstanceName}List;
+    private List<${leftClassName}> ${leftInstanceName}List;
 
 
     public ${rightClassName}Vo() {

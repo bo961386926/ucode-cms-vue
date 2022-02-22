@@ -189,11 +189,26 @@ public class CodeUtils {
      * @param filePath      结对文件
      */
     public static void genDirAndFile(String value, String parentDirPath, String filePath) {
+        genDirAndFile(value, parentDirPath, filePath, false);
+    }
+
+    /**
+     * 给定根目录，相对父目录，文件名，写入文件内容
+     *
+     * @param value         文件内容
+     * @param parentDirPath 结对父目录
+     * @param filePath      结对文件
+     * @param force         是否强写
+     */
+    public static void genDirAndFile(String value, String parentDirPath, String filePath, boolean force) {
         File parentDirFile = new File(FilenameUtils.concat(CodeConstant.PROJECT_ROOT_ABSOLUTE_PATH, parentDirPath));
         if (!parentDirFile.exists()) {
             parentDirFile.mkdirs();
         }
         File file = new File(FilenameUtils.concat(CodeConstant.PROJECT_ROOT_ABSOLUTE_PATH, filePath));
+        if (force && file.exists()) {
+            file.delete();
+        }
         if (!file.exists()) {
             try {
                 file.createNewFile();

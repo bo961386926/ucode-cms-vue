@@ -23,6 +23,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * 处理domain部分代码生成的业务逻辑
@@ -34,22 +35,14 @@ public class One2MoreServiceServiceImpl extends CommonServiceImpl {
     private final static String TEMPLATE = "vm10/java/one2more/service.java.vm";
 
 
-    public void writeToLocalFile(String tableName, String className) {
-        String fileName = String.format("I%sService.java", className);
-        String value = realtimePreview(tableName);
-        String parentDirPath = CodeUtils.createRelativJavaDirFilePath("service");
-        String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
-    }
-
-
-    public void writeToLocalFile(String tableName, String className, KeyColumnUsageVo keyColumnUsageVo) {
+    public void writeToLocalFile(String tableName, KeyColumnUsageVo keyColumnUsageVo) {
+        String className = keyColumnUsageVo.getReferencedClassName();
         String fileName = String.format("I%sService.java", className);
         VelocityContext context = createContext(tableName, keyColumnUsageVo);
         String value = realtimePreview(context);
         String parentDirPath = CodeUtils.createRelativJavaDirFilePath("service");
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath, true);
     }
 
     /**
@@ -94,10 +87,31 @@ public class One2MoreServiceServiceImpl extends CommonServiceImpl {
         return context;
     }
 
+    /**
+     * 交换属性
+     *
+     * @param keyColumnUsageVo
+     * @return
+     */
+    public KeyColumnUsageVo exchangeKeyColumnUsageVo(KeyColumnUsageVo keyColumnUsageVo) {
+        KeyColumnUsageVo vo = new KeyColumnUsageVo();
+        String className = keyColumnUsageVo.getClassName();
+        String fieldName = keyColumnUsageVo.getFieldName();
+        String fieldType = keyColumnUsageVo.getFieldType();
+        vo.setClassName(keyColumnUsageVo.getReferencedClassName());
+        vo.setFieldName(keyColumnUsageVo.getReferencedFieldName());
+        vo.setFieldType(keyColumnUsageVo.getReferencedFieldType());
+        vo.setReferencedClassName(className);
+        vo.setReferencedFieldName(fieldName);
+        vo.setReferencedFieldType(fieldType);
+        return vo;
+    }
+
 
     public VelocityContext createContext(String tableName, KeyColumnUsageVo keyColumnUsageVo) {
-        VelocityContext context = createContext(tableName);
-        context.put("keyColumn", keyColumnUsageVo);
+        VelocityContext context = createContext(keyColumnUsageVo.getReferencedTableName());
+        /* 交换属性后传值 */
+        context.put("keyColumn", exchangeKeyColumnUsageVo(keyColumnUsageVo));
         context.put("joinQuery", SpringUtils.getBean(CodeProperties.class).getJoinQuery());
         // 添加导包列表
         context.put("importList", getImportList(tableName, keyColumnUsageVo));
@@ -129,10 +143,11 @@ public class One2MoreServiceServiceImpl extends CommonServiceImpl {
             rs.add("import xin.altitude.cms.common.util.EntityUtils;");
             rs.add("import xin.altitude.cms.common.util.SpringUtils;");
             rs.add(String.format("import %s.domain.%s;", config.getPackageName(), keyColumnUsageVo.getReferencedClassName()));
-            rs.add(String.format("import %s.entity.vo.%sVo;", config.getPackageName(), keyColumnUsageVo.getClassName()));
+            rs.add(String.format("import %s.entity.vo.%sVo;", config.getPackageName(), keyColumnUsageVo.getReferencedClassName()));
             rs.add("import java.util.List;");
             rs.add("import java.util.Map;");
             rs.add("import java.util.Set;");
+            rs.add(String.format("import %s;", Collectors.class.getName()));
         }
         rs.sort(Comparator.naturalOrder());
         return rs;

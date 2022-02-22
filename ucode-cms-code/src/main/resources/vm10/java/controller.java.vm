@@ -47,6 +47,12 @@ public class ${ClassName}Controller
       return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($ClassName)}));
     }
 #end
+#if($joinQuery&&$flagCode == 12)
+    @GetMapping("/vo/page")
+    public AjaxResult pageVo(PageEntity pageEntity,${ClassName} ${t.sc($ClassName)}){
+        return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($ClassName)}));
+    }
+#end
 
 #if($joinQuery&&$flagCode == 22 && $LKeyColumn && $RKeyColumn)
     @GetMapping("/${t.sc($LKeyColumn.referencedClassName)}/page")
@@ -66,6 +72,12 @@ public class ${ClassName}Controller
       return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($ClassName)}));
     }
 #end
+#if($joinQuery&&$flagCode == 12)
+    @GetMapping("/vo/list")
+    public AjaxResult listVo(${ClassName} ${t.sc($ClassName)}){
+        return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($ClassName)}));
+    }
+#end
 #if($joinQuery&&$flagCode == 22 && $LKeyColumn && $RKeyColumn)
     @GetMapping("/${t.sc($LKeyColumn.referencedClassName)}/list")
     public AjaxResult listVo(${LKeyColumn.referencedClassName} ${t.sc($LKeyColumn.referencedClassName)}){
@@ -79,6 +91,12 @@ public class ${ClassName}Controller
 #end
 
 #if($joinQuery&&$flagCode == 11)
+    @GetMapping(value = "/vo/detail/{${pkColumn.fieldName}}")
+    public AjaxResult detailVo(@PathVariable("${pkColumn.fieldName}") ${pkColumn.fieldType} ${pkColumn.fieldName}) {
+        return AjaxResult.success(${t.sc($ClassName)}Service.getOneVo(${pkColumn.fieldName}));
+    }
+#end
+#if($joinQuery&&$flagCode == 12)
     @GetMapping(value = "/vo/detail/{${pkColumn.fieldName}}")
     public AjaxResult detailVo(@PathVariable("${pkColumn.fieldName}") ${pkColumn.fieldType} ${pkColumn.fieldName}) {
         return AjaxResult.success(${t.sc($ClassName)}Service.getOneVo(${pkColumn.fieldName}));

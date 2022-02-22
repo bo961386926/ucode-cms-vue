@@ -8,4 +8,4 @@ spring:
 
 ucode:
   code:
-    join-query: true
+    join-query: false

@@ -14,11 +14,13 @@ import xin.altitude.cms.code.service.core.ICodeHomeService;
 import xin.altitude.cms.code.service.join.impl.DomainBoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreVoServiceImpl;
+import xin.altitude.cms.code.service.join.impl.One2MoreDomainVoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
 import xin.altitude.cms.code.util.CodeSpringUtils;
 import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.common.util.ColUtils;
+import xin.altitude.cms.common.util.SpringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -51,7 +53,7 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
     private ServiceImplServiceImpl serviceImplService;
     @Autowired
     private XmlServiceImpl xmlService;
-    
+
     /**
      * 生成单张表的代码
      *
@@ -66,7 +68,10 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
                 domainService.writeToLocalFile(tableName, className);
             } else if (config.getJoinQuery() && LayerEnum.DOMAINVO.getValue().equals(layerType)) {
                 if (keyColumns.size() == 1) {
+                    /* 一对一 */
                     one2OneVoService.writeToLocalFile(tableName, className, ColUtils.toObj(keyColumns));
+                    /* 一对多 */
+                    SpringUtils.getBean(One2MoreDomainVoServiceImpl.class).writeToLocalFile(tableName, ColUtils.toObj(keyColumns));
                 } else if (keyColumns.size() == 2) {
                     List<String> tableNames = keyColumns.stream().map(KeyColumnUsage::getReferencedTableName).collect(Collectors.toList());
                     CodeSpringUtils.getBean(More2MoreVoServiceImpl.class).writeToLocalFile(tableNames, className);
@@ -105,7 +110,7 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
             }
         }
     }
-    
+
     /**
      * 循环生成本地代码
      *

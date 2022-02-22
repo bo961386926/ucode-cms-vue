@@ -32,12 +32,12 @@ import java.util.List;
  **/
 // @Service
 public class DdlTableServiceImpl implements IDdlTableService {
-    
+
     public static final String BASE_TABLE = "BASE TABLE";
-    
+
     @Autowired
     private IThirdSqlSessionService sessionService;
-    
+
     /**
      * 处理通用字段入口
      *
@@ -48,9 +48,9 @@ public class DdlTableServiceImpl implements IDdlTableService {
         if (tableNames.isEmpty()) {
             try (SqlSession sqlSession = sessionService.getSqlSession()) {
                 LambdaQueryWrapper<MetaTable> wrapper = Wrappers.lambdaQuery(MetaTable.class)
-                        .select(MetaTable::getTableName)
-                        .eq(MetaTable::getTableType, BASE_TABLE)
-                        .apply("table_schema = database()");
+                    .select(MetaTable::getTableName)
+                    .eq(MetaTable::getTableType, BASE_TABLE)
+                    .apply("table_schema = database()");
                 /* 是否过滤系统表系统表 */
                 if (SpringUtils.getBean(CodeProperties.class).getFilterSysTable()) {
                     wrapper.notLike(MetaTable::getTableName, CodeConstant.SYS_TABLE_PREFIX);
@@ -67,7 +67,7 @@ public class DdlTableServiceImpl implements IDdlTableService {
             handleLogicalDelete(tableName);
         }
     }
-    
+
     /**
      * 处理创建时间字段
      *
@@ -84,7 +84,7 @@ public class DdlTableServiceImpl implements IDdlTableService {
             }
         }
     }
-    
+
     /**
      * 处理更新时间字段
      *
@@ -101,7 +101,7 @@ public class DdlTableServiceImpl implements IDdlTableService {
             }
         }
     }
-    
+
     /**
      * 处理逻辑删除字段
      *
@@ -118,7 +118,7 @@ public class DdlTableServiceImpl implements IDdlTableService {
             }
         }
     }
-    
+
     /**
      * 检查列是否存在
      *
@@ -129,14 +129,14 @@ public class DdlTableServiceImpl implements IDdlTableService {
     @Options(useCache = false)
     public boolean checkColumn(String tableName, String columnName) {
         LambdaQueryWrapper<MetaColumn> eq = Wrappers.lambdaQuery(MetaColumn.class)
-                .eq(MetaColumn::getColumnName, columnName)
-                .eq(MetaColumn::getTableName, tableName)
-                .apply("table_schema = database()");
+            .eq(MetaColumn::getColumnName, columnName)
+            .eq(MetaColumn::getTableName, tableName)
+            .apply("table_schema = database()");
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             return sqlSession.getMapper(MetaColumnMapper.class).selectCount(eq) > 0;
         }
     }
-    
+
     /**
      * 检测表是不是视图
      * 视图不需要编辑表
@@ -148,10 +148,10 @@ public class DdlTableServiceImpl implements IDdlTableService {
     @Options(useCache = false)
     public List<String> viewTable(List<String> tableNames) {
         LambdaQueryWrapper<MetaTable> eq = Wrappers.lambdaQuery(MetaTable.class)
-                .in(MetaTable::getTableName, tableNames)
-                .eq(MetaTable::getTableType, BASE_TABLE)
-                .select(MetaTable::getTableName)
-                .apply("table_schema = database()");
+            .in(MetaTable::getTableName, tableNames)
+            .eq(MetaTable::getTableType, BASE_TABLE)
+            .select(MetaTable::getTableName)
+            .apply("table_schema = database()");
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             return EntityUtils.toList(sqlSession.getMapper(MetaTableMapper.class).selectList(eq), MetaTable::getTableName);
         }

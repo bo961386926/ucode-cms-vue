@@ -11,7 +11,6 @@ import org.apache.velocity.app.Velocity;
 import xin.altitude.cms.code.constant.enums.LayerEnum;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.service.code.impl.CommonServiceImpl;
-import xin.altitude.cms.code.service.join.IDomainBoService;
 import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
@@ -31,56 +30,52 @@ import java.util.List;
  * @author explore
  * @since 2019/07/07 14:11
  **/
-public class DomainBoServiceImpl extends CommonServiceImpl implements IDomainBoService {
-    private final static String TEMPLATE = "vm10/java/more2more/domainBo.java.vm";
-
-    /**
-     * 写到本地
-     *
-     * @param keyColumnUsage
-     * @param midClassName
-     */
-    @Override
-    public void writeToLocalFile(KeyColumnUsage keyColumnUsage, String midClassName) {
-        String className = CodeUtils.getClassName(keyColumnUsage.getReferencedTableName());
-        String fileName = String.format("%sBo.java", className);
-        VelocityContext context = createContext(midClassName, keyColumnUsage);
-        String value = realtimePreview(className, keyColumnUsage, context);
-        String parentDirPath = CodeUtils.createRelativJavaDirFilePath(FilenameUtils.concat(LayerEnum.DOMAINBO.getValue(), midClassName));
-        String filePath = FilenameUtils.concat(parentDirPath, fileName);
-        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
-    }
+public class One2MoreDomainVoServiceImpl extends CommonServiceImpl {
+    private final static String TEMPLATE = "vm10/java/one2more/domainVo.java.vm";
 
     /**
      * 代码实时预览
      */
-    @Override
-    public String realtimePreview(String tableName, KeyColumnUsage keyColumnUsage, VelocityContext context) {
+    public String realtimePreview(VelocityContext context) {
         StringWriter sw = new StringWriter();
         VelocityInitializer.initVelocity();
-
         Template tpl = Velocity.getTemplate(TEMPLATE, Charset.defaultCharset().displayName());
         tpl.merge(context, sw);
         return JavaFormat4Domain.formJava(sw.toString());
+    }
+
+    /**
+     * 写到本地
+     *
+     * @param tableName
+     * @param keyColumnUsage
+     */
+    public void writeToLocalFile(String tableName, KeyColumnUsage keyColumnUsage) {
+        String className = CodeUtils.getClassName(keyColumnUsage.getReferencedTableName());
+        String fileName = String.format("%sVo.java", className);
+        VelocityContext context = createContext(tableName, keyColumnUsage);
+        String value = realtimePreview(context);
+        String parentDirPath = CodeUtils.createRelativJavaDirFilePath(LayerEnum.DOMAINVO.getValue());
+        String filePath = FilenameUtils.concat(parentDirPath, fileName);
+        CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
 
 
     /**
      * 构建VelocityContext
      */
-    @Override
-    public VelocityContext createContext(String midClassName, KeyColumnUsage keyColumnUsage) {
+    public VelocityContext createContext(String tableName, KeyColumnUsage keyColumnUsage) {
         VelocityContext context = createContext();
-        context.put("MidClassName", midClassName);
+        context.put("leftClassName", CodeUtils.getClassName(tableName));
+        context.put("leftInstanceName", CodeUtils.getInstanceName(tableName));
 
-        context.put("ClassName", CodeUtils.getClassName(keyColumnUsage.getReferencedTableName()));
-        context.put("className", CodeUtils.getInstanceName(keyColumnUsage.getReferencedTableName()));
+        context.put("rightClassName", CodeUtils.getClassName(keyColumnUsage.getReferencedTableName()));
+        context.put("rightInstanceName", CodeUtils.getInstanceName(keyColumnUsage.getReferencedTableName()));
 
-        context.put("columns", getMetaColumnVoList(keyColumnUsage.getTableName(), keyColumnUsage.getReferencedTableName()));
         // 添加导包列表
-        context.put("importList", getImportList(keyColumnUsage.getReferencedTableName()));
+        context.put("importList", getImportList(tableName, keyColumnUsage));
         // 添加表备注
-        context.put("tableComment", getTableInfo(keyColumnUsage.getReferencedTableName()));
+        context.put("tableComment", getTableInfo(tableName).getTableComment());
         return context;
     }
 
@@ -89,7 +84,6 @@ public class DomainBoServiceImpl extends CommonServiceImpl implements IDomainBoS
      *
      * @param tableName 表名
      */
-    @Override
     public List<String> getImportList(String tableName) {
         ArrayList<String> rs = new ArrayList<>();
         // 如果配置需要导包，方才进行真正的导包列表构建
@@ -118,6 +112,13 @@ public class DomainBoServiceImpl extends CommonServiceImpl implements IDomainBoS
                 rs.add("import java.io.Serializable;");
             }
         }
+        rs.sort(Comparator.naturalOrder());
+        return rs;
+    }
+
+    public List<String> getImportList(String tableName, KeyColumnUsage keyColumnUsage) {
+        List<String> rs = getImportList(tableName);
+        rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(keyColumnUsage.getReferencedTableName())));
         rs.sort(Comparator.naturalOrder());
         return rs;
     }

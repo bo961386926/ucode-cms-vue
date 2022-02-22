@@ -33,11 +33,11 @@ import java.util.List;
 public class MetaTableServiceImpl implements IMetaTableService {
     @Autowired
     private IThirdSqlSessionService sessionService;
-    
+
     @Autowired
     private CodeProperties codeProperties;
-    
-    
+
+
     /**
      * 查询当前数据库所有列信息
      *
@@ -48,17 +48,17 @@ public class MetaTableServiceImpl implements IMetaTableService {
     public List<MetaTable> listTables() {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaTable> wrapper = Wrappers.lambdaQuery(MetaTable.class)
-                    .apply("table_schema = database()");
+                .apply("table_schema = database()");
             return sqlSession.getMapper(MetaTableMapper.class).selectList(wrapper);
         }
     }
-    
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public List<MetaTable> listTables(MetaTable metaTable) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaTable> wrapper = Wrappers.lambdaQuery(metaTable)
-                    .apply("table_schema = database()");
+                .apply("table_schema = database()");
             if (codeProperties.getFilterSysTable()) {
                 /* 不包含系统表 */
                 wrapper.notLike(MetaTable::getTableName, CodeConstant.SYS_TABLE_PREFIX);
@@ -67,19 +67,19 @@ public class MetaTableServiceImpl implements IMetaTableService {
             return sqlSession.getMapper(MetaTableMapper.class).selectList(wrapper);
         }
     }
-    
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public List<MetaTableBo> selectTableList(String tableName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaTable> eq = Wrappers.lambdaQuery(MetaTable.class)
-                    .select(MetaTable::getTableName, MetaTable::getTableComment)
-                    .apply("table_schema = database()");
+                .select(MetaTable::getTableName, MetaTable::getTableComment)
+                .apply("table_schema = database()");
             List<MetaTable> list = sqlSession.getMapper(MetaTableMapper.class).selectList(eq);
             return EntityUtils.toList(list, e -> new MetaTableBo(e.getTableName(), e.getTableName().equalsIgnoreCase(tableName)));
         }
     }
-    
+
     /**
      * 列表查询元数据表数据
      *
@@ -91,14 +91,14 @@ public class MetaTableServiceImpl implements IMetaTableService {
     public List<MetaTableBo> selectTableList(MetaTable metaTable) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaTable> eq = Wrappers.lambdaQuery(MetaTable.class)
-                    .select(MetaTable::getTableName, MetaTable::getTableComment)
-                    .apply("table_schema = database()");
+                .select(MetaTable::getTableName, MetaTable::getTableComment)
+                .apply("table_schema = database()");
             List<MetaTable> list = sqlSession.getMapper(MetaTableMapper.class).selectList(eq);
             return EntityUtils.toList(list, e -> new MetaTableBo(e.getTableName(), e.getTableName().equalsIgnoreCase(metaTable.getTableName())));
         }
     }
-    
-    
+
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public IPage<MetaTable> pageMetaTable(Page<MetaTable> page, MetaTable metaTable) {
@@ -115,14 +115,14 @@ public class MetaTableServiceImpl implements IMetaTableService {
             return sqlSession.getMapper(MetaTableMapper.class).selectPage(page, wrapper);
         }
     }
-    
+
     @Override
     public MetaTable getMetaTable(String tableName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaTable> queryWrapper = Wrappers.lambdaQuery(MetaTable.class)
-                    .select(MetaTable::getTableName, MetaTable::getTableComment)
-                    .eq(MetaTable::getTableName, tableName)
-                    .apply("table_schema = database()");
+                .select(MetaTable::getTableName, MetaTable::getTableComment)
+                .eq(MetaTable::getTableName, tableName)
+                .apply("table_schema = database()");
             List<MetaTable> tables = sqlSession.getMapper(MetaTableMapper.class).selectList(queryWrapper);
             return ColUtils.toObj(tables);
         }

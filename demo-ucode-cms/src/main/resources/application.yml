@@ -5,6 +5,8 @@ server:
 
 # Spring配置
 spring:
+  main:
+    allow-circular-references: true
   config:
     use-legacy-processing: true
   profiles:
@@ -24,3 +26,6 @@ spring:
 ucode:
   code:
     project-dir: demo-ucode-cms
+    package-name: "xin.ucode.front"
+    domain:
+      add-construction-method: true

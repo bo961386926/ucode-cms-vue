@@ -8,12 +8,12 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-import xin.altitude.cms.code.service.code.IMapperService;
 import xin.altitude.cms.code.config.property.CodeProperties;
+import xin.altitude.cms.code.service.code.IMapperService;
+import xin.altitude.cms.code.util.CodeSpringUtils;
 import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Domain;
-import xin.altitude.cms.code.util.CodeSpringUtils;
 
 import java.io.StringWriter;
 import java.nio.charset.Charset;
@@ -30,7 +30,7 @@ import java.util.List;
 // @Service
 public class MapperServiceImpl extends CommonServiceImpl implements IMapperService {
     private final static String TEMPLATE = "vm10/java/mapper.java.vm";
-    
+
     @Override
     public void writeToLocalFile(String tableName, String className) {
         String fileName = String.format("%sMapper.java", className);
@@ -39,7 +39,7 @@ public class MapperServiceImpl extends CommonServiceImpl implements IMapperServi
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
         CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
-    
+
     /**
      * 代码实时预览
      */
@@ -54,7 +54,7 @@ public class MapperServiceImpl extends CommonServiceImpl implements IMapperServi
         return JavaFormat4Domain.formJava(sw.toString());
         // return sw.toString();
     }
-    
+
     /**
      * 构建VelocityContext
      */
@@ -70,7 +70,7 @@ public class MapperServiceImpl extends CommonServiceImpl implements IMapperServi
         // context.put("tableComment", getTableInfo(tableName, configEntity.getDbConnId()).getTableComment());
         return context;
     }
-    
+
     /**
      * 获取导包列表
      */

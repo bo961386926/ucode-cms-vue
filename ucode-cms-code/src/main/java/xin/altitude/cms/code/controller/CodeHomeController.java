@@ -34,6 +34,7 @@ import xin.altitude.cms.code.service.core.impl.ThirdSqlSessionServiceImpl;
 import xin.altitude.cms.code.service.join.impl.DomainBoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.More2MoreVoServiceImpl;
+import xin.altitude.cms.code.service.join.impl.One2MoreDomainVoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
 import xin.altitude.cms.code.util.CodeSpringUtils;
@@ -56,11 +57,11 @@ import java.util.List;
 @Profile(value = RunEnv.ENV)
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/auto/code")
 @Import({CodeHomeServiceImpl.class, MetaTableServiceImpl.class,
-        DomainServiceImpl.class, One2OneVoServiceImpl.class, DomainBoServiceImpl.class, ControllerServiceImpl.class,
-        MapperServiceImpl.class, ServiceServiceImpl.class, ServiceImplServiceImpl.class, XmlServiceImpl.class,
-        CodeProperties.class, MyBatisPlusConfig.class, KeyColumnUsageImpl.class, CodeSpringUtils.class,
-        More2MoreVoServiceImpl.class, MetaColumnServiceImpl.class, More2MoreServiceServiceImpl.class, One2OneServiceServiceImpl.class,
-        ThirdSqlSessionServiceImpl.class, DdlTableServiceImpl.class})
+    DomainServiceImpl.class, One2OneVoServiceImpl.class, DomainBoServiceImpl.class, ControllerServiceImpl.class,
+    MapperServiceImpl.class, ServiceServiceImpl.class, ServiceImplServiceImpl.class, XmlServiceImpl.class,
+    CodeProperties.class, MyBatisPlusConfig.class, KeyColumnUsageImpl.class, CodeSpringUtils.class,
+    More2MoreVoServiceImpl.class, MetaColumnServiceImpl.class, More2MoreServiceServiceImpl.class, One2OneServiceServiceImpl.class,
+    One2MoreDomainVoServiceImpl.class, ThirdSqlSessionServiceImpl.class, DdlTableServiceImpl.class})
 public class CodeHomeController {
     @Autowired
     private ICodeHomeService entranceService;
@@ -68,7 +69,7 @@ public class CodeHomeController {
     private IMetaTableService metaTableService;
     @Autowired
     private IDdlTableService ddlTableService;
-    
+
     @GetMapping("/table/gen")
     public AjaxResult multiTableGen(String[] tableName) {
         MetaTable metaTable = new MetaTable();
@@ -80,7 +81,7 @@ public class CodeHomeController {
         entranceService.multiTableGen(tableName);
         return AjaxResult.success();
     }
-    
+
     /**
      * 查询信息列表
      *
@@ -92,7 +93,7 @@ public class CodeHomeController {
     public AjaxResult page(PageEntity pageEntity, MetaTable metaTable) {
         return AjaxResult.success(metaTableService.pageMetaTable(pageEntity.toPage(), metaTable));
     }
-    
+
     /**
      * 查询信息列表
      *
@@ -103,7 +104,7 @@ public class CodeHomeController {
     public AjaxResult list(MetaTable metaTable) {
         return AjaxResult.success(metaTableService.listTables(metaTable));
     }
-    
+
     /**
      * 修改列信息
      *
@@ -117,7 +118,7 @@ public class CodeHomeController {
         } else {
             ddlTableService.handleAllColumn(tableNames);
         }
-        
+
         return AjaxResult.success();
     }
 }

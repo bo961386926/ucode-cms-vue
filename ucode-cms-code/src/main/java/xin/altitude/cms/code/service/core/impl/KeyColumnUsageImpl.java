@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import xin.altitude.cms.code.constant.CodeConstant;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.mapper.KeyColumnUsageMapper;
-import xin.altitude.cms.code.constant.CodeConstant;
 import xin.altitude.cms.code.service.core.IKeyColumnUsage;
 import xin.altitude.cms.code.service.core.IThirdSqlSessionService;
 
@@ -22,10 +22,10 @@ import java.util.List;
  **/
 // @Service
 public class KeyColumnUsageImpl implements IKeyColumnUsage {
-    
+
     @Autowired
     private IThirdSqlSessionService sessionService;
-    
+
     /**
      * 查询当前数据库所有主键、外键信息
      *
@@ -35,11 +35,11 @@ public class KeyColumnUsageImpl implements IKeyColumnUsage {
     public List<KeyColumnUsage> listKeyColumns() {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<KeyColumnUsage> wrapper = Wrappers.lambdaQuery(KeyColumnUsage.class)
-                    .apply("table_schema = database()");
+                .apply("table_schema = database()");
             return sqlSession.getMapper(KeyColumnUsageMapper.class).selectList(wrapper);
         }
     }
-    
+
     /**
      * 判断当前表是否存在主键
      *
@@ -50,14 +50,14 @@ public class KeyColumnUsageImpl implements IKeyColumnUsage {
     public boolean existPk(String tableName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             final LambdaQueryWrapper<KeyColumnUsage> eq = Wrappers.lambdaQuery(KeyColumnUsage.class)
-                    .apply("table_schema=database()")
-                    .eq(KeyColumnUsage::getTableName, tableName)
-                    .eq(KeyColumnUsage::getConstraintName, CodeConstant.PRIMARY);
+                .apply("table_schema=database()")
+                .eq(KeyColumnUsage::getTableName, tableName)
+                .eq(KeyColumnUsage::getConstraintName, CodeConstant.PRIMARY);
             final Long count = sqlSession.getMapper(KeyColumnUsageMapper.class).selectCount(eq);
             return count == 1;
         }
     }
-    
+
     /**
      * 判断当前列是不是主键
      *
@@ -70,7 +70,7 @@ public class KeyColumnUsageImpl implements IKeyColumnUsage {
         List<KeyColumnUsage> list = listPrimaryKeyColumns(tableName);
         return list.stream().anyMatch(e -> e.getColumnName().equalsIgnoreCase(columnName));
     }
-    
+
     /**
      * 查询主键键索引信息
      *
@@ -81,13 +81,13 @@ public class KeyColumnUsageImpl implements IKeyColumnUsage {
     public List<KeyColumnUsage> listPrimaryKeyColumns(String tableName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<KeyColumnUsage> eq = Wrappers.lambdaQuery(KeyColumnUsage.class)
-                    .apply("table_schema = database()")
-                    .eq(KeyColumnUsage::getTableName, tableName)
-                    .eq(KeyColumnUsage::getConstraintName, CodeConstant.PRIMARY);
+                .apply("table_schema = database()")
+                .eq(KeyColumnUsage::getTableName, tableName)
+                .eq(KeyColumnUsage::getConstraintName, CodeConstant.PRIMARY);
             return sqlSession.getMapper(KeyColumnUsageMapper.class).selectList(eq);
         }
     }
-    
+
     /**
      * 查询外键索引信息
      *
@@ -98,10 +98,10 @@ public class KeyColumnUsageImpl implements IKeyColumnUsage {
     public List<KeyColumnUsage> listKeyColumns(String tableName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<KeyColumnUsage> eq = Wrappers.lambdaQuery(KeyColumnUsage.class)
-                    .apply("table_schema = database()")
-                    .eq(KeyColumnUsage::getTableName, tableName)
-                    .ne(KeyColumnUsage::getConstraintName, CodeConstant.PRIMARY)
-                    .isNotNull(KeyColumnUsage::getReferencedColumnName);
+                .apply("table_schema = database()")
+                .eq(KeyColumnUsage::getTableName, tableName)
+                .ne(KeyColumnUsage::getConstraintName, CodeConstant.PRIMARY)
+                .isNotNull(KeyColumnUsage::getReferencedColumnName);
             return sqlSession.getMapper(KeyColumnUsageMapper.class).selectList(eq);
         }
     }

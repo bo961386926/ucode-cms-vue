@@ -14,47 +14,12 @@ public class ${ClassName}Controller
     public AjaxResult page(PageEntity pageEntity,${ClassName} ${t.sc($ClassName)}){
         return AjaxResult.success(${t.sc($ClassName)}Service.page(pageEntity.toPage(), Wrappers.lambdaQuery(${t.sc($ClassName)})));
     }
-#if($joinQuery&&$flagCode == 11)
-    @GetMapping("/vo/page")
-    public AjaxResult pageVo(PageEntity pageEntity,${ClassName} ${t.sc($ClassName)}){
-        return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($ClassName)}));
-    }
-#end
-
-#if($joinQuery&&$flagCode == 22 && $LKeyColumn && $RKeyColumn)
-    @GetMapping("/${t.sc($LKeyColumn.referencedClassName)}/page")
-    public AjaxResult pageVo(PageEntity pageEntity,${LKeyColumn.referencedClassName} ${t.sc($LKeyColumn.referencedClassName)}){
-        return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($LKeyColumn.referencedClassName)}));
-    }
-
-    @GetMapping("/${t.sc($RKeyColumn.referencedClassName)}/page")
-    public AjaxResult pageVo(PageEntity pageEntity,${RKeyColumn.referencedClassName} ${t.sc($RKeyColumn.referencedClassName)}){
-        return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($RKeyColumn.referencedClassName)}));
-    }
-#end
 
     @GetMapping("/list")
     public AjaxResult list(${ClassName} ${t.sc($ClassName)}){
         return AjaxResult.success(${t.sc($ClassName)}Service.list(Wrappers.lambdaQuery(${t.sc($ClassName)})));
     }
 
-#if($joinQuery&&$flagCode == 11)
-    @GetMapping("/vo/list")
-    public AjaxResult listVo(${ClassName} ${t.sc($ClassName)}){
-        return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($ClassName)}));
-    }
-#end
-#if($joinQuery&&$flagCode == 22 && $LKeyColumn && $RKeyColumn)
-    @GetMapping("/${t.sc($LKeyColumn.referencedClassName)}/list")
-    public AjaxResult listVo(${LKeyColumn.referencedClassName} ${t.sc($LKeyColumn.referencedClassName)}){
-        return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($LKeyColumn.referencedClassName)}));
-    }
-
-    @GetMapping("/${t.sc($RKeyColumn.referencedClassName)}/list")
-    public AjaxResult listVo(${RKeyColumn.referencedClassName} ${t.sc($RKeyColumn.referencedClassName)}){
-        return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($RKeyColumn.referencedClassName)}));
-    }
-#end
 #if($!pkColumn.fieldName)
     @PostMapping("/add")
     public AjaxResult add(@RequestBody ${ClassName} ${t.sc($ClassName)}) {
@@ -75,6 +40,44 @@ public class ${ClassName}Controller
     public AjaxResult detail(@PathVariable("${pkColumn.fieldName}") ${pkColumn.fieldType} ${pkColumn.fieldName}) {
         return AjaxResult.success(${t.sc($ClassName)}Service.getById(${pkColumn.fieldName}));
     }
+
+#if($joinQuery&&$flagCode == 11)
+    @GetMapping("/vo/page")
+    public AjaxResult pageVo(PageEntity pageEntity,${ClassName} ${t.sc($ClassName)}){
+      return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($ClassName)}));
+    }
+#end
+
+#if($joinQuery&&$flagCode == 22 && $LKeyColumn && $RKeyColumn)
+    @GetMapping("/${t.sc($LKeyColumn.referencedClassName)}/page")
+    public AjaxResult pageVo(PageEntity pageEntity,${LKeyColumn.referencedClassName} ${t.sc($LKeyColumn.referencedClassName)}){
+      return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($LKeyColumn.referencedClassName)}));
+    }
+
+    @GetMapping("/${t.sc($RKeyColumn.referencedClassName)}/page")
+    public AjaxResult pageVo(PageEntity pageEntity,${RKeyColumn.referencedClassName} ${t.sc($RKeyColumn.referencedClassName)}){
+      return AjaxResult.success(${t.sc($ClassName)}Service.pageVo(pageEntity.toPage(), ${t.sc($RKeyColumn.referencedClassName)}));
+    }
+#end
+
+#if($joinQuery&&$flagCode == 11)
+    @GetMapping("/vo/list")
+    public AjaxResult listVo(${ClassName} ${t.sc($ClassName)}){
+      return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($ClassName)}));
+    }
+#end
+#if($joinQuery&&$flagCode == 22 && $LKeyColumn && $RKeyColumn)
+    @GetMapping("/${t.sc($LKeyColumn.referencedClassName)}/list")
+    public AjaxResult listVo(${LKeyColumn.referencedClassName} ${t.sc($LKeyColumn.referencedClassName)}){
+      return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($LKeyColumn.referencedClassName)}));
+    }
+
+    @GetMapping("/${t.sc($RKeyColumn.referencedClassName)}/list")
+    public AjaxResult listVo(${RKeyColumn.referencedClassName} ${t.sc($RKeyColumn.referencedClassName)}){
+      return AjaxResult.success(${t.sc($ClassName)}Service.listVo(${t.sc($RKeyColumn.referencedClassName)}));
+    }
+#end
+
 #if($joinQuery&&$flagCode == 11)
     @GetMapping(value = "/vo/detail/{${pkColumn.fieldName}}")
     public AjaxResult detailVo(@PathVariable("${pkColumn.fieldName}") ${pkColumn.fieldType} ${pkColumn.fieldName}) {

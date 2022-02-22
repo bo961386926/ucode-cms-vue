@@ -1,18 +1,22 @@
 ### 一、序言
 
-`UCode Cms`内容管理系统是Java知识图谱的重要组成部分，是面向企业级应用软件开发的脚手架。当前版本`1.3.3`。
-
-使用简易demo项目[快速体验](https://gitee.com/decsa/demo-cms)地址 。
+`UCode Cms`管理系统是面向企业级应用软件开发的脚手架。当前版本`1.3.4`。快速体验：
+```bash
+git clone https://gitee.com/decsa/demo-cms.git
+```
 
 #### （一）项目特点
 
 ##### 1、源码开源
 
-源码开源并且使用MIT开源许可协议，个人或者企业用户免费放心使用，项目[源码地址](https://gitee.com/decsa/ucode-cms-vue)。
+源码开源并且使用MIT开源许可协议，个人或者企业用户免费放心使用，项目源码地址：
+```bash
+git clone https://gitee.com/decsa/ucode-cms-vue.git
+```
 
 ##### 2、快速上手
 
-新建空项目，引入相关依赖，初始化数据库，启动项目，一个项目脚手架便搭建完成，更加便捷的操作是克隆[demo项目](https://gitee.com/decsa/demo-cms)，修改数据库连接并启动项目。
+新建空项目，引入相关依赖，初始化数据库，启动项目，一个项目脚手架便搭建完成，更加便捷的操作是克隆[demo项目]，修改数据库连接并启动项目。
 
 ```xml
 <!--ucode-cms核心依赖-->
@@ -89,7 +93,13 @@ UCode Cms源码项目结构如下
 
 ##### 1、代码生成器
 
-通过可视化界面勾选库表结构，即可达到本地化快速生成代码的效果。对于表间含有外键关系的库表结构同样支持，一对一、一对多、多对多可无缝衔接。 [快速体验](https://gitee.com/decsa/demo-code)地址 。![imgpng](https://www.altitude.xin/typora/image-20220216105356896.png)
+通过可视化界面勾选库表结构，即可达到本地化快速生成代码的效果。对于表间含有外键关系的库表结构同样支持，一对一、一对多、多对多可无缝衔接。 快速体验：
+
+```bash
+git clone https://gitee.com/decsa/demo-code.git
+```
+
+![imgpng](https://www.altitude.xin/typora/image-20220216105356896.png)
 
 ##### 2、内置接口列表
 

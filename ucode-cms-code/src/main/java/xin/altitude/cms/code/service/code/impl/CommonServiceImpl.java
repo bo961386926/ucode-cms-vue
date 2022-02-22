@@ -12,17 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import xin.altitude.cms.code.config.property.CodeProperties;
 import xin.altitude.cms.code.constant.MysqlToJava;
 import xin.altitude.cms.code.domain.KeyColumnUsage;
+import xin.altitude.cms.code.domain.MetaColumn;
+import xin.altitude.cms.code.domain.MetaTable;
 import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
 import xin.altitude.cms.code.entity.vo.MetaColumnVo;
 import xin.altitude.cms.code.service.code.ICommonService;
 import xin.altitude.cms.code.service.core.IKeyColumnUsage;
+import xin.altitude.cms.code.service.core.IMetaColumnService;
 import xin.altitude.cms.code.service.core.IMetaTableService;
 import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.TemplateMethod;
 import xin.altitude.cms.code.util.VelocityInitializer;
-import xin.altitude.cms.code.domain.MetaColumn;
-import xin.altitude.cms.code.domain.MetaTable;
-import xin.altitude.cms.code.service.core.IMetaColumnService;
 import xin.altitude.cms.common.util.EntityUtils;
 
 import java.io.StringWriter;
@@ -37,16 +37,16 @@ import java.util.List;
 public abstract class CommonServiceImpl implements ICommonService {
     @Autowired
     protected CodeProperties config;
-    
+
     @Autowired
     private IKeyColumnUsage keyColumnUsage;
-    
+
     @Autowired
     private IMetaTableService metaTableService;
-    
+
     @Autowired
     private IMetaColumnService metaColumnService;
-    
+
     /**
      * 查询表信息
      */
@@ -54,7 +54,7 @@ public abstract class CommonServiceImpl implements ICommonService {
     public MetaTable getTableInfo(String tableName) {
         return metaTableService.getMetaTable(tableName);
     }
-    
+
     /**
      * 查询列信息
      */
@@ -62,7 +62,7 @@ public abstract class CommonServiceImpl implements ICommonService {
     public List<MetaColumnVo> getColumnVos(String tableName) {
         return metaColumnService.getColumnVos(tableName);
     }
-    
+
     /**
      * 获取两表列名信息的差集
      *
@@ -76,7 +76,7 @@ public abstract class CommonServiceImpl implements ICommonService {
         List<MetaColumn> b = metaColumnService.listColumns(tableNameB);
         return CollectionUtil.subtractToList(a, b);
     }
-    
+
     /**
      * 通过连接ID，判断所有权，获取连接，查询列信息
      *
@@ -88,7 +88,7 @@ public abstract class CommonServiceImpl implements ICommonService {
         columnsVoList.forEach(CodeUtils::handleColumnField);
         return columnsVoList.stream().filter(MetaColumnVo::getPkColumn).findFirst().orElse(null);
     }
-    
+
     /**
      * 查询外键索引信息
      *
@@ -99,8 +99,8 @@ public abstract class CommonServiceImpl implements ICommonService {
     public List<KeyColumnUsage> listKeyColumns(String tableName) {
         return keyColumnUsage.listKeyColumns(tableName);
     }
-    
-    
+
+
     /**
      * 处理一对一引用主键问题
      *
@@ -113,23 +113,23 @@ public abstract class CommonServiceImpl implements ICommonService {
         /* 先处理两表名 */
         vo.setClassName(CodeUtils.getClassName(vo.getTableName()));
         vo.setReferencedClassName(CodeUtils.getClassName(vo.getReferencedTableName()));
-        
+
         /* 处理列名及列类型 */
         vo.setFieldName(CodeUtils.getFieldName(vo.getColumnName()));
         vo.setReferencedFieldName(CodeUtils.getFieldName(vo.getReferencedColumnName()));
-        
+
         vo.setFieldType(MysqlToJava.getJavaType(EntityUtils.toObj(metaColumnService.getOneColumn(vo.getTableName(), vo.getColumnName()), MetaColumn::getDataType)));
         vo.setReferencedFieldType(MysqlToJava.getJavaType(EntityUtils.toObj(metaColumnService.getOneColumn(vo.getReferencedTableName(), vo.getReferencedColumnName()), MetaColumn::getDataType)));
         return vo;
     }
-    
+
     public List<MetaColumnVo> getMetaColumnVoList(String tableNameA, String tableNameB) {
         List<MetaColumn> columns = listColumns(tableNameA, tableNameB);
         List<MetaColumnVo> columnsVoList = EntityUtils.toList(columns, MetaColumnVo::new);
         columnsVoList.forEach(CodeUtils::handleColumnField);
         return columnsVoList;
     }
-    
+
     /**
      * 创建全局Context
      *
@@ -142,7 +142,7 @@ public abstract class CommonServiceImpl implements ICommonService {
         context.put("packageName", config.getPackageName());
         return context;
     }
-    
+
     /**
      * 将模板渲染
      *

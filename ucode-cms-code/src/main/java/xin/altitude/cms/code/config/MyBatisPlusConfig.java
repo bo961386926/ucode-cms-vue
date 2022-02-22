@@ -11,11 +11,9 @@ import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.logging.stdout.StdOutImpl;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Primary;
 import xin.altitude.cms.code.constant.CodeConstant;
 import xin.altitude.cms.code.mapper.MetaTableMapper;
 import xin.altitude.cms.code.util.CodeSpringUtils;
-import xin.altitude.cms.common.util.ResourceUtils;
 import xin.altitude.cms.framework.config.AbstractMyBatisConfig;
 import xin.altitude.cms.framework.constant.DataSourceName;
 

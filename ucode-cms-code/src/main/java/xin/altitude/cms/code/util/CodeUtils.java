@@ -33,12 +33,12 @@ import java.util.Set;
  **/
 public class CodeUtils {
     private static final Set<String> SET = new HashSet<>();
-    
+
     /* Java关键字列表 */
     static {
         SET.addAll(Arrays.asList("abstract", "assert", "boolean", "break", "byte", "case", "catch", "char", "class", "continue", "default", "do", "double", "else", "enum", "extends", "final", "finally", "float", "for", "if", "implements", "import", "int", "interface", "instanceof", "long", "native", "new", "package", "private", "protected", "public", "return", "short", "static", "strictfp", "super", "switch", "synchronized", "this", "throw", "throws", "transient", "try", "void", "volatile", "while"));
     }
-    
+
     /**
      * 判断是否是Java关键字
      *
@@ -48,7 +48,7 @@ public class CodeUtils {
     public static Boolean notJavaKey(String s) {
         return !SET.contains(s);
     }
-    
+
     /**
      * 根据表名创建业务名
      *
@@ -60,7 +60,7 @@ public class CodeUtils {
         String newTableName = newTableName(tableName);
         return Optional.of(configEntity).map(CodeProperties::getController).map(ControllerConfig::getBusinessName).orElse(newTableName.replace("_", "/"));
     }
-    
+
     /**
      * 根据表名创建类名
      *
@@ -72,7 +72,7 @@ public class CodeUtils {
         // 小写下划线转化为首字母大写驼峰
         return CaseFormat.LOWER_UNDERSCORE.converterTo(CaseFormat.UPPER_CAMEL).convert(newTableName);
     }
-    
+
     /**
      * 将下划线连接符转化为首字母大写驼峰
      *
@@ -83,7 +83,7 @@ public class CodeUtils {
         // 小写下划线转化为首字母大写驼峰
         return CaseFormat.LOWER_UNDERSCORE.converterTo(CaseFormat.UPPER_CAMEL).convert(tableName.toLowerCase(Locale.getDefault()));
     }
-    
+
     /**
      * 根据表名创建类实例
      *
@@ -95,7 +95,7 @@ public class CodeUtils {
         // 小写下划线转化为首字母小写驼峰
         return CaseFormat.LOWER_UNDERSCORE.converterTo(CaseFormat.LOWER_CAMEL).convert(newTableName);
     }
-    
+
     /**
      * 将下划线连接符转化为首字母小写驼峰
      *
@@ -107,8 +107,8 @@ public class CodeUtils {
         // 小写下划线转化为首字母小写驼峰
         return CaseFormat.LOWER_UNDERSCORE.converterTo(CaseFormat.LOWER_CAMEL).convert(tableName.toLowerCase(Locale.getDefault()));
     }
-    
-    
+
+
     /**
      * 处理表名(统一变成小写字母，以及处理前缀)
      *
@@ -136,7 +136,7 @@ public class CodeUtils {
         }
         return tmp;
     }
-    
+
     /**
      * 初始化列属性字段
      *
@@ -145,7 +145,7 @@ public class CodeUtils {
     public static void handleColumnField(MetaColumnVo column) {
         String dataType = column.getDataType();
         String columnName = CaseFormat.LOWER_UNDERSCORE.converterTo(CaseFormat.LOWER_CAMEL).convert(column.getColumnName());
-        
+
         // 设置java字段名
         column.setFieldName(uncapitalize(columnName));
         // 设置默认类型
@@ -156,7 +156,7 @@ public class CodeUtils {
             column.setFieldType(MysqlToJava.getJavaType(dataType));
         }
     }
-    
+
     public static String uncapitalize(final String str) {
         if (StringUtils.isEmpty(str)) {
             return str;
@@ -164,7 +164,7 @@ public class CodeUtils {
         final int strLen = str.length();
         final int[] newCodePoints = new int[strLen];
         int outOffset = 0;
-        
+
         boolean uncapitalizeNext = true;
         for (int index = 0; index < strLen; ) {
             final int codePoint = str.codePointAt(index);
@@ -180,7 +180,7 @@ public class CodeUtils {
         }
         return new String(newCodePoints, 0, outOffset);
     }
-    
+
     /**
      * 给定根目录，相对父目录，文件名，写入文件内容
      *
@@ -207,7 +207,7 @@ public class CodeUtils {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * 文件的父目录的相对路径
      *
@@ -219,15 +219,15 @@ public class CodeUtils {
         // 包路径
         String replace = config.getPackageName().replace(".", "/");
         String s = FilenameUtils.concat(getProjectDir() + "/" + CodeConstant.PROJECT_RELATIVE_JAVA_PATH, replace);
-        
+
         return FilenameUtils.concat(s, layer.replace(".", "/"));
     }
-    
+
     public static String createRelativXmlDirFilePath(String layer) {
         return FilenameUtils.concat(getProjectDir() + "/" + CodeConstant.PROJECT_RELATIVE_MAPPER_PATH, layer);
     }
-    
-    
+
+
     /**
      * 获取当前运行项目的根目录
      *
@@ -236,7 +236,7 @@ public class CodeUtils {
     public static String getProjectDir() {
         String path = System.getProperty("user.dir");
         Optional<String> optional = Optional.ofNullable(CodeSpringUtils.getBean(CodeProperties.class))
-                .map(CodeProperties::getProjectDir);
+            .map(CodeProperties::getProjectDir);
         if (optional.isPresent()) {
             String value = optional.get();
             if (new File(value).exists()) {

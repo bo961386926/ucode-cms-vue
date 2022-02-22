@@ -30,8 +30,8 @@ import java.util.List;
  * @author explore
  * @since 2019/07/07 14:11
  **/
-public class One2OneServiceServiceImpl extends CommonServiceImpl {
-    private final static String TEMPLATE = "vm10/java/one2one/service.java.vm";
+public class One2MoreServiceServiceImpl extends CommonServiceImpl {
+    private final static String TEMPLATE = "vm10/java/one2more/service.java.vm";
 
 
     public void writeToLocalFile(String tableName, String className) {

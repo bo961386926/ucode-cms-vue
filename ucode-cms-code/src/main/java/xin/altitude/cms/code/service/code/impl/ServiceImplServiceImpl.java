@@ -8,12 +8,12 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-import xin.altitude.cms.code.service.code.IServiceImplService;
-import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.config.property.CodeProperties;
+import xin.altitude.cms.code.service.code.IServiceImplService;
+import xin.altitude.cms.code.util.CodeSpringUtils;
+import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Controller;
-import xin.altitude.cms.code.util.CodeSpringUtils;
 
 import java.io.StringWriter;
 import java.nio.charset.Charset;
@@ -30,8 +30,8 @@ import java.util.List;
 // @Service
 public class ServiceImplServiceImpl extends CommonServiceImpl implements IServiceImplService {
     private final static String TEMPLATE = "vm10/java/serviceImpl.java.vm";
-    
-    
+
+
     @Override
     public void writeToLocalFile(String tableName, String className) {
         String fileName = String.format("%sServiceImpl.java", className);
@@ -40,7 +40,7 @@ public class ServiceImplServiceImpl extends CommonServiceImpl implements IServic
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
         CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
-    
+
     /**
      * 代码实时预览
      */
@@ -55,7 +55,7 @@ public class ServiceImplServiceImpl extends CommonServiceImpl implements IServic
         return JavaFormat4Controller.formJava(sw.toString());
         // return sw.toString();
     }
-    
+
     /**
      * 构建VelocityContext
      */
@@ -72,7 +72,7 @@ public class ServiceImplServiceImpl extends CommonServiceImpl implements IServic
         // 添加表备注
         return context;
     }
-    
+
     /**
      * 获取导包列表
      */

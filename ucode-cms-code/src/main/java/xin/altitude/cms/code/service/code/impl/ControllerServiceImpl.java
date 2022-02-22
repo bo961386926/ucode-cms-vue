@@ -30,8 +30,7 @@ import java.util.List;
  **/
 public class ControllerServiceImpl extends CommonServiceImpl {
     private final static String TEMPLATE = "vm10/java/controller.java.vm";
-    
-    
+
     public void writeToLocalFile(String tableName, String className, Integer flagCode, List<KeyColumnUsage> keyColumnUsages) {
         List<KeyColumnUsageVo> keyColumnUsageVos = EntityUtils.toList(keyColumnUsages, this::toKeyColumnUsageVo);
         String fileName = String.format("%sController.java", className);
@@ -42,7 +41,7 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
         CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
-    
+
     public VelocityContext createContext(String tableName) {
         VelocityContext context = createContext();
         context.put("tableName", tableName);
@@ -57,7 +56,7 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         context.put("businessName", CodeUtils.getBusinessName(tableName));
         return context;
     }
-    
+
     /**
      * 构建VelocityContext
      */
@@ -68,7 +67,7 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         context.put("joinQuery", SpringUtils.getBean(CodeProperties.class).getJoinQuery());
         return context;
     }
-    
+
     public VelocityContext createContext(String tableName, Integer flagCode, List<KeyColumnUsageVo> keyColumnUsageVos) {
         VelocityContext context = createContext(tableName, flagCode);
         if (keyColumnUsageVos.size() == 2 && !keyColumnUsageVos.get(0).getReferencedTableName().equalsIgnoreCase(keyColumnUsageVos.get(1).getReferencedTableName())) {
@@ -79,7 +78,7 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         context.put("importList", new HashSet<>(getImportList(tableName, keyColumnUsageVos)));
         return context;
     }
-    
+
     /**
      * 获取导包列表
      */
@@ -113,13 +112,13 @@ public class ControllerServiceImpl extends CommonServiceImpl {
         rs.sort(Comparator.naturalOrder());
         return rs;
     }
-    
+
     public List<String> getImportList(String tableName, List<KeyColumnUsageVo> keyColumnUsageVos) {
         List<String> rs = getImportList(tableName);
         Boolean joinQuery = SpringUtils.getBean(CodeProperties.class).getJoinQuery();
         if (joinQuery && keyColumnUsageVos.size() == 2) {
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(keyColumnUsageVos.get(0).getReferencedClassName())));
-            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(keyColumnUsageVos.get(1).getReferencedClassName())));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), keyColumnUsageVos.get(0).getReferencedClassName()));
+            rs.add(String.format("import %s.domain.%s;", config.getPackageName(), keyColumnUsageVos.get(1).getReferencedClassName()));
         }
         rs.sort(Comparator.naturalOrder());
         return rs;

@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 // @Service
 public class DomainServiceImpl extends CommonServiceImpl implements IDomainService {
     private final static String TEMPLATE = "vm10/java/domain.java.vm";
-    
+
     /**
      * 代码实时预览
      */
@@ -47,7 +47,7 @@ public class DomainServiceImpl extends CommonServiceImpl implements IDomainServi
         tpl.merge(context, sw);
         return JavaFormat4Domain.formJava(sw.toString());
     }
-    
+
     /**
      * 写到本地
      *
@@ -62,14 +62,14 @@ public class DomainServiceImpl extends CommonServiceImpl implements IDomainServi
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
         CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
-    
-    
+
+
     /**
      * 构建VelocityContext
      */
     @Override
     public VelocityContext createContext(String tableName) {
-        // AutoCodeProperties configEntity = CodeSpringUtils.getBean(AutoCodeProperties.class);
+        // AutoCodeProperties configEntity = SpringUtils.getBean(AutoCodeProperties.class);
         VelocityContext context = new VelocityContext();
         context.put("configEntity", config);
         context.put("packageName", config.getPackageName());
@@ -84,7 +84,7 @@ public class DomainServiceImpl extends CommonServiceImpl implements IDomainServi
         context.put("tableComment", getTableInfo(tableName).getTableComment());
         return context;
     }
-    
+
     /**
      * 获取导包列表
      */

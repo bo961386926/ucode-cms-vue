@@ -5,12 +5,12 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.3.4</version>
+        <version>1.3.4.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.excel</groupId>
     <artifactId>ucode-cms-excel</artifactId>
-    <version>1.3.4</version>
+    <version>1.3.4.1</version>
     <name>${project.artifactId}</name>
     <url>http://www.altitude.xin</url>
     <dependencies>
@@ -37,7 +37,7 @@
             <artifactId>ucode-cms-framework</artifactId>
         </dependency>
     </dependencies>
-    
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>

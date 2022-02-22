@@ -13,7 +13,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.context.annotation.Bean;
 import xin.altitude.cms.code.constant.CodeConstant;
 import xin.altitude.cms.code.mapper.MetaTableMapper;
-import xin.altitude.cms.code.util.CodeSpringUtils;
+import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.framework.config.AbstractMyBatisConfig;
 import xin.altitude.cms.framework.constant.DataSourceName;
 
@@ -38,7 +38,7 @@ public class MyBatisPlusConfig extends AbstractMyBatisConfig {
         configuration.setCacheEnabled(true);
         configuration.setLogImpl(StdOutImpl.class);
         /* 读取动态数据源 */
-        sessionFactory.setDataSource(CodeSpringUtils.getBean(DataSourceName.DYNAMIC_DATA_SOURCE));
+        sessionFactory.setDataSource(SpringUtils.getBean(DataSourceName.DYNAMIC_DATA_SOURCE));
         sessionFactory.setPlugins(interceptor());
         sessionFactory.setConfiguration(configuration);
         configuration.getMapperRegistry().addMappers(MetaTableMapper.class.getPackage().getName());

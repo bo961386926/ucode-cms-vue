@@ -5,23 +5,23 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.3.4</version>
+        <version>1.3.4.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <name>${project.artifactId}</name>
     <url>http://www.altitude.xin</url>
-    
+
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    
+
     <description>
         Java知识图谱之内容管理系统（CMS）ucode-cms-spring-boot-starter
     </description>
-    
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-    
+
     <dependencies>
         <dependency>
             <groupId>xin.altitude.cms.framework</groupId>
@@ -51,13 +51,13 @@
             <groupId>xin.altitude.cms.excel</groupId>
             <artifactId>ucode-cms-excel</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <!--<optional>true</optional>-->
         </dependency>
-        
+
         <!--外部项目运行核心依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>

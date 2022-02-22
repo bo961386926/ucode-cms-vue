@@ -18,7 +18,7 @@ import xin.altitude.cms.code.service.join.impl.One2MoreDomainVoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
-import xin.altitude.cms.code.util.CodeSpringUtils;
+import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.common.util.ColUtils;
 import xin.altitude.cms.common.util.SpringUtils;
@@ -61,7 +61,7 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
      * @param tableName 表名
      */
     public void multiTableGen(String tableName) {
-        CodeProperties config = CodeSpringUtils.getBean(CodeProperties.class);
+        CodeProperties config = SpringUtils.getBean(CodeProperties.class);
         String className = CodeUtils.getClassName(tableName);
         List<KeyColumnUsage> keyColumns = listKeyColumns(tableName);
         for (String layerType : config.getLayerTypes()) {
@@ -75,9 +75,9 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
                     SpringUtils.getBean(One2MoreDomainVoServiceImpl.class).writeToLocalFile(tableName, ColUtils.toObj(keyColumns));
                 } else if (keyColumns.size() == 2) {
                     List<String> tableNames = keyColumns.stream().map(KeyColumnUsage::getReferencedTableName).collect(Collectors.toList());
-                    CodeSpringUtils.getBean(More2MoreVoServiceImpl.class).writeToLocalFile(tableNames, className);
+                    SpringUtils.getBean(More2MoreVoServiceImpl.class).writeToLocalFile(tableNames, className);
                     Collections.reverse(tableNames);
-                    CodeSpringUtils.getBean(More2MoreVoServiceImpl.class).writeToLocalFile(tableNames, className);
+                    SpringUtils.getBean(More2MoreVoServiceImpl.class).writeToLocalFile(tableNames, className);
                 }
             } else if (config.getJoinQuery() && LayerEnum.DOMAINBO.getValue().equals(layerType)) {
                 if (keyColumns.size() == 2) {
@@ -87,13 +87,13 @@ public class CodeHomeServiceImpl extends CommonServiceImpl implements ICodeHomeS
                 mapperService.writeToLocalFile(tableName, className);
             } else if (LayerEnum.ISERVICE.getValue().equals(layerType)) {
                 if (keyColumns.size() == 0) {
-                    CodeSpringUtils.getBean(ServiceServiceImpl.class).writeToLocalFile(tableName, className);
+                    SpringUtils.getBean(ServiceServiceImpl.class).writeToLocalFile(tableName, className);
                 } else if (keyColumns.size() == 1) {
                     KeyColumnUsageVo keyColumnUsageVo = toKeyColumnUsageVo(ColUtils.toObj(keyColumns));
-                    CodeSpringUtils.getBean(One2OneServiceServiceImpl.class).writeToLocalFile(tableName, className, keyColumnUsageVo);
+                    SpringUtils.getBean(One2OneServiceServiceImpl.class).writeToLocalFile(tableName, className, keyColumnUsageVo);
                     SpringUtils.getBean(One2MoreServiceServiceImpl.class).writeToLocalFile(tableName, keyColumnUsageVo);
                 } else if (keyColumns.size() == 2) {
-                    CodeSpringUtils.getBean(More2MoreServiceServiceImpl.class).writeToLocalFile(tableName, className, keyColumns);
+                    SpringUtils.getBean(More2MoreServiceServiceImpl.class).writeToLocalFile(tableName, className, keyColumns);
                 }
             } else if (LayerEnum.SERVICEIMPL.getValue().equals(layerType)) {
                 serviceImplService.writeToLocalFile(tableName, className);

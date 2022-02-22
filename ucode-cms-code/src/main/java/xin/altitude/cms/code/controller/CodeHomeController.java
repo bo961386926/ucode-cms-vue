@@ -38,7 +38,6 @@ import xin.altitude.cms.code.service.join.impl.One2MoreDomainVoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
-import xin.altitude.cms.code.util.CodeSpringUtils;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.entity.PageEntity;
 import xin.altitude.cms.framework.config.CmsConfig;
@@ -60,7 +59,7 @@ import java.util.List;
 @Import({CodeHomeServiceImpl.class, MetaTableServiceImpl.class,
     DomainServiceImpl.class, One2OneVoServiceImpl.class, DomainBoServiceImpl.class, ControllerServiceImpl.class,
     MapperServiceImpl.class, ServiceServiceImpl.class, ServiceImplServiceImpl.class, XmlServiceImpl.class,
-    CodeProperties.class, MyBatisPlusConfig.class, KeyColumnUsageImpl.class, CodeSpringUtils.class,
+    CodeProperties.class, MyBatisPlusConfig.class, KeyColumnUsageImpl.class,
     More2MoreVoServiceImpl.class, MetaColumnServiceImpl.class, More2MoreServiceServiceImpl.class, One2OneServiceServiceImpl.class,
     One2MoreDomainVoServiceImpl.class, One2MoreServiceServiceImpl.class, ThirdSqlSessionServiceImpl.class, DdlTableServiceImpl.class})
 public class CodeHomeController {

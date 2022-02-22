@@ -9,7 +9,7 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.3.4</version>
+        <version>1.3.4.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.job</groupId>
@@ -19,12 +19,12 @@
     <description>
         UCode Cms 定时任务模块（可选）
     </description>
-    
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
-    
+
     <dependencies>
         <!-- 定时任务 -->
         <dependency>

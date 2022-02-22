@@ -5,18 +5,18 @@
     <parent>
         <groupId>xin.altitude.cms</groupId>
         <artifactId>ucode-cms</artifactId>
-        <version>1.3.4</version>
+        <version>1.3.4.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>xin.altitude.cms.system</groupId>
     <artifactId>ucode-cms-system</artifactId>
     <name>${project.artifactId}</name>
     <url>http://www.altitude.xin</url>
-    
+
     <description>
         Java知识图谱之内容管理系统（CMS）系统模块
     </description>
-    
+
     <dependencies>
         <!-- 通用工具-->
         <dependency>
@@ -24,7 +24,7 @@
             <artifactId>ucode-cms-common</artifactId>
             <optional>true</optional>
         </dependency>
-    
+
         <dependency>
             <groupId>xin.altitude.cms.framework</groupId>
             <artifactId>ucode-cms-framework</artifactId>
@@ -64,7 +64,7 @@
             <artifactId>spring-webmvc</artifactId>
             <optional>true</optional>
         </dependency>
-    
+
         <dependency>
             <groupId>xin.altitude.cms.excel</groupId>
             <artifactId>ucode-cms-excel</artifactId>

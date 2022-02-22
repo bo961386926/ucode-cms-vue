@@ -10,7 +10,7 @@ import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 import xin.altitude.cms.code.config.property.CodeProperties;
 import xin.altitude.cms.code.service.code.IServiceImplService;
-import xin.altitude.cms.code.util.CodeSpringUtils;
+import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.VelocityInitializer;
 import xin.altitude.cms.code.util.format.JavaFormat4Controller;
@@ -46,7 +46,7 @@ public class ServiceImplServiceImpl extends CommonServiceImpl implements IServic
      */
     @Override
     public String realtimePreview(String tableName) {
-        CodeProperties configEntity = CodeSpringUtils.getBean(CodeProperties.class);
+        CodeProperties configEntity = SpringUtils.getBean(CodeProperties.class);
         StringWriter sw = new StringWriter();
         VelocityInitializer.initVelocity();
         VelocityContext context = createContext(tableName);

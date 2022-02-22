@@ -14,6 +14,7 @@ import xin.altitude.cms.code.constant.MysqlToJava;
 import xin.altitude.cms.code.constant.enums.ColumnDataEnum;
 import xin.altitude.cms.code.entity.bo.ControllerConfig;
 import xin.altitude.cms.code.entity.vo.MetaColumnVo;
+import xin.altitude.cms.common.util.SpringUtils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,7 +57,7 @@ public class CodeUtils {
      * @return 获取业务控制器前缀
      */
     public static String getBusinessName(String tableName) {
-        CodeProperties configEntity = CodeSpringUtils.getBean(CodeProperties.class);
+        CodeProperties configEntity = SpringUtils.getBean(CodeProperties.class);
         String newTableName = newTableName(tableName);
         return Optional.of(configEntity).map(CodeProperties::getController).map(ControllerConfig::getBusinessName).orElse(newTableName.replace("_", "/"));
     }
@@ -116,7 +117,7 @@ public class CodeUtils {
      * @return 新表名
      */
     public static String newTableName(String tableName) {
-        CodeProperties configEntity = CodeSpringUtils.getBean(CodeProperties.class);
+        CodeProperties configEntity = SpringUtils.getBean(CodeProperties.class);
         // 将表名转化为小写字母
         String tmp = tableName.toLowerCase(Locale.getDefault());
         if (configEntity.getRemoveTablePrefix()) {
@@ -231,7 +232,7 @@ public class CodeUtils {
      * @return
      */
     public static String createRelativJavaDirFilePath(String layer) {
-        CodeProperties config = CodeSpringUtils.getBean(CodeProperties.class);
+        CodeProperties config = SpringUtils.getBean(CodeProperties.class);
         // 包路径
         String replace = config.getPackageName().replace(".", "/");
         String s = FilenameUtils.concat(getProjectDir() + "/" + CodeConstant.PROJECT_RELATIVE_JAVA_PATH, replace);
@@ -251,7 +252,7 @@ public class CodeUtils {
      */
     public static String getProjectDir() {
         String path = System.getProperty("user.dir");
-        Optional<String> optional = Optional.ofNullable(CodeSpringUtils.getBean(CodeProperties.class))
+        Optional<String> optional = Optional.ofNullable(SpringUtils.getBean(CodeProperties.class))
             .map(CodeProperties::getProjectDir);
         if (optional.isPresent()) {
             String value = optional.get();

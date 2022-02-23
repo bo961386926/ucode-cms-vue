@@ -32,35 +32,35 @@ import java.util.concurrent.TimeUnit;
 public class CaptchaController {
     @Resource(name = "captchaProducer")
     private Producer captchaProducer;
-    
+
     @Resource(name = "captchaProducerMath")
     private Producer captchaProducerMath;
-    
+
     @Autowired
     private RedisCache redisCache;
-    
+
     @Autowired
     private ISysConfigService configService;
-    
+
     /**
      * 生成验证码
      */
     @GetMapping("/captchaImage")
-    public AjaxResult getCode(HttpServletResponse response) throws IOException {
+    public AjaxResult getCode(HttpServletResponse response) {
         AjaxResult ajax = AjaxResult.success();
         boolean captchaOnOff = configService.selectCaptchaOnOff();
         ajax.put("captchaOnOff", captchaOnOff);
         if (!captchaOnOff) {
             return ajax;
         }
-        
+
         // 保存验证码信息
         String uuid = IdUtils.simpleUUID();
         String verifyKey = Constants.CAPTCHA_CODE_KEY + uuid;
-        
+
         String capStr = null, code = null;
         BufferedImage image = null;
-        
+
         // 生成验证码
         String captchaType = SpringUtils.getBean(CmsConfig.class).getCms().getCaptchaType();
         if ("math".equals(captchaType)) {
@@ -72,7 +72,7 @@ public class CaptchaController {
             capStr = code = captchaProducer.createText();
             image = captchaProducer.createImage(capStr);
         }
-        
+
         redisCache.setCacheObject(verifyKey, code, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
         // 转换流信息写出
         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
@@ -81,7 +81,7 @@ public class CaptchaController {
         } catch (IOException e) {
             return AjaxResult.error(e.getMessage());
         }
-        
+
         ajax.put("uuid", uuid);
         ajax.put("img", Base64.encode(os.toByteArray()));
         return ajax;

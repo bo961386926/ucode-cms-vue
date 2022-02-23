@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util.html;
 
 import xin.altitude.cms.common.util.StringUtil;
@@ -9,14 +29,14 @@ import xin.altitude.cms.common.util.StringUtil;
  */
 public class EscapeUtil {
     public static final String RE_HTML_MARK = "(<[^<]*?>)|(<[\\s]*?/[^<]*?>)|(<[^<]*?/[\\s]*?>)";
-    
+
     private static final char[][] TEXT = new char[64][];
-    
+
     static {
         for (int i = 0; i < 64; i++) {
             TEXT[i] = new char[]{(char) i};
         }
-        
+
         // special HTML characters
         TEXT['\''] = "&#039;".toCharArray(); // 单引号
         TEXT['"'] = "&#34;".toCharArray(); // 双引号
@@ -24,7 +44,7 @@ public class EscapeUtil {
         TEXT['<'] = "&#60;".toCharArray(); // 小于号
         TEXT['>'] = "&#62;".toCharArray(); // 大于号
     }
-    
+
     /**
      * 转义文本中的HTML字符为安全的字符
      *
@@ -34,7 +54,7 @@ public class EscapeUtil {
     public static String escape(String text) {
         return encode(text);
     }
-    
+
     /**
      * 还原被转义的HTML特殊字符
      *
@@ -44,7 +64,7 @@ public class EscapeUtil {
     public static String unescape(String content) {
         return decode(content);
     }
-    
+
     /**
      * 清除所有HTML标签，但是不删除标签内的内容
      *
@@ -54,7 +74,7 @@ public class EscapeUtil {
     public static String clean(String content) {
         return new HTMLFilter().filter(content);
     }
-    
+
     /**
      * Escape编码
      *
@@ -65,7 +85,7 @@ public class EscapeUtil {
         if (StringUtil.isEmpty(text)) {
             return StringUtil.EMPTY;
         }
-    
+
         final StringBuilder tmp = new StringBuilder(text.length() * 6);
         char c;
         for (int i = 0; i < text.length(); i++) {
@@ -87,7 +107,7 @@ public class EscapeUtil {
         }
         return tmp.toString();
     }
-    
+
     /**
      * Escape解码
      *
@@ -98,7 +118,7 @@ public class EscapeUtil {
         if (StringUtil.isEmpty(content)) {
             return content;
         }
-        
+
         StringBuilder tmp = new StringBuilder(content.length());
         int lastPos = 0, pos = 0;
         char ch;
@@ -126,7 +146,7 @@ public class EscapeUtil {
         }
         return tmp.toString();
     }
-    
+
     public static void main(String[] args) {
         String html = "<script>alert(1);</script>";
         String escape = EscapeUtil.escape(html);

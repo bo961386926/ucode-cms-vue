@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.job.util;
@@ -29,7 +45,7 @@ public class JobInvokeUtil {
         String beanName = getBeanName(invokeTarget);
         String methodName = getMethodName(invokeTarget);
         List<Object[]> methodParams = getMethodParams(invokeTarget);
-        
+
         if (!isValidClassName(beanName)) {
             Object bean = SpringUtils.getBean(beanName);
             invokeMethod(bean, methodName, methodParams);
@@ -38,7 +54,7 @@ public class JobInvokeUtil {
             invokeMethod(bean, methodName, methodParams);
         }
     }
-    
+
     /**
      * 调用任务方法
      *
@@ -57,7 +73,7 @@ public class JobInvokeUtil {
             method.invoke(bean);
         }
     }
-    
+
     /**
      * 校验是否为为class包名
      *
@@ -66,7 +82,7 @@ public class JobInvokeUtil {
     public static boolean isValidClassName(String invokeTarget) {
         return StringUtils.countMatches(invokeTarget, ".") > 1;
     }
-    
+
     /**
      * 获取bean名称
      *
@@ -77,7 +93,7 @@ public class JobInvokeUtil {
         String beanName = StringUtils.substringBefore(invokeTarget, "(");
         return StringUtils.substringBeforeLast(beanName, ".");
     }
-    
+
     /**
      * 获取bean方法
      *
@@ -88,7 +104,7 @@ public class JobInvokeUtil {
         String methodName = StringUtils.substringBefore(invokeTarget, "(");
         return StringUtils.substringAfterLast(methodName, ".");
     }
-    
+
     /**
      * 获取method方法参数相关列表
      *
@@ -127,7 +143,7 @@ public class JobInvokeUtil {
         }
         return classs;
     }
-    
+
     /**
      * 获取参数类型
      *
@@ -143,7 +159,7 @@ public class JobInvokeUtil {
         }
         return classs;
     }
-    
+
     /**
      * 获取参数值
      *

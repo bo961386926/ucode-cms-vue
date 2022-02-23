@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.job.service;
@@ -22,7 +38,7 @@ public interface ISysJobLogService extends IService<SysJobLog> {
      * @return 调度任务日志集合
      */
     List<SysJobLog> selectJobLogList(SysJobLog jobLog);
-    
+
     /**
      * 通过调度任务日志ID查询调度信息
      *
@@ -30,14 +46,14 @@ public interface ISysJobLogService extends IService<SysJobLog> {
      * @return 调度任务日志对象信息
      */
     SysJobLog selectJobLogById(Long jobLogId);
-    
+
     /**
      * 新增任务日志
      *
      * @param jobLog 调度日志信息
      */
     void addJobLog(SysJobLog jobLog);
-    
+
     /**
      * 批量删除调度日志信息
      *
@@ -45,7 +61,7 @@ public interface ISysJobLogService extends IService<SysJobLog> {
      * @return 结果
      */
     boolean deleteJobLogByIds(Long[] logIds);
-    
+
     /**
      * 删除任务日志
      *
@@ -53,7 +69,7 @@ public interface ISysJobLogService extends IService<SysJobLog> {
      * @return 结果
      */
     boolean deleteJobLogById(Long jobId);
-    
+
     /**
      * 清空任务日志
      */

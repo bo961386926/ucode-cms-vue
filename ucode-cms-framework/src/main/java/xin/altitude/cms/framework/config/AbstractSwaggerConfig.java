@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.config;
 
 import io.swagger.models.auth.In;
@@ -31,7 +51,7 @@ public abstract class AbstractSwaggerConfig {
      */
     @Autowired
     protected CmsConfig cmsConfig;
-    
+
     protected Docket createBaseDocket() {
         Docket docket = new Docket(DocumentationType.OAS_30)
                 // 是否启用Swagger
@@ -50,7 +70,7 @@ public abstract class AbstractSwaggerConfig {
                 .build();
         return docket;
     }
-    
+
     /**
      * 系统内置接口列表
      */
@@ -60,7 +80,7 @@ public abstract class AbstractSwaggerConfig {
         docket.select().apis(basePackage(FlagClass.class.getPackage().getName())).build();
         return docket.groupName("系统内置");
     }
-    
+
     /**
      * 安全模式
      * 指定token通过Authorization头请求头传递
@@ -70,7 +90,7 @@ public abstract class AbstractSwaggerConfig {
         apiKeyList.add(new ApiKey("Authorization", "Authorization", In.HEADER.toValue()));
         return apiKeyList;
     }
-    
+
     /**
      * 安全上下文
      */
@@ -83,7 +103,7 @@ public abstract class AbstractSwaggerConfig {
                         .build());
         return securityContexts;
     }
-    
+
     /**
      * 默认的安全上引用
      */
@@ -95,7 +115,7 @@ public abstract class AbstractSwaggerConfig {
         securityReferences.add(new SecurityReference("Authorization", authorizationScopes));
         return securityReferences;
     }
-    
+
     /**
      * 添加摘要信息
      */

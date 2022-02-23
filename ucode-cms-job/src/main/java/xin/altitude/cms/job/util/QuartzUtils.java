@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.job.util;
@@ -26,14 +42,14 @@ public class QuartzUtils {
         boolean isConcurrent = "0".equals(sysJob.getConcurrent());
         return isConcurrent ? QuartzJobExecution.class : QuartzDisallowConcurrentExecution.class;
     }
-    
+
     /**
      * 构建任务触发对象
      */
     public static TriggerKey createTriggerKey(Long jobId, String jobGroup) {
         return TriggerKey.triggerKey(ScheduleConstants.TASK_CLASS_NAME + jobId, jobGroup);
     }
-    
+
     /**
      * 构建任务键对象
      *
@@ -44,7 +60,7 @@ public class QuartzUtils {
     public static JobKey createJobKey(Long jobId, String jobGroup) {
         return JobKey.jobKey(ScheduleConstants.TASK_CLASS_NAME + jobId, jobGroup);
     }
-    
+
     /**
      * 创建定时任务
      *
@@ -60,33 +76,33 @@ public class QuartzUtils {
         Long jobId = sysJob.getJobId();
         String jobGroup = sysJob.getJobGroup();
         JobDetail jobDetail = JobBuilder.newJob(jobClass).withIdentity(createJobKey(jobId, jobGroup)).build();
-        
+
         // 表达式调度构建器
         CronScheduleBuilder cronScheduleBuilder = CronScheduleBuilder.cronSchedule(sysJob.getCronExpression());
         // cronScheduleBuilder = handleCronScheduleMisfirePolicy(sysJob, cronScheduleBuilder);
         handleCronScheduleMisfirePolicy(sysJob, cronScheduleBuilder);
-        
+
         // 按新的cronExpression表达式构建一个新的trigger
         CronTrigger trigger = TriggerBuilder.newTrigger().withIdentity(createTriggerKey(jobId, jobGroup))
                 .withSchedule(cronScheduleBuilder).build();
-        
+
         // 放入参数，运行时的方法可以获取
         jobDetail.getJobDataMap().put(ScheduleConstants.TASK_PROPERTIES, sysJob);
-        
+
         // 判断是否存在
         if (scheduler.checkExists(createJobKey(jobId, jobGroup))) {
             // 防止创建时存在数据问题 先移除，然后在执行创建操作
             scheduler.deleteJob(createJobKey(jobId, jobGroup));
         }
-        
+
         scheduler.scheduleJob(jobDetail, trigger);
-        
+
         if (sysJob.getStatus().equals(JobStatus.PAUSE.getValue())) {
             /* 暂停任务 */
             scheduler.pauseJob(QuartzUtils.createJobKey(jobId, jobGroup));
         }
     }
-    
+
     // /**
     //  * 设置定时任务策略
     //  */
@@ -106,7 +122,7 @@ public class QuartzUtils {
     //                     + "' cannot be used in cron schedule tasks", TaskException.Code.CONFIG_ERROR);
     //     }
     // }
-    
+
     /**
      * 设置定时任务策略
      */

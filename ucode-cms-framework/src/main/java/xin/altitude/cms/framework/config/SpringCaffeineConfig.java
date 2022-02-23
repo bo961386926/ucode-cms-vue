@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.config;
 
 import com.github.benmanes.caffeine.cache.Cache;
@@ -19,7 +39,7 @@ import java.util.concurrent.TimeUnit;
 // @Configuration
 @ConditionalOnClass({Cache.class})
 public class SpringCaffeineConfig extends AbstractCaffeineConfig {
-    
+
     @Bean
     public CacheManager caffeineCacheManager() {
         SimpleCacheManager cacheManager = new SimpleCacheManager();
@@ -32,9 +52,9 @@ public class SpringCaffeineConfig extends AbstractCaffeineConfig {
         caches.add(new CaffeineCache(CNTC.CACHE_05MINS, expire(5, TimeUnit.MINUTES)));
         caches.add(new CaffeineCache(CNTC.CACHE_1HOURS, expire(1, TimeUnit.HOURS)));
         caches.add(new CaffeineCache(CNTC.CACHE_1DAYS, expire(1, TimeUnit.DAYS)));
-        
+
         cacheManager.setCaches(caches);
         return cacheManager;
     }
-    
+
 }

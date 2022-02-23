@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.code.util.format;
@@ -22,7 +38,7 @@ import java.util.regex.Pattern;
  **/
 public class JavaFormat4Controller {
     public static Map<String, String> mapZY = new HashMap<>();
-    
+
     /**
      * 格式化java代码(入口代码)
      **/
@@ -52,7 +68,7 @@ public class JavaFormat4Controller {
         dataTmp = recursiveMatchReplace(dataTmp, 1);
         return dataTmp;
     }
-    
+
     /**
      * 循环替换指定字符为随机uuid  并将uui存入全局map:mapZY
      **/
@@ -96,8 +112,8 @@ public class JavaFormat4Controller {
         sb.append(string.substring(indexHome + 1));
         return sb.toString();
     }
-    
-    
+
+
     //处理换行
     public static String repalceHHF(String data, String a, String b) {
         try {
@@ -118,7 +134,7 @@ public class JavaFormat4Controller {
         }
         return null;
     }
-    
+
     //处理缩进
     public static String repalceHHFX(String data, String a) {
         try {
@@ -159,7 +175,7 @@ public class JavaFormat4Controller {
         }
         return null;
     }
-    
+
     /**
      * 获得栈数据
      **/
@@ -174,12 +190,12 @@ public class JavaFormat4Controller {
         }
         return result;
     }
-    
+
     /**
      * 连续注解添加回车
      */
     public static String recursiveMatchReplace(String data, int signal) {
-        
+
         if (signal > 0) {
             final String regex = "(@[a-zA-Z]+@)|(@[a-zA-Z]+\\(.*\\)@)";
             List<String> list = ReUtil.findAllGroup0(regex, data);
@@ -192,5 +208,5 @@ public class JavaFormat4Controller {
             return data;
         }
     }
-    
+
 }

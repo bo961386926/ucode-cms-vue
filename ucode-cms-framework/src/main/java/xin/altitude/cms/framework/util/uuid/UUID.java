@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util.uuid;
 
 import xin.altitude.cms.framework.exception.UtilException;
@@ -23,7 +43,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
      * 此UUID的最低64有效位
      */
     private final long leastSigBits;
-    
+
     /**
      * 私有构造
      *
@@ -42,7 +62,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         this.mostSigBits = msb;
         this.leastSigBits = lsb;
     }
-    
+
     /**
      * 使用指定的数据构造新的 UUID。
      *
@@ -53,7 +73,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         this.mostSigBits = mostSigBits;
         this.leastSigBits = leastSigBits;
     }
-    
+
     /**
      * 获取类型 4（伪随机生成的）UUID 的静态工厂。 使用加密的本地线程伪随机数生成器生成该 UUID。
      *
@@ -62,7 +82,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
     public static UUID fastUUID() {
         return randomUUID(false);
     }
-    
+
     /**
      * 获取类型 4（伪随机生成的）UUID 的静态工厂。 使用加密的强伪随机数生成器生成该 UUID。
      *
@@ -71,7 +91,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
     public static UUID randomUUID() {
         return randomUUID(true);
     }
-    
+
     /**
      * 获取类型 4（伪随机生成的）UUID 的静态工厂。 使用加密的强伪随机数生成器生成该 UUID。
      *
@@ -80,7 +100,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
      */
     public static UUID randomUUID(boolean isSecure) {
         final Random ng = isSecure ? Holder.numberGenerator : getRandom();
-        
+
         byte[] randomBytes = new byte[16];
         ng.nextBytes(randomBytes);
         randomBytes[6] &= 0x0f; /* clear version */
@@ -89,7 +109,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         randomBytes[8] |= 0x80; /* set to IETF variant */
         return new UUID(randomBytes);
     }
-    
+
     /**
      * 根据指定的字节数组获取类型 3（基于名称的）UUID 的静态工厂。
      *
@@ -110,7 +130,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         md5Bytes[8] |= 0x80; /* set to IETF variant */
         return new UUID(md5Bytes);
     }
-    
+
     /**
      * 根据 {@link #toString()} 方法中描述的字符串标准表示形式创建{@code UUID}。
      *
@@ -126,20 +146,20 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         for (int i = 0; i < 5; i++) {
             components[i] = "0x" + components[i];
         }
-        
+
         long mostSigBits = Long.decode(components[0]).longValue();
         mostSigBits <<= 16;
         mostSigBits |= Long.decode(components[1]).longValue();
         mostSigBits <<= 16;
         mostSigBits |= Long.decode(components[2]).longValue();
-        
+
         long leastSigBits = Long.decode(components[3]).longValue();
         leastSigBits <<= 48;
         leastSigBits |= Long.decode(components[4]).longValue();
-        
+
         return new UUID(mostSigBits, leastSigBits);
     }
-    
+
     /**
      * 返回指定数字对应的hex值
      *
@@ -151,7 +171,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         long hi = 1L << (digits * 4);
         return Long.toHexString(hi | (val & (hi - 1))).substring(1);
     }
-    
+
     /**
      * 获取{@link SecureRandom}，类提供加密的强随机数生成器 (RNG)
      *
@@ -164,7 +184,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
             throw new UtilException(e);
         }
     }
-    
+
     /**
      * 获取随机数生成器对象<br>
      * ThreadLocalRandom是JDK 7之后提供并发产生随机数，能够解决多个线程发生的竞争争夺。
@@ -174,7 +194,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
     public static ThreadLocalRandom getRandom() {
         return ThreadLocalRandom.current();
     }
-    
+
     /**
      * 返回此 UUID 的 128 位值中的最低有效 64 位。
      *
@@ -183,7 +203,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
     public long getLeastSignificantBits() {
         return leastSigBits;
     }
-    
+
     /**
      * 返回此 UUID 的 128 位值中的最高有效 64 位。
      *
@@ -192,7 +212,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
     public long getMostSignificantBits() {
         return mostSigBits;
     }
-    
+
     /**
      * 与此 {@code UUID} 相关联的版本号. 版本号描述此 {@code UUID} 是如何生成的。
      * <p>
@@ -210,7 +230,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         // Version is bits masked by 0x000000000000F000 in MS long
         return (int) ((mostSigBits >> 12) & 0x0f);
     }
-    
+
     /**
      * 与此 {@code UUID} 相关联的变体号。变体号描述 {@code UUID} 的布局。
      * <p>
@@ -232,7 +252,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         // 1 1 1 Reserved for future definition.
         return (int) ((leastSigBits >>> (64 - (leastSigBits >>> 62))) & (leastSigBits >> 63));
     }
-    
+
     /**
      * 与此 UUID 相关联的时间戳值。
      *
@@ -252,7 +272,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
                 | ((mostSigBits >> 16) & 0x0FFFFL) << 32//
                 | mostSigBits >>> 32;
     }
-    
+
     /**
      * 与此 UUID 相关联的时钟序列值。
      *
@@ -269,7 +289,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         checkTimeBase();
         return (int) ((leastSigBits & 0x3FFF000000000000L) >>> 48);
     }
-    
+
     /**
      * 与此 UUID 相关的节点值。
      *
@@ -286,7 +306,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         checkTimeBase();
         return leastSigBits & 0x0000FFFFFFFFFFFFL;
     }
-    
+
     /**
      * 返回此{@code UUID} 的字符串表现形式。
      *
@@ -314,7 +334,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
     public String toString() {
         return toString(false);
     }
-    
+
     /**
      * 返回此{@code UUID} 的字符串表现形式。
      *
@@ -362,12 +382,12 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         }
         // node
         builder.append(digits(leastSigBits, 12));
-        
+
         return builder.toString();
     }
-    
+
     // Comparison Operations
-    
+
     /**
      * 返回此 UUID 的哈希码。
      *
@@ -378,10 +398,10 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         long hilo = mostSigBits ^ leastSigBits;
         return ((int) (hilo >> 32)) ^ (int) hilo;
     }
-    
+
     // -------------------------------------------------------------------------------------------------------------------
     // Private method start
-    
+
     /**
      * 将此对象与指定对象比较。
      * <p>
@@ -398,7 +418,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
         UUID id = (UUID) obj;
         return (mostSigBits == id.mostSigBits && leastSigBits == id.leastSigBits);
     }
-    
+
     /**
      * 将此 UUID 与指定的 UUID 比较。
      *
@@ -418,7 +438,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
                                 (this.leastSigBits > val.leastSigBits ? 1 : //
                                         0))));
     }
-    
+
     /**
      * 检查是否为time-based版本UUID
      */
@@ -427,7 +447,7 @@ public final class UUID implements java.io.Serializable, Comparable<UUID> {
             throw new UnsupportedOperationException("Not a time-based UUID");
         }
     }
-    
+
     /**
      * SecureRandom 的单例
      */

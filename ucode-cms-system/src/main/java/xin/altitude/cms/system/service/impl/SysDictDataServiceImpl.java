@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -19,7 +39,7 @@ import java.util.List;
 public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDictData> implements ISysDictDataService {
     // @Autowired
     // private SysDictDataMapper dictDataMapper;
-    
+
     /**
      * 根据条件分页查询字典数据
      *
@@ -31,7 +51,7 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         // return dictDataMapper.selectDictDataList(dictData);
         return list(Wrappers.lambdaQuery(dictData));
     }
-    
+
     /**
      * 根据字典类型和字典键值查询字典数据信息
      *
@@ -45,7 +65,7 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         LambdaQueryWrapper<SysDictData> wrapper = Wrappers.lambdaQuery(SysDictData.class).select(SysDictData::getDictLabel).eq(SysDictData::getDictType, dictType).eq(SysDictData::getDictValue, dictValue);
         return EntityUtils.toObj(getOne(wrapper), SysDictData::getDictLabel);
     }
-    
+
     /**
      * 根据字典数据ID查询信息
      *
@@ -57,7 +77,7 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         // return dictDataMapper.selectDictDataById(dictCode);
         return getById(dictCode);
     }
-    
+
     /**
      * 批量删除字典数据信息
      *
@@ -74,7 +94,7 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
             // DictUtils.setDictCache(data.getDictType(), dictDatas);
         }
     }
-    
+
     /**
      * 新增保存字典数据信息
      *
@@ -92,7 +112,7 @@ public class SysDictDataServiceImpl extends ServiceImpl<SysDictDataMapper, SysDi
         }
         return row;
     }
-    
+
     /**
      * 修改保存字典数据信息
      *

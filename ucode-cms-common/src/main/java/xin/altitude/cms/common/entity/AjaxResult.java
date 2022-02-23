@@ -1,5 +1,23 @@
+
+
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.common.entity;
@@ -29,13 +47,13 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
      */
     public static final String DATA_TAG = "data";
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * 初始化一个新创建的 AjaxResult 对象，使其表示一个空消息。
      */
     public AjaxResult() {
     }
-    
+
     /**
      * 初始化一个新创建的 AjaxResult 对象
      *
@@ -46,7 +64,7 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
         super.put(CODE_TAG, code);
         super.put(MSG_TAG, msg);
     }
-    
+
     /**
      * 初始化一个新创建的 AjaxResult 对象
      *
@@ -61,7 +79,7 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
             super.put(DATA_TAG, data);
         }
     }
-    
+
     /**
      * 返回成功消息
      *
@@ -70,7 +88,7 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
     public static AjaxResult success() {
         return AjaxResult.success("操作成功");
     }
-    
+
     /**
      * 返回成功数据
      *
@@ -80,7 +98,7 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
     public static AjaxResult success(Object data) {
         return AjaxResult.success("操作成功", data);
     }
-    
+
     /**
      * 返回成功消息
      *
@@ -90,7 +108,7 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
     public static AjaxResult success(String msg) {
         return AjaxResult.success(msg, null);
     }
-    
+
     /**
      * 返回成功消息
      *
@@ -101,7 +119,7 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
     public static AjaxResult success(String msg, Object data) {
         return new AjaxResult(HttpStatus.OK.value(), msg, data);
     }
-    
+
     /**
      * 返回错误消息
      *
@@ -110,7 +128,7 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
     public static AjaxResult error() {
         return AjaxResult.error("操作失败");
     }
-    
+
     /**
      * 返回错误消息
      *
@@ -120,7 +138,7 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
     public static AjaxResult error(String msg) {
         return AjaxResult.error(msg, null);
     }
-    
+
     /**
      * 返回错误消息
      *
@@ -131,7 +149,7 @@ public class AjaxResult extends LinkedHashMap<String, Object> {
     public static AjaxResult error(String msg, Object data) {
         return new AjaxResult(HttpStatus.INTERNAL_SERVER_ERROR.value(), msg, data);
     }
-    
+
     /**
      * 返回错误消息
      *

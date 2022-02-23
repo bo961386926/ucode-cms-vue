@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util;
 
 import java.math.BigDecimal;
@@ -9,18 +29,18 @@ import java.math.RoundingMode;
  * @author ucode
  */
 public class Arith {
-    
+
     /**
      * 默认除法运算精度
      */
     private static final int DEF_DIV_SCALE = 10;
-    
+
     /**
      * 这个类不能实例化
      */
     private Arith() {
     }
-    
+
     /**
      * 提供精确的加法运算。
      *
@@ -33,7 +53,7 @@ public class Arith {
         BigDecimal b2 = new BigDecimal(Double.toString(v2));
         return b1.add(b2).doubleValue();
     }
-    
+
     /**
      * 提供精确的减法运算。
      *
@@ -46,7 +66,7 @@ public class Arith {
         BigDecimal b2 = new BigDecimal(Double.toString(v2));
         return b1.subtract(b2).doubleValue();
     }
-    
+
     /**
      * 提供精确的乘法运算。
      *
@@ -59,7 +79,7 @@ public class Arith {
         BigDecimal b2 = new BigDecimal(Double.toString(v2));
         return b1.multiply(b2).doubleValue();
     }
-    
+
     /**
      * 提供（相对）精确的除法运算，当发生除不尽的情况时，精确到
      * 小数点以后10位，以后的数字四舍五入。
@@ -71,7 +91,7 @@ public class Arith {
     public static double div(double v1, double v2) {
         return div(v1, v2, DEF_DIV_SCALE);
     }
-    
+
     /**
      * 提供（相对）精确的除法运算。当发生除不尽的情况时，由scale参数指
      * 定精度，以后的数字四舍五入。
@@ -93,7 +113,7 @@ public class Arith {
         }
         return b1.divide(b2, scale, RoundingMode.HALF_UP).doubleValue();
     }
-    
+
     /**
      * 提供精确的小数位四舍五入处理。
      *

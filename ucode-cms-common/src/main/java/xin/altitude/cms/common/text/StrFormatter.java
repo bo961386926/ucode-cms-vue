@@ -1,5 +1,23 @@
+
+
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.common.text;
@@ -17,7 +35,7 @@ public class StrFormatter {
     public static final char C_BACKSLASH = '\\';
     public static final char C_DELIM_START = '{';
     public static final char C_DELIM_END = '}';
-    
+
     /**
      * 格式化字符串<br>
      * 此方法只是简单将占位符 {} 按照顺序替换为参数<br>
@@ -32,10 +50,10 @@ public class StrFormatter {
             return strPattern;
         }
         final int strPatternLength = strPattern.length();
-        
+
         // 初始化定义好的长度以获得更好的性能
         StringBuilder sbuf = new StringBuilder(strPatternLength + 50);
-        
+
         int handledPosition = 0;
         int delimIndex;// 占位符所在位置
         for (int argIndex = 0; argIndex < argArray.length; argIndex++) {
@@ -71,7 +89,7 @@ public class StrFormatter {
         }
         // 加入最后一个占位符后所有的字符
         sbuf.append(strPattern, handledPosition, strPattern.length());
-        
+
         return sbuf.toString();
     }
 }

@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -44,26 +64,26 @@ import java.util.Set;
 // @Service
 public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
     private static final Logger log = LoggerFactory.getLogger(SysUserServiceImpl.class);
-    
+
     @Autowired
     private ISysRoleService sysRoleService;
-    
+
     @Autowired
     private ISysPostService sysPostService;
-    
+
     @Autowired
     private ISysUserRoleService sysUserRoleService;
-    
+
     @Autowired
     private ISysUserPostService sysUserPostService;
-    
+
     @Autowired
     private ISysConfigService configService;
-    
+
     @Autowired
     private ISysDeptService sysDeptService;
-    
-    
+
+
     /**
      * 根据条件分页查询用户列表
      *
@@ -91,7 +111,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return sysUsers;
         // return userMapper.selectUserList(user);
     }
-    
+
     /**
      * 根据条件分页查询已分配用户角色列表
      *
@@ -108,7 +128,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return new ArrayList<>();
         // return userMapper.selectAllocatedList(user);
     }
-    
+
     /**
      * 根据条件分页查询未分配用户角色列表
      *
@@ -122,7 +142,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         Set<Long> userIds = EntityUtils.toSet(sysUserRoleService.list(Wrappers.lambdaQuery(SysUserRole.class)), SysUserRole::getUserId);
         return list(Wrappers.lambdaQuery(user).in(userIds.size() > 0, SysUser::getUserId, userIds));
     }
-    
+
     /**
      * 通过用户名查询用户
      *
@@ -137,7 +157,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setDept(sysDeptService.getById(sysUser.getDeptId()));
         return sysUser;
     }
-    
+
     /**
      * 通过用户ID查询用户
      *
@@ -151,7 +171,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return sysUser;
         // return userMapper.selectUserById(userId);
     }
-    
+
     /**
      * 查询用户所属角色组
      *
@@ -171,7 +191,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         return idsStr.toString();
     }
-    
+
     /**
      * 查询用户所属岗位组
      *
@@ -191,7 +211,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         return idsStr.toString();
     }
-    
+
     /**
      * 校验用户名称是否唯一
      *
@@ -207,7 +227,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         return UserConstants.UNIQUE;
     }
-    
+
     /**
      * 校验手机号码是否唯一
      *
@@ -224,7 +244,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         return UserConstants.UNIQUE;
     }
-    
+
     /**
      * 校验email是否唯一
      *
@@ -241,7 +261,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
         return UserConstants.UNIQUE;
     }
-    
+
     /**
      * 校验用户是否允许操作
      *
@@ -253,7 +273,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             throw new ServiceException("不允许操作超级管理员用户");
         }
     }
-    
+
     /**
      * 校验用户是否有数据权限
      *
@@ -270,7 +290,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             }
         }
     }
-    
+
     /**
      * 新增保存用户信息
      *
@@ -289,7 +309,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         insertUserRole(user);
         return bool;
     }
-    
+
     /**
      * 注册用户信息
      *
@@ -301,7 +321,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // return userMapper.insertUser(user) > 0;
         return save(user);
     }
-    
+
     /**
      * 修改保存用户信息
      *
@@ -325,7 +345,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // return userMapper.updateUser(user);
         return updateById(user);
     }
-    
+
     /**
      * 用户授权角色
      *
@@ -339,7 +359,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUserRoleService.deleteUserRoleByUserId(userId);
         insertUserRole(userId, roleIds);
     }
-    
+
     /**
      * 修改用户状态
      *
@@ -351,7 +371,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // return userMapper.updateUser(user);
         return updateById(user);
     }
-    
+
     /**
      * 修改用户基本信息
      *
@@ -363,7 +383,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // return userMapper.updateUser(user);
         return updateById(user);
     }
-    
+
     /**
      * 修改用户头像
      *
@@ -378,7 +398,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setAvatar(avatar);
         return update(sysUser, Wrappers.lambdaUpdate(SysUser.class).eq(SysUser::getUserName, userName));
     }
-    
+
     /**
      * 重置用户密码
      *
@@ -390,7 +410,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // return userMapper.updateUser(user);
         return updateById(user);
     }
-    
+
     /**
      * 重置用户密码
      *
@@ -405,7 +425,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         sysUser.setAvatar(password);
         return update(sysUser, Wrappers.lambdaUpdate(SysUser.class).eq(SysUser::getUserName, userName));
     }
-    
+
     /**
      * 新增用户角色信息
      *
@@ -428,7 +448,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             }
         }
     }
-    
+
     /**
      * 新增用户岗位信息
      *
@@ -451,7 +471,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             }
         }
     }
-    
+
     /**
      * 新增用户角色信息
      *
@@ -474,7 +494,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
             }
         }
     }
-    
+
     /**
      * 通过用户ID删除用户
      *
@@ -493,7 +513,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // return userMapper.deleteUserById(userId);
         return removeById(userId);
     }
-    
+
     /**
      * 批量删除用户信息
      *
@@ -515,7 +535,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         // return userMapper.deleteUserByIds(userIds);
         return removeByIds(Arrays.asList(userIds));
     }
-    
+
     /**
      * 导入用户数据
      *

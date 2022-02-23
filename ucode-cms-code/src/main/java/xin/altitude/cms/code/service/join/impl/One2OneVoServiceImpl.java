@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.code.service.join.impl;
@@ -33,7 +49,7 @@ import java.util.List;
  **/
 public class One2OneVoServiceImpl extends CommonServiceImpl implements IOne2OneVoService {
     private final static String TEMPLATE = "vm10/java/one2one/domainVo.java.vm";
-    
+
     /**
      * 代码实时预览
      */
@@ -45,7 +61,7 @@ public class One2OneVoServiceImpl extends CommonServiceImpl implements IOne2OneV
         tpl.merge(context, sw);
         return JavaFormat4Domain.formJava(sw.toString());
     }
-    
+
     /**
      * 写到本地
      *
@@ -62,8 +78,8 @@ public class One2OneVoServiceImpl extends CommonServiceImpl implements IOne2OneV
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
         CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
-    
-    
+
+
     /**
      * 构建VelocityContext
      */
@@ -72,7 +88,7 @@ public class One2OneVoServiceImpl extends CommonServiceImpl implements IOne2OneV
         VelocityContext context = createContext();
         context.put("ClassName", CodeUtils.getClassName(tableName));
         context.put("className", CodeUtils.getInstanceName(tableName));
-        
+
         context.put("columns", getMetaColumnVoList(keyColumnUsage.getReferencedTableName(), keyColumnUsage.getTableName()));
         // 添加导包列表
         context.put("importList", getImportList(tableName));
@@ -80,7 +96,7 @@ public class One2OneVoServiceImpl extends CommonServiceImpl implements IOne2OneV
         context.put("tableComment", getTableInfo(tableName).getTableComment());
         return context;
     }
-    
+
     /**
      * 获取导包列表
      *

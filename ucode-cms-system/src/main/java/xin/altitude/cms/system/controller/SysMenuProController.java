@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.system.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,7 +52,7 @@ import java.util.List;
 public class SysMenuProController extends BaseProController {
     @Autowired
     private ISysMenuService menuService;
-    
+
     /**
      * 获取菜单列表
      */
@@ -42,7 +62,7 @@ public class SysMenuProController extends BaseProController {
         List<SysMenu> menus = menuService.selectMenuList(menu, getUserId());
         return AjaxResult.success(menus);
     }
-    
+
     /**
      * 根据菜单编号获取详细信息
      */
@@ -51,7 +71,7 @@ public class SysMenuProController extends BaseProController {
     public AjaxResult getInfo(@PathVariable Long menuId) {
         return AjaxResult.success(menuService.selectMenuById(menuId));
     }
-    
+
     /**
      * 获取菜单下拉树列表
      */
@@ -60,7 +80,7 @@ public class SysMenuProController extends BaseProController {
         List<SysMenu> menus = menuService.selectMenuList(menu, getUserId());
         return AjaxResult.success(menuService.buildMenuTreeSelect(menus));
     }
-    
+
     /**
      * 加载对应角色菜单列表树
      */
@@ -72,7 +92,7 @@ public class SysMenuProController extends BaseProController {
         ajax.put("menus", menuService.buildMenuTreeSelect(menus));
         return ajax;
     }
-    
+
     /**
      * 新增菜单
      */
@@ -88,7 +108,7 @@ public class SysMenuProController extends BaseProController {
         menu.setCreateBy(getUsername());
         return toAjax(menuService.insertMenu(menu));
     }
-    
+
     /**
      * 修改菜单
      */
@@ -106,7 +126,7 @@ public class SysMenuProController extends BaseProController {
         menu.setUpdateBy(getUsername());
         return toAjax(menuService.updateMenu(menu));
     }
-    
+
     /**
      * 删除菜单
      */

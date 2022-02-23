@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.code.domain;
@@ -49,10 +65,10 @@ public class MetaColumn extends Model<MetaColumn> {
      */
     private String columnComment;
     // private String generationExpression;
-    
+
     public MetaColumn() {
     }
-    
+
     public MetaColumn(MetaColumn metaColumn) {
         // this.tableCatalog = metaColumn.getTableCatalog();
         this.tableSchema = metaColumn.getTableSchema();
@@ -74,8 +90,8 @@ public class MetaColumn extends Model<MetaColumn> {
         this.columnComment = metaColumn.columnComment;
         // this.generationExpression = metaColumn.generationExpression;
     }
-    
-    
+
+
     // public String getTableCatalog() {
     //     return tableCatalog;
     // }
@@ -83,39 +99,39 @@ public class MetaColumn extends Model<MetaColumn> {
     // public void setTableCatalog(String tableCatalog) {
     //     this.tableCatalog = tableCatalog;
     // }
-    
+
     public String getTableSchema() {
         return tableSchema;
     }
-    
+
     public void setTableSchema(String tableSchema) {
         this.tableSchema = tableSchema;
     }
-    
+
     public String getTableName() {
         return tableName;
     }
-    
+
     public void setTableName(String tableName) {
         this.tableName = tableName;
     }
-    
+
     public String getColumnName() {
         return columnName;
     }
-    
+
     public void setColumnName(String columnName) {
         this.columnName = columnName;
     }
-    
+
     public Long getOrdinalPosition() {
         return ordinalPosition;
     }
-    
+
     public void setOrdinalPosition(Long ordinalPosition) {
         this.ordinalPosition = ordinalPosition;
     }
-    
+
     // public String getColumnDefault() {
     //     return columnDefault;
     // }
@@ -123,23 +139,23 @@ public class MetaColumn extends Model<MetaColumn> {
     // public void setColumnDefault(String columnDefault) {
     //     this.columnDefault = columnDefault;
     // }
-    
+
     public String getIsNullable() {
         return isNullable;
     }
-    
+
     public void setIsNullable(String isNullable) {
         this.isNullable = isNullable;
     }
-    
+
     public String getDataType() {
         return dataType;
     }
-    
+
     public void setDataType(String dataType) {
         this.dataType = dataType;
     }
-    
+
     // public Long getCharacterMaximumLength() {
     //     return characterMaximumLength;
     // }
@@ -147,8 +163,8 @@ public class MetaColumn extends Model<MetaColumn> {
     // public void setCharacterMaximumLength(Long characterMaximumLength) {
     //     this.characterMaximumLength = characterMaximumLength;
     // }
-    
-    
+
+
     // public Long getNumericPrecision() {
     //     return numericPrecision;
     // }
@@ -212,15 +228,15 @@ public class MetaColumn extends Model<MetaColumn> {
     // public void setPrivileges(String privileges) {
     //     this.privileges = privileges;
     // }
-    
+
     public String getColumnComment() {
         return columnComment;
     }
-    
+
     public void setColumnComment(String columnComment) {
         this.columnComment = columnComment;
     }
-    
+
     // public String getGenerationExpression() {
     //     return generationExpression;
     // }
@@ -228,8 +244,8 @@ public class MetaColumn extends Model<MetaColumn> {
     // public void setGenerationExpression(String generationExpression) {
     //     this.generationExpression = generationExpression;
     // }
-    
-    
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -240,7 +256,7 @@ public class MetaColumn extends Model<MetaColumn> {
         }
         return getColumnName().equals(((MetaColumn) o).getColumnName());
     }
-    
+
     @Override
     public int hashCode() {
         return Objects.hash(getColumnName());

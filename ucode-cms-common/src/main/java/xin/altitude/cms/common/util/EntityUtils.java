@@ -1,18 +1,21 @@
+
 /*
  *
- *  Copyright (c) 2020-2021, Java知识图谱 (http://www.altitude.xin).
- *
- *  Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
- *  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
  *
  */
 
@@ -59,7 +62,7 @@ public class EntityUtils {
         Objects.requireNonNull(collector);
         return source.stream().map(action).collect(collector);
     }
-    
+
     /**
      * 将对象集合按照一定规则映射后收集为另一种形式的集合
      *
@@ -73,7 +76,7 @@ public class EntityUtils {
         Objects.requireNonNull(source);
         return source.stream().map(action).collect(Collectors.toSet());
     }
-    
+
     /**
      * 将对象集合按照一定规则映射后收集为List集合
      *
@@ -85,7 +88,7 @@ public class EntityUtils {
     public static <S> List<? extends S> collectList(final Collection<S> source, Function<? super S, ? extends S> action) {
         return collectList(source, action, Collectors.toList());
     }
-    
+
     /**
      * 将对象以一种类型转换成另一种类型
      *
@@ -99,7 +102,7 @@ public class EntityUtils {
         Objects.requireNonNull(action);
         return Optional.ofNullable(source).map(action).orElse(null);
     }
-    
+
     /**
      * 将List集合以一种类型转换成另一种类型
      *
@@ -116,7 +119,7 @@ public class EntityUtils {
         }
         return new ArrayList<>();
     }
-    
+
     // /**
     //  * 将IPaged对象以一种类型转换成另一种类型
     //  *
@@ -135,7 +138,7 @@ public class EntityUtils {
     //     }
     //     return null;
     // }
-    
+
     /**
      * 将IPaged对象以一种类型转换成另一种类型
      *
@@ -151,7 +154,7 @@ public class EntityUtils {
         Objects.requireNonNull(action);
         return source.convert(action);
     }
-    
+
     /**
      * 将集合转化成Map
      *
@@ -169,7 +172,7 @@ public class EntityUtils {
         Objects.requireNonNull(valueAction);
         return lists.stream().collect(Collectors.toMap(keyAction, valueAction));
     }
-    
+
     /**
      * 将List集合以一种类型转换成Set集合
      *

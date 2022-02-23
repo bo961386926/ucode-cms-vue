@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util.file;
 
 import org.apache.commons.io.FilenameUtils;
@@ -25,25 +45,25 @@ public class FileUploadUtils {
      * 默认大小 50M
      */
     public static final long DEFAULT_MAX_SIZE = 50 * 1024 * 1024;
-    
+
     /**
      * 默认的文件名最大长度 100
      */
     public static final int DEFAULT_FILE_NAME_LENGTH = 100;
-    
+
     /**
      * 默认上传的地址
      */
     private static String defaultBaseDir = SpringUtils.getBean(CmsConfig.class).getCms().getProfile();
-    
+
     public static String getDefaultBaseDir() {
         return defaultBaseDir;
     }
-    
+
     public static void setDefaultBaseDir(String defaultBaseDir) {
         FileUploadUtils.defaultBaseDir = defaultBaseDir;
     }
-    
+
     /**
      * 以默认配置进行文件上传
      *
@@ -57,7 +77,7 @@ public class FileUploadUtils {
             throw new IOException(e.getMessage(), e);
         }
     }
-    
+
     /**
      * 根据文件路径上传
      *
@@ -73,7 +93,7 @@ public class FileUploadUtils {
             throw new IOException(e.getMessage(), e);
         }
     }
-    
+
     /**
      * 文件上传
      *
@@ -93,17 +113,17 @@ public class FileUploadUtils {
         if (fileNamelength > FileUploadUtils.DEFAULT_FILE_NAME_LENGTH) {
             throw new FileNameLengthLimitExceededException(FileUploadUtils.DEFAULT_FILE_NAME_LENGTH);
         }
-        
+
         assertAllowed(file, allowedExtension);
-        
+
         String fileName = extractFilename(file);
-        
+
         File desc = getAbsoluteFile(baseDir, fileName);
         file.transferTo(desc);
         String pathFileName = getPathFileName(baseDir, fileName);
         return pathFileName;
     }
-    
+
     /**
      * 编码文件名
      */
@@ -113,10 +133,10 @@ public class FileUploadUtils {
         fileName = DateUtils.datePath() + "/" + IdUtils.fastUUID() + "." + extension;
         return fileName;
     }
-    
+
     public static File getAbsoluteFile(String uploadDir, String fileName) throws IOException {
         File desc = new File(uploadDir + File.separator + fileName);
-        
+
         if (!desc.exists()) {
             if (!desc.getParentFile().exists()) {
                 desc.getParentFile().mkdirs();
@@ -124,14 +144,14 @@ public class FileUploadUtils {
         }
         return desc;
     }
-    
+
     public static final String getPathFileName(String uploadDir, String fileName) throws IOException {
         int dirLastIndex = SpringUtils.getBean(CmsConfig.class).getCms().getProfile().length() + 1;
         String currentDir = StringUtil.substring(uploadDir, dirLastIndex);
         String pathFileName = Constants.RESOURCE_PREFIX + "/" + currentDir + "/" + fileName;
         return pathFileName;
     }
-    
+
     /**
      * 文件大小校验
      *
@@ -144,7 +164,7 @@ public class FileUploadUtils {
         if (DEFAULT_MAX_SIZE != -1 && size > DEFAULT_MAX_SIZE) {
             throw new FileSizeLimitExceededException(DEFAULT_MAX_SIZE / 1024 / 1024);
         }
-        
+
         String fileName = file.getOriginalFilename();
         String extension = getExtension(file);
         if (allowedExtension != null && !isAllowedExtension(extension, allowedExtension)) {
@@ -164,9 +184,9 @@ public class FileUploadUtils {
                 throw new InvalidExtensionException(allowedExtension, extension, fileName);
             }
         }
-        
+
     }
-    
+
     /**
      * 判断MIME类型是否是允许的MIME类型
      *
@@ -182,7 +202,7 @@ public class FileUploadUtils {
         }
         return false;
     }
-    
+
     /**
      * 获取文件名的后缀
      *

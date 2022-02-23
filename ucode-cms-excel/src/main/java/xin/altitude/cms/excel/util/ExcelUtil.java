@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.excel.util;
 
 import org.apache.commons.io.FilenameUtils;
@@ -122,11 +142,11 @@ public class ExcelUtil<T> {
      * 最大高度
      */
     private short maxHeight;
-    
+
     public ExcelUtil(Class<T> clazz) {
         this.clazz = clazz;
     }
-    
+
     /**
      * 获取画布
      */
@@ -136,7 +156,7 @@ public class ExcelUtil<T> {
         }
         return sheet.getDrawingPatriarch();
     }
-    
+
     /**
      * 解析导出值 0=男,1=女,2=未知
      *
@@ -165,7 +185,7 @@ public class ExcelUtil<T> {
         }
         return StringUtil.stripEnd(propertyString.toString(), separator);
     }
-    
+
     /**
      * 反向解析值 男=0,女=1,未知=2
      *
@@ -194,7 +214,7 @@ public class ExcelUtil<T> {
         }
         return StringUtil.stripEnd(propertyString.toString(), separator);
     }
-    
+
     // /**
     //  * 解析字典值
     //  *
@@ -219,7 +239,7 @@ public class ExcelUtil<T> {
     //     return DictUtils.getDictValue(dictType, dictLabel, separator);
     // }
     //
-    
+
     /**
      * 获取Excel2003图片
      *
@@ -246,7 +266,7 @@ public class ExcelUtil<T> {
             return sheetIndexPicMap;
         }
     }
-    
+
     /**
      * 获取Excel2007图片
      *
@@ -273,7 +293,7 @@ public class ExcelUtil<T> {
         }
         return sheetIndexPicMap;
     }
-    
+
     public void init(List<T> list, String sheetName, String title, Excel.Type type) {
         if (list == null) {
             list = new ArrayList<T>();
@@ -286,7 +306,7 @@ public class ExcelUtil<T> {
         createWorkbook();
         createTitle();
     }
-    
+
     /**
      * 创建excel第一行标题
      */
@@ -301,7 +321,7 @@ public class ExcelUtil<T> {
                     this.fields.size() - 1));
         }
     }
-    
+
     /**
      * 对excel表单默认第一个索引名转换成list
      *
@@ -311,7 +331,7 @@ public class ExcelUtil<T> {
     public List<T> importExcel(InputStream is) throws Exception {
         return importExcel(is, 0);
     }
-    
+
     /**
      * 对excel表单默认第一个索引名转换成list
      *
@@ -322,7 +342,7 @@ public class ExcelUtil<T> {
     public List<T> importExcel(InputStream is, int titleNum) throws Exception {
         return importExcel(StringUtil.EMPTY, is, titleNum);
     }
-    
+
     /**
      * 对excel表单指定表格索引名转换成list
      *
@@ -349,7 +369,7 @@ public class ExcelUtil<T> {
         }
         // 获取最后一个非空行的行下标，比如总行数为n，则返回的为n-1
         int rows = sheet.getLastRowNum();
-        
+
         if (rows > 0) {
             // 定义一个map用于存放excel列的序号和field.
             Map<String, Integer> cellMap = new HashMap<String, Integer>();
@@ -384,7 +404,7 @@ public class ExcelUtil<T> {
                 T entity = null;
                 for (Map.Entry<Integer, Object[]> entry : fieldsMap.entrySet()) {
                     Object val = this.getCellValue(row, entry.getKey());
-                    
+
                     // 如果不存在实例则新建.
                     entity = (entity == null ? clazz.newInstance() : entity);
                     // 从map中得到对应列的field.
@@ -449,7 +469,7 @@ public class ExcelUtil<T> {
         }
         return list;
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
@@ -460,7 +480,7 @@ public class ExcelUtil<T> {
     public AjaxResult exportExcel(List<T> list, String sheetName) {
         return exportExcel(list, sheetName, StringUtil.EMPTY);
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
@@ -473,7 +493,7 @@ public class ExcelUtil<T> {
         this.init(list, sheetName, title, Excel.Type.EXPORT);
         return exportExcel();
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
@@ -484,7 +504,7 @@ public class ExcelUtil<T> {
     public void exportExcel(HttpServletResponse response, List<T> list, String sheetName) {
         exportExcel(response, list, sheetName, StringUtil.EMPTY);
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
@@ -499,7 +519,7 @@ public class ExcelUtil<T> {
         this.init(list, sheetName, title, Excel.Type.EXPORT);
         exportExcel(response);
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
@@ -509,7 +529,7 @@ public class ExcelUtil<T> {
     public AjaxResult importTemplateExcel(String sheetName) {
         return importTemplateExcel(sheetName, StringUtil.EMPTY);
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
@@ -521,7 +541,7 @@ public class ExcelUtil<T> {
         this.init(null, sheetName, title, Excel.Type.IMPORT);
         return exportExcel();
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
@@ -530,7 +550,7 @@ public class ExcelUtil<T> {
     public void importTemplateExcel(HttpServletResponse response, String sheetName) {
         importTemplateExcel(response, sheetName, StringUtil.EMPTY);
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
@@ -543,7 +563,7 @@ public class ExcelUtil<T> {
         this.init(null, sheetName, title, Excel.Type.IMPORT);
         exportExcel(response);
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      */
@@ -557,7 +577,7 @@ public class ExcelUtil<T> {
             IOUtils.closeQuietly(wb);
         }
     }
-    
+
     /**
      * 对list数据源将其里面的数据导入到excel表单
      *
@@ -579,7 +599,7 @@ public class ExcelUtil<T> {
             IOUtils.closeQuietly(out);
         }
     }
-    
+
     /**
      * 创建写入数据到Sheet
      */
@@ -588,7 +608,7 @@ public class ExcelUtil<T> {
         int sheetNo = Math.max(1, (int) Math.ceil(list.size() * 1.0 / sheetSize));
         for (int index = 0; index < sheetNo; index++) {
             createSheet(sheetNo, index);
-            
+
             // 产生一行
             Row row = sheet.createRow(rownum);
             int column = 0;
@@ -603,7 +623,7 @@ public class ExcelUtil<T> {
             }
         }
     }
-    
+
     /**
      * 填充excel数据
      *
@@ -625,7 +645,7 @@ public class ExcelUtil<T> {
             }
         }
     }
-    
+
     /**
      * 创建表格样式
      *
@@ -644,7 +664,7 @@ public class ExcelUtil<T> {
         titleFont.setBold(true);
         style.setFont(titleFont);
         styles.put("title", style);
-        
+
         style = wb.createCellStyle();
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
@@ -661,7 +681,7 @@ public class ExcelUtil<T> {
         dataFont.setFontHeightInPoints((short) 10);
         style.setFont(dataFont);
         styles.put("data", style);
-        
+
         style = wb.createCellStyle();
         style.cloneStyleFrom(styles.get("data"));
         style.setAlignment(HorizontalAlignment.CENTER);
@@ -675,7 +695,7 @@ public class ExcelUtil<T> {
         headerFont.setColor(IndexedColors.WHITE.getIndex());
         style.setFont(headerFont);
         styles.put("header", style);
-        
+
         style = wb.createCellStyle();
         style.setAlignment(HorizontalAlignment.CENTER);
         style.setVerticalAlignment(VerticalAlignment.CENTER);
@@ -684,25 +704,25 @@ public class ExcelUtil<T> {
         totalFont.setFontHeightInPoints((short) 10);
         style.setFont(totalFont);
         styles.put("total", style);
-        
+
         style = wb.createCellStyle();
         style.cloneStyleFrom(styles.get("data"));
         style.setAlignment(HorizontalAlignment.LEFT);
         styles.put("data1", style);
-        
+
         style = wb.createCellStyle();
         style.cloneStyleFrom(styles.get("data"));
         style.setAlignment(HorizontalAlignment.CENTER);
         styles.put("data2", style);
-        
+
         style = wb.createCellStyle();
         style.cloneStyleFrom(styles.get("data"));
         style.setAlignment(HorizontalAlignment.RIGHT);
         styles.put("data3", style);
-        
+
         return styles;
     }
-    
+
     /**
      * 创建单元格
      */
@@ -715,7 +735,7 @@ public class ExcelUtil<T> {
         cell.setCellStyle(styles.get("header"));
         return cell;
     }
-    
+
     /**
      * 设置单元格信息
      *
@@ -740,7 +760,7 @@ public class ExcelUtil<T> {
             }
         }
     }
-    
+
     /**
      * 获取图片类型,设置图片插入类型
      */
@@ -753,7 +773,7 @@ public class ExcelUtil<T> {
         }
         return Workbook.PICTURE_TYPE_JPEG;
     }
-    
+
     /**
      * 创建表格样式
      */
@@ -775,7 +795,7 @@ public class ExcelUtil<T> {
             setXSSFValidation(sheet, attr.combo(), 1, 100, column, column);
         }
     }
-    
+
     /**
      * 添加单元格
      */
@@ -790,7 +810,7 @@ public class ExcelUtil<T> {
                 cell = row.createCell(column);
                 int align = attr.align().value();
                 cell.setCellStyle(styles.get("data" + (align >= 1 && align <= 3 ? align : "")));
-                
+
                 // 用于读取对象中的属性
                 Object value = getTargetValue(vo, field, attr);
                 String dateFormat = attr.dateFormat();
@@ -820,7 +840,7 @@ public class ExcelUtil<T> {
         }
         return cell;
     }
-    
+
     /**
      * 设置 POI XSSFSheet 单元格提示
      *
@@ -842,7 +862,7 @@ public class ExcelUtil<T> {
         dataValidation.setShowPromptBox(true);
         sheet.addValidationData(dataValidation);
     }
-    
+
     /**
      * 设置某些列的值只能输入预制的数据,显示下拉框.
      *
@@ -868,10 +888,10 @@ public class ExcelUtil<T> {
         } else {
             dataValidation.setSuppressDropDownArrow(false);
         }
-        
+
         sheet.addValidationData(dataValidation);
     }
-    
+
     /**
      * 数据处理器
      *
@@ -889,7 +909,7 @@ public class ExcelUtil<T> {
         }
         return ConvertUtils.toStr(value);
     }
-    
+
     /**
      * 合计统计信息
      */
@@ -907,7 +927,7 @@ public class ExcelUtil<T> {
             statistics.put(index, statistics.get(index) + temp);
         }
     }
-    
+
     /**
      * 创建统计行
      */
@@ -918,7 +938,7 @@ public class ExcelUtil<T> {
             Cell cell = row.createCell(0);
             cell.setCellStyle(styles.get("total"));
             cell.setCellValue("合计");
-            
+
             for (Integer key : keys) {
                 cell = row.createCell(key);
                 cell.setCellStyle(styles.get("total"));
@@ -927,7 +947,7 @@ public class ExcelUtil<T> {
             statistics.clear();
         }
     }
-    
+
     /**
      * 编码文件名
      */
@@ -935,7 +955,7 @@ public class ExcelUtil<T> {
         filename = UUID.randomUUID().toString() + "_" + filename + ".xlsx";
         return filename;
     }
-    
+
     /**
      * 获取下载路径
      *
@@ -949,7 +969,7 @@ public class ExcelUtil<T> {
         }
         return downloadPath;
     }
-    
+
     /**
      * 获取bean中的属性值
      *
@@ -974,7 +994,7 @@ public class ExcelUtil<T> {
         }
         return o;
     }
-    
+
     /**
      * 以类的属性的get方法方法形式获取值
      *
@@ -992,7 +1012,7 @@ public class ExcelUtil<T> {
         }
         return o;
     }
-    
+
     /**
      * 得到所有定义字段
      */
@@ -1001,7 +1021,7 @@ public class ExcelUtil<T> {
         this.fields = this.fields.stream().sorted(Comparator.comparing(objects -> ((Excel) objects[1]).sort())).collect(Collectors.toList());
         this.maxHeight = getRowHeight();
     }
-    
+
     /**
      * 获取字段注解信息
      */
@@ -1019,7 +1039,7 @@ public class ExcelUtil<T> {
                     fields.add(new Object[]{field, attr});
                 }
             }
-            
+
             // 多注解
             if (field.isAnnotationPresent(Excels.class)) {
                 Excels attrs = field.getAnnotation(Excels.class);
@@ -1034,7 +1054,7 @@ public class ExcelUtil<T> {
         }
         return fields;
     }
-    
+
     /**
      * 根据注解获取最大行高
      */
@@ -1046,7 +1066,7 @@ public class ExcelUtil<T> {
         }
         return (short) (maxHeight * 20);
     }
-    
+
     /**
      * 创建一个工作簿
      */
@@ -1056,7 +1076,7 @@ public class ExcelUtil<T> {
         wb.setSheetName(0, sheetName);
         this.styles = createStyles(wb);
     }
-    
+
     /**
      * 创建工作表
      *
@@ -1071,7 +1091,7 @@ public class ExcelUtil<T> {
             wb.setSheetName(index, sheetName + index);
         }
     }
-    
+
     /**
      * 获取单元格值
      *
@@ -1105,14 +1125,14 @@ public class ExcelUtil<T> {
                 } else if (cell.getCellType() == CellType.ERROR) {
                     val = cell.getErrorCellValue();
                 }
-                
+
             }
         } catch (Exception e) {
             return val;
         }
         return val;
     }
-    
+
     /**
      * 判断是否是空行
      *

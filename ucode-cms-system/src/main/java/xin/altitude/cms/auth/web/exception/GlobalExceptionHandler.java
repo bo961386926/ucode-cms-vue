@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.auth.web.exception;
 
 import org.slf4j.Logger;
@@ -24,7 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(GlobalExceptionHandler.class);
-    
+
     /**
      * 权限校验异常
      */
@@ -34,7 +54,7 @@ public class GlobalExceptionHandler {
         log.error("请求地址'{}',权限校验失败'{}'", requestURI, e.getMessage());
         return AjaxResult.error(HttpStatus.FORBIDDEN, "没有权限，请联系管理员授权");
     }
-    
+
     /**
      * 请求方式不支持
      */
@@ -45,7 +65,7 @@ public class GlobalExceptionHandler {
         log.error("请求地址'{}',不支持'{}'请求", requestURI, e.getMethod());
         return AjaxResult.error(e.getMessage());
     }
-    
+
     /**
      * 业务异常
      */
@@ -55,7 +75,7 @@ public class GlobalExceptionHandler {
         Integer code = e.getCode();
         return StringUtil.isNotNull(code) ? AjaxResult.error(code, e.getMessage()) : AjaxResult.error(e.getMessage());
     }
-    
+
     /**
      * 拦截未知的运行时异常
      */
@@ -65,7 +85,7 @@ public class GlobalExceptionHandler {
         log.error("请求地址'{}',发生未知异常.", requestURI, e);
         return AjaxResult.error(e.getMessage());
     }
-    
+
     /**
      * 系统异常
      */
@@ -75,7 +95,7 @@ public class GlobalExceptionHandler {
         log.error("请求地址'{}',发生系统异常.", requestURI, e);
         return AjaxResult.error(e.getMessage());
     }
-    
+
     /**
      * 自定义验证异常
      */
@@ -85,7 +105,7 @@ public class GlobalExceptionHandler {
         String message = e.getAllErrors().get(0).getDefaultMessage();
         return AjaxResult.error(message);
     }
-    
+
     /**
      * 自定义验证异常
      */
@@ -95,7 +115,7 @@ public class GlobalExceptionHandler {
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
         return AjaxResult.error(message);
     }
-    
+
     /**
      * 演示模式异常
      */

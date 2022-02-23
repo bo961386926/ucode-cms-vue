@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.monitor.domain;
 
 import oshi.SystemInfo;
@@ -29,72 +49,72 @@ import java.util.Properties;
  */
 public class Server {
     private static final int OSHI_WAIT_SECOND = 1000;
-    
+
     /**
      * CPU相关信息
      */
     private Cpu cpu = new Cpu();
-    
+
     /**
      * 內存相关信息
      */
     private Mem mem = new Mem();
-    
+
     /**
      * JVM相关信息
      */
     private Jvm jvm = new Jvm();
-    
+
     /**
      * 服务器相关信息
      */
     private Sys sys = new Sys();
-    
+
     /**
      * 磁盘相关信息
      */
     private List<SysFile> sysFiles = new LinkedList<SysFile>();
-    
+
     public Cpu getCpu() {
         return cpu;
     }
-    
+
     public void setCpu(Cpu cpu) {
         this.cpu = cpu;
     }
-    
+
     public Mem getMem() {
         return mem;
     }
-    
+
     public void setMem(Mem mem) {
         this.mem = mem;
     }
-    
+
     public Jvm getJvm() {
         return jvm;
     }
-    
+
     public void setJvm(Jvm jvm) {
         this.jvm = jvm;
     }
-    
+
     public Sys getSys() {
         return sys;
     }
-    
+
     public void setSys(Sys sys) {
         this.sys = sys;
     }
-    
+
     public List<SysFile> getSysFiles() {
         return sysFiles;
     }
-    
+
     public void setSysFiles(List<SysFile> sysFiles) {
         this.sysFiles = sysFiles;
     }
-    
+
     /**
      * 设置磁盘信息
      */
@@ -116,22 +136,22 @@ public class Server {
             sysFiles.add(sysFile);
         }
     }
-    
+
     public void copyTo() throws Exception {
         SystemInfo si = new SystemInfo();
         HardwareAbstractionLayer hal = si.getHardware();
-        
+
         setCpuInfo(hal.getProcessor());
-        
+
         setMemInfo(hal.getMemory());
-        
+
         setSysInfo();
-        
+
         setJvmInfo();
-        
+
         setSysFiles(si.getOperatingSystem());
     }
-    
+
     /**
      * 设置CPU信息
      */
@@ -156,7 +176,7 @@ public class Server {
         cpu.setWait(iowait);
         cpu.setFree(idle);
     }
-    
+
     /**
      * 设置内存信息
      */
@@ -165,7 +185,7 @@ public class Server {
         mem.setUsed(memory.getTotal() - memory.getAvailable());
         mem.setFree(memory.getAvailable());
     }
-    
+
     /**
      * 设置服务器信息
      */
@@ -177,7 +197,7 @@ public class Server {
         sys.setOsArch(props.getProperty("os.arch"));
         sys.setUserDir(props.getProperty("user.dir"));
     }
-    
+
     /**
      * 设置Java虚拟机
      */
@@ -189,7 +209,7 @@ public class Server {
         jvm.setVersion(props.getProperty("java.version"));
         jvm.setHome(props.getProperty("java.home"));
     }
-    
+
     /**
      * 字节转换
      *

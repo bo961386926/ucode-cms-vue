@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.code.service.join.impl;
@@ -32,7 +48,7 @@ import java.util.List;
  **/
 public class More2MoreVoServiceImpl extends CommonServiceImpl {
     private final static String TEMPLATE = "vm10/java/more2more/domainVo.java.vm";
-    
+
     public String realtimePreview(VelocityContext context, String... tableNames) {
         StringWriter sw = new StringWriter();
         VelocityInitializer.initVelocity();
@@ -41,7 +57,7 @@ public class More2MoreVoServiceImpl extends CommonServiceImpl {
         tpl.merge(context, sw);
         return JavaFormat4Domain.formJava(sw.toString());
     }
-    
+
     public void writeToLocalFile(List<String> tableNames, String midClassName) {
         String fileName = String.format("%sVo.java", CodeUtils.getClassName(ColUtils.toObj(tableNames)));
         List<String> importList = getImportList(tableNames, midClassName);
@@ -52,21 +68,21 @@ public class More2MoreVoServiceImpl extends CommonServiceImpl {
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
         CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
-    
-    
+
+
     public VelocityContext createContext(List<String> tableNames, List<String> importList, String midClassName) {
         VelocityContext context = createContext();
         context.put("MidClassName", midClassName);
         context.put("leftClassName", CodeUtils.getClassName(tableNames.get(0)));
         context.put("rightClassName", CodeUtils.getClassName(tableNames.get(1)));
-        
+
         // 添加导包列表
         context.put("importList", importList);
         // 添加表备注
         // context.put("tableComment", getTableInfo(tableName).getTableComment());
         return context;
     }
-    
+
     public List<String> getImportList(List<String> tableNames, String midClassName) {
         ArrayList<String> rs = new ArrayList<>();
         // 如果配置需要导包，方才进行真正的导包列表构建

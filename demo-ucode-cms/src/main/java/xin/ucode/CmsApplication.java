@@ -1,7 +1,3 @@
-/*
- * Copyright (Java知识图谱) 2022.
- */
-
 package xin.ucode;
 
 import org.springframework.boot.SpringApplication;

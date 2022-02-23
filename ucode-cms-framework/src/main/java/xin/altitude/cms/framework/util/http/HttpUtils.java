@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util.http;
 
 import org.slf4j.Logger;
@@ -30,7 +50,7 @@ import java.security.cert.X509Certificate;
  */
 public class HttpUtils {
     private static final Logger log = LoggerFactory.getLogger(HttpUtils.class);
-    
+
     /**
      * 向指定 URL 发送GET方法的请求
      *
@@ -40,7 +60,7 @@ public class HttpUtils {
     public static String sendGet(String url) {
         return sendGet(url, StringUtil.EMPTY);
     }
-    
+
     /**
      * 向指定 URL 发送GET方法的请求
      *
@@ -51,7 +71,7 @@ public class HttpUtils {
     public static String sendGet(String url, String param) {
         return sendGet(url, param, Constants.UTF8);
     }
-    
+
     /**
      * 向指定 URL 发送GET方法的请求
      *
@@ -97,7 +117,7 @@ public class HttpUtils {
         }
         return result.toString();
     }
-    
+
     /**
      * 向指定 URL 发送POST方法的请求
      *
@@ -152,7 +172,7 @@ public class HttpUtils {
         }
         return result.toString();
     }
-    
+
     public static String sendSSLPost(String url, String param) {
         StringBuilder result = new StringBuilder();
         String urlNameString = url + "?" + param;
@@ -169,7 +189,7 @@ public class HttpUtils {
             conn.setRequestProperty("contentType", "utf-8");
             conn.setDoOutput(true);
             conn.setDoInput(true);
-            
+
             conn.setSSLSocketFactory(sc.getSocketFactory());
             conn.setHostnameVerifier(new TrustAnyHostnameVerifier());
             conn.connect();
@@ -195,22 +215,22 @@ public class HttpUtils {
         }
         return result.toString();
     }
-    
+
     private static class TrustAnyTrustManager implements X509TrustManager {
         @Override
         public void checkClientTrusted(X509Certificate[] chain, String authType) {
         }
-        
+
         @Override
         public void checkServerTrusted(X509Certificate[] chain, String authType) {
         }
-        
+
         @Override
         public X509Certificate[] getAcceptedIssuers() {
             return new X509Certificate[]{};
         }
     }
-    
+
     private static class TrustAnyHostnameVerifier implements HostnameVerifier {
         @Override
         public boolean verify(String hostname, SSLSession session) {

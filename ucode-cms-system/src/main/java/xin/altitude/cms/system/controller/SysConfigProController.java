@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.system.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -36,7 +56,7 @@ import java.util.List;
 public class SysConfigProController extends BaseProController {
     @Autowired
     private ISysConfigService configService;
-    
+
     /**
      * 获取参数配置列表
      */
@@ -44,7 +64,7 @@ public class SysConfigProController extends BaseProController {
     public AjaxResult page(Page<SysConfig> page, SysConfig config) {
         return AjaxResult.success(configService.page(page, Wrappers.lambdaQuery(config)));
     }
-    
+
     /**
      * 获取参数配置列表
      */
@@ -54,7 +74,7 @@ public class SysConfigProController extends BaseProController {
         List<SysConfig> list = configService.selectConfigList(config);
         return getDataTable(list);
     }
-    
+
     @Log(title = "参数管理", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:config:export')")
     @PostMapping("/export")
@@ -63,7 +83,7 @@ public class SysConfigProController extends BaseProController {
         ExcelUtil<SysConfig> util = new ExcelUtil<SysConfig>(SysConfig.class);
         util.exportExcel(response, list, "参数数据");
     }
-    
+
     /**
      * 根据参数编号获取详细信息
      */
@@ -72,7 +92,7 @@ public class SysConfigProController extends BaseProController {
     public AjaxResult getInfo(@PathVariable Long configId) {
         return AjaxResult.success(configService.selectConfigById(configId));
     }
-    
+
     /**
      * 根据参数键名查询参数值
      */
@@ -80,7 +100,7 @@ public class SysConfigProController extends BaseProController {
     public AjaxResult getConfigKey(@PathVariable String configKey) {
         return AjaxResult.success(configService.selectConfigByKey(configKey));
     }
-    
+
     /**
      * 新增参数配置
      */
@@ -94,7 +114,7 @@ public class SysConfigProController extends BaseProController {
         config.setCreateBy(getUsername());
         return toAjax(configService.insertConfig(config));
     }
-    
+
     /**
      * 修改参数配置
      */
@@ -108,7 +128,7 @@ public class SysConfigProController extends BaseProController {
         config.setUpdateBy(getUsername());
         return toAjax(configService.updateConfig(config));
     }
-    
+
     /**
      * 删除参数配置
      */
@@ -119,7 +139,7 @@ public class SysConfigProController extends BaseProController {
         configService.deleteConfigByIds(configIds);
         return success();
     }
-    
+
     /**
      * 刷新参数缓存
      */

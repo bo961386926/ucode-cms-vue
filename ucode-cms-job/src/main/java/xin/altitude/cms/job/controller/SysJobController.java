@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.job.controller;
@@ -47,7 +63,7 @@ import java.util.List;
 public class SysJobController {
     @Autowired
     private ISysJobService jobService;
-    
+
     /**
      * 查询定时任务列表
      *
@@ -57,7 +73,7 @@ public class SysJobController {
     public AjaxResult list(Page<SysJob> page, SysJob sysJob) {
         return AjaxResult.success(jobService.page(page, Wrappers.lambdaQuery(sysJob)));
     }
-    
+
     /**
      * 导出定时任务列表
      */
@@ -68,7 +84,7 @@ public class SysJobController {
         ExcelUtil<SysJob> util = new ExcelUtil<SysJob>(SysJob.class);
         return util.exportExcel(list, "定时任务");
     }
-    
+
     /**
      * 获取定时任务详细信息
      */
@@ -76,7 +92,7 @@ public class SysJobController {
     public AjaxResult getInfo(@PathVariable("jobId") Long jobId) {
         return AjaxResult.success(jobService.selectJobById(jobId));
     }
-    
+
     /**
      * 新增定时任务
      */
@@ -95,7 +111,7 @@ public class SysJobController {
         // job.setCreateBy(getUsername());
         return AjaxResult.success(jobService.insertJob(job));
     }
-    
+
     /**
      * 修改定时任务
      */
@@ -114,7 +130,7 @@ public class SysJobController {
         // job.setUpdateBy(getUsername());
         return AjaxResult.success(jobService.updateJob(job));
     }
-    
+
     /**
      * 定时任务状态修改
      */
@@ -126,7 +142,7 @@ public class SysJobController {
         newJob.setStatus(job.getStatus());
         return AjaxResult.success(jobService.changeStatus(newJob));
     }
-    
+
     /**
      * 定时任务立即执行一次
      */
@@ -136,7 +152,7 @@ public class SysJobController {
         jobService.run(job);
         return AjaxResult.success();
     }
-    
+
     /**
      * 删除定时任务
      */

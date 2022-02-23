@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.core.redis;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +48,7 @@ public class RedisCache {
     @Autowired
     @Qualifier(RedisConfig.CMS_REDIS_TEMPLATE_NAME)
     public RedisTemplate redisTemplate;
-    
+
     /**
      * 缓存基本的对象，Integer、String、实体类等
      *
@@ -38,7 +58,7 @@ public class RedisCache {
     public <T> void setCacheObject(final String key, final T value) {
         redisTemplate.opsForValue().set(key, value);
     }
-    
+
     /**
      * 缓存基本的对象，Integer、String、实体类等
      *
@@ -50,7 +70,7 @@ public class RedisCache {
     public <T> void setCacheObject(final String key, final T value, final Integer timeout, final TimeUnit timeUnit) {
         redisTemplate.opsForValue().set(key, value, timeout, timeUnit);
     }
-    
+
     /**
      * 设置有效时间
      *
@@ -61,7 +81,7 @@ public class RedisCache {
     public boolean expire(final String key, final long timeout) {
         return expire(key, timeout, TimeUnit.SECONDS);
     }
-    
+
     /**
      * 设置有效时间
      *
@@ -73,7 +93,7 @@ public class RedisCache {
     public boolean expire(final String key, final long timeout, final TimeUnit unit) {
         return redisTemplate.expire(key, timeout, unit);
     }
-    
+
     /**
      * 获得缓存的基本对象。
      *
@@ -84,7 +104,7 @@ public class RedisCache {
         ValueOperations<String, T> operation = redisTemplate.opsForValue();
         return operation.get(key);
     }
-    
+
     /**
      * 删除单个对象
      *
@@ -93,7 +113,7 @@ public class RedisCache {
     public boolean deleteObject(final String key) {
         return redisTemplate.delete(key);
     }
-    
+
     /**
      * 删除集合对象
      *
@@ -103,7 +123,7 @@ public class RedisCache {
     public long deleteObject(final Collection collection) {
         return redisTemplate.delete(collection);
     }
-    
+
     /**
      * 缓存List数据
      *
@@ -115,7 +135,7 @@ public class RedisCache {
         Long count = redisTemplate.opsForList().rightPushAll(key, dataList);
         return count == null ? 0 : count;
     }
-    
+
     /**
      * 获得缓存的list对象
      *
@@ -125,7 +145,7 @@ public class RedisCache {
     public <T> List<T> getCacheList(final String key) {
         return redisTemplate.opsForList().range(key, 0, -1);
     }
-    
+
     /**
      * 缓存Set
      *
@@ -141,7 +161,7 @@ public class RedisCache {
         }
         return setOperation;
     }
-    
+
     /**
      * 获得缓存的set
      *
@@ -151,7 +171,7 @@ public class RedisCache {
     public <T> Set<T> getCacheSet(final String key) {
         return redisTemplate.opsForSet().members(key);
     }
-    
+
     /**
      * 缓存Map
      *
@@ -163,7 +183,7 @@ public class RedisCache {
             redisTemplate.opsForHash().putAll(key, dataMap);
         }
     }
-    
+
     /**
      * 获得缓存的Map
      *
@@ -173,7 +193,7 @@ public class RedisCache {
     public <T> Map<String, T> getCacheMap(final String key) {
         return redisTemplate.opsForHash().entries(key);
     }
-    
+
     /**
      * 往Hash中存入数据
      *
@@ -184,7 +204,7 @@ public class RedisCache {
     public <T> void setCacheMapValue(final String key, final String hKey, final T value) {
         redisTemplate.opsForHash().put(key, hKey, value);
     }
-    
+
     /**
      * 获取Hash中的数据
      *
@@ -196,7 +216,7 @@ public class RedisCache {
         HashOperations<String, String, T> opsForHash = redisTemplate.opsForHash();
         return opsForHash.get(key, hKey);
     }
-    
+
     /**
      * 删除Hash中的数据
      *
@@ -207,7 +227,7 @@ public class RedisCache {
         HashOperations hashOperations = redisTemplate.opsForHash();
         hashOperations.delete(key, hkey);
     }
-    
+
     /**
      * 获取多个Hash中的数据
      *
@@ -218,7 +238,7 @@ public class RedisCache {
     public <T> List<T> getMultiCacheMapValue(final String key, final Collection<Object> hKeys) {
         return redisTemplate.opsForHash().multiGet(key, hKeys);
     }
-    
+
     /**
      * 获得缓存的基本对象列表
      *

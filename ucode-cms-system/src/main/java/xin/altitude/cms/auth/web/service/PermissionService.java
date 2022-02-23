@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.auth.web.service;
 
 import org.springframework.stereotype.Service;
@@ -20,16 +40,16 @@ public class PermissionService {
      * 所有权限标识
      */
     private static final String ALL_PERMISSION = "*:*:*";
-    
+
     /**
      * 管理员角色权限标识
      */
     private static final String SUPER_ADMIN = "admin";
-    
+
     private static final String ROLE_DELIMETER = ",";
-    
+
     private static final String PERMISSION_DELIMETER = ",";
-    
+
     /**
      * 验证用户是否具备某权限
      *
@@ -46,7 +66,7 @@ public class PermissionService {
         }
         return hasPermissions(loginUser.getPermissions(), permission);
     }
-    
+
     /**
      * 验证用户是否不具备某权限，与 hasPermi逻辑相反
      *
@@ -56,7 +76,7 @@ public class PermissionService {
     public boolean lacksPermi(String permission) {
         return !hasPermi(permission);
     }
-    
+
     /**
      * 验证用户是否具有以下任意一个权限
      *
@@ -79,7 +99,7 @@ public class PermissionService {
         }
         return false;
     }
-    
+
     /**
      * 判断用户是否拥有某个角色
      *
@@ -102,7 +122,7 @@ public class PermissionService {
         }
         return false;
     }
-    
+
     /**
      * 验证用户是否不具备某角色，与 isRole逻辑相反。
      *
@@ -112,7 +132,7 @@ public class PermissionService {
     public boolean lacksRole(String role) {
         return !hasRole(role);
     }
-    
+
     /**
      * 验证用户是否具有以下任意一个角色
      *
@@ -134,7 +154,7 @@ public class PermissionService {
         }
         return false;
     }
-    
+
     /**
      * 判断是否包含权限
      *

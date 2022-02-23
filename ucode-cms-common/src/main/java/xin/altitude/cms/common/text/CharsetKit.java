@@ -1,5 +1,23 @@
+
+
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.common.text;
@@ -27,7 +45,7 @@ public class CharsetKit {
      * GBK
      */
     public static final String GBK = "GBK";
-    
+
     /**
      * ISO-8859-1
      */
@@ -40,7 +58,7 @@ public class CharsetKit {
      * GBK
      */
     public static final Charset CHARSET_GBK = Charset.forName(GBK);
-    
+
     /**
      * 转换为Charset对象
      *
@@ -50,7 +68,7 @@ public class CharsetKit {
     public static Charset charset(String charset) {
         return StringUtil.isEmpty(charset) ? Charset.defaultCharset() : Charset.forName(charset);
     }
-    
+
     /**
      * 转换字符串的字符集编码
      *
@@ -62,7 +80,7 @@ public class CharsetKit {
     public static String convert(String source, String srcCharset, String destCharset) {
         return convert(source, Charset.forName(srcCharset), Charset.forName(destCharset));
     }
-    
+
     /**
      * 转换字符串的字符集编码
      *
@@ -75,17 +93,17 @@ public class CharsetKit {
         if (null == srcCharset) {
             srcCharset = StandardCharsets.ISO_8859_1;
         }
-        
+
         if (null == destCharset) {
             destCharset = StandardCharsets.UTF_8;
         }
-    
+
         if (StringUtil.isEmpty(source) || srcCharset.equals(destCharset)) {
             return source;
         }
         return new String(source.getBytes(srcCharset), destCharset);
     }
-    
+
     /**
      * @return 系统字符集编码
      */

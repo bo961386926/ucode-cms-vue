@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.system.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -17,10 +37,10 @@ import java.util.List;
  */
 // @Service
 public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, SysLogininfor> implements ISysLogininforService {
-    
+
     @Autowired
     private SysLogininforMapper logininforMapper;
-    
+
     /**
      * 新增系统登录日志
      *
@@ -31,7 +51,7 @@ public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, S
         // logininforMapper.insertLogininfor(logininfor);
         save(logininfor);
     }
-    
+
     /**
      * 查询系统登录日志集合
      *
@@ -43,7 +63,7 @@ public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, S
         // return logininforMapper.selectLogininforList(logininfor);
         return list(Wrappers.lambdaQuery(logininfor));
     }
-    
+
     /**
      * 批量删除系统登录日志
      *
@@ -55,7 +75,7 @@ public class SysLogininforServiceImpl extends ServiceImpl<SysLogininforMapper, S
         // return logininforMapper.deleteLogininforByIds(infoIds);
         return removeByIds(Arrays.asList(infoIds));
     }
-    
+
     /**
      * 清空系统登录日志
      */

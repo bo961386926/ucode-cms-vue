@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.config;
 
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
@@ -32,13 +52,13 @@ public class ThreadPoolConfig {
      * 定时任务线程池名称
      */
     public static final String CACHED_POOL_NAME = "CMS_CACHED_POOL";
-    
+
     /**
      * 外部配置线程池对象
      */
     private final CmsConfig.Thread thread = SpringUtils.getBean(CmsConfig.class).getThread();
-    
-    
+
+
     /**
      * 执行周期性或定时任务
      *
@@ -50,7 +70,7 @@ public class ThreadPoolConfig {
         BasicThreadFactory threadFactory = new BasicThreadFactory.Builder().namingPattern("scheduled-thread-pool-%d").daemon(true).build();
         return new ScheduledThreadPoolExecutor(thread.getCorePoolSize(), threadFactory);
     }
-    
+
     /**
      * 固定大小线程池
      *
@@ -62,7 +82,7 @@ public class ThreadPoolConfig {
         BasicThreadFactory threadFactory = new BasicThreadFactory.Builder().namingPattern("fixed-thread-pool-%d").daemon(true).build();
         return new ThreadPoolExecutor(thread.getCorePoolSize(), thread.getCorePoolSize(), 0L, TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(), threadFactory);
     }
-    
+
     /**
      * 可伸缩大小线程池
      *

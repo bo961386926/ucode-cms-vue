@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.system.service.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
@@ -24,12 +44,12 @@ import java.util.List;
 public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDictType> implements ISysDictTypeService {
     // @Autowired
     // private SysDictTypeMapper dictTypeMapper;
-    
+
     // @Autowired
     // private SysDictDataMapper dictDataMapper;
     @Autowired
     private ISysDictDataService sysDictDataService;
-    
+
     /**
      * 项目启动时，初始化字典到缓存
      */
@@ -37,7 +57,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
     public void init() {
         loadingDictCache();
     }
-    
+
     /**
      * 根据条件分页查询字典类型
      *
@@ -49,7 +69,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         // return dictTypeMapper.selectDictTypeList(dictType);
         return list(Wrappers.lambdaQuery(dictType));
     }
-    
+
     /**
      * 根据所有字典类型
      *
@@ -60,7 +80,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         // return dictTypeMapper.selectDictTypeAll();
         return list(Wrappers.lambdaQuery());
     }
-    
+
     /**
      * 根据字典类型查询字典数据
      *
@@ -81,7 +101,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         // }
         // return null;
     }
-    
+
     /**
      * 根据字典类型ID查询信息
      *
@@ -93,7 +113,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         // return dictTypeMapper.selectDictTypeById(dictId);
         return getById(dictId);
     }
-    
+
     /**
      * 根据字典类型查询信息
      *
@@ -105,7 +125,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         // return dictTypeMapper.selectDictTypeByType(dictType);
         return getOne(Wrappers.lambdaQuery(SysDictType.class).eq(SysDictType::getDictType, dictType));
     }
-    
+
     /**
      * 批量删除字典类型信息
      *
@@ -125,7 +145,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
             // DictUtils.removeDictCache(dictType.getDictType());
         }
     }
-    
+
     /**
      * 加载字典缓存数据
      */
@@ -139,7 +159,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
             // DictUtils.setDictCache(dictType.getDictType(), dictDatas);
         }
     }
-    
+
     /**
      * 清空字典缓存数据
      */
@@ -147,7 +167,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
     public void clearDictCache() {
         // DictUtils.clearDictCache();
     }
-    
+
     /**
      * 重置字典缓存数据
      */
@@ -156,7 +176,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         clearDictCache();
         loadingDictCache();
     }
-    
+
     /**
      * 新增保存字典类型信息
      *
@@ -172,7 +192,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         }
         return row;
     }
-    
+
     /**
      * 修改保存字典类型信息
      *
@@ -196,7 +216,7 @@ public class SysDictTypeServiceImpl extends ServiceImpl<SysDictTypeMapper, SysDi
         }
         return row;
     }
-    
+
     /**
      * 校验字典类型称是否唯一
      *

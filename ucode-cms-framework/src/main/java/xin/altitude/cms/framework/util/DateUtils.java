@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util;
 
 import org.apache.commons.lang3.time.DateFormatUtils;
@@ -22,7 +42,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     public static String YYYY_MM_DD = "yyyy-MM-dd";
     public static String YYYYMMDDHHMMSS = "yyyyMMddHHmmss";
     public static String YYYY_MM_DD_HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
-    
+
     /**
      * 获取当前Date型日期
      *
@@ -31,7 +51,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     public static Date getNowDate() {
         return new Date();
     }
-    
+
     /**
      * 获取当前日期, 默认格式为yyyy-MM-dd
      *
@@ -40,27 +60,27 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     public static String getDate() {
         return dateTimeNow(YYYY_MM_DD);
     }
-    
+
     public static String getTime() {
         return dateTimeNow(YYYY_MM_DD_HH_MM_SS);
     }
-    
+
     public static String dateTimeNow() {
         return dateTimeNow(YYYYMMDDHHMMSS);
     }
-    
+
     public static String dateTimeNow(final String format) {
         return parseDateToStr(format, new Date());
     }
-    
+
     public static String dateTime(final Date date) {
         return parseDateToStr(YYYY_MM_DD, date);
     }
-    
+
     public static String parseDateToStr(final String format, final Date date) {
         return new SimpleDateFormat(format).format(date);
     }
-    
+
     public static Date dateTime(final String format, final String ts) {
         try {
             return new SimpleDateFormat(format).parse(ts);
@@ -68,7 +88,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
             throw new RuntimeException(e);
         }
     }
-    
+
     /**
      * 日期路径 即年/月/日 如2018/08/08
      */
@@ -76,7 +96,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         Date now = new Date();
         return DateFormatUtils.format(now, "yyyy/MM/dd");
     }
-    
+
     /**
      * 日期路径 即年/月/日 如20180808
      */
@@ -84,7 +104,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         Date now = new Date();
         return DateFormatUtils.format(now, "yyyyMMdd");
     }
-    
+
     /**
      * 日期型字符串转化为日期 格式
      */
@@ -98,7 +118,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
             return null;
         }
     }
-    
+
     /**
      * 获取服务器启动时间
      */
@@ -106,7 +126,7 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
         long time = ManagementFactory.getRuntimeMXBean().getStartTime();
         return new Date(time);
     }
-    
+
     /**
      * 计算两个时间差
      */

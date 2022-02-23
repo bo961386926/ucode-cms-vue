@@ -1,5 +1,23 @@
+
+
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.common.util;
@@ -25,12 +43,12 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
      * 空字符串
      */
     private static final String NULLSTR = "";
-    
+
     /**
      * 下划线
      */
     private static final char SEPARATOR = '_';
-    
+
     /**
      * 获取参数不为空值
      *
@@ -40,7 +58,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static <T> T nvl(T value, T defaultValue) {
         return value != null ? value : defaultValue;
     }
-    
+
     /**
      * * 判断一个Collection是否为空， 包含List，Set，Queue
      *
@@ -50,7 +68,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isEmpty(Collection<?> coll) {
         return isNull(coll) || coll.isEmpty();
     }
-    
+
     /**
      * * 判断一个Collection是否非空，包含List，Set，Queue
      *
@@ -60,7 +78,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isNotEmpty(Collection<?> coll) {
         return !isEmpty(coll);
     }
-    
+
     /**
      * * 判断一个对象数组是否为空
      *
@@ -70,7 +88,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isEmpty(Object[] objects) {
         return isNull(objects) || (objects.length == 0);
     }
-    
+
     /**
      * * 判断一个对象数组是否非空
      *
@@ -80,7 +98,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isNotEmpty(Object[] objects) {
         return !isEmpty(objects);
     }
-    
+
     /**
      * * 判断一个Map是否为空
      *
@@ -90,7 +108,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isEmpty(Map<?, ?> map) {
         return isNull(map) || map.isEmpty();
     }
-    
+
     /**
      * * 判断一个Map是否为空
      *
@@ -100,7 +118,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isNotEmpty(Map<?, ?> map) {
         return !isEmpty(map);
     }
-    
+
     /**
      * * 判断一个字符串是否为空串
      *
@@ -110,7 +128,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isEmpty(String str) {
         return isNull(str) || NULLSTR.equals(str.trim());
     }
-    
+
     /**
      * * 判断一个字符串是否为非空串
      *
@@ -120,7 +138,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isNotEmpty(String str) {
         return !isEmpty(str);
     }
-    
+
     /**
      * * 判断一个对象是否为空
      *
@@ -130,7 +148,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isNull(Object object) {
         return object == null;
     }
-    
+
     /**
      * * 判断一个对象是否非空
      *
@@ -140,7 +158,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isNotNull(Object object) {
         return !isNull(object);
     }
-    
+
     /**
      * * 判断一个对象是否是数组类型（Java基本型别的数组）
      *
@@ -150,14 +168,14 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean isArray(Object object) {
         return isNotNull(object) && object.getClass().isArray();
     }
-    
+
     /**
      * 去空格
      */
     public static String trim(String str) {
         return (str == null ? "" : str.trim());
     }
-    
+
     /**
      * 截取字符串
      *
@@ -169,21 +187,21 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         if (str == null) {
             return NULLSTR;
         }
-        
+
         if (start < 0) {
             start = str.length() + start;
         }
-        
+
         if (start < 0) {
             start = 0;
         }
         if (start > str.length()) {
             return NULLSTR;
         }
-        
+
         return str.substring(start);
     }
-    
+
     /**
      * 截取字符串
      *
@@ -196,32 +214,32 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         if (str == null) {
             return NULLSTR;
         }
-        
+
         if (end < 0) {
             end = str.length() + end;
         }
         if (start < 0) {
             start = str.length() + start;
         }
-        
+
         if (end > str.length()) {
             end = str.length();
         }
-        
+
         if (start > end) {
             return NULLSTR;
         }
-        
+
         if (start < 0) {
             start = 0;
         }
         if (end < 0) {
             end = 0;
         }
-        
+
         return str.substring(start, end);
     }
-    
+
     /**
      * 格式化文本, {} 表示占位符<br>
      * 此方法只是简单将占位符 {} 按照顺序替换为参数<br>
@@ -237,7 +255,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         }
         return StrFormatter.format(template, params);
     }
-    
+
     /**
      * 是否为http(s)://开头
      *
@@ -247,7 +265,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static boolean ishttp(String link) {
         return StringUtil.startsWithAny(link, Constants.HTTP, Constants.HTTPS);
     }
-    
+
     /**
      * 字符串转set
      *
@@ -258,7 +276,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
     public static Set<String> str2Set(String str, String sep) {
         return new HashSet<String>(str2List(str, sep, true, false));
     }
-    
+
     /**
      * 字符串转list
      *
@@ -273,7 +291,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         if (StringUtil.isEmpty(str)) {
             return list;
         }
-        
+
         // 过滤空白字符串
         if (filterBlank && StringUtil.isBlank(str)) {
             return list;
@@ -288,10 +306,10 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
             }
             list.add(string);
         }
-        
+
         return list;
     }
-    
+
     /**
      * 查找指定字符串是否包含指定字符串列表中的任意一个字符串同时串忽略大小写
      *
@@ -310,7 +328,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         }
         return false;
     }
-    
+
     /**
      * 驼峰转下划线命名
      */
@@ -332,13 +350,13 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
             } else {
                 preCharIsUpperCase = false;
             }
-            
+
             curreCharIsUpperCase = Character.isUpperCase(c);
-            
+
             if (i < (str.length() - 1)) {
                 nexteCharIsUpperCase = Character.isUpperCase(str.charAt(i + 1));
             }
-            
+
             if (preCharIsUpperCase && curreCharIsUpperCase && !nexteCharIsUpperCase) {
                 sb.append(SEPARATOR);
             } else if ((i != 0 && !preCharIsUpperCase) && curreCharIsUpperCase) {
@@ -346,10 +364,10 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
             }
             sb.append(Character.toLowerCase(c));
         }
-        
+
         return sb.toString();
     }
-    
+
     /**
      * 是否包含字符串
      *
@@ -367,7 +385,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         }
         return false;
     }
-    
+
     /**
      * 将下划线大写方式命名的字符串转换为驼峰式
      * 如果转换前的下划线大写方式命名的字符串为空则返回空字符串
@@ -399,7 +417,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         }
         return result.toString();
     }
-    
+
     /**
      * 驼峰式命名法
      * 例如：user_name userName
@@ -413,7 +431,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         boolean upperCase = false;
         for (int i = 0; i < s.length(); i++) {
             char c = s.charAt(i);
-            
+
             if (c == SEPARATOR) {
                 upperCase = true;
             } else if (upperCase) {
@@ -425,7 +443,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         }
         return sb.toString();
     }
-    
+
     /**
      * 查找指定字符串是否匹配指定字符串列表中的任意一个字符串
      *
@@ -444,7 +462,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         }
         return false;
     }
-    
+
     /**
      * 判断url是否与规则配置:
      * ? 表示单个字符;
@@ -459,7 +477,7 @@ public class StringUtil extends org.apache.commons.lang3.StringUtils {
         AntPathMatcher matcher = new AntPathMatcher();
         return matcher.match(pattern, url);
     }
-    
+
     @SuppressWarnings("unchecked")
     public static <T> T cast(Object obj) {
         return (T) obj;

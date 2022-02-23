@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.job.service.impl;
@@ -36,7 +52,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
      * 调度器（核心参数）
      */
     private final Scheduler scheduler = SpringUtils.getBean(ScheduleConfig.SCHEDULER_FACTORYBEAN);
-    
+
     /**
      * 项目启动时，初始化定时器
      * 主要是防止手动修改数据库导致未同步到定时任务处理
@@ -50,7 +66,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
             QuartzUtils.createScheduleJob(scheduler, job);
         }
     }
-    
+
     /**
      * 获取quartz调度器的计划任务列表
      *
@@ -61,7 +77,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     public List<SysJob> selectJobList(SysJob job) {
         return list(Wrappers.lambdaQuery(job));
     }
-    
+
     /**
      * 通过调度任务ID查询调度信息
      *
@@ -72,7 +88,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     public SysJob selectJobById(Long jobId) {
         return getById(jobId);
     }
-    
+
     /**
      * 暂停任务
      *
@@ -91,7 +107,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         }
         return rows;
     }
-    
+
     /**
      * 恢复任务
      *
@@ -110,7 +126,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         }
         return rows;
     }
-    
+
     /**
      * 删除任务后，所对应的trigger也将被删除
      *
@@ -128,7 +144,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         }
         return rows;
     }
-    
+
     /**
      * 批量删除调度信息
      *
@@ -142,7 +158,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
             deleteJob(job);
         }
     }
-    
+
     /**
      * 任务调度状态修改
      *
@@ -161,7 +177,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         }
         return rows;
     }
-    
+
     /**
      * 立即运行任务
      *
@@ -178,7 +194,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         dataMap.put(ScheduleConstants.TASK_PROPERTIES, properties);
         scheduler.triggerJob(QuartzUtils.createJobKey(jobId, jobGroup), dataMap);
     }
-    
+
     /**
      * 新增任务
      *
@@ -195,7 +211,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         }
         return rows;
     }
-    
+
     /**
      * 更新任务的时间表达式
      *
@@ -212,7 +228,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         }
         return rows;
     }
-    
+
     /**
      * 更新任务
      *
@@ -229,7 +245,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
         }
         QuartzUtils.createScheduleJob(scheduler, job);
     }
-    
+
     /**
      * 校验cron表达式是否有效
      *

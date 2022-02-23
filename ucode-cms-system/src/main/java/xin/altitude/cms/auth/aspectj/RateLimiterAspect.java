@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.auth.aspectj;
 
 import org.aspectj.lang.JoinPoint;
@@ -29,27 +49,27 @@ import java.util.List;
 // @Component
 public class RateLimiterAspect {
     private static final Logger log = LoggerFactory.getLogger(RateLimiterAspect.class);
-    
+
     private RedisTemplate<Object, Object> redisTemplate;
-    
+
     private RedisScript<Long> limitScript;
-    
+
     @Autowired
     public void setRedisTemplate1(RedisTemplate<Object, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
-    
+
     @Autowired
     public void setLimitScript(RedisScript<Long> limitScript) {
         this.limitScript = limitScript;
     }
-    
+
     @Before("@annotation(rateLimiter)")
     public void doBefore(JoinPoint point, RateLimiter rateLimiter) throws Throwable {
         String key = rateLimiter.key();
         int time = rateLimiter.time();
         int count = rateLimiter.count();
-        
+
         String combineKey = getCombineKey(rateLimiter, point);
         List<Object> keys = Collections.singletonList(combineKey);
         try {
@@ -64,7 +84,7 @@ public class RateLimiterAspect {
             throw new RuntimeException("服务器限流异常，请稍候再试");
         }
     }
-    
+
     public String getCombineKey(RateLimiter rateLimiter, JoinPoint point) {
         StringBuilder stringBuffer = new StringBuilder(rateLimiter.key());
         if (rateLimiter.limitType() == LimitType.IP) {

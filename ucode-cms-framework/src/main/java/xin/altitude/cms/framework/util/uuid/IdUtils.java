@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util.uuid;
 
 /**
@@ -14,7 +34,7 @@ public class IdUtils {
     public static String randomUUID() {
         return UUID.randomUUID().toString();
     }
-    
+
     /**
      * 简化的UUID，去掉了横线
      *
@@ -23,7 +43,7 @@ public class IdUtils {
     public static String simpleUUID() {
         return UUID.randomUUID().toString(true);
     }
-    
+
     /**
      * 获取随机UUID，使用性能更好的ThreadLocalRandom生成UUID
      *
@@ -32,7 +52,7 @@ public class IdUtils {
     public static String fastUUID() {
         return UUID.fastUUID().toString();
     }
-    
+
     /**
      * 简化的UUID，去掉了横线，使用性能更好的ThreadLocalRandom生成UUID
      *

@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.job.controller;
@@ -38,7 +54,7 @@ import java.util.List;
 public class SysJobLogController {
     @Autowired
     private ISysJobLogService jobLogService;
-    
+
     /**
      * 查询定时任务调度日志列表
      *
@@ -48,7 +64,7 @@ public class SysJobLogController {
     public AjaxResult list(Page<SysJobLog> page, SysJobLog sysJobLog) {
         return AjaxResult.success(jobLogService.page(page, Wrappers.lambdaQuery(sysJobLog)));
     }
-    
+
     /**
      * 导出定时任务调度日志列表
      */
@@ -59,7 +75,7 @@ public class SysJobLogController {
         ExcelUtil<SysJobLog> util = new ExcelUtil<SysJobLog>(SysJobLog.class);
         return util.exportExcel(list, "调度日志");
     }
-    
+
     /**
      * 根据调度编号获取详细信息
      */
@@ -67,8 +83,8 @@ public class SysJobLogController {
     public AjaxResult getInfo(@PathVariable Long jobLogId) {
         return AjaxResult.success(jobLogService.selectJobLogById(jobLogId));
     }
-    
-    
+
+
     /**
      * 删除定时任务调度日志
      */
@@ -77,7 +93,7 @@ public class SysJobLogController {
     public AjaxResult remove(@PathVariable Long[] jobLogIds) {
         return AjaxResult.success(jobLogService.deleteJobLogByIds(jobLogIds));
     }
-    
+
     /**
      * 清空定时任务调度日志
      */

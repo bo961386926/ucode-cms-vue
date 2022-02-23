@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util;
 
 import javax.imageio.ImageIO;
@@ -18,9 +38,9 @@ import java.util.Random;
 public class VerifyCodeUtils {
     // 使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符
     public static final String VERIFY_CODES = "123456789ABCDEFGHJKLMNPQRSTUVWXYZ";
-    
+
     private static final Random random = new SecureRandom();
-    
+
     /**
      * 使用系统默认字符源生成验证码
      *
@@ -30,7 +50,7 @@ public class VerifyCodeUtils {
     public static String generateVerifyCode(int verifySize) {
         return generateVerifyCode(verifySize, VERIFY_CODES);
     }
-    
+
     /**
      * 使用指定源生成验证码
      *
@@ -50,7 +70,7 @@ public class VerifyCodeUtils {
         }
         return verifyCode.toString();
     }
-    
+
     /**
      * 输出指定验证码图片流
      *
@@ -75,14 +95,14 @@ public class VerifyCodeUtils {
             fractions[i] = rand.nextFloat();
         }
         Arrays.sort(fractions);
-        
+
         g2.setColor(Color.GRAY);// 设置边框色
         g2.fillRect(0, 0, w, h);
-        
+
         Color c = getRandColor(200, 250);
         g2.setColor(c);// 设置背景色
         g2.fillRect(0, 2, w, h - 4);
-        
+
         // 绘制干扰线
         Random random = new Random();
         g2.setColor(getRandColor(160, 200));// 设置线条的颜色
@@ -93,7 +113,7 @@ public class VerifyCodeUtils {
             int yl = random.nextInt(12) + 1;
             g2.drawLine(x, y, x + xl + 40, y + yl + 20);
         }
-        
+
         // 添加噪点
         float yawpRate = 0.05f;// 噪声率
         int area = (int) (yawpRate * w * h);
@@ -103,9 +123,9 @@ public class VerifyCodeUtils {
             int rgb = getRandomIntColor();
             image.setRGB(x, y, rgb);
         }
-        
+
         shear(g2, w, h, c);// 使图片扭曲
-        
+
         g2.setColor(getRandColor(100, 160));
         int fontSize = h - 4;
         Font font = new Font("Algerian", Font.ITALIC, fontSize);
@@ -118,11 +138,11 @@ public class VerifyCodeUtils {
             g2.setTransform(affine);
             g2.drawChars(chars, i, 1, ((w - 10) / verifySize) * i + 5, h / 2 + fontSize / 2 - 10);
         }
-        
+
         g2.dispose();
         ImageIO.write(image, "jpg", os);
     }
-    
+
     private static Color getRandColor(int fc, int bc) {
         if (fc > 255) {
             fc = 255;
@@ -135,7 +155,7 @@ public class VerifyCodeUtils {
         int b = fc + random.nextInt(bc - fc);
         return new Color(r, g, b);
     }
-    
+
     private static int getRandomIntColor() {
         int[] rgb = getRandomRgb();
         int color = 0;
@@ -145,7 +165,7 @@ public class VerifyCodeUtils {
         }
         return color;
     }
-    
+
     private static int[] getRandomRgb() {
         int[] rgb = new int[3];
         for (int i = 0; i < 3; i++) {
@@ -153,20 +173,20 @@ public class VerifyCodeUtils {
         }
         return rgb;
     }
-    
+
     private static void shear(Graphics g, int w1, int h1, Color color) {
         shearX(g, w1, h1, color);
         shearY(g, w1, h1, color);
     }
-    
+
     private static void shearX(Graphics g, int w1, int h1, Color color) {
-        
+
         int period = random.nextInt(2);
-        
+
         boolean borderGap = true;
         int frames = 1;
         int phase = random.nextInt(2);
-        
+
         for (int i = 0; i < h1; i++) {
             double d = (double) (period >> 1)
                     * Math.sin((double) i / (double) period + (6.2831853071795862D * (double) phase) / (double) frames);
@@ -177,13 +197,13 @@ public class VerifyCodeUtils {
                 g.drawLine((int) d + w1, i, w1, i);
             }
         }
-        
+
     }
-    
+
     private static void shearY(Graphics g, int w1, int h1, Color color) {
-        
+
         int period = random.nextInt(40) + 10; // 50;
-        
+
         boolean borderGap = true;
         int frames = 20;
         int phase = 7;
@@ -196,7 +216,7 @@ public class VerifyCodeUtils {
                 g.drawLine(i, (int) d, i, 0);
                 g.drawLine(i, (int) d + h1, i, h1);
             }
-            
+
         }
     }
 }

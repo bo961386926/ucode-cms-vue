@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.config;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
@@ -19,7 +39,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  */
 public class RedisConfig extends CachingConfigurerSupport {
     public static final String CMS_REDIS_TEMPLATE_NAME = "cms_redis_template_name";
-    
+
     /**
      * 自定义redisTemplate
      *
@@ -31,26 +51,26 @@ public class RedisConfig extends CachingConfigurerSupport {
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<Object, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
-        
+
         FastJson2JsonRedisSerializer serializer = new FastJson2JsonRedisSerializer(Object.class);
-        
+
         ObjectMapper mapper = new ObjectMapper();
         mapper.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
         mapper.activateDefaultTyping(LaissezFaireSubTypeValidator.instance, ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
         serializer.setObjectMapper(mapper);
-        
+
         // 使用StringRedisSerializer来序列化和反序列化redis的key值
         template.setKeySerializer(new StringRedisSerializer());
         template.setValueSerializer(serializer);
-        
+
         // Hash的key也采用StringRedisSerializer的序列化方式
         template.setHashKeySerializer(new StringRedisSerializer());
         template.setHashValueSerializer(serializer);
-        
+
         template.afterPropertiesSet();
         return template;
     }
-    
+
     @Bean
     public DefaultRedisScript<Long> limitScript() {
         DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>();
@@ -58,7 +78,7 @@ public class RedisConfig extends CachingConfigurerSupport {
         redisScript.setResultType(Long.class);
         return redisScript;
     }
-    
+
     /**
      * 限流脚本
      */

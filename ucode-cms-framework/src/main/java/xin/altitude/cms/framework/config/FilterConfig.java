@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.config;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -21,7 +41,7 @@ import java.util.Map;
 // @Configuration
 public class FilterConfig {
     private final CmsConfig.Xss xss = SpringUtils.getBean(CmsConfig.class).getXss();
-    
+
     @Bean
     @ConditionalOnProperty(value = "ucode.xss.enabled", havingValue = "true")
     public FilterRegistrationBean<Filter> xssFilterRegistration() {
@@ -36,7 +56,7 @@ public class FilterConfig {
         registration.setInitParameters(initParameters);
         return registration;
     }
-    
+
     @Bean
     public FilterRegistrationBean<Filter> someFilterRegistration() {
         FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
@@ -46,5 +66,5 @@ public class FilterConfig {
         registration.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE);
         return registration;
     }
-    
+
 }

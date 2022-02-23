@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util;
 
 import org.slf4j.Logger;
@@ -16,7 +36,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Threads {
     private static final Logger logger = LoggerFactory.getLogger(Threads.class);
-    
+
     /**
      * sleep等待,单位为毫秒
      */
@@ -27,7 +47,7 @@ public class Threads {
             e.fillInStackTrace();
         }
     }
-    
+
     /**
      * 停止线程池
      * 先使用shutdown, 停止接收新任务并尝试完成所有已存在任务.
@@ -51,7 +71,7 @@ public class Threads {
             }
         }
     }
-    
+
     /**
      * 打印线程异常信息
      */

@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.code.config.property;
@@ -99,135 +115,135 @@ public class CodeProperties {
      */
     @JsonIgnore
     private List<String> layerTypes = LayerEnum.toList(this.getXml());
-    
+
     public Boolean getFilterSysTable() {
         return filterSysTable;
     }
-    
+
     public void setFilterSysTable(Boolean filterSysTable) {
         this.filterSysTable = filterSysTable;
     }
-    
+
     public Boolean getRemoveTablePrefix() {
         return removeTablePrefix;
     }
-    
+
     public void setRemoveTablePrefix(Boolean removeTablePrefix) {
         this.removeTablePrefix = removeTablePrefix;
     }
-    
+
     public String getTablePrefix() {
         return tablePrefix;
     }
-    
+
     public void setTablePrefix(String tablePrefix) {
         this.tablePrefix = tablePrefix;
     }
-    
+
     public String getPackageName() {
         return packageName;
     }
-    
+
     public void setPackageName(String packageName) {
         this.packageName = packageName;
     }
-    
+
     public String getFunctionAuthor() {
         return functionAuthor;
     }
-    
+
     public void setFunctionAuthor(String functionAuthor) {
         this.functionAuthor = functionAuthor;
     }
-    
+
     public Boolean getUseLombok() {
         return useLombok;
     }
-    
+
     public void setUseLombok(Boolean useLombok) {
         this.useLombok = useLombok;
     }
-    
+
     public Boolean getUseMybatisPlus() {
         return useMybatisPlus;
     }
-    
+
     public void setUseMybatisPlus(Boolean useMybatisPlus) {
         this.useMybatisPlus = useMybatisPlus;
     }
-    
+
     public Boolean getUseSwagger() {
         return useSwagger;
     }
-    
+
     public void setUseSwagger(Boolean useSwagger) {
         this.useSwagger = useSwagger;
     }
-    
+
     public DomainConfig getDomain() {
         return domain;
     }
-    
+
     public void setDomain(DomainConfig domain) {
         this.domain = domain;
     }
-    
+
     public ControllerConfig getController() {
         return controller;
     }
-    
+
     public void setController(ControllerConfig controller) {
         this.controller = controller;
     }
-    
+
     public XmlConfig getXml() {
         return xml;
     }
-    
+
     public void setXml(XmlConfig xml) {
         this.xml = xml;
     }
-    
+
     public MapperConfig getMapper() {
         return mapper;
     }
-    
+
     public void setMapper(MapperConfig mapper) {
         this.mapper = mapper;
     }
-    
+
     public List<String> getLayerTypes() {
         return layerTypes;
     }
-    
+
     public void setLayerTypes(List<String> layerTypes) {
         this.layerTypes = layerTypes;
     }
-    
+
     public CodeModeEnum getCodeMode() {
         return codeMode;
     }
-    
+
     public void setCodeMode(CodeModeEnum codeMode) {
         this.codeMode = codeMode;
     }
-    
+
     public String getProjectDir() {
         return projectDir;
     }
-    
+
     public void setProjectDir(String projectDir) {
         this.projectDir = projectDir;
     }
-    
+
     public Boolean getJoinQuery() {
         return joinQuery;
     }
-    
+
     public void setJoinQuery(Boolean joinQuery) {
         this.joinQuery = joinQuery;
     }
-    
+
     /**
      * 获取模块名
      *
@@ -240,7 +256,7 @@ public class CodeProperties {
         }
         return nonNull(moduleName) ? moduleName : "front";
     }
-    
+
     public void setModuleName(String moduleName) {
         this.moduleName = moduleName;
     }

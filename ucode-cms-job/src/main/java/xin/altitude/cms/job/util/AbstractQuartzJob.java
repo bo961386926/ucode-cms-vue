@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.job.util;
@@ -27,12 +43,12 @@ import java.util.Date;
  */
 public abstract class AbstractQuartzJob implements Job {
     private static final Logger log = LoggerFactory.getLogger(AbstractQuartzJob.class);
-    
+
     /**
      * 线程本地变量
      */
     private static final ThreadLocal<Date> threadLocal = new ThreadLocal<>();
-    
+
     @Override
     public void execute(JobExecutionContext context) {
         SysJob sysJob = new SysJob();
@@ -47,7 +63,7 @@ public abstract class AbstractQuartzJob implements Job {
             after(context, sysJob, e);
         }
     }
-    
+
     /**
      * 执行前
      *
@@ -57,7 +73,7 @@ public abstract class AbstractQuartzJob implements Job {
     protected void before(JobExecutionContext context, SysJob sysJob) {
         threadLocal.set(new Date());
     }
-    
+
     /**
      * 执行后
      *
@@ -67,7 +83,7 @@ public abstract class AbstractQuartzJob implements Job {
     protected void after(JobExecutionContext context, SysJob sysJob, Exception e) {
         Date startTime = threadLocal.get();
         threadLocal.remove();
-        
+
         final SysJobLog sysJobLog = new SysJobLog();
         sysJobLog.setJobName(sysJob.getJobName());
         sysJobLog.setJobGroup(sysJob.getJobGroup());
@@ -83,11 +99,11 @@ public abstract class AbstractQuartzJob implements Job {
         } else {
             sysJobLog.setStatus(Constants.SUCCESS);
         }
-        
+
         // 写入数据库当中
         SpringUtils.getBean(ISysJobLogService.class).addJobLog(sysJobLog);
     }
-    
+
     /**
      * 执行方法，由子类重载
      *

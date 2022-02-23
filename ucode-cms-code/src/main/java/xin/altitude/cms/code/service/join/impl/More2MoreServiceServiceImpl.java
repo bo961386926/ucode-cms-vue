@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.code.service.join.impl;
@@ -34,7 +50,7 @@ import java.util.List;
  **/
 public class More2MoreServiceServiceImpl extends CommonServiceImpl {
     private final static String TEMPLATE = "vm10/java/more2more/service.java.vm";
-    
+
     public void writeToLocalFile(String tableName, String className, List<KeyColumnUsage> keyColumnUsageList) {
         List<KeyColumnUsageVo> keyColumnUsageVos = EntityUtils.toList(keyColumnUsageList, this::toKeyColumnUsageVo);
         String fileName = String.format("I%sService.java", className);
@@ -44,7 +60,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         String filePath = FilenameUtils.concat(parentDirPath, fileName);
         CodeUtils.genDirAndFile(value, parentDirPath, filePath);
     }
-    
+
     /**
      * 代码实时预览
      */
@@ -55,7 +71,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         tpl.merge(context, sw);
         return JavaFormat4Domain.formJava(sw.toString());
     }
-    
+
     public String realtimePreview(String tableName, KeyColumnUsageVo keyColumnUsageVo) {
         StringWriter sw = new StringWriter();
         VelocityInitializer.initVelocity();
@@ -64,7 +80,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         tpl.merge(context, sw);
         return JavaFormat4Domain.formJava(sw.toString());
     }
-    
+
     public VelocityContext createContext(String tableName, List<KeyColumnUsageVo> keyColumnUsageVos) {
         VelocityContext context = createContext();
         context.put("tableName", tableName);
@@ -77,8 +93,8 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         context.put("importList", new HashSet<>(getImportList(tableName, keyColumnUsageVos)));
         return context;
     }
-    
-    
+
+
     /**
      * 构建VelocityContext
      */
@@ -95,7 +111,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         // context.put("tableComment", getTableInfo(tableName, configEntity.getDbConnId()).getTableComment());
         return context;
     }
-    
+
     public VelocityContext createContext(String tableName, KeyColumnUsageVo keyColumnUsageVo) {
         VelocityContext context = createContext(tableName);
         context.put("keyColumn", keyColumnUsageVo);
@@ -104,7 +120,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         context.put("importList", getImportList(tableName, keyColumnUsageVo));
         return context;
     }
-    
+
     /**
      * 获取导包列表
      */
@@ -117,7 +133,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         rs.sort(Comparator.naturalOrder());
         return rs;
     }
-    
+
     public List<String> getImportList(String tableName, KeyColumnUsageVo keyColumnUsageVo) {
         List<String> rs = getImportList(tableName);
         Boolean joinQuery = SpringUtils.getBean(CodeProperties.class).getJoinQuery();
@@ -136,7 +152,7 @@ public class More2MoreServiceServiceImpl extends CommonServiceImpl {
         rs.sort(Comparator.naturalOrder());
         return rs;
     }
-    
+
     public List<String> getImportList(String tableName, List<KeyColumnUsageVo> keyColumnUsageVos) {
         List<String> rs = getImportList(tableName);
         Boolean joinQuery = SpringUtils.getBean(CodeProperties.class).getJoinQuery();

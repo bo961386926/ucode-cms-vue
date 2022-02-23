@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.util.file;
 
 import org.apache.commons.io.IOUtils;
@@ -27,7 +47,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class FileUtils {
     public static String FILENAME_PATTERN = "[a-zA-Z0-9_\\-|.\\u4e00-\\u9fa5]+";
-    
+
     /**
      * 输出指定文件的byte数组
      *
@@ -54,7 +74,7 @@ public class FileUtils {
             IOUtils.close(fis);
         }
     }
-    
+
     /**
      * 写数据到文件中
      *
@@ -65,7 +85,7 @@ public class FileUtils {
     public static String writeImportBytes(byte[] data) throws IOException {
         return writeBytes(data, SpringUtils.getBean(CmsConfig.class).getCms().getImportPath());
     }
-    
+
     /**
      * 写数据到文件中
      *
@@ -88,7 +108,7 @@ public class FileUtils {
         }
         return FileUploadUtils.getPathFileName(uploadDir, pathName);
     }
-    
+
     /**
      * 删除文件
      *
@@ -105,7 +125,7 @@ public class FileUtils {
         }
         return flag;
     }
-    
+
     /**
      * 文件名称验证
      *
@@ -115,7 +135,7 @@ public class FileUtils {
     public static boolean isValidFilename(String filename) {
         return filename.matches(FILENAME_PATTERN);
     }
-    
+
     /**
      * 检查文件是否可下载
      *
@@ -127,13 +147,13 @@ public class FileUtils {
         if (StringUtil.contains(resource, "..")) {
             return false;
         }
-        
+
         // 检查允许下载的文件规则
         return ArrayUtils.contains(MimeTypeUtils.DEFAULT_ALLOWED_EXTENSION, FileTypeUtils.getFileType(resource));
-        
+
         // 不在允许下载的文件规则
     }
-    
+
     /**
      * 下载文件名重新编码
      *
@@ -160,7 +180,7 @@ public class FileUtils {
         }
         return filename;
     }
-    
+
     /**
      * 下载文件名重新编码
      *
@@ -169,7 +189,7 @@ public class FileUtils {
      */
     public static void setAttachmentResponseHeader(HttpServletResponse response, String realFileName) throws UnsupportedEncodingException {
         String percentEncodedFileName = percentEncode(realFileName);
-        
+
         StringBuilder contentDispositionValue = new StringBuilder();
         contentDispositionValue.append("attachment; filename=")
                 .append(percentEncodedFileName)
@@ -177,13 +197,13 @@ public class FileUtils {
                 .append("filename*=")
                 .append("utf-8''")
                 .append(percentEncodedFileName);
-        
+
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Expose-Headers", "Content-Disposition,download-filename");
         response.setHeader("Content-disposition", contentDispositionValue.toString());
         response.setHeader("download-filename", percentEncodedFileName);
     }
-    
+
     /**
      * 百分号编码工具方法
      *
@@ -194,7 +214,7 @@ public class FileUtils {
         String encode = URLEncoder.encode(s, StandardCharsets.UTF_8.toString());
         return encode.replaceAll("\\+", "%20");
     }
-    
+
     /**
      * 获取图像后缀
      *

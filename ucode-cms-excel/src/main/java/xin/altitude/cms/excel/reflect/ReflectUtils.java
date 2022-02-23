@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.excel.reflect;
 
 import org.apache.commons.lang3.StringUtils;
@@ -24,13 +44,13 @@ import java.util.Date;
 @SuppressWarnings("rawtypes")
 public class ReflectUtils {
     private static final String SETTER_PREFIX = "set";
-    
+
     private static final String GETTER_PREFIX = "get";
-    
+
     private static final String CGLIB_CLASS_SEPARATOR = "$$";
-    
+
     private static final Logger logger = LoggerFactory.getLogger(ReflectUtils.class);
-    
+
     /**
      * 调用Getter方法.
      * 支持多级，如：对象名.对象名.方法
@@ -44,7 +64,7 @@ public class ReflectUtils {
         }
         return (E) object;
     }
-    
+
     /**
      * 调用Setter方法, 仅匹配方法名。
      * 支持多级，如：对象名.对象名.方法
@@ -62,7 +82,7 @@ public class ReflectUtils {
             }
         }
     }
-    
+
     /**
      * 直接读取对象属性值, 无视private/protected修饰符, 不经过getter函数.
      */
@@ -81,7 +101,7 @@ public class ReflectUtils {
         }
         return result;
     }
-    
+
     /**
      * 直接设置对象属性值, 无视private/protected修饰符, 不经过setter函数.
      */
@@ -98,7 +118,7 @@ public class ReflectUtils {
             logger.error("不可能抛出的异常: {}", e.getMessage());
         }
     }
-    
+
     /**
      * 直接调用对象方法, 无视private/protected修饰符.
      * 用于一次性调用的情况，否则应使用getAccessibleMethod()函数获得Method后反复调用.
@@ -122,7 +142,7 @@ public class ReflectUtils {
             throw convertReflectionExceptionToUnchecked(msg, e);
         }
     }
-    
+
     /**
      * 直接调用对象方法, 无视private/protected修饰符，
      * 用于一次性调用的情况，否则应使用getAccessibleMethodByName()函数获得Method后反复调用.
@@ -171,7 +191,7 @@ public class ReflectUtils {
             throw convertReflectionExceptionToUnchecked(msg, e);
         }
     }
-    
+
     /**
      * 循环向上转型, 获取对象的DeclaredField, 并强制设置为可访问.
      * 如向上转型到Object仍无法找到, 返回null.
@@ -193,7 +213,7 @@ public class ReflectUtils {
         }
         return null;
     }
-    
+
     /**
      * 循环向上转型, 获取对象的DeclaredMethod,并强制设置为可访问.
      * 如向上转型到Object仍无法找到, 返回null.
@@ -218,7 +238,7 @@ public class ReflectUtils {
         }
         return null;
     }
-    
+
     /**
      * 循环向上转型, 获取对象的DeclaredMethod,并强制设置为可访问.
      * 如向上转型到Object仍无法找到, 返回null.
@@ -242,7 +262,7 @@ public class ReflectUtils {
         }
         return null;
     }
-    
+
     /**
      * 改变private/protected的方法为public，尽量不调用实际改动的语句，避免JDK的SecurityManager抱怨。
      */
@@ -252,7 +272,7 @@ public class ReflectUtils {
             method.setAccessible(true);
         }
     }
-    
+
     /**
      * 改变private/protected的成员变量为public，尽量不调用实际改动的语句，避免JDK的SecurityManager抱怨。
      */
@@ -262,7 +282,7 @@ public class ReflectUtils {
             field.setAccessible(true);
         }
     }
-    
+
     /**
      * 通过反射, 获得Class定义中声明的泛型参数的类型, 注意泛型必须定义在父类处
      * 如无法找到, 返回Object.class.
@@ -271,21 +291,21 @@ public class ReflectUtils {
     public static <T> Class<T> getClassGenricType(final Class clazz) {
         return getClassGenricType(clazz, 0);
     }
-    
+
     /**
      * 通过反射, 获得Class定义中声明的父类的泛型参数的类型.
      * 如无法找到, 返回Object.class.
      */
     public static Class getClassGenricType(final Class clazz, final int index) {
         Type genType = clazz.getGenericSuperclass();
-        
+
         if (!(genType instanceof ParameterizedType)) {
             logger.debug(clazz.getSimpleName() + "'s superclass not ParameterizedType");
             return Object.class;
         }
-        
+
         Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-        
+
         if (index >= params.length || index < 0) {
             logger.debug("Index: " + index + ", Size of " + clazz.getSimpleName() + "'s Parameterized Type: "
                     + params.length);
@@ -295,10 +315,10 @@ public class ReflectUtils {
             logger.debug(clazz.getSimpleName() + " not set the actual class on superclass generic parameter");
             return Object.class;
         }
-        
+
         return (Class) params[index];
     }
-    
+
     public static Class<?> getUserClass(Object instance) {
         if (instance == null) {
             throw new RuntimeException("Instance must not be null");
@@ -311,9 +331,9 @@ public class ReflectUtils {
             }
         }
         return clazz;
-        
+
     }
-    
+
     /**
      * 将反射时的checked exception转换为unchecked exception.
      */

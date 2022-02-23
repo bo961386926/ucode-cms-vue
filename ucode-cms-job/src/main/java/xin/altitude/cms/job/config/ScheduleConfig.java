@@ -1,5 +1,21 @@
 /*
- * Copyright (Java知识图谱) 2022.
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
  */
 
 package xin.altitude.cms.job.config;
@@ -19,7 +35,7 @@ import java.util.Properties;
  */
 public class ScheduleConfig {
     public static final String SCHEDULER_FACTORYBEAN = "schedulerFactoryBean";
-    
+
     /**
      * SchedulerFactoryBean
      *
@@ -34,10 +50,10 @@ public class ScheduleConfig {
         if (job.getPersist()) {
             factory.setDataSource(dataSource);
         }
-        
+
         Properties prop = getProperties(job.getPersist());
         factory.setQuartzProperties(prop);
-        
+
         factory.setSchedulerName("UCodeCmsScheduler");
         // 延时启动
         factory.setStartupDelay(1);
@@ -47,10 +63,10 @@ public class ScheduleConfig {
         factory.setOverwriteExistingJobs(true);
         // 设置自动启动，默认为true
         factory.setAutoStartup(true);
-        
+
         return factory;
     }
-    
+
     /**
      * 获取Quartz属性配置
      *
@@ -74,14 +90,14 @@ public class ScheduleConfig {
             prop.put("org.quartz.jobStore.clusterCheckinInterval", "15000");
             prop.put("org.quartz.jobStore.maxMisfiresToHandleAtATime", "1");
             prop.put("org.quartz.jobStore.txIsolationLevelSerializable", "true");
-            
+
             prop.put("org.quartz.jobStore.misfireThreshold", "12000");
             prop.put("org.quartz.jobStore.tablePrefix", "qrtz_");
         } else {
             // JobStore配置
             prop.put("org.quartz.jobStore.class", "org.quartz.simpl.RAMJobStore");
         }
-        
+
         return prop;
     }
 }

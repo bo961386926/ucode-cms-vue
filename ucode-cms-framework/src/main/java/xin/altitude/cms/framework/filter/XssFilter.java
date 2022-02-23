@@ -1,3 +1,23 @@
+/*
+ *
+ *  *
+ *  *  Copyright (c) 2020-2022, Java知识图谱 (http://www.altitude.xin).
+ *  *
+ *  *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  *  you may not use this file except in compliance with the License.
+ *  *  You may obtain a copy of the License at
+ *  *
+ *  *      http://www.apache.org/licenses/LICENSE-2.0
+ *  *
+ *  *  Unless required by applicable law or agreed to in writing, software
+ *  *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  *  See the License for the specific language governing permissions and
+ *  *  limitations under the License.
+ *  *
+ *
+ */
+
 package xin.altitude.cms.framework.filter;
 
 import xin.altitude.cms.common.util.StringUtil;
@@ -24,7 +44,7 @@ public class XssFilter implements Filter {
      * 排除链接
      */
     public List<String> excludes = new ArrayList<>();
-    
+
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         String tempExcludes = filterConfig.getInitParameter("excludes");
@@ -35,7 +55,7 @@ public class XssFilter implements Filter {
             }
         }
     }
-    
+
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
@@ -48,7 +68,7 @@ public class XssFilter implements Filter {
         XssHttpServletRequestWrapper xssRequest = new XssHttpServletRequestWrapper((HttpServletRequest) request);
         chain.doFilter(xssRequest, response);
     }
-    
+
     private boolean handleExcludeURL(HttpServletRequest request, HttpServletResponse response) {
         String url = request.getServletPath();
         String method = request.getMethod();
@@ -58,9 +78,9 @@ public class XssFilter implements Filter {
         }
         return StringUtil.matches(url, excludes);
     }
-    
+
     @Override
     public void destroy() {
-    
+
     }
 }

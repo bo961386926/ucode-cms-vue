@@ -30,13 +30,13 @@ import java.util.Set;
 public class SysLoginController {
     @Autowired
     private SysLoginService loginService;
-    
+
     @Autowired
     private ISysMenuService menuService;
-    
+
     @Autowired
     private SysPermissionService permissionService;
-    
+
     /**
      * 登录方法
      *
@@ -48,11 +48,11 @@ public class SysLoginController {
         AjaxResult ajax = AjaxResult.success();
         // 生成令牌
         String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
-                loginBody.getUuid());
+            loginBody.getUuid());
         ajax.put(Constants.TOKEN, token);
         return ajax;
     }
-    
+
     /**
      * 获取用户信息
      *
@@ -71,7 +71,7 @@ public class SysLoginController {
         ajax.put("permissions", permissions);
         return ajax;
     }
-    
+
     /**
      * 获取路由信息
      *

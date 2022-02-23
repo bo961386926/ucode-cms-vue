@@ -17,6 +17,7 @@ import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
+import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
@@ -27,7 +28,6 @@ import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.system.service.ISysPostService;
 import xin.altitude.cms.system.service.ISysRoleService;
 import xin.altitude.cms.system.service.ISysUserService;
-import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -43,13 +43,13 @@ import java.util.stream.Collectors;
 public class SysUserProController extends BaseProController {
     @Autowired
     private ISysUserService userService;
-    
+
     @Autowired
     private ISysRoleService roleService;
-    
+
     @Autowired
     private ISysPostService postService;
-    
+
     /**
      * 获取用户列表
      */
@@ -60,7 +60,7 @@ public class SysUserProController extends BaseProController {
         List<SysUser> list = userService.selectUserList(user);
         return getDataTable(list);
     }
-    
+
     @Log(title = "用户管理", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:user:export')")
     @PostMapping("/export")
@@ -69,7 +69,7 @@ public class SysUserProController extends BaseProController {
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
         util.exportExcel(response, list, "用户数据");
     }
-    
+
     @Log(title = "用户管理", businessType = BusinessType.IMPORT)
     // @PreAuthorize("@ss.hasPermi('system:user:import')")
     @PostMapping("/importData")
@@ -80,13 +80,13 @@ public class SysUserProController extends BaseProController {
         String message = userService.importUser(userList, updateSupport, operName);
         return AjaxResult.success(message);
     }
-    
+
     @PostMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response) {
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
         util.importTemplateExcel(response, "用户数据");
     }
-    
+
     /**
      * 根据用户编号获取详细信息
      */
@@ -105,7 +105,7 @@ public class SysUserProController extends BaseProController {
         }
         return ajax;
     }
-    
+
     /**
      * 新增用户
      */
@@ -116,17 +116,17 @@ public class SysUserProController extends BaseProController {
         if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(user.getUserName()))) {
             return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
         } else if (StringUtil.isNotEmpty(user.getPhonenumber())
-                && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
+            && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
             return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
         } else if (StringUtil.isNotEmpty(user.getEmail())
-                && UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
+            && UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
             return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         user.setCreateBy(getUsername());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         return toAjax(userService.insertUser(user));
     }
-    
+
     /**
      * 修改用户
      */
@@ -136,16 +136,16 @@ public class SysUserProController extends BaseProController {
     public AjaxResult edit(@Validated @RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         if (StringUtil.isNotEmpty(user.getPhonenumber())
-                && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
+            && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
             return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
         } else if (StringUtil.isNotEmpty(user.getEmail())
-                && UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
+            && UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
             return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         user.setUpdateBy(getUsername());
         return toAjax(userService.updateUser(user));
     }
-    
+
     /**
      * 删除用户
      */
@@ -158,7 +158,7 @@ public class SysUserProController extends BaseProController {
         }
         return toAjax(userService.deleteUserByIds(userIds));
     }
-    
+
     /**
      * 重置密码
      */
@@ -171,7 +171,7 @@ public class SysUserProController extends BaseProController {
         user.setUpdateBy(getUsername());
         return toAjax(userService.resetPwd(user));
     }
-    
+
     /**
      * 状态修改
      */
@@ -183,7 +183,7 @@ public class SysUserProController extends BaseProController {
         user.setUpdateBy(getUsername());
         return toAjax(userService.updateUserStatus(user));
     }
-    
+
     /**
      * 根据用户编号获取授权角色
      */
@@ -197,7 +197,7 @@ public class SysUserProController extends BaseProController {
         ajax.put("roles", SysUser.isAdmin(userId) ? roles : roles.stream().filter(r -> !r.isAdmin()).collect(Collectors.toList()));
         return ajax;
     }
-    
+
     /**
      * 用户授权角色
      */

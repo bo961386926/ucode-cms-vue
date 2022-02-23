@@ -35,19 +35,19 @@ import javax.annotation.Resource;
 public class SysLoginService {
     @Autowired
     private CmsTokenService cmsTokenService;
-    
+
     @Resource
     private AuthenticationManager authenticationManager;
-    
+
     @Autowired
     private RedisCache redisCache;
-    
+
     @Autowired
     private ISysUserService userService;
-    
+
     @Autowired
     private ISysConfigService configService;
-    
+
     /**
      * 登录验证
      *
@@ -68,7 +68,7 @@ public class SysLoginService {
         try {
             // 该方法会去调用UserDetailsServiceImpl.loadUserByUsername
             authentication = authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(username, password));
+                .authenticate(new UsernamePasswordAuthenticationToken(username, password));
         } catch (Exception e) {
             if (e instanceof BadCredentialsException) {
                 AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
@@ -84,7 +84,7 @@ public class SysLoginService {
         // 生成token
         return cmsTokenService.createToken(loginUser);
     }
-    
+
     /**
      * 校验验证码
      *
@@ -105,7 +105,7 @@ public class SysLoginService {
             throw new CaptchaException();
         }
     }
-    
+
     /**
      * 记录登录信息
      *

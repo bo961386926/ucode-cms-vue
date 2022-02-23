@@ -33,15 +33,15 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
      */
     @Autowired
     protected JwtAuthenticationTokenFilter authenticationTokenFilter;
-    
+
     /**
      * 认证失败处理类
      */
     @Autowired
     protected AuthenticationEntryPointImpl unauthorizedHandler;
-    
-    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-    
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+
     /**
      * 解决 无法直接注入 AuthenticationManager
      *
@@ -53,7 +53,7 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
-    
+
     /**
      * anyRequest          |   匹配所有请求路径
      * access              |   SpringEl表达式结果为true时可以访问
@@ -72,35 +72,35 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                // CSRF禁用，因为不使用session
-                .csrf().disable()
-                // 认证失败处理类
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                // 基于token，所以不需要session
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                // 过滤请求
-                .authorizeRequests()
-                // 对于登录login 注册register 验证码captchaImage 允许匿名访问
-                .antMatchers("/login", "/register", "/captchaImage").anonymous()
-                .antMatchers(
-                        HttpMethod.GET,
-                        "/",
-                        "/*.html",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/profile/**"
-                ).permitAll()
-                .antMatchers("/swagger-ui.html").anonymous()
-                .antMatchers("/swagger-resources/**").anonymous()
-                .antMatchers("/webjars/**").anonymous()
-                .antMatchers("/*/api-docs").anonymous()
-                .antMatchers("/druid/**").anonymous()
-                // 除上面外的所有请求全部需要鉴权认证
-                // .anyRequest().authenticated()
-                // .anyRequest().permitAll()
-                .and()
-                .headers().frameOptions().disable();
+            // CSRF禁用，因为不使用session
+            .csrf().disable()
+            // 认证失败处理类
+            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+            // 基于token，所以不需要session
+            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+            // 过滤请求
+            .authorizeRequests()
+            // 对于登录login 注册register 验证码captchaImage 允许匿名访问
+            .antMatchers("/login", "/register", "/captchaImage").anonymous()
+            .antMatchers(
+                HttpMethod.GET,
+                "/",
+                "/*.html",
+                "/**/*.html",
+                "/**/*.css",
+                "/**/*.js",
+                "/profile/**"
+            ).permitAll()
+            .antMatchers("/swagger-ui.html").anonymous()
+            .antMatchers("/swagger-resources/**").anonymous()
+            .antMatchers("/webjars/**").anonymous()
+            .antMatchers("/*/api-docs").anonymous()
+            .antMatchers("/druid/**").anonymous()
+            // 除上面外的所有请求全部需要鉴权认证
+            // .anyRequest().authenticated()
+            // .anyRequest().permitAll()
+            .and()
+            .headers().frameOptions().disable();
         if (SpringUtils.getBean(CmsConfig.class).getCms().isAuthEnabled()) {
             httpSecurity.authorizeRequests().anyRequest().authenticated();
         } else {
@@ -110,13 +110,13 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
         // 添加JWT filter
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
-    
+
     /**
      * 身份认证接口
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(SpringUtils.getBean(UserDetailsServiceImpl.class))
-                .passwordEncoder(bCryptPasswordEncoder);
+            .passwordEncoder(bCryptPasswordEncoder);
     }
 }

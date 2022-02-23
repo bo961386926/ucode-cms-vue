@@ -31,12 +31,12 @@ public class CmsTokenService {
     protected static final long MILLIS_SECOND = 1000;
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
     private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L;
-    
+
     private final CmsConfig.Token token = SpringUtils.getBean(CmsConfig.class).getToken();
 
     @Autowired
     private RedisCache redisCache;
-    
+
     /**
      * 获取用户身份信息
      *
@@ -59,7 +59,7 @@ public class CmsTokenService {
         }
         return null;
     }
-    
+
     /**
      * 设置用户身份信息
      */
@@ -68,7 +68,7 @@ public class CmsTokenService {
             refreshToken(loginUser);
         }
     }
-    
+
     /**
      * 删除用户身份信息
      */
@@ -78,7 +78,7 @@ public class CmsTokenService {
             redisCache.deleteObject(userKey);
         }
     }
-    
+
     /**
      * 创建令牌
      *
@@ -90,12 +90,12 @@ public class CmsTokenService {
         loginUser.setToken(token);
         setUserAgent(loginUser);
         refreshToken(loginUser);
-        
+
         Map<String, Object> claims = new HashMap<>();
         claims.put(Constants.LOGIN_USER_KEY, token);
         return createToken(claims);
     }
-    
+
     /**
      * 验证令牌有效期，相差不足20分钟，自动刷新缓存
      *
@@ -108,7 +108,7 @@ public class CmsTokenService {
             refreshToken(loginUser);
         }
     }
-    
+
     /**
      * 刷新令牌有效期
      *
@@ -121,7 +121,7 @@ public class CmsTokenService {
         String userKey = getTokenKey(loginUser.getToken());
         redisCache.setCacheObject(userKey, loginUser, token.getExpireTime(), TimeUnit.MINUTES);
     }
-    
+
     /**
      * 设置用户代理信息
      *
@@ -135,7 +135,7 @@ public class CmsTokenService {
         loginUser.setBrowser(userAgent.getBrowser().getName());
         loginUser.setOs(userAgent.getOperatingSystem().getName());
     }
-    
+
     /**
      * 从数据声明生成令牌
      *
@@ -144,10 +144,10 @@ public class CmsTokenService {
      */
     private String createToken(Map<String, Object> claims) {
         return Jwts.builder()
-                .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS512, this.token.getSecret()).compact();
+            .setClaims(claims)
+            .signWith(SignatureAlgorithm.HS512, this.token.getSecret()).compact();
     }
-    
+
     /**
      * 从令牌中获取数据声明
      *
@@ -156,11 +156,11 @@ public class CmsTokenService {
      */
     private Claims parseToken(String token) {
         return Jwts.parser()
-                .setSigningKey(this.token.getSecret())
-                .parseClaimsJws(token)
-                .getBody();
+            .setSigningKey(this.token.getSecret())
+            .parseClaimsJws(token)
+            .getBody();
     }
-    
+
     /**
      * 从令牌中获取用户名
      *
@@ -171,7 +171,7 @@ public class CmsTokenService {
         Claims claims = parseToken(token);
         return claims.getSubject();
     }
-    
+
     /**
      * 获取请求token
      *
@@ -185,7 +185,7 @@ public class CmsTokenService {
         }
         return token;
     }
-    
+
     private String getTokenKey(String uuid) {
         return Constants.LOGIN_TOKEN_KEY + uuid;
     }

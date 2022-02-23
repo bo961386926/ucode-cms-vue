@@ -31,10 +31,10 @@ import javax.servlet.http.HttpServletResponse;
 @RequestMapping(CmsConfig.UNIFORM_PREFIX)
 public class CommonController {
     private static final Logger log = LoggerFactory.getLogger(CommonController.class);
-    
+
     @Autowired
     private ServerConfig serverConfig;
-    
+
     /**
      * 通用下载请求
      *
@@ -49,7 +49,7 @@ public class CommonController {
             }
             String realFileName = System.currentTimeMillis() + fileName.substring(fileName.indexOf("_") + 1);
             String filePath = FilenameUtils.concat(SpringUtils.getBean(CmsConfig.class).getCms().getDownloadPath(), fileName);
-            
+
             response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);
             FileUtils.setAttachmentResponseHeader(response, realFileName);
             FileUtils.writeBytes(filePath, response.getOutputStream());
@@ -60,7 +60,7 @@ public class CommonController {
             log.error("下载文件失败", e);
         }
     }
-    
+
     /**
      * 通用上传请求
      */
@@ -80,13 +80,13 @@ public class CommonController {
             return AjaxResult.error(e.getMessage());
         }
     }
-    
+
     /**
      * 本地资源通用下载
      */
     @GetMapping("/common/download/resource")
     public void resourceDownload(String resource, HttpServletRequest request, HttpServletResponse response)
-            throws Exception {
+        throws Exception {
         try {
             if (!FileUtils.checkAllowDownload(resource)) {
                 throw new Exception(StringUtil.format("资源文件({})非法，不允许下载。 ", resource));

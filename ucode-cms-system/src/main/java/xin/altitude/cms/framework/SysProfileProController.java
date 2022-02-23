@@ -36,10 +36,10 @@ import java.io.IOException;
 public class SysProfileProController extends BaseProController {
     @Autowired
     private ISysUserService userService;
-    
+
     @Autowired
     private CmsTokenService cmsTokenService;
-    
+
     /**
      * 个人信息
      */
@@ -52,7 +52,7 @@ public class SysProfileProController extends BaseProController {
         ajax.put("postGroup", userService.selectUserPostGroup(loginUser.getUsername()));
         return ajax;
     }
-    
+
     /**
      * 修改用户
      */
@@ -60,11 +60,11 @@ public class SysProfileProController extends BaseProController {
     @PutMapping
     public AjaxResult updateProfile(@RequestBody SysUser user) {
         if (StringUtil.isNotEmpty(user.getPhonenumber())
-                && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
+            && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
             return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
         }
         if (StringUtil.isNotEmpty(user.getEmail())
-                && UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
+            && UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
             return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         LoginUser loginUser = getLoginUser();
@@ -82,7 +82,7 @@ public class SysProfileProController extends BaseProController {
         }
         return AjaxResult.error("修改个人信息异常，请联系管理员");
     }
-    
+
     /**
      * 重置密码
      */
@@ -106,7 +106,7 @@ public class SysProfileProController extends BaseProController {
         }
         return AjaxResult.error("修改密码异常，请联系管理员");
     }
-    
+
     /**
      * 头像上传
      */

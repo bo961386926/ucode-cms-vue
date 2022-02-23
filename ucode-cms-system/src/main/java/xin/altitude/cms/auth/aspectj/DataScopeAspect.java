@@ -23,32 +23,32 @@ public class DataScopeAspect {
      * 全部数据权限
      */
     public static final String DATA_SCOPE_ALL = "1";
-    
+
     /**
      * 自定数据权限
      */
     public static final String DATA_SCOPE_CUSTOM = "2";
-    
+
     /**
      * 部门数据权限
      */
     public static final String DATA_SCOPE_DEPT = "3";
-    
+
     /**
      * 部门及以下数据权限
      */
     public static final String DATA_SCOPE_DEPT_AND_CHILD = "4";
-    
+
     /**
      * 仅本人数据权限
      */
     public static final String DATA_SCOPE_SELF = "5";
-    
+
     /**
      * 数据权限过滤关键字
      */
     public static final String DATA_SCOPE = "dataScope";
-    
+
     /**
      * 数据范围过滤
      *
@@ -58,7 +58,7 @@ public class DataScopeAspect {
      */
     public static void dataScopeFilter(JoinPoint joinPoint, SysUser user, String deptAlias, String userAlias) {
         StringBuilder sqlString = new StringBuilder();
-        
+
         for (SysRole role : user.getRoles()) {
             String dataScope = role.getDataScope();
             if (DATA_SCOPE_ALL.equals(dataScope)) {
@@ -66,14 +66,14 @@ public class DataScopeAspect {
                 break;
             } else if (DATA_SCOPE_CUSTOM.equals(dataScope)) {
                 sqlString.append(StringUtil.format(
-                        " OR {}.dept_id IN ( SELECT dept_id FROM sys_role_dept WHERE role_id = {} ) ", deptAlias,
-                        role.getRoleId()));
+                    " OR {}.dept_id IN ( SELECT dept_id FROM sys_role_dept WHERE role_id = {} ) ", deptAlias,
+                    role.getRoleId()));
             } else if (DATA_SCOPE_DEPT.equals(dataScope)) {
                 sqlString.append(StringUtil.format(" OR {}.dept_id = {} ", deptAlias, user.getDeptId()));
             } else if (DATA_SCOPE_DEPT_AND_CHILD.equals(dataScope)) {
                 sqlString.append(StringUtil.format(
-                        " OR {}.dept_id IN ( SELECT dept_id FROM sys_dept WHERE dept_id = {} or find_in_set( {} , ancestors ) )",
-                        deptAlias, user.getDeptId(), user.getDeptId()));
+                    " OR {}.dept_id IN ( SELECT dept_id FROM sys_dept WHERE dept_id = {} or find_in_set( {} , ancestors ) )",
+                    deptAlias, user.getDeptId(), user.getDeptId()));
             } else if (DATA_SCOPE_SELF.equals(dataScope)) {
                 if (StringUtil.isNotBlank(userAlias)) {
                     sqlString.append(StringUtil.format(" OR {}.user_id = {} ", userAlias, user.getUserId()));
@@ -83,7 +83,7 @@ public class DataScopeAspect {
                 }
             }
         }
-    
+
         if (StringUtil.isNotBlank(sqlString.toString())) {
             Object params = joinPoint.getArgs()[0];
             if (StringUtil.isNotNull(params) && params instanceof BaseProEntity) {
@@ -92,13 +92,13 @@ public class DataScopeAspect {
             }
         }
     }
-    
+
     @Before("@annotation(controllerDataScope)")
     public void doBefore(JoinPoint point, DataScope controllerDataScope) throws Throwable {
         clearDataScope(point);
         handleDataScope(point, controllerDataScope);
     }
-    
+
     protected void handleDataScope(final JoinPoint joinPoint, DataScope controllerDataScope) {
         // 获取当前的用户
         LoginUser loginUser = SecurityUtils.getLoginUser();
@@ -107,11 +107,11 @@ public class DataScopeAspect {
             // 如果是超级管理员，则不过滤数据
             if (StringUtil.isNotNull(currentUser) && !currentUser.isAdmin()) {
                 dataScopeFilter(joinPoint, currentUser, controllerDataScope.deptAlias(),
-                        controllerDataScope.userAlias());
+                    controllerDataScope.userAlias());
             }
         }
     }
-    
+
     /**
      * 拼接权限sql前先清空params.dataScope参数防止注入
      */

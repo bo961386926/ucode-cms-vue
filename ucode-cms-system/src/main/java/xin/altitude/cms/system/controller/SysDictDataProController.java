@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
+import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.enums.BusinessType;
 import xin.altitude.cms.framework.core.domain.SysDictData;
 import xin.altitude.cms.system.service.ISysDictDataService;
 import xin.altitude.cms.system.service.ISysDictTypeService;
-import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -37,10 +37,10 @@ import java.util.List;
 public class SysDictDataProController extends BaseProController {
     @Autowired
     private ISysDictDataService dictDataService;
-    
+
     @Autowired
     private ISysDictTypeService dictTypeService;
-    
+
     // @PreAuthorize("@ss.hasPermi('system:dict:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysDictData> page, SysDictData dictData) {
@@ -49,7 +49,7 @@ public class SysDictDataProController extends BaseProController {
         // return getDataTable(list);
         return AjaxResult.success(dictDataService.page(page, Wrappers.lambdaQuery(dictData)));
     }
-    
+
     @Log(title = "字典数据", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:dict:export')")
     @PostMapping("/export")
@@ -58,7 +58,7 @@ public class SysDictDataProController extends BaseProController {
         ExcelUtil<SysDictData> util = new ExcelUtil<SysDictData>(SysDictData.class);
         util.exportExcel(response, list, "字典数据");
     }
-    
+
     /**
      * 查询字典数据详细
      */
@@ -67,7 +67,7 @@ public class SysDictDataProController extends BaseProController {
     public AjaxResult getInfo(@PathVariable Long dictCode) {
         return AjaxResult.success(dictDataService.selectDictDataById(dictCode));
     }
-    
+
     /**
      * 根据字典类型查询字典数据信息
      */
@@ -79,7 +79,7 @@ public class SysDictDataProController extends BaseProController {
         }
         return AjaxResult.success(data);
     }
-    
+
     /**
      * 新增字典类型
      */
@@ -90,7 +90,7 @@ public class SysDictDataProController extends BaseProController {
         dict.setCreateBy(getUsername());
         return toAjax(dictDataService.insertDictData(dict));
     }
-    
+
     /**
      * 修改保存字典类型
      */
@@ -101,7 +101,7 @@ public class SysDictDataProController extends BaseProController {
         dict.setUpdateBy(getUsername());
         return toAjax(dictDataService.updateDictData(dict));
     }
-    
+
     /**
      * 删除字典类型
      */

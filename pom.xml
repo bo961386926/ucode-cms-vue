@@ -11,7 +11,7 @@
     </parent>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.3.4.1</version>
+    <version>1.4.0</version>
     <description>Java知识图谱之内容管理系统（pom）</description>
 
     <name>${project.artifactId}</name>
@@ -158,50 +158,50 @@
 
             <!-- 系统模块-->
             <dependency>
-                <groupId>xin.altitude.cms.system</groupId>
+                <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-system</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>xin.altitude.cms.job</groupId>
+                <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-job</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>xin.altitude.cms.ui</groupId>
+                <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
-                <groupId>xin.altitude.cms.monitor</groupId>
+                <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-monitor</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- 核心模块-->
             <dependency>
-                <groupId>xin.altitude.cms.framework</groupId>
+                <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-framework</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <!-- 通用工具-->
             <dependency>
-                <groupId>xin.altitude.cms.common</groupId>
+                <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-common</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>xin.altitude.cms.code</groupId>
+                <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-code</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
             <dependency>
-                <groupId>xin.altitude.cms.excel</groupId>
+                <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-excel</artifactId>
                 <version>${project.version}</version>
             </dependency>

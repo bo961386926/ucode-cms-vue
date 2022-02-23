@@ -25,10 +25,10 @@ import java.io.IOException;
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     @Autowired
     private CmsTokenService cmsTokenService;
-    
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
-            throws ServletException, IOException {
+        throws ServletException, IOException {
         LoginUser loginUser = cmsTokenService.getLoginUser(request);
         if (StringUtil.isNotNull(loginUser) && StringUtil.isNull(SecurityUtils.getAuthentication())) {
             cmsTokenService.verifyToken(loginUser);

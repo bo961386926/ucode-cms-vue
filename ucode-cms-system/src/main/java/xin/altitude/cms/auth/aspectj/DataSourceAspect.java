@@ -25,21 +25,21 @@ import java.util.Objects;
 // @Component
 public class DataSourceAspect {
     protected Logger logger = LoggerFactory.getLogger(getClass());
-    
+
     @Pointcut("@annotation(xin.altitude.cms.framework.annotation.DataSource)"
-            + "|| @within(xin.altitude.cms.framework.annotation.DataSource)")
+        + "|| @within(xin.altitude.cms.framework.annotation.DataSource)")
     public void dsPointCut() {
-    
+
     }
-    
+
     @Around("dsPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
         DataSource dataSource = getDataSource(point);
-    
+
         if (StringUtil.isNotNull(dataSource)) {
             DynamicDataSourceContextHolder.setDataSourceType(dataSource.value().name());
         }
-    
+
         try {
             return point.proceed();
         } finally {
@@ -47,7 +47,7 @@ public class DataSourceAspect {
             DynamicDataSourceContextHolder.clearDataSourceType();
         }
     }
-    
+
     /**
      * 获取需要切换的数据源
      */
@@ -57,7 +57,7 @@ public class DataSourceAspect {
         if (Objects.nonNull(dataSource)) {
             return dataSource;
         }
-        
+
         return AnnotationUtils.findAnnotation(signature.getDeclaringType(), DataSource.class);
     }
 }

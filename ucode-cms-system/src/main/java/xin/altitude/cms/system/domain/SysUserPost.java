@@ -23,41 +23,41 @@ public class SysUserPost extends BaseProEntity {
      * 用户ID
      */
     private Long userId;
-    
+
     /**
      * 岗位ID
      */
     private Long postId;
-    
+
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public Long getUserId() {
         return userId;
     }
-    
+
     public void setUserId(Long userId) {
         this.userId = userId;
     }
-    
+
     public Long getPostId() {
         return postId;
     }
-    
+
     public void setPostId(Long postId) {
         this.postId = postId;
     }
-    
+
     @Override
     public String toString() {
         return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("userId", getUserId())
-                .append("postId", getPostId())
-                .toString();
+            .append("userId", getUserId())
+            .append("postId", getPostId())
+            .toString();
     }
 }

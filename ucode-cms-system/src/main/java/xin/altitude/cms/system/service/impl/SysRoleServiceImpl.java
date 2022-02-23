@@ -38,27 +38,27 @@ import java.util.Set;
 public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> implements ISysRoleService {
     // @Autowired
     // private SysRoleMapper roleMapper;
-    
+
     // @Autowired
     // private SysRoleMenuMapper roleMenuMapper;
-    
+
     @Autowired
     private ISysRoleMenuService sysRoleMenuService;
-    
+
     // @Autowired
     // private SysUserRoleMapper userRoleMapper;
-    
+
     // @Autowired
     // private SysRoleDeptMapper roleDeptMapper;
     @Autowired
     private ISysRoleDeptService sysRoleDeptService;
-    
+
     @Autowired
     private ISysUserService sysUserService;
-    
+
     @Autowired
     private ISysUserRoleService sysUserRoleService;
-    
+
     /**
      * 根据条件分页查询角色数据
      *
@@ -71,7 +71,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // return roleMapper.selectRoleList(role);
         return list(Wrappers.lambdaQuery(role));
     }
-    
+
     /**
      * 根据用户ID查询角色
      *
@@ -94,7 +94,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         }
         return roles;
     }
-    
+
     /**
      * 根据用户ID查询权限
      *
@@ -114,7 +114,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         }
         return permsSet;
     }
-    
+
     /**
      * 查询所有角色
      *
@@ -124,7 +124,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
     public List<SysRole> selectRoleAll() {
         return SpringUtils.getAopProxy(this).selectRoleList(new SysRole());
     }
-    
+
     /**
      * 根据用户ID获取角色选择框列表
      *
@@ -136,7 +136,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         return EntityUtils.toList(sysUserRoleService.list(Wrappers.lambdaQuery(SysUserRole.class).eq(SysUserRole::getUserId, userId)), SysUserRole::getRoleId);
         // return roleMapper.selectRoleListByUserId(userId);
     }
-    
+
     /**
      * 通过角色ID查询角色
      *
@@ -148,7 +148,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // return roleMapper.selectRoleById(roleId);
         return getById(roleId);
     }
-    
+
     /**
      * 校验角色名称是否唯一
      *
@@ -165,7 +165,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         }
         return UserConstants.UNIQUE;
     }
-    
+
     /**
      * 校验角色权限是否唯一
      *
@@ -182,7 +182,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         }
         return UserConstants.UNIQUE;
     }
-    
+
     /**
      * 校验角色是否允许操作
      *
@@ -194,7 +194,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             throw new ServiceException("不允许操作超级管理员角色");
         }
     }
-    
+
     /**
      * 校验角色是否有数据权限
      *
@@ -211,7 +211,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
             }
         }
     }
-    
+
     /**
      * 通过角色ID查询角色使用数量
      *
@@ -223,7 +223,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // return userRoleMapper.countUserRoleByRoleId(roleId);
         return sysUserRoleService.count(Wrappers.lambdaQuery(SysUserRole.class).eq(SysUserRole::getRoleId, roleId));
     }
-    
+
     /**
      * 新增保存角色信息
      *
@@ -238,7 +238,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         save(role);
         return insertRoleMenu(role);
     }
-    
+
     /**
      * 修改保存角色信息
      *
@@ -256,7 +256,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         sysRoleMenuService.remove(Wrappers.lambdaQuery(SysRoleMenu.class).eq(SysRoleMenu::getRoleId, role.getRoleId()));
         return insertRoleMenu(role);
     }
-    
+
     /**
      * 修改角色状态
      *
@@ -268,7 +268,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // return roleMapper.updateRole(role);
         return updateById(role);
     }
-    
+
     /**
      * 修改数据权限信息
      *
@@ -284,11 +284,11 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // 删除角色与部门关联
         // roleDeptMapper.deleteRoleDeptByRoleId(role.getRoleId());
         sysRoleDeptService.remove(Wrappers.lambdaQuery(SysRoleDept.class).eq(SysRoleDept::getRoleId, role.getRoleId()));
-    
+
         // 新增角色和部门信息（数据权限）
         return insertRoleDept(role);
     }
-    
+
     /**
      * 新增角色菜单信息
      *
@@ -310,7 +310,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         }
         return rows;
     }
-    
+
     /**
      * 新增角色部门信息(数据权限)
      *
@@ -332,7 +332,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         }
         return rows;
     }
-    
+
     /**
      * 通过角色ID删除角色
      *
@@ -351,7 +351,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // return roleMapper.deleteRoleById(roleId);
         return removeById(roleId);
     }
-    
+
     /**
      * 批量删除角色信息
      *
@@ -377,7 +377,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // return roleMapper.deleteRoleByIds(roleIds);
         return removeByIds(Arrays.asList(roleIds));
     }
-    
+
     /**
      * 取消授权用户角色
      *
@@ -389,7 +389,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // return userRoleMapper.deleteUserRoleInfo(userRole);
         return sysUserRoleService.remove(Wrappers.lambdaQuery(userRole));
     }
-    
+
     /**
      * 批量取消授权用户角色
      *
@@ -402,7 +402,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // return userRoleMapper.deleteUserRoleInfos(roleId, userIds);
         return sysUserRoleService.remove(Wrappers.lambdaQuery(SysUserRole.class).eq(SysUserRole::getRoleId, roleId).in(SysUserRole::getUserId, userIds));
     }
-    
+
     /**
      * 批量选择授权用户角色
      *
@@ -423,7 +423,7 @@ public class SysRoleServiceImpl extends ServiceImpl<SysRoleMapper, SysRole> impl
         // return userRoleMapper.batchUserRole(list);
         return sysUserRoleService.saveBatch(list);
     }
-    
+
     @Override
     public List<SysRole> selectRolesByUserName(String userName) {
         SysUser sysUser = sysUserService.getOne(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getUserName, userName));

@@ -1,9 +1,9 @@
 package xin.altitude.cms.framework.filter;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.util.html.EscapeUtil;
 
 import javax.servlet.ReadListener;
@@ -25,7 +25,7 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
     public XssHttpServletRequestWrapper(HttpServletRequest request) {
         super(request);
     }
-    
+
     @Override
     public String[] getParameterValues(String name) {
         String[] values = super.getParameterValues(name);
@@ -40,20 +40,20 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
         }
         return super.getParameterValues(name);
     }
-    
+
     @Override
     public ServletInputStream getInputStream() throws IOException {
         // 非json类型，直接返回
         if (!isJsonRequest()) {
             return super.getInputStream();
         }
-        
+
         // 为空，直接返回
         String json = IOUtils.toString(super.getInputStream(), "utf-8");
-        if (StringUtil.isEmpty(json)) {
+        if (StringUtils.isEmpty(json)) {
             return super.getInputStream();
         }
-        
+
         // xss过滤
         json = EscapeUtil.clean(json).trim();
         byte[] jsonBytes = json.getBytes("utf-8");
@@ -63,34 +63,33 @@ public class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
             public boolean isFinished() {
                 return true;
             }
-            
+
             @Override
             public boolean isReady() {
                 return true;
             }
-            
+
             @Override
             public int available() throws IOException {
                 return jsonBytes.length;
             }
-            
+
             @Override
             public void setReadListener(ReadListener readListener) {
             }
-            
+
             @Override
             public int read() throws IOException {
                 return bis.read();
             }
         };
     }
-    
+
     /**
      * 是否是Json请求
-     *
      */
     public boolean isJsonRequest() {
         String header = super.getHeader(HttpHeaders.CONTENT_TYPE);
-        return StringUtil.startsWithIgnoreCase(header, MediaType.APPLICATION_JSON_VALUE);
+        return StringUtils.startsWithIgnoreCase(header, MediaType.APPLICATION_JSON_VALUE);
     }
 }

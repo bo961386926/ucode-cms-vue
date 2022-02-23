@@ -42,16 +42,16 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     //
     // @Autowired
     // private SysRoleMapper roleMapper;
-    
+
     @Autowired
     private ISysRoleService sysRoleService;
-    
+
     @Autowired
     private ISysRoleDeptService sysRoleDeptService;
-    
+
     @Autowired
     private ISysUserService sysUserService;
-    
+
     /**
      * 查询部门管理数据
      *
@@ -64,7 +64,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         // return deptMapper.selectDeptList(dept);
         return list(Wrappers.lambdaQuery(dept));
     }
-    
+
     /**
      * 构建前端所需要树结构
      *
@@ -90,7 +90,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         }
         return returnList;
     }
-    
+
     /**
      * 构建前端所需要下拉树结构
      *
@@ -102,7 +102,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         List<SysDept> deptTrees = buildDeptTree(depts);
         return deptTrees.stream().map(TreeSelect::new).collect(Collectors.toList());
     }
-    
+
     /**
      * 根据角色ID查询部门树信息
      *
@@ -124,7 +124,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         return EntityUtils.toList(sysRoleDeptService.list(wrapper), SysRoleDept::getDeptId);
         // return deptMapper.selectDeptListByRoleId(roleId, role.isDeptCheckStrictly());
     }
-    
+
     /**
      * 根据部门ID查询信息
      *
@@ -136,7 +136,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         // return deptMapper.selectDeptById(deptId);
         return getById(deptId);
     }
-    
+
     /**
      * 根据ID查询所有子部门（正常状态）
      *
@@ -152,7 +152,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         deptIds.remove(deptId);
         return deptIds.size();
     }
-    
+
     /**
      * 是否存在子节点
      *
@@ -165,7 +165,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         long result = count(Wrappers.lambdaQuery(SysDept.class).eq(SysDept::getParentId, deptId));
         return result > 0;
     }
-    
+
     /**
      * 查询部门是否存在用户
      *
@@ -178,7 +178,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         long result = sysUserService.count(Wrappers.lambdaQuery(SysUser.class).eq(SysUser::getDeptId, deptId));
         return result > 0;
     }
-    
+
     /**
      * 校验部门名称是否唯一
      *
@@ -195,7 +195,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         }
         return UserConstants.UNIQUE;
     }
-    
+
     /**
      * 校验部门是否有数据权限
      *
@@ -212,7 +212,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
             }
         }
     }
-    
+
     /**
      * 新增保存部门信息
      *
@@ -230,7 +230,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         // return deptMapper.insertDept(dept);
         return save(dept);
     }
-    
+
     /**
      * 修改保存部门信息
      *
@@ -251,13 +251,13 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         // int result = deptMapper.updateDept(dept);
         boolean result = updateById(dept);
         if (UserConstants.DEPT_NORMAL.equals(dept.getStatus()) && StringUtil.isNotEmpty(dept.getAncestors())
-                && !StringUtil.equals("0", dept.getAncestors())) {
+            && !StringUtil.equals("0", dept.getAncestors())) {
             // 如果该部门是启用状态，则启用该部门的所有上级部门
             updateParentDeptStatusNormal(dept);
         }
         return result;
     }
-    
+
     /**
      * 修改该部门的父级部门状态
      *
@@ -270,7 +270,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         updateBatchById(sysDepts);
         // deptMapper.updateDeptStatusNormal(deptIds);
     }
-    
+
     /**
      * 修改子元素关系
      *
@@ -293,7 +293,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
             updateBatchById(children);
         }
     }
-    
+
     /**
      * 删除部门管理信息
      *
@@ -305,7 +305,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         // return deptMapper.deleteDeptById(deptId);
         return removeById(deptId);
     }
-    
+
     /**
      * 递归列表
      */
@@ -319,7 +319,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
             }
         }
     }
-    
+
     /**
      * 得到子节点列表
      */
@@ -332,14 +332,14 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
         }
         return tlist;
     }
-    
+
     /**
      * 判断是否有子节点
      */
     private boolean hasChild(List<SysDept> list, SysDept t) {
         return getChildList(list, t).size() > 0;
     }
-    
+
     /**
      * 查询当前节点的孩子ID（包含自己）
      *
@@ -350,13 +350,13 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
     public void getChildIds(Set<Long> deptIds, Long deptId) {
         deptIds.add(deptId);
         LambdaQueryWrapper<SysDept> wrapper = Wrappers.lambdaQuery(SysDept.class)
-                .eq(SysDept::getParentId, deptId).select(SysDept::getDeptId);
+            .eq(SysDept::getParentId, deptId).select(SysDept::getDeptId);
         List<Long> ids = EntityUtils.toList(list(wrapper), SysDept::getDeptId);
         for (Long id : ids) {
             getChildIds(deptIds, id);
         }
     }
-    
+
     /**
      * 查询当前节点所有父亲ID（不包含自己）
      *
@@ -371,7 +371,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
             getParentIds(deptIds, parentId);
         }
     }
-    
+
     /**
      * 获取非叶子节点的集合
      *

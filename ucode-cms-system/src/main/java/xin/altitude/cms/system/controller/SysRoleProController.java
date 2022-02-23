@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.auth.web.service.SysPermissionService;
 import xin.altitude.cms.auth.web.service.CmsTokenService;
+import xin.altitude.cms.auth.web.service.SysPermissionService;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
+import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
@@ -28,7 +29,6 @@ import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.system.domain.SysUserRole;
 import xin.altitude.cms.system.service.ISysRoleService;
 import xin.altitude.cms.system.service.ISysUserService;
-import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -43,16 +43,16 @@ import java.util.List;
 public class SysRoleProController extends BaseProController {
     @Autowired
     private ISysRoleService roleService;
-    
+
     @Autowired
     private CmsTokenService cmsTokenService;
-    
+
     @Autowired
     private SysPermissionService permissionService;
-    
+
     @Autowired
     private ISysUserService userService;
-    
+
     // @PreAuthorize("@ss.hasPermi('system:role:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysRole> page, SysRole role) {
@@ -61,7 +61,7 @@ public class SysRoleProController extends BaseProController {
         // return getDataTable(list);
         return AjaxResult.success(roleService.page(page, Wrappers.lambdaQuery(role)));
     }
-    
+
     @Log(title = "角色管理", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:role:export')")
     @PostMapping("/export")
@@ -70,7 +70,7 @@ public class SysRoleProController extends BaseProController {
         ExcelUtil<SysRole> util = new ExcelUtil<SysRole>(SysRole.class);
         util.exportExcel(response, list, "角色数据");
     }
-    
+
     /**
      * 根据角色编号获取详细信息
      */
@@ -80,7 +80,7 @@ public class SysRoleProController extends BaseProController {
         roleService.checkRoleDataScope(roleId);
         return AjaxResult.success(roleService.selectRoleById(roleId));
     }
-    
+
     /**
      * 新增角色
      */
@@ -95,9 +95,9 @@ public class SysRoleProController extends BaseProController {
         }
         role.setCreateBy(getUsername());
         return toAjax(roleService.insertRole(role));
-        
+
     }
-    
+
     /**
      * 修改保存角色
      */
@@ -112,7 +112,7 @@ public class SysRoleProController extends BaseProController {
             return AjaxResult.error("修改角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
         role.setUpdateBy(getUsername());
-        
+
         if (roleService.updateRole(role) > 0) {
             // 更新缓存用户权限
             LoginUser loginUser = getLoginUser();
@@ -125,7 +125,7 @@ public class SysRoleProController extends BaseProController {
         }
         return AjaxResult.error("修改角色'" + role.getRoleName() + "'失败，请联系管理员");
     }
-    
+
     /**
      * 修改保存数据权限
      */
@@ -136,7 +136,7 @@ public class SysRoleProController extends BaseProController {
         roleService.checkRoleAllowed(role);
         return toAjax(roleService.authDataScope(role));
     }
-    
+
     /**
      * 状态修改
      */
@@ -148,7 +148,7 @@ public class SysRoleProController extends BaseProController {
         role.setUpdateBy(getUsername());
         return toAjax(roleService.updateRoleStatus(role));
     }
-    
+
     /**
      * 删除角色
      */
@@ -158,7 +158,7 @@ public class SysRoleProController extends BaseProController {
     public AjaxResult remove(@PathVariable Long[] roleIds) {
         return toAjax(roleService.deleteRoleByIds(roleIds));
     }
-    
+
     /**
      * 获取角色选择框列表
      */
@@ -167,7 +167,7 @@ public class SysRoleProController extends BaseProController {
     public AjaxResult optionselect() {
         return AjaxResult.success(roleService.selectRoleAll());
     }
-    
+
     /**
      * 查询已分配用户角色列表
      */
@@ -178,7 +178,7 @@ public class SysRoleProController extends BaseProController {
         List<SysUser> list = userService.selectAllocatedList(user);
         return getDataTable(list);
     }
-    
+
     /**
      * 查询未分配用户角色列表
      */
@@ -189,7 +189,7 @@ public class SysRoleProController extends BaseProController {
         List<SysUser> list = userService.selectUnallocatedList(user);
         return getDataTable(list);
     }
-    
+
     /**
      * 取消授权用户
      */
@@ -199,7 +199,7 @@ public class SysRoleProController extends BaseProController {
     public AjaxResult cancelAuthUser(@RequestBody SysUserRole userRole) {
         return toAjax(roleService.deleteAuthUser(userRole));
     }
-    
+
     /**
      * 批量取消授权用户
      */
@@ -209,7 +209,7 @@ public class SysRoleProController extends BaseProController {
     public AjaxResult cancelAuthUserAll(Long roleId, Long[] userIds) {
         return toAjax(roleService.deleteAuthUsers(roleId, userIds));
     }
-    
+
     /**
      * 批量选择用户授权
      */

@@ -33,7 +33,7 @@ import java.util.List;
 public class SysDeptProController extends BaseProController {
     @Autowired
     private ISysDeptService deptService;
-    
+
     /**
      * 获取部门列表
      */
@@ -43,7 +43,7 @@ public class SysDeptProController extends BaseProController {
         List<SysDept> depts = deptService.selectDeptList(dept);
         return AjaxResult.success(depts);
     }
-    
+
     /**
      * 查询部门列表（排除节点）
      */
@@ -52,10 +52,10 @@ public class SysDeptProController extends BaseProController {
     public AjaxResult excludeChild(@PathVariable(value = "deptId", required = false) Long deptId) {
         List<SysDept> depts = deptService.selectDeptList(new SysDept());
         depts.removeIf(d -> d.getDeptId().intValue() == deptId
-                || ArrayUtils.contains(StringUtil.split(d.getAncestors(), ","), deptId + ""));
+            || ArrayUtils.contains(StringUtil.split(d.getAncestors(), ","), deptId + ""));
         return AjaxResult.success(depts);
     }
-    
+
     /**
      * 根据部门编号获取详细信息
      */
@@ -65,7 +65,7 @@ public class SysDeptProController extends BaseProController {
         deptService.checkDeptDataScope(deptId);
         return AjaxResult.success(deptService.selectDeptById(deptId));
     }
-    
+
     /**
      * 获取部门下拉树列表
      */
@@ -74,7 +74,7 @@ public class SysDeptProController extends BaseProController {
         List<SysDept> depts = deptService.selectDeptList(dept);
         return AjaxResult.success(deptService.buildDeptTreeSelect(depts));
     }
-    
+
     /**
      * 加载对应角色部门列表树
      */
@@ -86,7 +86,7 @@ public class SysDeptProController extends BaseProController {
         ajax.put("depts", deptService.buildDeptTreeSelect(depts));
         return ajax;
     }
-    
+
     /**
      * 新增部门
      */
@@ -100,7 +100,7 @@ public class SysDeptProController extends BaseProController {
         dept.setCreateBy(getUsername());
         return toAjax(deptService.insertDept(dept));
     }
-    
+
     /**
      * 修改部门
      */
@@ -113,13 +113,13 @@ public class SysDeptProController extends BaseProController {
         } else if (dept.getParentId().equals(dept.getDeptId())) {
             return AjaxResult.error("修改部门'" + dept.getDeptName() + "'失败，上级部门不能是自己");
         } else if (StringUtil.equals(UserConstants.DEPT_DISABLE, dept.getStatus())
-                && deptService.selectNormalChildrenDeptById(dept.getDeptId()) > 0) {
+            && deptService.selectNormalChildrenDeptById(dept.getDeptId()) > 0) {
             return AjaxResult.error("该部门包含未停用的子部门！");
         }
         dept.setUpdateBy(getUsername());
         return toAjax(deptService.updateDept(dept));
     }
-    
+
     /**
      * 删除部门
      */

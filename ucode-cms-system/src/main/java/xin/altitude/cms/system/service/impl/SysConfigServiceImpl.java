@@ -22,10 +22,10 @@ import java.util.List;
 public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig> implements ISysConfigService {
     // @Autowired
     // private SysConfigMapper configMapper;
-    
+
     // @Autowired
     // private RedisCache redisCache;
-    
+
     /**
      * 项目启动时，初始化参数到缓存
      */
@@ -33,7 +33,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
     public void init() {
         loadingConfigCache();
     }
-    
+
     /**
      * 查询参数配置信息
      *
@@ -48,7 +48,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         // return configMapper.selectConfig(config);
         return getById(configId);
     }
-    
+
     /**
      * 根据键名查询参数配置信息
      *
@@ -71,7 +71,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         }
         return StringUtil.EMPTY;
     }
-    
+
     /**
      * 获取验证码开关
      *
@@ -85,7 +85,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         }
         return ConvertUtils.toBool(captchaOnOff);
     }
-    
+
     /**
      * 查询参数配置列表
      *
@@ -97,7 +97,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         // return configMapper.selectConfigList(config);
         return list(Wrappers.lambdaQuery(config));
     }
-    
+
     /**
      * 新增参数配置
      *
@@ -113,7 +113,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         }
         return row ? 1 : 0;
     }
-    
+
     /**
      * 修改参数配置
      *
@@ -122,7 +122,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
      */
     @Override
     public int updateConfig(SysConfig config) {
-    
+
         // int row = configMapper.updateConfig(config);
         boolean row = updateById(config);
         if (row) {
@@ -130,7 +130,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         }
         return row ? 1 : 0;
     }
-    
+
     /**
      * 批量删除参数信息
      *
@@ -148,7 +148,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
             // redisCache.deleteObject(getCacheKey(config.getConfigKey()));
         }
     }
-    
+
     /**
      * 加载参数缓存数据
      */
@@ -160,7 +160,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         //     redisCache.setCacheObject(getCacheKey(config.getConfigKey()), config.getConfigValue());
         // }
     }
-    
+
     /**
      * 清空参数缓存数据
      */
@@ -169,7 +169,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         // Collection<String> keys = redisCache.keys(Constants.SYS_CONFIG_KEY + "*");
         // redisCache.deleteObject(keys);
     }
-    
+
     /**
      * 重置参数缓存数据
      */
@@ -178,7 +178,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         clearConfigCache();
         loadingConfigCache();
     }
-    
+
     /**
      * 校验参数键名是否唯一
      *
@@ -195,7 +195,7 @@ public class SysConfigServiceImpl extends ServiceImpl<SysConfigMapper, SysConfig
         }
         return UserConstants.UNIQUE;
     }
-    
+
     /**
      * 设置cache key
      *

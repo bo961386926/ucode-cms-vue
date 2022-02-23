@@ -23,7 +23,7 @@ git clone https://gitee.com/decsa/ucode-cms-vue.git
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.3.4.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -122,7 +122,7 @@ git clone https://gitee.com/decsa/demo-code.git
 <dependency>
     <groupId>xin.altitude.cms.job</groupId>
     <artifactId>ucode-cms-job</artifactId>
-    <version>1.3.4.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -143,7 +143,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.3.4.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -157,9 +157,9 @@ Maven对外提供的依赖清单如下：
 
 ```xml
 <dependency>
-    <groupId>xin.altitude.cms.common</groupId>
+    <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.3.4.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -171,7 +171,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms.ui</groupId>
     <artifactId>ucode-cms-ui</artifactId>
-    <version>1.3.4.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -183,7 +183,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms.job</groupId>
     <artifactId>ucode-cms-job</artifactId>
-    <version>1.3.4.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -195,7 +195,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms.monitor</groupId>
     <artifactId>ucode-cms-monitor</artifactId>
-    <version>1.3.4.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -205,7 +205,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms.excel</groupId>
     <artifactId>ucode-cms-excel</artifactId>
-    <version>1.3.4.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 

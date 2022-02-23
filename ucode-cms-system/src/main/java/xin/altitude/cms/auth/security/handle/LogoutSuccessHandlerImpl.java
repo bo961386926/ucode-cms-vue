@@ -28,14 +28,13 @@ import java.io.IOException;
 public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
     @Autowired
     private CmsTokenService cmsTokenService;
-    
+
     /**
      * 退出处理
-     *
      */
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
-            throws IOException, ServletException {
+        throws IOException, ServletException {
         LoginUser loginUser = cmsTokenService.getLoginUser(request);
         if (StringUtil.isNotNull(loginUser)) {
             String userName = loginUser.getUsername();

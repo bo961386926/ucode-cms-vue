@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
@@ -19,7 +20,6 @@ import xin.altitude.cms.framework.constant.enums.BusinessType;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.system.domain.SysPost;
 import xin.altitude.cms.system.service.ISysPostService;
-import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -34,7 +34,7 @@ import java.util.List;
 public class SysPostProController extends BaseProController {
     @Autowired
     private ISysPostService postService;
-    
+
     /**
      * 获取岗位列表
      */
@@ -45,7 +45,7 @@ public class SysPostProController extends BaseProController {
         List<SysPost> list = postService.selectPostList(post);
         return getDataTable(list);
     }
-    
+
     @Log(title = "岗位管理", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:post:export')")
     @PostMapping("/export")
@@ -54,7 +54,7 @@ public class SysPostProController extends BaseProController {
         ExcelUtil<SysPost> util = new ExcelUtil<SysPost>(SysPost.class);
         util.exportExcel(response, list, "岗位数据");
     }
-    
+
     /**
      * 根据岗位编号获取详细信息
      */
@@ -63,7 +63,7 @@ public class SysPostProController extends BaseProController {
     public AjaxResult getInfo(@PathVariable Long postId) {
         return AjaxResult.success(postService.selectPostById(postId));
     }
-    
+
     /**
      * 新增岗位
      */
@@ -79,7 +79,7 @@ public class SysPostProController extends BaseProController {
         post.setCreateBy(getUsername());
         return toAjax(postService.insertPost(post));
     }
-    
+
     /**
      * 修改岗位
      */
@@ -95,7 +95,7 @@ public class SysPostProController extends BaseProController {
         post.setUpdateBy(getUsername());
         return toAjax(postService.updatePost(post));
     }
-    
+
     /**
      * 删除岗位
      */
@@ -105,7 +105,7 @@ public class SysPostProController extends BaseProController {
     public AjaxResult remove(@PathVariable Long[] postIds) {
         return toAjax(postService.deletePostByIds(postIds));
     }
-    
+
     /**
      * 获取岗位选择框列表
      */

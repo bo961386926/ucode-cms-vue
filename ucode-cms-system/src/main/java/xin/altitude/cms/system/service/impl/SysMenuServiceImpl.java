@@ -38,23 +38,23 @@ import java.util.stream.Collectors;
 // @Service
 public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
     public static final String PREMISSION_STRING = "perms[\"{0}\"]";
-    
+
     // @Autowired
     // private SysMenuMapper menuMapper;
-    
+
     // @Autowired
     // private SysRoleMapper roleMapper;
     @Autowired
     private ISysRoleService sysRoleService;
-    
+
     // @Autowired
     // private SysRoleMenuMapper roleMenuMapper;
     @Autowired
     private ISysRoleMenuService sysRoleMenuService;
-    
+
     @Autowired
     private ISysUserRoleService sysUserRoleService;
-    
+
     /**
      * 根据用户查询系统菜单列表
      *
@@ -65,7 +65,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public List<SysMenu> selectMenuList(Long userId) {
         return selectMenuList(new SysMenu(), userId);
     }
-    
+
     /**
      * 查询系统菜单列表
      *
@@ -87,7 +87,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return menuList;
     }
-    
+
     /**
      * 根据用户ID查询权限
      *
@@ -108,7 +108,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return permsSet;
     }
-    
+
     /**
      * 根据用户ID查询菜单
      *
@@ -130,7 +130,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return getChildPerms(menus, 0);
     }
-    
+
     /**
      * 根据角色ID查询菜单树信息
      *
@@ -148,7 +148,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         return EntityUtils.toList(roleMenus, SysRoleMenu::getMenuId);
         // return menuMapper.selectMenuListByRoleId(roleId, role.isMenuCheckStrictly());
     }
-    
+
     /**
      * 构建前端路由所需要的菜单
      *
@@ -199,7 +199,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return routers;
     }
-    
+
     /**
      * 构建前端所需要树结构
      *
@@ -225,7 +225,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return returnList;
     }
-    
+
     /**
      * 构建前端所需要下拉树结构
      *
@@ -237,7 +237,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         List<SysMenu> menuTrees = buildMenuTree(menus);
         return menuTrees.stream().map(TreeSelect::new).collect(Collectors.toList());
     }
-    
+
     /**
      * 根据菜单ID查询信息
      *
@@ -251,7 +251,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         sysMenu.setPerms(sysMenu.getPerms() == null ? "" : sysMenu.getPerms());
         return sysMenu;
     }
-    
+
     /**
      * 是否存在菜单子节点
      *
@@ -264,7 +264,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         long result = count(Wrappers.lambdaQuery(SysMenu.class).eq(SysMenu::getParentId, menuId));
         return result > 0;
     }
-    
+
     /**
      * 查询菜单使用数量
      *
@@ -277,7 +277,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         long result = sysRoleMenuService.count(Wrappers.lambdaQuery(SysRoleMenu.class).eq(SysRoleMenu::getMenuId, menuId));
         return result > 0;
     }
-    
+
     /**
      * 新增保存菜单信息
      *
@@ -289,7 +289,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         // return menuMapper.insertMenu(menu);
         return save(menu);
     }
-    
+
     /**
      * 修改保存菜单信息
      *
@@ -301,7 +301,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         // return menuMapper.updateMenu(menu);
         return updateById(menu);
     }
-    
+
     /**
      * 删除菜单管理信息
      *
@@ -313,7 +313,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         // return menuMapper.deleteMenuById(menuId);
         return removeById(menuId);
     }
-    
+
     /**
      * 校验菜单名称是否唯一
      *
@@ -330,7 +330,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return UserConstants.UNIQUE;
     }
-    
+
     /**
      * 获取路由名称
      *
@@ -345,7 +345,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return routerName;
     }
-    
+
     /**
      * 获取路由地址
      *
@@ -360,7 +360,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         // 非外链并且是一级目录（类型为目录）
         if (0 == menu.getParentId().intValue() && UserConstants.TYPE_DIR.equals(menu.getMenuType())
-                && UserConstants.NO_FRAME.equals(menu.getIsFrame())) {
+            && UserConstants.NO_FRAME.equals(menu.getIsFrame())) {
             routerPath = "/" + menu.getPath();
         }
         // 非外链并且是一级目录（类型为菜单）
@@ -369,7 +369,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return routerPath;
     }
-    
+
     /**
      * 获取组件信息
      *
@@ -387,7 +387,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return component;
     }
-    
+
     /**
      * 是否为菜单内部跳转
      *
@@ -396,9 +396,9 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
      */
     public boolean isMenuFrame(SysMenu menu) {
         return menu.getParentId().intValue() == 0 && UserConstants.TYPE_MENU.equals(menu.getMenuType())
-                && menu.getIsFrame().equals(UserConstants.NO_FRAME);
+            && menu.getIsFrame().equals(UserConstants.NO_FRAME);
     }
-    
+
     /**
      * 是否为内链组件
      *
@@ -408,7 +408,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public boolean isInnerLink(SysMenu menu) {
         return menu.getIsFrame().equals(UserConstants.NO_FRAME) && StringUtil.ishttp(menu.getPath());
     }
-    
+
     /**
      * 是否为parent_view组件
      *
@@ -418,7 +418,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
     public boolean isParentView(SysMenu menu) {
         return menu.getParentId().intValue() != 0 && UserConstants.TYPE_DIR.equals(menu.getMenuType());
     }
-    
+
     /**
      * 根据父节点的ID获取所有子节点
      *
@@ -437,7 +437,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return returnList;
     }
-    
+
     /**
      * 递归列表
      *
@@ -454,7 +454,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
             }
         }
     }
-    
+
     /**
      * 得到子节点列表
      */
@@ -467,7 +467,7 @@ public class SysMenuServiceImpl extends ServiceImpl<SysMenuMapper, SysMenu> impl
         }
         return tlist;
     }
-    
+
     /**
      * 判断是否有子节点
      */

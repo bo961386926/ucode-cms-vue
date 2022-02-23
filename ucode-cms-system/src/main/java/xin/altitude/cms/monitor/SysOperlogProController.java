@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysOperLog;
 import xin.altitude.cms.system.service.ISysOperLogService;
-import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -31,7 +31,7 @@ import java.util.List;
 public class SysOperlogProController extends BaseProController {
     @Autowired
     private ISysOperLogService operLogService;
-    
+
     // @PreAuthorize("@ss.hasPermi('monitor:operlog:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysOperLog> page, SysOperLog operLog) {
@@ -40,7 +40,7 @@ public class SysOperlogProController extends BaseProController {
         // return getDataTable(list);
         return AjaxResult.success(operLogService.page(page, Wrappers.lambdaQuery(operLog)));
     }
-    
+
     @Log(title = "操作日志", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('monitor:operlog:export')")
     @PostMapping("/export")
@@ -49,14 +49,14 @@ public class SysOperlogProController extends BaseProController {
         ExcelUtil<SysOperLog> util = new ExcelUtil<>(SysOperLog.class);
         util.exportExcel(response, list, "操作日志");
     }
-    
+
     @Log(title = "操作日志", businessType = BusinessType.DELETE)
     // @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/{operIds}")
     public AjaxResult remove(@PathVariable Long[] operIds) {
         return toAjax(operLogService.deleteOperLogByIds(operIds));
     }
-    
+
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)
     // @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/clean")

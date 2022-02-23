@@ -36,7 +36,7 @@ import java.util.Map;
 // @Component
 public class LogAspect {
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
-    
+
     /**
      * 处理完请求后执行
      *
@@ -46,7 +46,7 @@ public class LogAspect {
     public void doAfterReturning(JoinPoint joinPoint, Log controllerLog, Object jsonResult) {
         handleLog(joinPoint, controllerLog, null, jsonResult);
     }
-    
+
     /**
      * 拦截异常操作
      *
@@ -57,13 +57,13 @@ public class LogAspect {
     public void doAfterThrowing(JoinPoint joinPoint, Log controllerLog, Exception e) {
         handleLog(joinPoint, controllerLog, e, null);
     }
-    
+
     protected void handleLog(final JoinPoint joinPoint, Log controllerLog, final Exception e, Object jsonResult) {
         try {
-            
+
             // 获取当前的用户
             LoginUser loginUser = SecurityUtils.getLoginUser();
-            
+
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
@@ -74,7 +74,7 @@ public class LogAspect {
             if (loginUser != null) {
                 operLog.setOperName(loginUser.getUsername());
             }
-            
+
             if (e != null) {
                 operLog.setStatus(BusinessStatus.FAIL.ordinal());
                 operLog.setErrorMsg(StringUtil.substring(e.getMessage(), 0, 2000));
@@ -96,7 +96,7 @@ public class LogAspect {
             exp.printStackTrace();
         }
     }
-    
+
     /**
      * 获取注解中对方法的描述信息 用于Controller层注解
      *
@@ -121,7 +121,7 @@ public class LogAspect {
             operLog.setJsonResult(StringUtil.substring(JSON.toJSONString(jsonResult), 0, 2000));
         }
     }
-    
+
     /**
      * 获取请求的参数，放到log中
      *
@@ -138,7 +138,7 @@ public class LogAspect {
             operLog.setOperParam(StringUtil.substring(paramsMap.toString(), 0, 2000));
         }
     }
-    
+
     /**
      * 参数拼装
      */
@@ -158,7 +158,7 @@ public class LogAspect {
         }
         return params.toString().trim();
     }
-    
+
     /**
      * 判断是否需要过滤的对象。
      *
@@ -183,6 +183,6 @@ public class LogAspect {
             }
         }
         return o instanceof MultipartFile || o instanceof HttpServletRequest || o instanceof HttpServletResponse
-                || o instanceof BindingResult;
+            || o instanceof BindingResult;
     }
 }

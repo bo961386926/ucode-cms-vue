@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
 import xin.altitude.cms.framework.constant.enums.BusinessType;
 import xin.altitude.cms.framework.core.domain.SysDictType;
 import xin.altitude.cms.system.service.ISysDictTypeService;
-import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -35,17 +35,17 @@ import java.util.List;
 public class SysDictTypeProController extends BaseProController {
     @Autowired
     private ISysDictTypeService dictTypeService;
-    
+
     // @PreAuthorize("@ss.hasPermi('system:dict:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysDictType> page, SysDictType dictType) {
         // startPage();
         // List<SysDictType> list = dictTypeService.selectDictTypeList(dictType);
         // return getDataTable(list);
-        
+
         return AjaxResult.success(dictTypeService.page(page, Wrappers.lambdaQuery(dictType)));
     }
-    
+
     @Log(title = "字典类型", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:dict:export')")
     @PostMapping("/export")
@@ -54,7 +54,7 @@ public class SysDictTypeProController extends BaseProController {
         ExcelUtil<SysDictType> util = new ExcelUtil<SysDictType>(SysDictType.class);
         util.exportExcel(response, list, "字典类型");
     }
-    
+
     /**
      * 查询字典类型详细
      */
@@ -63,7 +63,7 @@ public class SysDictTypeProController extends BaseProController {
     public AjaxResult getInfo(@PathVariable Long dictId) {
         return AjaxResult.success(dictTypeService.selectDictTypeById(dictId));
     }
-    
+
     /**
      * 新增字典类型
      */
@@ -77,7 +77,7 @@ public class SysDictTypeProController extends BaseProController {
         dict.setCreateBy(getUsername());
         return toAjax(dictTypeService.insertDictType(dict));
     }
-    
+
     /**
      * 修改字典类型
      */
@@ -91,7 +91,7 @@ public class SysDictTypeProController extends BaseProController {
         dict.setUpdateBy(getUsername());
         return toAjax(dictTypeService.updateDictType(dict));
     }
-    
+
     /**
      * 删除字典类型
      */
@@ -102,7 +102,7 @@ public class SysDictTypeProController extends BaseProController {
         dictTypeService.deleteDictTypeByIds(dictIds);
         return success();
     }
-    
+
     /**
      * 刷新字典缓存
      */
@@ -113,7 +113,7 @@ public class SysDictTypeProController extends BaseProController {
         dictTypeService.resetDictCache();
         return AjaxResult.success();
     }
-    
+
     /**
      * 获取字典选择框列表
      */

@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysLogininfor;
 import xin.altitude.cms.system.service.ISysLogininforService;
-import xin.altitude.cms.excel.util.ExcelUtil;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -33,7 +33,7 @@ import java.util.List;
 public class SysLogininforProController extends BaseProController {
     @Autowired
     private ISysLogininforService logininforService;
-    
+
     // @PreAuthorize("@ss.hasPermi('monitor:logininfor:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysLogininfor> page, SysLogininfor logininfor) {
@@ -42,7 +42,7 @@ public class SysLogininforProController extends BaseProController {
         // return getDataTable(list);
         return AjaxResult.success(logininforService.page(page, Wrappers.lambdaQuery(logininfor)));
     }
-    
+
     @Log(title = "登录日志", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('monitor:logininfor:export')")
     @PostMapping("/export")
@@ -51,14 +51,14 @@ public class SysLogininforProController extends BaseProController {
         ExcelUtil<SysLogininfor> util = new ExcelUtil<SysLogininfor>(SysLogininfor.class);
         util.exportExcel(response, list, "登录日志");
     }
-    
+
     // @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @Log(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
     public AjaxResult remove(@PathVariable Long[] infoIds) {
         return toAjax(logininforService.deleteLogininforByIds(infoIds));
     }
-    
+
     // @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @Log(title = "登录日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")

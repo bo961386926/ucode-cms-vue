@@ -205,6 +205,10 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <dependency>
+            <groupId>xin.altitude.cms</groupId>
+            <artifactId>ucode-cms-api-guard</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

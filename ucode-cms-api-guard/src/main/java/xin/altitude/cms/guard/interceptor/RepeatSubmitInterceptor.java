@@ -18,38 +18,42 @@
  *
  */
 
-package xin.altitude.cms.framework.core.interceptor;
+package xin.altitude.cms.guard.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.ServletUtils;
-import xin.altitude.cms.framework.annotation.RepeatSubmit;
+import xin.altitude.cms.guard.annotation.RepeatSubmit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.Method;
+import java.util.Optional;
 
 /**
  * 防止重复提交拦截器
  *
  * @author ucode
  */
-// @Component
 public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
+    /**
+     * 请求处理链
+     *
+     * @param request  请求
+     * @param response 响应
+     * @param handler
+     * @return boolean
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         if (handler instanceof HandlerMethod) {
-            HandlerMethod handlerMethod = (HandlerMethod) handler;
-            Method method = handlerMethod.getMethod();
-            RepeatSubmit annotation = method.getAnnotation(RepeatSubmit.class);
-            if (annotation != null) {
-                if (this.isRepeatSubmit(request, annotation)) {
-                    AjaxResult ajaxResult = AjaxResult.error(annotation.message());
-                    ServletUtils.renderString(response, JSONObject.toJSONString(ajaxResult));
-                    return false;
-                }
+            RepeatSubmit annotation = Optional.of((HandlerMethod) handler).map(HandlerMethod::getMethod).map(e -> e.getAnnotation(RepeatSubmit.class)).orElse(null);
+            if (annotation != null && isRepeatSubmit(request, annotation)) {
+                AjaxResult ajaxResult = AjaxResult.error(annotation.message());
+                ServletUtils.renderString(response, JSONObject.toJSONString(ajaxResult));
+                return false;
             }
             return true;
         } else {

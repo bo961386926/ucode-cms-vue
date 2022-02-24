@@ -18,7 +18,7 @@
  *
  */
 
-package xin.altitude.cms.framework.annotation;
+package xin.altitude.cms.guard.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

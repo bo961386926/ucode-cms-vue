@@ -24,12 +24,12 @@ import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.framework.annotation.RepeatSubmit;
 import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.framework.core.interceptor.RepeatSubmitInterceptor;
 import xin.altitude.cms.framework.core.redis.RedisCache;
 import xin.altitude.cms.framework.filter.RepeatedlyRequestWrapper;
 import xin.altitude.cms.framework.util.http.HttpHelper;
+import xin.altitude.cms.guard.annotation.RepeatSubmit;
+import xin.altitude.cms.guard.interceptor.RepeatSubmitInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -96,7 +96,7 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
                 }
             }
         }
-        Map<String, Object> cacheMap = new HashMap<String, Object>();
+        Map<String, Object> cacheMap = new HashMap<>();
         cacheMap.put(url, nowDataMap);
         redisCache.setCacheObject(cacheRepeatKey, cacheMap, annotation.interval(), TimeUnit.MILLISECONDS);
         return false;
@@ -117,9 +117,6 @@ public class SameUrlDataInterceptor extends RepeatSubmitInterceptor {
     private boolean compareTime(Map<String, Object> nowMap, Map<String, Object> preMap, int interval) {
         long time1 = (Long) nowMap.get(REPEAT_TIME);
         long time2 = (Long) preMap.get(REPEAT_TIME);
-        if ((time1 - time2) < interval) {
-            return true;
-        }
-        return false;
+        return (time1 - time2) < interval;
     }
 }

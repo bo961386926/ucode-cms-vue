@@ -1,8 +1,30 @@
 ### 一、序言
 
-`UCode Cms`管理系统是面向企业级应用软件开发的脚手架。当前版本`1.3.4`。快速体验：
+`UCode Cms`管理系统是面向企业级应用软件开发的脚手架。
+
+##### 当前版本
+
+```xml
+<!--ucode-cms核心依赖-->
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-spring-boot-starter</artifactId>
+    <version>1.4.0</version>
+</dependency>
+```
+
+##### 快速体验
+
+快速体验`UCode Cms`的使用，请访问如下地址。
+
 ```bash
 git clone https://gitee.com/decsa/demo-cms.git
+```
+
+快速体验`代码生成器`，请访问如下地址。
+
+```bash
+git clone git clone https://gitee.com/decsa/demo-code.git
 ```
 
 #### （一）项目特点
@@ -211,7 +233,7 @@ Maven对外提供的依赖清单如下：
 
 ### 四、互相交流
 
-如果在使用过程中有任何疑问，欢迎与我联系，当然尽量把相关文档书写规范。
+如果在使用过程中有任何疑问，欢迎与我联系。
 
 ![IMG_D99C5CE86D87-1](https://www.altitude.xin/typora/IMG_D99C5CE86D87-1.png)
 

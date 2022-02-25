@@ -213,6 +213,6 @@ Maven对外提供的依赖清单如下：
 
 如果在使用过程中有任何疑问，欢迎与我联系，当然尽量把相关文档书写规范。
 
-![IMG_504373920069-2](https://www.altitude.xin/typora/IMG_504373920069-2.png)
+![IMG_D99C5CE86D87-1](https://www.altitude.xin/typora/IMG_D99C5CE86D87-1.png)
 
 如果二维码失效，请添加微信号`dream4s`联系入群，谢谢。

@@ -171,7 +171,7 @@ public class QueueServiceImpl<M extends BaseMapper<T>, T extends Model<T>> exten
         private Integer maxRequestSize;
         /* 线程工厂核心线程数 */
         private Integer corePoolSize;
-        /* 合并请求间隔 */
+        /* 合并请求间隔（单位毫秒） */
         private Integer requestInterval;
 
         public Integer getMaxRequestSize() {

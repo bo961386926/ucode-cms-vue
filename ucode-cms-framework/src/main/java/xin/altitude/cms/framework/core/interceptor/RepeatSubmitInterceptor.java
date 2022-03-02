@@ -18,14 +18,14 @@
  *
  */
 
-package xin.altitude.cms.guard.interceptor;
+package xin.altitude.cms.framework.core.interceptor;
 
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.ServletUtils;
-import xin.altitude.cms.guard.annotation.RepeatSubmit;
+import xin.altitude.cms.framework.annotation.RepeatSubmit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

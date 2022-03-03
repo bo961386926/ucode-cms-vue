@@ -9,7 +9,7 @@
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -45,7 +45,7 @@ git clone https://gitee.com/decsa/ucode-cms-vue.git
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -144,7 +144,7 @@ git clone https://gitee.com/decsa/demo-code.git
 <dependency>
     <groupId>xin.altitude.cms.job</groupId>
     <artifactId>ucode-cms-job</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -165,7 +165,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -181,7 +181,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -193,7 +193,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms.ui</groupId>
     <artifactId>ucode-cms-ui</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -205,7 +205,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms.job</groupId>
     <artifactId>ucode-cms-job</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -217,7 +217,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms.monitor</groupId>
     <artifactId>ucode-cms-monitor</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -227,7 +227,7 @@ Maven对外提供的依赖清单如下：
 <dependency>
     <groupId>xin.altitude.cms.excel</groupId>
     <artifactId>ucode-cms-excel</artifactId>
-    <version>1.4.1</version>
+    <version>1.4.2</version>
 </dependency>
 ```
 
@@ -235,6 +235,7 @@ Maven对外提供的依赖清单如下：
 
 如果在使用过程中有任何疑问，欢迎与我联系。
 
-![IMG_D99C5CE86D87-1](https://www.altitude.xin/typora/IMG_D99C5CE86D87-1.png)
+<img src="https://www.altitude.xin/typora/image-20220303152929755.png" alt="image-20220303152929755" style="zoom:20%;" />
+
 
 如果二维码失效，请添加微信号`dream4s`联系入群，谢谢。

@@ -43,6 +43,18 @@ public class RedisUtils {
      *
      * @param key    bitmap结构的key
      * @param offset 要设置偏移的key
+     * @return 返回设置该value之前的值。
+     */
+    public static Boolean setBit(String key, int offset) {
+        validOffset(offset);
+        return setBit(key, offset, true);
+    }
+
+    /**
+     * 将指定offset的值设置为1
+     *
+     * @param key    bitmap结构的key
+     * @param offset 要设置偏移的key
      * @param value  true：即该位设置为1，否则设置为0
      * @return 返回设置该value之前的值。
      */
@@ -61,6 +73,18 @@ public class RedisUtils {
     public static Boolean getBit(String key, int offset) {
         validOffset(offset);
         return STRING_REDIS_TEMPLATE.opsForValue().getBit(key, offset);
+    }
+
+    /**
+     * 将指定offset偏移量的值设置为1；
+     *
+     * @param key    bitmap结构的key
+     * @param offset 指定的偏移量。
+     * @return 返回设置该value之前的值。
+     */
+    public static Boolean setBit(String key, long offset) {
+        validOffset(offset);
+        return setBit(key, offset, true);
     }
 
 
@@ -151,6 +175,7 @@ public class RedisUtils {
 
     /**
      * 验证offset是否合法
+     * Redis字符串支持字符串最大长度512M，因此支持offset的最大值为(2^32)-1
      *
      * @param offset 偏移量
      */

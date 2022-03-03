@@ -18,10 +18,22 @@
 
 package xin.altitude.cms.common.util;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.data.redis.connection.RedisStringCommands;
+import org.springframework.data.redis.core.BoundSetOperations;
+import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisCallback;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.Assert;
+
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author explore
@@ -30,6 +42,7 @@ import org.springframework.util.Assert;
 public class RedisUtils {
 
     private static final StringRedisTemplate STRING_REDIS_TEMPLATE = SpringUtils.getBean(StringRedisTemplate.class);
+    private static final ValueOperations<String, String> OPS_FOR_VALUE = STRING_REDIS_TEMPLATE.opsForValue();
 
 
     /*********************************************************************************
@@ -58,9 +71,9 @@ public class RedisUtils {
      * @param value  true：即该位设置为1，否则设置为0
      * @return 返回设置该value之前的值。
      */
-    public static Boolean setBit(String key, int offset, boolean value) {
+    public static Boolean setBit(String key, int offset, Boolean value) {
         validOffset(offset);
-        return STRING_REDIS_TEMPLATE.opsForValue().setBit(key, offset, value);
+        return OPS_FOR_VALUE.setBit(key, offset, value);
     }
 
     /**
@@ -72,7 +85,7 @@ public class RedisUtils {
      */
     public static Boolean getBit(String key, int offset) {
         validOffset(offset);
-        return STRING_REDIS_TEMPLATE.opsForValue().getBit(key, offset);
+        return OPS_FOR_VALUE.getBit(key, offset);
     }
 
     /**
@@ -82,11 +95,10 @@ public class RedisUtils {
      * @param offset 指定的偏移量。
      * @return 返回设置该value之前的值。
      */
-    public static Boolean setBit(String key, long offset) {
+    public static Boolean setBit(String key, Long offset) {
         validOffset(offset);
         return setBit(key, offset, true);
     }
-
 
     /**
      * 将指定offset偏移量的值设置为1；
@@ -96,9 +108,9 @@ public class RedisUtils {
      * @param value  true：即该位设置为1，否则设置为0
      * @return 返回设置该value之前的值。
      */
-    public static Boolean setBit(String key, long offset, boolean value) {
+    public static Boolean setBit(String key, Long offset, Boolean value) {
         validOffset(offset);
-        return STRING_REDIS_TEMPLATE.opsForValue().setBit(key, offset, value);
+        return OPS_FOR_VALUE.setBit(key, offset, value);
     }
 
     /**
@@ -108,9 +120,9 @@ public class RedisUtils {
      * @param offset 指定的偏移量。
      * @return 若偏移位上的值为1，那么返回true。
      */
-    public static Boolean getBit(String key, long offset) {
+    public static Boolean getBit(String key, Long offset) {
         validOffset(offset);
-        return STRING_REDIS_TEMPLATE.opsForValue().getBit(key, offset);
+        return OPS_FOR_VALUE.getBit(key, offset);
     }
 
     /**
@@ -135,7 +147,6 @@ public class RedisUtils {
     public static Long bitCount(String key, int start, int end) {
         return STRING_REDIS_TEMPLATE.execute((RedisCallback<Long>) con -> con.bitCount(key.getBytes(), start, end));
     }
-
 
     /**
      * 对一个或多个保存二进制的字符串key进行元操作，并将结果保存到saveKey上。
@@ -172,7 +183,6 @@ public class RedisUtils {
         return bitCount(saveKey);
     }
 
-
     /**
      * 验证offset是否合法
      * Redis字符串支持字符串最大长度512M，因此支持offset的最大值为(2^32)-1
@@ -183,4 +193,257 @@ public class RedisUtils {
         Assert.isTrue(offset >= 0 && offset <= 4294967295L, "参数【offset】越界");
     }
 
+    /**
+     * ///////////////////////////////////////////////////////////////
+     * 处理字符串缓存
+     * ///////////////////////////////////////////////////////////////
+     */
+
+    /**
+     * 获取多个Hash中的数据
+     *
+     * @param key   Redis键
+     * @param hKeys Hash键集合
+     * @return Hash对象集合
+     */
+    public static List<Object> getMultiCacheMapValue(final String key, final Collection<Object> hKeys) {
+        return STRING_REDIS_TEMPLATE.opsForHash().multiGet(key, hKeys);
+    }
+
+    /**
+     * 获得缓存的list对象
+     *
+     * @param key 缓存的键值
+     * @return 缓存键值对应的数据
+     */
+    public static List<String> getCacheList(final String key) {
+        return STRING_REDIS_TEMPLATE.opsForList().range(key, 0, -1);
+    }
+
+    /**
+     * 获得缓存的set
+     *
+     * @param key
+     * @return
+     */
+    public static Set<String> getCacheSet(final String key) {
+        return STRING_REDIS_TEMPLATE.opsForSet().members(key);
+    }
+
+    /**
+     * 缓存基本的对象，Integer、String、实体类等
+     *
+     * @param key   缓存的键值
+     * @param value 缓存的值
+     */
+    public static void setObject(final String key, final Object value) {
+        if (value instanceof String) {
+            setObject(key, (String) value);
+        } else {
+            try {
+                /* 现将对象格式化为JSON字符串，然后保存 */
+                String json = SpringUtils.getBean(ObjectMapper.class).writeValueAsString(value);
+                Optional.ofNullable(json).ifPresent(e -> setObject(key, e));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 缓存基本的对象，Integer、String、实体类等
+     *
+     * @param key   缓存的键值
+     * @param value 缓存的值
+     */
+    public static void setObject(final String key, final String value) {
+        OPS_FOR_VALUE.set(key, value);
+    }
+
+    /**
+     * 缓存基本的对象，Integer、String、实体类等
+     *
+     * @param key      缓存的键值
+     * @param value    缓存的值
+     * @param timeout  时间
+     * @param timeUnit 时间颗粒度
+     */
+    public static void setObject(final String key, final Object value, final Integer timeout, final TimeUnit timeUnit) {
+        if (value instanceof String) {
+            setObject(key, (String) value, timeout, timeUnit);
+        } else {
+            try {
+                /* 现将对象格式化为JSON字符串，然后保存 */
+                String json = SpringUtils.getBean(ObjectMapper.class).writeValueAsString(value);
+                Optional.ofNullable(json).ifPresent(e -> setObject(key, e, timeout, timeUnit));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 缓存基本的对象，Integer、String、实体类等
+     *
+     * @param key      缓存的键值
+     * @param value    缓存的值
+     * @param timeout  时间
+     * @param timeUnit 时间颗粒度
+     */
+    public static void setObject(final String key, final String value, final Integer timeout, final TimeUnit timeUnit) {
+        OPS_FOR_VALUE.set(key, value, timeout, timeUnit);
+    }
+
+    /**
+     * 设置有效时间
+     *
+     * @param key     Redis键
+     * @param timeout 超时时间
+     * @return true=设置成功；false=设置失败
+     */
+    public static Boolean expire(final String key, final Long timeout) {
+        return expire(key, timeout, TimeUnit.SECONDS);
+    }
+
+    /**
+     * 设置有效时间
+     *
+     * @param key     Redis键
+     * @param timeout 超时时间
+     * @param unit    时间单位
+     * @return true=设置成功；false=设置失败
+     */
+    public static Boolean expire(final String key, final Long timeout, final TimeUnit unit) {
+        return STRING_REDIS_TEMPLATE.expire(key, timeout, unit);
+    }
+
+    /**
+     * 获得缓存的基本对象。
+     *
+     * @param key 缓存键值
+     * @return 缓存键值对应的数据
+     */
+    public static <T> T getObject(final String key, Class<T> clazz) {
+        String fromValue = OPS_FOR_VALUE.get(key);
+        if (fromValue != null) {
+            try {
+                return SpringUtils.getBean(ObjectMapper.class).readValue(fromValue, clazz);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 删除单个对象
+     *
+     * @param key
+     */
+    public static Boolean deleteObject(final String key) {
+        return STRING_REDIS_TEMPLATE.delete(key);
+    }
+
+    /**
+     * 删除集合对象
+     *
+     * @param collection 多个对象
+     * @return
+     */
+    public static Long deleteObject(final Collection collection) {
+        return STRING_REDIS_TEMPLATE.delete(collection);
+    }
+
+    /**
+     * 缓存List数据
+     *
+     * @param key      缓存的键值
+     * @param dataList 待缓存的List数据
+     * @return 缓存的对象
+     */
+    public static Long setCacheList(final String key, final List<String> dataList) {
+        Long count = STRING_REDIS_TEMPLATE.opsForList().rightPushAll(key, dataList);
+        return count == null ? 0 : count;
+    }
+
+    /**
+     * 缓存Set
+     *
+     * @param key     缓存键值
+     * @param dataSet 缓存的数据
+     * @return 缓存数据的对象
+     */
+    public static BoundSetOperations<String, String> setCacheSet(final String key, final Set<String> dataSet) {
+        BoundSetOperations<String, String> setOperation = STRING_REDIS_TEMPLATE.boundSetOps(key);
+        for (String s : dataSet) {
+            setOperation.add(s);
+        }
+        return setOperation;
+    }
+
+    /**
+     * 缓存Map
+     *
+     * @param key
+     * @param dataMap
+     */
+    public static void setCacheMap(final String key, final Map<String, String> dataMap) {
+        if (dataMap != null) {
+            STRING_REDIS_TEMPLATE.opsForHash().putAll(key, dataMap);
+        }
+    }
+
+    /**
+     * 获得缓存的Map
+     *
+     * @param key
+     * @return
+     */
+    public static Map<Object, Object> getCacheMap(final String key) {
+        return STRING_REDIS_TEMPLATE.opsForHash().entries(key);
+    }
+
+    /**
+     * 往Hash中存入数据
+     *
+     * @param key   Redis键
+     * @param hKey  Hash键
+     * @param value 值
+     */
+    public static void setCacheMapValue(final String key, final String hKey, final String value) {
+        STRING_REDIS_TEMPLATE.opsForHash().put(key, hKey, value);
+    }
+
+    /**
+     * 获取Hash中的数据
+     *
+     * @param key  Redis键
+     * @param hKey Hash键
+     * @return Hash中的对象
+     */
+    public static String getCacheMapValue(final String key, final String hKey) {
+        HashOperations<String, String, String> opsForHash = STRING_REDIS_TEMPLATE.opsForHash();
+        return opsForHash.get(key, hKey);
+    }
+
+    /**
+     * 删除Hash中的数据
+     *
+     * @param key
+     * @param hkey
+     */
+    public static void delCacheMapValue(final String key, final String hkey) {
+        HashOperations hashOperations = STRING_REDIS_TEMPLATE.opsForHash();
+        hashOperations.delete(key, hkey);
+    }
+
+    /**
+     * 获得缓存的基本对象列表
+     *
+     * @param pattern 字符串前缀
+     * @return 对象列表
+     */
+    public static Collection<String> keys(final String pattern) {
+        return STRING_REDIS_TEMPLATE.keys(pattern);
+    }
 }

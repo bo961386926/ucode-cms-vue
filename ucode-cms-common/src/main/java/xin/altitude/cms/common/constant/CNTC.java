@@ -14,7 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
- */package xin.altitude.cms.common.constant;
+ */
+package xin.altitude.cms.common.constant;
 
 /**
  * 定义标准CacheName名称列表

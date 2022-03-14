@@ -29,7 +29,7 @@ import java.util.function.Supplier;
  * 目前有效方法是ifLocked
  * 用以替换如下语句
  * if(locl.isLock()){
- *     locl.unlocked();
+ * locl.unlocked();
  * }
  *
  * @author explore
@@ -69,6 +69,11 @@ public final class LockOptional<T extends RLock> {
         return value;
     }
 
+    /**
+     * 如果当前锁尚未释放，则执行后续操作
+     *
+     * @param consumer 消费者lambda表达式
+     */
     public void ifLocked(Consumer<? super T> consumer) {
         if (value != null && value.isLocked()) {
             consumer.accept(value);
@@ -115,7 +120,7 @@ public final class LockOptional<T extends RLock> {
     @Override
     public String toString() {
         return value != null
-                ? String.format("LockOptional[%s]", value)
-                : "LockOptional.empty";
+            ? String.format("LockOptional[%s]", value)
+            : "LockOptional.empty";
     }
 }

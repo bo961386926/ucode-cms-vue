@@ -49,6 +49,9 @@ import java.util.concurrent.TimeUnit;
  * @since 1.4
  */
 public class QueueServiceImpl<M extends BaseMapper<T>, T extends Model<T>> extends ServiceImpl<M, T> {
+    /**
+     * 并发安全队列，多个线程同时添加数据时保证线程安全
+     */
     private final ConcurrentLinkedQueue<FutureModel<T>> taskQueue = new ConcurrentLinkedQueue<>();
 
     public QueueServiceImpl() {

@@ -33,8 +33,8 @@ import java.util.Objects;
 import java.util.Queue;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -46,9 +46,10 @@ import java.util.concurrent.TimeUnit;
  * @param <M> BaseMapper子类
  * @param <T> Model子类
  * @author explore
+ * @since 1.4
  */
 public class QueueServiceImpl<M extends BaseMapper<T>, T extends Model<T>> extends ServiceImpl<M, T> {
-    private LinkedBlockingQueue<QueueServiceImpl.ModelFuture<T>> TASK_QUEUE = new LinkedBlockingQueue<>();
+    private final ConcurrentLinkedQueue<FutureModel<T>> taskQueue = new ConcurrentLinkedQueue<>();
 
     public QueueServiceImpl() {
     }
@@ -71,7 +72,8 @@ public class QueueServiceImpl<M extends BaseMapper<T>, T extends Model<T>> exten
     }
 
     /**
-     * 不推荐重载此方法，推荐重载createRequstConfig方法
+     * 不推荐重载此方法
+     * 推荐重载createRequstConfig方法
      */
     @PostConstruct
     public void init() {
@@ -83,14 +85,18 @@ public class QueueServiceImpl<M extends BaseMapper<T>, T extends Model<T>> exten
     }
 
     /**
-     * 父类调用，子类重载，修改合并请求的行为
+     * 父类调用
+     * 子类重载修改参数行为
      *
      * @return RequstConfig
      */
     protected RequstConfig createRequstConfig() {
         RequstConfig config = new RequstConfig();
+        /* 单次最大合并请求数量 */
         config.setMaxRequestSize(100);
+        /* 核心线程池大小 */
         config.setCorePoolSize(1);
+        /* 请求间隔（毫秒） */
         config.setRequestInterval(200);
         return config;
     }
@@ -103,10 +109,10 @@ public class QueueServiceImpl<M extends BaseMapper<T>, T extends Model<T>> exten
      */
     private Runnable getRunnable(int maxRequestSize) {
         return () -> {
-            int size = Math.min(TASK_QUEUE.size(), maxRequestSize);
+            int size = Math.min(taskQueue.size(), maxRequestSize);
             if (size != 0) {
-                List<ModelFuture<T>> requests = extractElement(TASK_QUEUE, size);
-                Set<Serializable> ids = EntityUtils.toSet(requests, ModelFuture::getId);
+                List<FutureModel<T>> requests = extractElement(taskQueue, size);
+                Set<Serializable> ids = EntityUtils.toSet(requests, FutureModel::getId);
                 List<T> list = super.listByIds(ids);
                 Map<Serializable, T> map = EntityUtils.toMap(list, Model::pkVal, e -> e);
                 requests.forEach((e) -> e.getFuture().complete(map.get(e.getId())));
@@ -123,8 +129,7 @@ public class QueueServiceImpl<M extends BaseMapper<T>, T extends Model<T>> exten
     @Override
     public T getById(Serializable id) {
         CompletableFuture<T> future = new CompletableFuture<>();
-        this.TASK_QUEUE.add(new QueueServiceImpl.ModelFuture<>(id, future));
-
+        taskQueue.add(new FutureModel<>(id, future));
         try {
             return future.get();
         } catch (ExecutionException | InterruptedException var4) {
@@ -138,11 +143,11 @@ public class QueueServiceImpl<M extends BaseMapper<T>, T extends Model<T>> exten
      *
      * @param <T> 实体
      */
-    private static class ModelFuture<T> {
+    private static class FutureModel<T> {
         private Serializable id;
         private CompletableFuture<T> future;
 
-        public ModelFuture(Serializable id, CompletableFuture<T> future) {
+        public FutureModel(Serializable id, CompletableFuture<T> future) {
             this.id = id;
             this.future = future;
         }

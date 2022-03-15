@@ -13,9 +13,9 @@
     <artifactId>ucode-cms</artifactId>
     <version>1.4.4</version>
     <description>Java知识图谱之内容管理系统（pom）</description>
+    <url>http://www.altitude.xin</url>
 
     <name>${project.artifactId}</name>
-    <url>https://gitee.com/decsa/ucode-cms-vue</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>

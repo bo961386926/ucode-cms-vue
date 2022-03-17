@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.framework.constant.enums;
+package xin.altitude.cms.limiter.enums;
 
 /**
  * 限流类型

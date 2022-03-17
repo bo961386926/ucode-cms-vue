@@ -21,6 +21,7 @@ package xin.altitude.cms.common.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public class ColUtils {
      * @param <E> 对象类型
      * @return 包含对象的集合实例
      */
-    public static <E> Collection<E> toCol(E e) {
+    public static <E> List<E> toCol(E e) {
         return toCol(e, ArrayList::new);
     }
 
@@ -53,7 +54,7 @@ public class ColUtils {
      * @param <C>      集合类型
      * @return 包含对象的集合实例
      */
-    public static <E, C extends Collection<E>> Collection<E> toCol(E t, Supplier<C> supplier) {
+    public static <E, C extends List<E>> List<E> toCol(E t, Supplier<C> supplier) {
         return Stream.of(t).collect(Collectors.toCollection(supplier));
     }
 

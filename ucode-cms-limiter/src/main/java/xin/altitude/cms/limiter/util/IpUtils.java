@@ -16,10 +16,7 @@
  *
  */
 
-package xin.altitude.cms.framework.util.ip;
-
-import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.framework.util.html.EscapeUtil;
+package xin.altitude.cms.limiter.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;
@@ -31,6 +28,12 @@ import java.net.UnknownHostException;
  * @author ucode
  */
 public class IpUtils {
+    /**
+     * 获取请求的IP地址
+     *
+     * @param request
+     * @return
+     */
     public static String getIpAddr(HttpServletRequest request) {
         if (request == null) {
             return "unknown";
@@ -52,7 +55,8 @@ public class IpUtils {
         if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
             ip = request.getRemoteAddr();
         }
-        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : EscapeUtil.clean(ip);
+        // return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : EscapeUtil.clean(ip);
+        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
     }
 
     public static boolean internalIp(String ip) {
@@ -61,7 +65,7 @@ public class IpUtils {
     }
 
     private static boolean internalIp(byte[] addr) {
-        if (StringUtil.isNull(addr) || addr.length < 2) {
+        if (addr == null || addr.length < 2) {
             return true;
         }
         final byte b0 = addr[0];

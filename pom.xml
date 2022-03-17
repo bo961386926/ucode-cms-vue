@@ -11,8 +11,8 @@
     </parent>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.4.4</version>
-    <description>Java知识图谱之内容管理系统（pom）</description>
+    <version>1.4.4.1</version>
+    <description>Java知识图谱之内容管理系统（pom）【新版】</description>
     <url>http://www.altitude.xin</url>
 
     <name>${project.artifactId}</name>
@@ -55,6 +55,7 @@
         <module>ucode-cms-monitor</module>
         <module>ucode-cms-excel</module>
         <module>ucode-cms-job</module>
+        <module>ucode-cms-limiter</module>
         <!--<module>ucode-cms-api-guard</module>-->
     </modules>
     <packaging>pom</packaging>
@@ -207,12 +208,6 @@
                 <artifactId>ucode-cms-excel</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
-            <!--<dependency>-->
-            <!--    <groupId>xin.altitude.cms</groupId>-->
-            <!--    <artifactId>ucode-cms-api-guard</artifactId>-->
-            <!--    <version>${project.version}</version>-->
-            <!--</dependency>-->
 
             <dependency>
                 <groupId>com.baomidou</groupId>

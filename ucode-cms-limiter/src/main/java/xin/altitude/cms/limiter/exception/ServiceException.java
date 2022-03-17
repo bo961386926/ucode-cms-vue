@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.framework.exception;
+package xin.altitude.cms.limiter.exception;
 
 /**
  * 业务异常

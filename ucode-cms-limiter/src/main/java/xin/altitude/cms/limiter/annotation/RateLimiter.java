@@ -16,10 +16,10 @@
  *
  */
 
-package xin.altitude.cms.framework.annotation;
+package xin.altitude.cms.limiter.annotation;
 
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.framework.constant.enums.LimitType;
+import xin.altitude.cms.limiter.enums.LimitType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -44,12 +44,12 @@ public @interface RateLimiter {
     /**
      * 限流时间,单位秒
      */
-    int time() default 60;
+    int time() default 1;
 
     /**
      * 限流次数
      */
-    int count() default 100;
+    int count() default 10;
 
     /**
      * 限流类型

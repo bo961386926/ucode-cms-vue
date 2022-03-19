@@ -94,7 +94,7 @@ public class Constants {
     /**
      * 限流 redis key
      */
-    public static final String RATE_LIMIT_KEY = "rate_limit:";
+    public static final String RATE_LIMIT_KEY = "rate_limit::";
 
     /**
      * 验证码有效期（分钟）

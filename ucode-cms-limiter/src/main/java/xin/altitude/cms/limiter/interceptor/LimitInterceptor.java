@@ -56,18 +56,21 @@ public class LimitInterceptor implements HandlerInterceptor {
     private static final Logger log = LoggerFactory.getLogger(LimitInterceptor.class);
 
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, Boolean> redisTemplate;
 
     @Autowired
-    private RedisScript<Long> redisScript;
+    private RedisScript<Boolean> redisScript;
 
     @Autowired
     private ObjectMapper objectMapper;
 
     @PostConstruct
     public void init() {
-        redisTemplate.setKeySerializer(new StringRedisSerializer());
-        redisTemplate.setHashKeySerializer(new StringRedisSerializer());
+        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        redisTemplate.setKeySerializer(stringRedisSerializer);
+        redisTemplate.setValueSerializer(stringRedisSerializer);
+        redisTemplate.setHashKeySerializer(stringRedisSerializer);
+        redisTemplate.setHashValueSerializer(stringRedisSerializer);
     }
 
     @Override
@@ -79,16 +82,16 @@ public class LimitInterceptor implements HandlerInterceptor {
             RateLimiter rateLimiter = handlerMethod.getMethod().getAnnotation(RateLimiter.class);
             if (null != rateLimiter) {
                 String key = rateLimiter.key();
-                int count = rateLimiter.count();
-                int time = rateLimiter.time();
+                int threshold = rateLimiter.threshold();
+                int ttl = rateLimiter.ttl();
 
                 List<String> keys = ColUtils.toCol(getCombineKey(rateLimiter, handlerMethod.getMethod()));
-                List<String> args = Arrays.asList(String.valueOf(count), String.valueOf(time));
-                Long result = redisTemplate.execute(redisScript, keys, args.toArray());
+                List<String> args = Arrays.asList(String.valueOf(threshold), String.valueOf(ttl));
+                Boolean result = redisTemplate.execute(redisScript, keys, args.toArray());
                 /* 服务被限流 */
-                if (result != null && result == 1L) {
-                    String msg = String.format("访问过于频繁，请稍候再试，当前请求允许访问速率为{%d次/%d秒}", count, time);
-                    log.info(msg);
+                if (result != null && result) {
+                    String msg = String.format("访问过于频繁，请稍候再试，当前请求允许访问速率为{%d次/%d秒}", threshold, ttl);
+                    log.warn(msg);
                     AjaxResult ajaxResult = AjaxResult.error(msg);
                     ServletUtils.renderString(response, objectMapper.writeValueAsString(ajaxResult));
                     return false;

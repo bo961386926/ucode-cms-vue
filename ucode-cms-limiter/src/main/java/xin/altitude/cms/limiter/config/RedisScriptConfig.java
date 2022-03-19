@@ -31,11 +31,11 @@ import org.springframework.scripting.support.ResourceScriptSource;
 public class RedisScriptConfig {
 
     @Bean
-    public RedisScript<Long> redisScript() {
-        DefaultRedisScript<Long> redisScript = new DefaultRedisScript<>();
+    public RedisScript<Boolean> redisScript() {
+        DefaultRedisScript<Boolean> redisScript = new DefaultRedisScript<>();
         /* 从IO流中注入lua脚本 */
-        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("META-INF/lua/limit.lua")));
-        redisScript.setResultType(Long.class);
+        redisScript.setScriptSource(new ResourceScriptSource(new ClassPathResource("META-INF/lua/redis-limit.lua")));
+        redisScript.setResultType(Boolean.class);
         return redisScript;
     }
 }

@@ -37,22 +37,22 @@ import java.lang.annotation.Target;
 @Documented
 public @interface RateLimiter {
     /**
+     * 限流统计时间区间，单位秒
+     */
+    int ttl() default 1;
+
+    /**
+     * 限流统计时间区间允许请求的次数
+     */
+    int threshold() default 10;
+
+    /**
      * 限流key
      */
     String key() default Constants.RATE_LIMIT_KEY;
 
     /**
-     * 限流时间,单位秒
-     */
-    int time() default 1;
-
-    /**
-     * 限流次数
-     */
-    int count() default 10;
-
-    /**
      * 限流类型
      */
-    LimitType limitType() default LimitType.DEFAULT;
+    LimitType limitType() default LimitType.IP;
 }

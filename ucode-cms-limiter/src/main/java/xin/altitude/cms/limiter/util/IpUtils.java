@@ -23,11 +23,14 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * 获取IP方法
+ * IP工具类
  *
  * @author ucode
  */
 public class IpUtils {
+
+    public static final String LOCAL_HOST = "127.0.0.1";
+
     /**
      * 获取请求的IP地址
      *
@@ -56,14 +59,20 @@ public class IpUtils {
             ip = request.getRemoteAddr();
         }
         // return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : EscapeUtil.clean(ip);
-        return "0:0:0:0:0:0:0:1".equals(ip) ? "127.0.0.1" : ip;
+        return "0:0:0:0:0:0:0:1".equals(ip) ? LOCAL_HOST : ip;
     }
 
     public static boolean internalIp(String ip) {
         byte[] addr = textToNumericFormatV4(ip);
-        return internalIp(addr) || "127.0.0.1".equals(ip);
+        return internalIp(addr) || LOCAL_HOST.equals(ip);
     }
 
+    /**
+     * 判断是否是内网IP
+     *
+     * @param addr
+     * @return
+     */
     private static boolean internalIp(byte[] addr) {
         if (addr == null || addr.length < 2) {
             return true;
@@ -175,7 +184,7 @@ public class IpUtils {
             return InetAddress.getLocalHost().getHostAddress();
         } catch (UnknownHostException ignored) {
         }
-        return "127.0.0.1";
+        return LOCAL_HOST;
     }
 
     public static String getHostName() {

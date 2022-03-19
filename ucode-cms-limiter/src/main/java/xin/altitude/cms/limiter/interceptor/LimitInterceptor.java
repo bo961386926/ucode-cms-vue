@@ -16,14 +16,9 @@
  *
  */
 
-package xin.altitude.cms.limiter.aspectj;
+package xin.altitude.cms.limiter.interceptor;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,30 +26,34 @@ import org.springframework.context.annotation.Import;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.stereotype.Component;
+import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.servlet.HandlerInterceptor;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.ColUtils;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.limiter.annotation.RateLimiter;
 import xin.altitude.cms.limiter.config.RedisScriptConfig;
 import xin.altitude.cms.limiter.enums.LimitType;
-import xin.altitude.cms.limiter.exception.ServiceException;
 import xin.altitude.cms.limiter.util.IpUtils;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 
 /**
- * 限流处理
- *
- * @author ucode
- */
-@Aspect
+ * @author explore
+ * @since 2022/03/19 10:10
+ **/
+@Component
 @Import({RedisScriptConfig.class})
-public class RateLimiterAspect {
-    private static final Logger log = LoggerFactory.getLogger(RateLimiterAspect.class);
+public class LimitInterceptor implements HandlerInterceptor {
+
+    private static final Logger log = LoggerFactory.getLogger(LimitInterceptor.class);
 
     @Resource
     private RedisTemplate<String, Object> redisTemplate;
@@ -71,35 +70,41 @@ public class RateLimiterAspect {
         redisTemplate.setHashKeySerializer(new StringRedisSerializer());
     }
 
-    @Before("@annotation(rateLimiter)")
-    public void doBefore(JoinPoint point, RateLimiter rateLimiter) throws JsonProcessingException {
-        String key = rateLimiter.key();
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (handler instanceof HandlerMethod) {
+            /* 把handler强转为HandlerMethod */
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            // 从handlerMethod中获取本次请求的接口方法对象然后判断该方法上是否标有我们自定义的注解@RateLimiter
+            RateLimiter rateLimiter = handlerMethod.getMethod().getAnnotation(RateLimiter.class);
+            if (null != rateLimiter) {
+                String key = rateLimiter.key();
+                int count = rateLimiter.count();
+                int time = rateLimiter.time();
 
-        int count = rateLimiter.count();
-        int time = rateLimiter.time();
-
-        List<String> keys = ColUtils.toCol(getCombineKey(rateLimiter, point));
-        List<String> args = Arrays.asList(String.valueOf(count), String.valueOf(time));
-        Long result = redisTemplate.execute(redisScript, keys, args.toArray());
-        /* 服务被限流 */
-        if (result != null && result == 1L) {
-            String msg = String.format("访问过于频繁，请稍候再试，当前请求允许访问速率为{%d次/%d秒}", count, time);
-            log.info(msg);
-            throw new ServiceException(msg);
+                List<String> keys = ColUtils.toCol(getCombineKey(rateLimiter, handlerMethod.getMethod()));
+                List<String> args = Arrays.asList(String.valueOf(count), String.valueOf(time));
+                Long result = redisTemplate.execute(redisScript, keys, args.toArray());
+                /* 服务被限流 */
+                if (result != null && result == 1L) {
+                    String msg = String.format("访问过于频繁，请稍候再试，当前请求允许访问速率为{%d次/%d秒}", count, time);
+                    log.info(msg);
+                    AjaxResult ajaxResult = AjaxResult.error(msg);
+                    ServletUtils.renderString(response, objectMapper.writeValueAsString(ajaxResult));
+                    return false;
+                }
+            }
         }
-
+        return true;
     }
 
-    public String getCombineKey(RateLimiter rateLimiter, JoinPoint point) {
+    private String getCombineKey(RateLimiter rateLimiter, Method method) {
         StringBuilder sb = new StringBuilder(rateLimiter.key());
         if (rateLimiter.limitType() == LimitType.IP) {
             sb.append(IpUtils.getIpAddr(ServletUtils.getRequest())).append("-");
         }
-        MethodSignature signature = (MethodSignature) point.getSignature();
-        Method method = signature.getMethod();
         Class<?> targetClass = method.getDeclaringClass();
         sb.append(targetClass.getName()).append("-").append(method.getName());
         return sb.toString();
     }
-
 }

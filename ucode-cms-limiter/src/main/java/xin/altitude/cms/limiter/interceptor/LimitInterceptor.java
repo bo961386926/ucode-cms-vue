@@ -34,6 +34,7 @@ import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.limiter.annotation.RateLimiter;
 import xin.altitude.cms.limiter.config.LimitRedisTemplate;
 import xin.altitude.cms.limiter.config.RedisScriptConfig;
+import xin.altitude.cms.limiter.config.RedisTemplateConfig;
 import xin.altitude.cms.limiter.enums.LimitType;
 import xin.altitude.cms.limiter.util.IpUtils;
 
@@ -47,13 +48,11 @@ import java.util.List;
  * @author explore
  * @since 2022/03/19 10:10
  **/
-@Import({RedisScriptConfig.class})
+@Import({RedisScriptConfig.class, RedisTemplateConfig.class})
 public class LimitInterceptor implements HandlerInterceptor {
 
     private static final Logger log = LoggerFactory.getLogger(LimitInterceptor.class);
 
-    // @Autowired
-    // private RedisTemplate<String, Boolean> redisTemplate;
     private LimitRedisTemplate redisTemplate = SpringUtils.getBean(LimitRedisTemplate.class);
 
     @Autowired

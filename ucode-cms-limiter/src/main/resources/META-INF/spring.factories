@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-    xin.altitude.cms.limiter.aspectj.RateLimiterAspect
+    xin.altitude.cms.limiter.config.LimitConfig
 

@@ -38,7 +38,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.auth.aspectj.DataScopeAspect,\
     xin.altitude.cms.auth.aspectj.DataSourceAspect,\
     xin.altitude.cms.auth.aspectj.LogAspect,\
-    xin.altitude.cms.limiter.aspectj.RateLimiterAspect,\
     xin.altitude.cms.auth.manager.ShutdownManager,\
     xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter,\
     xin.altitude.cms.auth.security.handle.AuthenticationEntryPointImpl,\
@@ -65,4 +64,3 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.system.service.impl.SysUserPostServiceServiceImpl,\
     xin.altitude.cms.system.service.impl.SysUserRoleServiceImpl,\
     xin.altitude.cms.system.service.impl.SysUserServiceImpl
-

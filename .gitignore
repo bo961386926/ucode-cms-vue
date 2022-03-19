@@ -44,3 +44,4 @@ nbdist/
 !*/build/*.xml
 /ucode-cms-ui/src/main/resources/
 /ucode-cms-admin/src/main/java/xin/ucode/admin/controller/TestController.java
+/demo-ucode-cms/src/main/java/xin/ucode/admin/controller/IndexController.java

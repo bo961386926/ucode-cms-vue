@@ -28,7 +28,6 @@ import xin.altitude.cms.framework.config.CmsConfig;
  *
  * @author ucode
  */
-// @ResponseBody
 public class SysIndexController {
     /**
      * 系统基础配置
@@ -39,9 +38,9 @@ public class SysIndexController {
     /**
      * 访问首页，提示语
      */
-    // @RequestMapping("/")
     @GetMapping("/")
     public String index() {
-        return StringUtil.format("欢迎使用{}后台管理框架，当前版本：v{}，请通过前端地址访问。", cmsConfig.getCms().getName(), cmsConfig.getCms().getVersion());
+        CmsConfig.Cms cms = cmsConfig.getCms();
+        return StringUtil.format("欢迎使用{}后台管理框架，当前版本：v{}，请通过前端地址访问。", cms.getName(), cms.getVersion());
     }
 }

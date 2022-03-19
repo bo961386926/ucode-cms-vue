@@ -19,8 +19,11 @@
 package xin.altitude.cms.limiter.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.util.PathMatcher;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import xin.altitude.cms.limiter.interceptor.LimitInterceptor;
@@ -42,5 +45,19 @@ public class LimitConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         /* 添加全局防重复提交拦截器 */
         registry.addInterceptor(limitInterceptor).addPathPatterns("/**");
+    }
+
+    /**
+     * 向容器注入LimitRedisTemplate
+     *
+     * @param factory
+     * @return
+     */
+    @Bean
+    @ConditionalOnMissingBean(LimitRedisTemplate.class)
+    public LimitRedisTemplate limitRedisTemplate(RedisConnectionFactory factory) {
+        LimitRedisTemplate template = new LimitRedisTemplate();
+        template.setConnectionFactory(factory);
+        return template;
     }
 }

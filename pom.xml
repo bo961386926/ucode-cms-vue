@@ -56,6 +56,7 @@
         <module>ucode-cms-excel</module>
         <module>ucode-cms-job</module>
         <module>ucode-cms-limiter</module>
+        <module>ucode-cms-repeat</module>
     </modules>
     <packaging>pom</packaging>
 

@@ -16,9 +16,8 @@
  *
  */
 
-package xin.altitude.cms.framework.util.http;
+package xin.altitude.cms.repeat.util;
 
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +52,7 @@ public class HttpHelper {
                 try {
                     reader.close();
                 } catch (IOException e) {
-                    LOGGER.error(ExceptionUtils.getMessage(e));
+                    e.fillInStackTrace();
                 }
             }
         }

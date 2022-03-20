@@ -16,14 +16,16 @@
  *
  */
 
-package xin.altitude.cms.framework.core.interceptor;
+package xin.altitude.cms.repeat.interceptor;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.ServletUtils;
-import xin.altitude.cms.framework.annotation.RepeatSubmit;
+import xin.altitude.cms.repeat.annotation.RepeatSubmit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,7 +36,10 @@ import java.util.Optional;
  *
  * @author ucode
  */
-public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
+public abstract class AbstractRepeatSubmitInterceptor implements HandlerInterceptor {
+    @Autowired
+    private ObjectMapper objectMapper;
+
     /**
      * 请求处理链
      *
@@ -50,7 +55,7 @@ public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
             RepeatSubmit annotation = Optional.of((HandlerMethod) handler).map(HandlerMethod::getMethod).map(e -> e.getAnnotation(RepeatSubmit.class)).orElse(null);
             if (annotation != null && isRepeatSubmit(request, annotation)) {
                 AjaxResult ajaxResult = AjaxResult.error(annotation.message());
-                ServletUtils.renderString(response, JSONObject.toJSONString(ajaxResult));
+                ServletUtils.renderString(response, objectMapper.writeValueAsString(ajaxResult));
                 return false;
             }
             return true;
@@ -65,5 +70,5 @@ public abstract class RepeatSubmitInterceptor implements HandlerInterceptor {
      * @param request
      * @return
      */
-    public abstract boolean isRepeatSubmit(HttpServletRequest request, RepeatSubmit annotation);
+    public abstract boolean isRepeatSubmit(HttpServletRequest request, RepeatSubmit annotation) throws JsonProcessingException;
 }

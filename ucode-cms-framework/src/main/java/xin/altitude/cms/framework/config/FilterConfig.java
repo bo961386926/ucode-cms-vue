@@ -23,7 +23,6 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.framework.filter.RepeatableFilter;
 import xin.altitude.cms.framework.filter.XssFilter;
 
 import javax.servlet.DispatcherType;
@@ -55,14 +54,14 @@ public class FilterConfig {
         return registration;
     }
 
-    @Bean
-    public FilterRegistrationBean<Filter> someFilterRegistration() {
-        FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
-        registration.setFilter(new RepeatableFilter());
-        registration.addUrlPatterns("/*");
-        registration.setName("repeatableFilter");
-        registration.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE);
-        return registration;
-    }
+    // @Bean
+    // public FilterRegistrationBean<Filter> someFilterRegistration() {
+    //     FilterRegistrationBean<Filter> registration = new FilterRegistrationBean<>();
+    //     // registration.setFilter(new RepeatableFilter());
+    //     registration.addUrlPatterns("/*");
+    //     registration.setName("repeatableFilter");
+    //     registration.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE);
+    //     return registration;
+    // }
 
 }

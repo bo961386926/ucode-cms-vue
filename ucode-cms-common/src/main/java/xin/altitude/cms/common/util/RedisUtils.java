@@ -263,6 +263,17 @@ public class RedisUtils {
     /**
      * 缓存基本的对象，Integer、String、实体类等
      *
+     * @param key   缓存的键值
+     * @param value 缓存的值
+     * @return 如果保存成功，则返回true
+     */
+    public static Boolean setObjectIfAbsent(final String key, final String value) {
+        return OPS_FOR_VALUE.setIfAbsent(key, value);
+    }
+
+    /**
+     * 缓存基本的对象，Integer、String、实体类等
+     *
      * @param key      缓存的键值
      * @param value    缓存的值
      * @param timeout  时间
@@ -292,6 +303,19 @@ public class RedisUtils {
      */
     public static void setObject(final String key, final String value, final Integer timeout, final TimeUnit timeUnit) {
         OPS_FOR_VALUE.set(key, value, timeout, timeUnit);
+    }
+
+    /**
+     * 缓存基本的对象，Integer、String、实体类等
+     *
+     * @param key      缓存的键值
+     * @param value    缓存的值
+     * @param timeout  时间
+     * @param timeUnit 时间颗粒度
+     * @return 如果保存成功，则返回true
+     */
+    public static Boolean setObjectIfAbsent(final String key, final String value, final Integer timeout, final TimeUnit timeUnit) {
+        return OPS_FOR_VALUE.setIfAbsent(key, value, timeout, timeUnit);
     }
 
     /**

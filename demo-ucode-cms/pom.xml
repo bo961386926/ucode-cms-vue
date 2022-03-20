@@ -30,10 +30,15 @@
             <version>1.4.4.3</version>
         </dependency>
         <dependency>
-            <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-limiter</artifactId>
+            <groupId>xin.altitude.cms</groupId>
             <version>1.4.4.3</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>xin.altitude.cms</groupId>
+            <version>1.4.4.3</version>
+            <artifactId>ucode-cms-repeat</artifactId>
         </dependency>
 
         <!--定时任务依赖（非必选）-->

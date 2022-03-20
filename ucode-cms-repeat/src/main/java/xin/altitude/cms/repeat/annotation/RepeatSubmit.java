@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.framework.annotation;
+package xin.altitude.cms.repeat.annotation;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -36,9 +36,9 @@ import java.lang.annotation.Target;
 @Documented
 public @interface RepeatSubmit {
     /**
-     * 间隔时间(ms)，小于此时间视为重复提交
+     * 间隔时间，单位秒
      */
-    int interval() default 5000;
+    int interval() default 10;
 
     /**
      * 提示消息

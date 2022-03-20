@@ -20,6 +20,8 @@ package xin.altitude.cms.repeat.interceptor.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.RedisUtils;
@@ -29,7 +31,6 @@ import xin.altitude.cms.repeat.interceptor.AbstractRepeatSubmitInterceptor;
 import xin.altitude.cms.repeat.util.HttpHelper;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.TreeMap;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -39,13 +40,12 @@ import java.util.concurrent.TimeUnit;
  * @author ucode
  */
 public class RepeatSubmitInterceptor extends AbstractRepeatSubmitInterceptor {
+    private static final Logger log = LoggerFactory.getLogger(RepeatSubmitInterceptor.class);
     @Autowired
     private ObjectMapper objectMapper;
 
     @Override
     public boolean isRepeatSubmit(HttpServletRequest request, RepeatSubmit annotation) throws JsonProcessingException {
-        TreeMap<String, Object> params = new TreeMap<>();
-        // String bodyParams = null;
         String nowParams = null;
         if (request instanceof RepeateRequestWrapper) {
             RepeateRequestWrapper repeatedlyRequest = (RepeateRequestWrapper) request;
@@ -60,9 +60,12 @@ public class RepeatSubmitInterceptor extends AbstractRepeatSubmitInterceptor {
         String submitKey = request.getRequestURI() + "-" + nowParams;
         // 唯一标识（指定key + 消息头）
         String cacheRepeatKey = Constants.REPEAT_SUBMIT_KEY + submitKey;
-        System.out.println("cacheRepeatKey = " + cacheRepeatKey);
 
         Boolean bool = RedisUtils.setObjectIfAbsent(cacheRepeatKey, Constants.LOGIN_SUCCESS, annotation.interval(), TimeUnit.SECONDS);
-        return bool != null && !bool;
+        boolean result = bool != null && !bool;
+        if (result) {
+            log.warn(String.format("当前请求重复提交，缓存Key为【%s】", cacheRepeatKey));
+        }
+        return result;
     }
 }

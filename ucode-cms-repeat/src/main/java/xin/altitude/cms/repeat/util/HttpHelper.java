@@ -43,7 +43,7 @@ public class HttpHelper {
             reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8));
             String line = "";
             while ((line = reader.readLine()) != null) {
-                sb.append(line);
+                sb.append(line.trim());
             }
         } catch (IOException e) {
             LOGGER.warn("getBodyString出现问题！");

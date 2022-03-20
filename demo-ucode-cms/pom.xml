@@ -21,23 +21,23 @@
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-spring-boot-starter</artifactId>
-            <version>1.4.4.3</version>
+            <version>1.4.5</version>
         </dependency>
         <!--代码生成器模块（非必选）-->
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-            <version>1.4.4.3</version>
+            <version>1.4.5</version>
         </dependency>
         <dependency>
             <artifactId>ucode-cms-limiter</artifactId>
             <groupId>xin.altitude.cms</groupId>
-            <version>1.4.4.3</version>
+            <version>1.4.5</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms</groupId>
-            <version>1.4.4.3</version>
+            <version>1.4.5</version>
             <artifactId>ucode-cms-repeat</artifactId>
         </dependency>
 
@@ -45,7 +45,7 @@
         <!--<dependency>-->
         <!--    <groupId>xin.altitude.cms.job</groupId>-->
         <!--    <artifactId>ucode-cms-job</artifactId>-->
-        <!--    <version>1.4.4.3</version>-->
+        <!--    <version>1.4.5</version>-->
         <!--</dependency>-->
 
         <!--<dependency>-->

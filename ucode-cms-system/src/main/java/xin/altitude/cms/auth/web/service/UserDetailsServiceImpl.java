@@ -24,7 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import xin.altitude.cms.auth.model.LoginUser;
+import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.constant.enums.UserStatus;
 import xin.altitude.cms.framework.core.domain.SysUser;

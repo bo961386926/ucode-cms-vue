@@ -16,9 +16,10 @@
  *
  */
 
-package xin.altitude.cms.auth.config;
+package xin.altitude.cms.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -26,14 +27,16 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter;
-import xin.altitude.cms.auth.security.handle.AuthenticationEntryPointImpl;
-import xin.altitude.cms.auth.security.handle.LogoutSuccessHandlerImpl;
-import xin.altitude.cms.auth.web.service.UserDetailsServiceImpl;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.framework.config.CmsConfig;
+import xin.altitude.cms.security.filter.JwtAuthenticationTokenFilter;
+import xin.altitude.cms.security.handle.AuthenticationEntryPointImpl;
+import xin.altitude.cms.security.handle.LogoutSuccessHandlerImpl;
+
+import javax.annotation.Resource;
 
 /**
  * spring security配置
@@ -41,6 +44,7 @@ import xin.altitude.cms.framework.config.CmsConfig;
  * @author ucode
  */
 public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapter {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
     /**
      * 退出处理类
      */
@@ -51,14 +55,16 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
      */
     @Autowired
     protected JwtAuthenticationTokenFilter authenticationTokenFilter;
-
+    /**
+     * 用户服务类
+     */
+    @Resource
+    protected UserDetailsService userDetailsServiceImpl;
     /**
      * 认证失败处理类
      */
     @Autowired
     protected AuthenticationEntryPointImpl unauthorizedHandler;
-
-    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     /**
      * 解决 无法直接注入 AuthenticationManager
@@ -134,7 +140,6 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(SpringUtils.getBean(UserDetailsServiceImpl.class))
-            .passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(bCryptPasswordEncoder);
     }
 }

@@ -31,8 +31,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
-import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.auth.web.service.CmsTokenService;
+import xin.altitude.cms.security.model.LoginUser;
+import xin.altitude.cms.security.service.CmsTokenService;
 import xin.altitude.cms.auth.web.service.SysPermissionService;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
@@ -71,17 +71,12 @@ public class SysRoleProController extends BaseProController {
     @Autowired
     private ISysUserService userService;
 
-    // @PreAuthorize("@ss.hasPermi('system:role:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysRole> page, SysRole role) {
-        // startPage();
-        // List<SysRole> list = roleService.selectRoleList(role);
-        // return getDataTable(list);
         return AjaxResult.success(roleService.page(page, Wrappers.lambdaQuery(role)));
     }
 
     @OperLog(title = "角色管理", businessType = BusinessType.EXPORT)
-    // @PreAuthorize("@ss.hasPermi('system:role:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysRole role) {
         List<SysRole> list = roleService.selectRoleList(role);
@@ -92,7 +87,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 根据角色编号获取详细信息
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:query')")
     @GetMapping(value = "/{roleId}")
     public AjaxResult getInfo(@PathVariable Long roleId) {
         roleService.checkRoleDataScope(roleId);
@@ -102,7 +96,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 新增角色
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:add')")
     @OperLog(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysRole role) {
@@ -119,7 +112,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 修改保存角色
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:edit')")
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysRole role) {
@@ -147,7 +139,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 修改保存数据权限
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:edit')")
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping("/dataScope")
     public AjaxResult dataScope(@RequestBody SysRole role) {
@@ -158,7 +149,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 状态修改
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:edit')")
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysRole role) {
@@ -170,7 +160,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 删除角色
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:remove')")
     @OperLog(title = "角色管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{roleIds}")
     public AjaxResult remove(@PathVariable Long[] roleIds) {
@@ -180,7 +169,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 获取角色选择框列表
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:query')")
     @GetMapping("/optionselect")
     public AjaxResult optionselect() {
         return AjaxResult.success(roleService.selectRoleAll());
@@ -189,7 +177,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 查询已分配用户角色列表
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:list')")
     @GetMapping("/authUser/allocatedList")
     public TableDataInfo allocatedList(SysUser user) {
         startPage();
@@ -200,7 +187,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 查询未分配用户角色列表
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:list')")
     @GetMapping("/authUser/unallocatedList")
     public TableDataInfo unallocatedList(SysUser user) {
         startPage();
@@ -211,7 +197,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 取消授权用户
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:edit')")
     @OperLog(title = "角色管理", businessType = BusinessType.GRANT)
     @PutMapping("/authUser/cancel")
     public AjaxResult cancelAuthUser(@RequestBody SysUserRole userRole) {
@@ -221,7 +206,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 批量取消授权用户
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:edit')")
     @OperLog(title = "角色管理", businessType = BusinessType.GRANT)
     @PutMapping("/authUser/cancelAll")
     public AjaxResult cancelAuthUserAll(Long roleId, Long[] userIds) {
@@ -231,7 +215,6 @@ public class SysRoleProController extends BaseProController {
     /**
      * 批量选择用户授权
      */
-    // @PreAuthorize("@ss.hasPermi('system:role:edit')")
     @OperLog(title = "角色管理", businessType = BusinessType.GRANT)
     @PutMapping("/authUser/selectAll")
     public AjaxResult selectAuthUserAll(Long roleId, Long[] userIds) {

@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.auth.security.handle;
+package xin.altitude.cms.security.handle;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.security.core.AuthenticationException;

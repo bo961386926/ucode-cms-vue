@@ -21,7 +21,6 @@ package xin.altitude.cms.auth.controller;
 import com.github.pagehelper.PageHelper;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
-import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.controller.BaseController;
 import xin.altitude.cms.common.entity.AjaxResult;
@@ -32,6 +31,7 @@ import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.framework.core.page.TableSupport;
 import xin.altitude.cms.framework.util.DateUtils;
 import xin.altitude.cms.framework.util.sql.SqlUtil;
+import xin.altitude.cms.security.model.LoginUser;
 
 import java.beans.PropertyEditorSupport;
 import java.util.Date;

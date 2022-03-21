@@ -22,7 +22,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import xin.altitude.cms.auth.util.SecurityUtils;
+import xin.altitude.cms.security.util.UserUtils;
 import xin.altitude.cms.common.util.ConvertUtils;
 import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.common.util.SpringUtils;
@@ -221,7 +221,7 @@ public class SysDeptServiceImpl extends ServiceImpl<SysDeptMapper, SysDept> impl
      */
     @Override
     public void checkDeptDataScope(Long deptId) {
-        if (!SysUser.isAdmin(SecurityUtils.getUserId())) {
+        if (!SysUser.isAdmin(UserUtils.getUserId())) {
             SysDept dept = new SysDept();
             dept.setDeptId(deptId);
             List<SysDept> depts = SpringUtils.getAopProxy(this).selectDeptList(dept);

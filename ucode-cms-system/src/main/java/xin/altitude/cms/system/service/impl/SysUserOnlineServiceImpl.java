@@ -18,7 +18,7 @@
 
 package xin.altitude.cms.system.service.impl;
 
-import xin.altitude.cms.auth.model.LoginUser;
+import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.system.domain.SysUserOnline;
 import xin.altitude.cms.system.service.ISysUserOnlineService;

@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.auth.model;
+package xin.altitude.cms.security.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import org.springframework.security.core.GrantedAuthority;

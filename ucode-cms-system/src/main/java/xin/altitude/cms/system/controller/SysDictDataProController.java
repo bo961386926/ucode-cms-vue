@@ -59,17 +59,12 @@ public class SysDictDataProController extends BaseProController {
     @Autowired
     private ISysDictTypeService dictTypeService;
 
-    // @PreAuthorize("@ss.hasPermi('system:dict:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysDictData> page, SysDictData dictData) {
-        // startPage();
-        // List<SysDictData> list = dictDataService.selectDictDataList(dictData);
-        // return getDataTable(list);
         return AjaxResult.success(dictDataService.page(page, Wrappers.lambdaQuery(dictData)));
     }
 
     @OperLog(title = "字典数据", businessType = BusinessType.EXPORT)
-    // @PreAuthorize("@ss.hasPermi('system:dict:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysDictData dictData) {
         List<SysDictData> list = dictDataService.selectDictDataList(dictData);
@@ -80,7 +75,6 @@ public class SysDictDataProController extends BaseProController {
     /**
      * 查询字典数据详细
      */
-    // @PreAuthorize("@ss.hasPermi('system:dict:query')")
     @GetMapping(value = "/{dictCode}")
     public AjaxResult getInfo(@PathVariable Long dictCode) {
         return AjaxResult.success(dictDataService.selectDictDataById(dictCode));
@@ -101,7 +95,6 @@ public class SysDictDataProController extends BaseProController {
     /**
      * 新增字典类型
      */
-    // @PreAuthorize("@ss.hasPermi('system:dict:add')")
     @OperLog(title = "字典数据", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysDictData dict) {
@@ -112,7 +105,6 @@ public class SysDictDataProController extends BaseProController {
     /**
      * 修改保存字典类型
      */
-    // @PreAuthorize("@ss.hasPermi('system:dict:edit')")
     @OperLog(title = "字典数据", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysDictData dict) {
@@ -123,7 +115,6 @@ public class SysDictDataProController extends BaseProController {
     /**
      * 删除字典类型
      */
-    // @PreAuthorize("@ss.hasPermi('system:dict:remove')")
     @OperLog(title = "字典类型", businessType = BusinessType.DELETE)
     @DeleteMapping("/{dictCodes}")
     public AjaxResult remove(@PathVariable Long[] dictCodes) {

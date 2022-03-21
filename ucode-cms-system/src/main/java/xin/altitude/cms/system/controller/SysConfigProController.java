@@ -74,7 +74,6 @@ public class SysConfigProController extends BaseProController {
     }
 
     @OperLog(title = "参数管理", businessType = BusinessType.EXPORT)
-    // @PreAuthorize("@ss.hasPermi('system:config:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysConfig config) {
         List<SysConfig> list = configService.selectConfigList(config);
@@ -85,7 +84,6 @@ public class SysConfigProController extends BaseProController {
     /**
      * 根据参数编号获取详细信息
      */
-    // @PreAuthorize("@ss.hasPermi('system:config:query')")
     @GetMapping(value = "/{configId}")
     public AjaxResult getInfo(@PathVariable Long configId) {
         return AjaxResult.success(configService.selectConfigById(configId));
@@ -102,7 +100,6 @@ public class SysConfigProController extends BaseProController {
     /**
      * 新增参数配置
      */
-    // @PreAuthorize("@ss.hasPermi('system:config:add')")
     @OperLog(title = "参数管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysConfig config) {
@@ -116,7 +113,6 @@ public class SysConfigProController extends BaseProController {
     /**
      * 修改参数配置
      */
-    // @PreAuthorize("@ss.hasPermi('system:config:edit')")
     @OperLog(title = "参数管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysConfig config) {
@@ -130,7 +126,6 @@ public class SysConfigProController extends BaseProController {
     /**
      * 删除参数配置
      */
-    // @PreAuthorize("@ss.hasPermi('system:config:remove')")
     @OperLog(title = "参数管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{configIds}")
     public AjaxResult remove(@PathVariable Long[] configIds) {
@@ -141,7 +136,6 @@ public class SysConfigProController extends BaseProController {
     /**
      * 刷新参数缓存
      */
-    // @PreAuthorize("@ss.hasPermi('system:config:remove')")
     @OperLog(title = "参数管理", businessType = BusinessType.CLEAN)
     @DeleteMapping("/refreshCache")
     public AjaxResult refreshCache() {

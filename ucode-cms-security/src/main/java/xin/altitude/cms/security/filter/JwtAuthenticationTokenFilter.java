@@ -16,17 +16,17 @@
  *
  */
 
-package xin.altitude.cms.auth.security.filter;
+package xin.altitude.cms.security.filter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
-import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.auth.util.SecurityUtils;
-import xin.altitude.cms.auth.web.service.CmsTokenService;
+import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.common.util.StringUtil;
+import xin.altitude.cms.security.service.CmsTokenService;
+import xin.altitude.cms.security.util.UserUtils;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -48,7 +48,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
         throws ServletException, IOException {
         LoginUser loginUser = cmsTokenService.getLoginUser(request);
-        if (StringUtil.isNotNull(loginUser) && StringUtil.isNull(SecurityUtils.getAuthentication())) {
+        if (StringUtil.isNotNull(loginUser) && StringUtil.isNull(UserUtils.getAuthentication())) {
             cmsTokenService.verifyToken(loginUser);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

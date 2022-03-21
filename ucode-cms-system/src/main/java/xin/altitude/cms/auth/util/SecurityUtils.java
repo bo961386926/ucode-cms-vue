@@ -18,29 +18,17 @@
 
 package xin.altitude.cms.auth.util;
 
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.framework.constant.HttpStatus;
 import xin.altitude.cms.framework.exception.ServiceException;
+import xin.altitude.cms.security.util.UserUtils;
 
 /**
  * 安全服务工具类
  *
  * @author ucode
  */
-public class SecurityUtils {
-    /**
-     * 用户ID
-     **/
-    public static Long getUserId() {
-        try {
-            return getLoginUser().getUserId();
-        } catch (Exception e) {
-            throw new ServiceException("获取用户ID异常", HttpStatus.UNAUTHORIZED);
-        }
-    }
+public class SecurityUtils extends UserUtils {
 
     /**
      * 获取部门ID
@@ -62,26 +50,6 @@ public class SecurityUtils {
         } catch (Exception e) {
             throw new ServiceException("获取用户账户异常", HttpStatus.UNAUTHORIZED);
         }
-    }
-
-    /**
-     * 获取用户
-     **/
-    public static LoginUser getLoginUser() {
-        try {
-            // 如果用户为空，则使用默认配置的全局用户
-            LoginUser loginUser = (LoginUser) getAuthentication().getPrincipal();
-            return loginUser;
-        } catch (Exception e) {
-            throw new ServiceException("获取用户信息异常", HttpStatus.UNAUTHORIZED);
-        }
-    }
-
-    /**
-     * 获取Authentication
-     */
-    public static Authentication getAuthentication() {
-        return SecurityContextHolder.getContext().getAuthentication();
     }
 
     /**

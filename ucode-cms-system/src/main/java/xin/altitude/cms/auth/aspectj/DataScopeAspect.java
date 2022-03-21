@@ -21,7 +21,7 @@ package xin.altitude.cms.auth.aspectj;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import xin.altitude.cms.auth.model.LoginUser;
+import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.annotation.DataScope;

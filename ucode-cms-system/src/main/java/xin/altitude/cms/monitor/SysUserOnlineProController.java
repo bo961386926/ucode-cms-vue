@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
-import xin.altitude.cms.auth.model.LoginUser;
+import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
@@ -56,7 +56,6 @@ public class SysUserOnlineProController extends BaseProController {
     @Autowired
     private RedisCache redisCache;
 
-    // @PreAuthorize("@ss.hasPermi('monitor:online:list')")
     @GetMapping("/list")
     public TableDataInfo list(String ipaddr, String userName) {
         Collection<String> keys = redisCache.keys(Constants.LOGIN_TOKEN_KEY + "*");
@@ -87,7 +86,6 @@ public class SysUserOnlineProController extends BaseProController {
     /**
      * 强退用户
      */
-    // @PreAuthorize("@ss.hasPermi('monitor:online:forceLogout')")
     @OperLog(title = "在线用户", businessType = BusinessType.FORCE)
     @DeleteMapping("/{tokenId}")
     public AjaxResult forceLogout(@PathVariable String tokenId) {

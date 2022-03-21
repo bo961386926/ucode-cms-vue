@@ -55,7 +55,6 @@ public class SysDeptProController extends BaseProController {
     /**
      * 获取部门列表
      */
-    // @PreAuthorize("@ss.hasPermi('system:dept:list')")
     @GetMapping("/list")
     public AjaxResult list(SysDept dept) {
         List<SysDept> depts = deptService.selectDeptList(dept);
@@ -65,7 +64,6 @@ public class SysDeptProController extends BaseProController {
     /**
      * 查询部门列表（排除节点）
      */
-    // @PreAuthorize("@ss.hasPermi('system:dept:list')")
     @GetMapping("/list/exclude/{deptId}")
     public AjaxResult excludeChild(@PathVariable(value = "deptId", required = false) Long deptId) {
         List<SysDept> depts = deptService.selectDeptList(new SysDept());
@@ -77,7 +75,6 @@ public class SysDeptProController extends BaseProController {
     /**
      * 根据部门编号获取详细信息
      */
-    // @PreAuthorize("@ss.hasPermi('system:dept:query')")
     @GetMapping(value = "/{deptId}")
     public AjaxResult getInfo(@PathVariable Long deptId) {
         deptService.checkDeptDataScope(deptId);
@@ -108,7 +105,6 @@ public class SysDeptProController extends BaseProController {
     /**
      * 新增部门
      */
-    // @PreAuthorize("@ss.hasPermi('system:dept:add')")
     @OperLog(title = "部门管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysDept dept) {
@@ -122,7 +118,6 @@ public class SysDeptProController extends BaseProController {
     /**
      * 修改部门
      */
-    // @PreAuthorize("@ss.hasPermi('system:dept:edit')")
     @OperLog(title = "部门管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysDept dept) {
@@ -141,7 +136,6 @@ public class SysDeptProController extends BaseProController {
     /**
      * 删除部门
      */
-    // @PreAuthorize("@ss.hasPermi('system:dept:remove')")
     @OperLog(title = "部门管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{deptId}")
     public AjaxResult remove(@PathVariable Long deptId) {

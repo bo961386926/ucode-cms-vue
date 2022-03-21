@@ -16,23 +16,22 @@
  *
  */
 
-package xin.altitude.cms.auth.web.service;
+package xin.altitude.cms.security.service;
 
 import eu.bitwalker.useragentutils.UserAgent;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.beans.factory.annotation.Autowired;
-import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.common.constant.Constants;
+import xin.altitude.cms.common.util.RedisUtils;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.framework.core.redis.RedisCache;
 import xin.altitude.cms.framework.util.ip.AddressUtils;
 import xin.altitude.cms.framework.util.ip.IpUtils;
 import xin.altitude.cms.framework.util.uuid.IdUtils;
+import xin.altitude.cms.security.model.LoginUser;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
@@ -44,16 +43,12 @@ import java.util.concurrent.TimeUnit;
  *
  * @author ucode
  */
-// @Component
 public class CmsTokenService {
     protected static final long MILLIS_SECOND = 1000;
     protected static final long MILLIS_MINUTE = 60 * MILLIS_SECOND;
     private static final Long MILLIS_MINUTE_TEN = 20 * 60 * 1000L;
 
     private final CmsConfig.Token token = SpringUtils.getBean(CmsConfig.class).getToken();
-
-    @Autowired
-    private RedisCache redisCache;
 
     /**
      * 获取用户身份信息
@@ -69,8 +64,8 @@ public class CmsTokenService {
                 // 解析对应的权限以及用户信息
                 String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
                 String userKey = getTokenKey(uuid);
-                LoginUser user = redisCache.getCacheObject(userKey);
-                return user;
+                // LoginUser user = redisCache.getCacheObject(userKey);
+                return RedisUtils.getObject(userKey, LoginUser.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -93,7 +88,7 @@ public class CmsTokenService {
     public void delLoginUser(String token) {
         if (StringUtil.isNotEmpty(token)) {
             String userKey = getTokenKey(token);
-            redisCache.deleteObject(userKey);
+            RedisUtils.deleteObject(userKey);
         }
     }
 
@@ -137,7 +132,7 @@ public class CmsTokenService {
         loginUser.setExpireTime(loginUser.getLoginTime() + token.getExpireTime() * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
-        redisCache.setCacheObject(userKey, loginUser, token.getExpireTime(), TimeUnit.MINUTES);
+        RedisUtils.setObject(userKey, loginUser, token.getExpireTime(), TimeUnit.MINUTES);
     }
 
     /**

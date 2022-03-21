@@ -50,17 +50,12 @@ public class SysOperlogProController extends BaseProController {
     @Autowired
     private ISysOperLogService operLogService;
 
-    // @PreAuthorize("@ss.hasPermi('monitor:operlog:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysOperLog> page, SysOperLog operLog) {
-        // startPage();
-        // List<SysOperLog> list = operLogService.selectOperLogList(operLog);
-        // return getDataTable(list);
         return AjaxResult.success(operLogService.page(page, Wrappers.lambdaQuery(operLog)));
     }
 
     @OperLog(title = "操作日志", businessType = BusinessType.EXPORT)
-    // @PreAuthorize("@ss.hasPermi('monitor:operlog:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysOperLog operLog) {
         List<SysOperLog> list = operLogService.selectOperLogList(operLog);
@@ -69,14 +64,12 @@ public class SysOperlogProController extends BaseProController {
     }
 
     @OperLog(title = "操作日志", businessType = BusinessType.DELETE)
-    // @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/{operIds}")
     public AjaxResult remove(@PathVariable Long[] operIds) {
         return toAjax(operLogService.deleteOperLogByIds(operIds));
     }
 
     @OperLog(title = "操作日志", businessType = BusinessType.CLEAN)
-    // @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/clean")
     public AjaxResult clean() {
         operLogService.cleanOperLog();

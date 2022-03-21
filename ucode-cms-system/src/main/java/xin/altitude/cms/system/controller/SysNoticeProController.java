@@ -54,19 +54,14 @@ public class SysNoticeProController extends BaseProController {
      *
      * @return
      */
-    // @PreAuthorize("@ss.hasPermi('system:notice:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysNotice> page, SysNotice notice) {
-        // startPage();
-        // List<SysNotice> list = noticeService.selectNoticeList(notice);
-        // return getDataTable(list);
         return AjaxResult.success(noticeService.page(page, Wrappers.lambdaQuery(notice)));
     }
 
     /**
      * 根据通知公告编号获取详细信息
      */
-    // @PreAuthorize("@ss.hasPermi('system:notice:query')")
     @GetMapping(value = "/{noticeId}")
     public AjaxResult getInfo(@PathVariable Long noticeId) {
         return AjaxResult.success(noticeService.selectNoticeById(noticeId));
@@ -75,7 +70,6 @@ public class SysNoticeProController extends BaseProController {
     /**
      * 新增通知公告
      */
-    // @PreAuthorize("@ss.hasPermi('system:notice:add')")
     @OperLog(title = "通知公告", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysNotice notice) {
@@ -86,7 +80,6 @@ public class SysNoticeProController extends BaseProController {
     /**
      * 修改通知公告
      */
-    // @PreAuthorize("@ss.hasPermi('system:notice:edit')")
     @OperLog(title = "通知公告", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysNotice notice) {
@@ -97,7 +90,6 @@ public class SysNoticeProController extends BaseProController {
     /**
      * 删除通知公告
      */
-    // @PreAuthorize("@ss.hasPermi('system:notice:remove')")
     @OperLog(title = "通知公告", businessType = BusinessType.DELETE)
     @DeleteMapping("/{noticeIds}")
     public AjaxResult remove(@PathVariable Long[] noticeIds) {

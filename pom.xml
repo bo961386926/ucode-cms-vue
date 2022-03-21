@@ -11,7 +11,7 @@
     </parent>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.4.5.3</version>
+    <version>1.4.6</version>
     <description>Java知识图谱之内容管理系统（pom）【新版】</description>
     <url>http://www.altitude.xin</url>
 
@@ -59,6 +59,7 @@
         <module>ucode-cms-repeat</module>
         <module>ucode-cms-log</module>
         <module>ucode-cms-db-datasource</module>
+        <module>ucode-cms-security</module>
     </modules>
     <packaging>pom</packaging>
 
@@ -232,6 +233,12 @@
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-db-datasource</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>xin.altitude.cms</groupId>
+                <artifactId>ucode-cms-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
 

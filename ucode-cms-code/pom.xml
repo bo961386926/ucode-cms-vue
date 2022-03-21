@@ -5,7 +5,7 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.4.5.3</version>
+        <version>1.4.6</version>
     </parent>
     <!--<groupId>xin.altitude.cms.code</groupId>-->
     <artifactId>ucode-cms-code</artifactId>
@@ -95,7 +95,7 @@
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-db-datasource</artifactId>
-            <version>1.4.5.3</version>
+            <version>1.4.6</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

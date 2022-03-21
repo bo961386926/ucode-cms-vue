@@ -16,21 +16,18 @@
  *
  */
 
-package xin.altitude.cms.auth.security.handle;
+package xin.altitude.cms.security.handle;
 
 import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
-import xin.altitude.cms.auth.manager.AsyncManager;
-import xin.altitude.cms.auth.manager.factory.AsyncFactory;
-import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.auth.web.service.CmsTokenService;
-import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.constant.HttpStatus;
+import xin.altitude.cms.security.model.LoginUser;
+import xin.altitude.cms.security.service.CmsTokenService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -59,7 +56,7 @@ public class LogoutSuccessHandlerImpl implements LogoutSuccessHandler {
             // 删除用户缓存记录
             cmsTokenService.delLoginUser(loginUser.getToken());
             // 记录用户退出日志
-            AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGOUT, "退出成功"));
+            // AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGOUT, "退出成功"));
         }
         ServletUtils.renderString(response, JSON.toJSONString(AjaxResult.error(HttpStatus.SUCCESS, "退出成功")));
     }

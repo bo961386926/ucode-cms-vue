@@ -25,7 +25,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import xin.altitude.cms.auth.manager.AsyncManager;
 import xin.altitude.cms.auth.manager.factory.AsyncFactory;
-import xin.altitude.cms.auth.model.LoginUser;
+import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.SpringUtils;
@@ -39,6 +39,7 @@ import xin.altitude.cms.framework.exception.user.UserPasswordNotMatchException;
 import xin.altitude.cms.framework.util.DateUtils;
 import xin.altitude.cms.framework.util.MessageUtils;
 import xin.altitude.cms.framework.util.ip.IpUtils;
+import xin.altitude.cms.security.service.CmsTokenService;
 import xin.altitude.cms.system.service.ISysConfigService;
 import xin.altitude.cms.system.service.ISysUserService;
 

@@ -71,7 +71,6 @@ public class SysUserProController extends BaseProController {
     /**
      * 获取用户列表
      */
-    // @PreAuthorize("@ss.hasPermi('system:user:list')")
     @GetMapping("/list")
     public TableDataInfo list(IPage<SysUser> page, SysUser user) {
         startPage();
@@ -80,7 +79,6 @@ public class SysUserProController extends BaseProController {
     }
 
     @OperLog(title = "用户管理", businessType = BusinessType.EXPORT)
-    // @PreAuthorize("@ss.hasPermi('system:user:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysUser user) {
         List<SysUser> list = userService.selectUserList(user);
@@ -89,7 +87,6 @@ public class SysUserProController extends BaseProController {
     }
 
     @OperLog(title = "用户管理", businessType = BusinessType.IMPORT)
-    // @PreAuthorize("@ss.hasPermi('system:user:import')")
     @PostMapping("/importData")
     public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
@@ -108,7 +105,6 @@ public class SysUserProController extends BaseProController {
     /**
      * 根据用户编号获取详细信息
      */
-    // @PreAuthorize("@ss.hasPermi('system:user:query')")
     @GetMapping(value = {"/", "/{userId}"})
     public AjaxResult getInfo(@PathVariable(value = "userId", required = false) Long userId) {
         userService.checkUserDataScope(userId);
@@ -127,7 +123,6 @@ public class SysUserProController extends BaseProController {
     /**
      * 新增用户
      */
-    // @PreAuthorize("@ss.hasPermi('system:user:add')")
     @OperLog(title = "用户管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysUser user) {
@@ -148,7 +143,6 @@ public class SysUserProController extends BaseProController {
     /**
      * 修改用户
      */
-    // @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @OperLog(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysUser user) {
@@ -167,7 +161,6 @@ public class SysUserProController extends BaseProController {
     /**
      * 删除用户
      */
-    // @PreAuthorize("@ss.hasPermi('system:user:remove')")
     @OperLog(title = "用户管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
     public AjaxResult remove(@PathVariable Long[] userIds) {
@@ -180,7 +173,6 @@ public class SysUserProController extends BaseProController {
     /**
      * 重置密码
      */
-    // @PreAuthorize("@ss.hasPermi('system:user:resetPwd')")
     @OperLog(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/resetPwd")
     public AjaxResult resetPwd(@RequestBody SysUser user) {
@@ -193,7 +185,6 @@ public class SysUserProController extends BaseProController {
     /**
      * 状态修改
      */
-    // @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @OperLog(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysUser user) {
@@ -205,7 +196,6 @@ public class SysUserProController extends BaseProController {
     /**
      * 根据用户编号获取授权角色
      */
-    // @PreAuthorize("@ss.hasPermi('system:user:query')")
     @GetMapping("/authRole/{userId}")
     public AjaxResult authRole(@PathVariable("userId") Long userId) {
         AjaxResult ajax = AjaxResult.success();
@@ -219,7 +209,6 @@ public class SysUserProController extends BaseProController {
     /**
      * 用户授权角色
      */
-    // @PreAuthorize("@ss.hasPermi('system:user:edit')")
     @OperLog(title = "用户管理", businessType = BusinessType.GRANT)
     @PutMapping("/authRole")
     public AjaxResult insertAuthRole(Long userId, Long[] roleIds) {

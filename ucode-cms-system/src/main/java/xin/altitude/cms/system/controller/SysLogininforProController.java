@@ -52,17 +52,12 @@ public class SysLogininforProController extends BaseProController {
     @Autowired
     private ISysLogininforService logininforService;
 
-    // @PreAuthorize("@ss.hasPermi('monitor:logininfor:list')")
     @GetMapping("/list")
     public AjaxResult list(Page<SysLogininfor> page, SysLogininfor logininfor) {
-        // startPage();
-        // List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
-        // return getDataTable(list);
         return AjaxResult.success(logininforService.page(page, Wrappers.lambdaQuery(logininfor)));
     }
 
     @OperLog(title = "登录日志", businessType = BusinessType.EXPORT)
-    // @PreAuthorize("@ss.hasPermi('monitor:logininfor:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysLogininfor logininfor) {
         List<SysLogininfor> list = logininforService.selectLogininforList(logininfor);
@@ -70,14 +65,12 @@ public class SysLogininforProController extends BaseProController {
         util.exportExcel(response, list, "登录日志");
     }
 
-    // @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @OperLog(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
     public AjaxResult remove(@PathVariable Long[] infoIds) {
         return toAjax(logininforService.deleteLogininforByIds(infoIds));
     }
 
-    // @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
     @OperLog(title = "登录日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
     public AjaxResult clean() {

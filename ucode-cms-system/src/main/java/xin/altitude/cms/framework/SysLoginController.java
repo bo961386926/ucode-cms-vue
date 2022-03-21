@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.util.SecurityUtils;
+import xin.altitude.cms.security.util.UserUtils;
 import xin.altitude.cms.auth.web.service.SysLoginService;
 import xin.altitude.cms.auth.web.service.SysPermissionService;
 import xin.altitude.cms.common.constant.Constants;
@@ -97,7 +98,7 @@ public class SysLoginController {
      */
     @GetMapping("getRouters")
     public AjaxResult getRouters() {
-        Long userId = SecurityUtils.getUserId();
+        Long userId = UserUtils.getUserId();
         List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
         return AjaxResult.success(menuService.buildMenus(menus));
     }

@@ -31,10 +31,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.system.domain.SysPost;
 import xin.altitude.cms.system.service.ISysPostService;
@@ -64,7 +64,7 @@ public class SysPostProController extends BaseProController {
         return getDataTable(list);
     }
 
-    @Log(title = "岗位管理", businessType = BusinessType.EXPORT)
+    @OperLog(title = "岗位管理", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:post:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysPost post) {
@@ -86,7 +86,7 @@ public class SysPostProController extends BaseProController {
      * 新增岗位
      */
     // @PreAuthorize("@ss.hasPermi('system:post:add')")
-    @Log(title = "岗位管理", businessType = BusinessType.INSERT)
+    @OperLog(title = "岗位管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysPost post) {
         if (UserConstants.NOT_UNIQUE.equals(postService.checkPostNameUnique(post))) {
@@ -102,7 +102,7 @@ public class SysPostProController extends BaseProController {
      * 修改岗位
      */
     // @PreAuthorize("@ss.hasPermi('system:post:edit')")
-    @Log(title = "岗位管理", businessType = BusinessType.UPDATE)
+    @OperLog(title = "岗位管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysPost post) {
         if (UserConstants.NOT_UNIQUE.equals(postService.checkPostNameUnique(post))) {
@@ -118,7 +118,7 @@ public class SysPostProController extends BaseProController {
      * 删除岗位
      */
     // @PreAuthorize("@ss.hasPermi('system:post:remove')")
-    @Log(title = "岗位管理", businessType = BusinessType.DELETE)
+    @OperLog(title = "岗位管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{postIds}")
     public AjaxResult remove(@PathVariable Long[] postIds) {
         return toAjax(postService.deletePostByIds(postIds));

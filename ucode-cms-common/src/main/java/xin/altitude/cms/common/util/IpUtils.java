@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.limiter.util;
+package xin.altitude.cms.common.util;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.InetAddress;

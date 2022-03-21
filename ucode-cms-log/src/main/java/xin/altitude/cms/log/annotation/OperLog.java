@@ -16,10 +16,9 @@
  *
  */
 
-package xin.altitude.cms.framework.annotation;
+package xin.altitude.cms.log.annotation;
 
-import xin.altitude.cms.framework.constant.enums.BusinessType;
-import xin.altitude.cms.framework.constant.enums.OperatorType;
+import xin.altitude.cms.log.enums.BusinessType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -35,7 +34,7 @@ import java.lang.annotation.Target;
 @Target({ElementType.PARAMETER, ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
-public @interface Log {
+public @interface OperLog {
     /**
      * 模块
      */
@@ -47,17 +46,12 @@ public @interface Log {
     public BusinessType businessType() default BusinessType.OTHER;
 
     /**
-     * 操作人类别
-     */
-    public OperatorType operatorType() default OperatorType.MANAGE;
-
-    /**
      * 是否保存请求的参数
      */
-    public boolean isSaveRequestData() default true;
+    public boolean saveRequest() default true;
 
     /**
      * 是否保存响应的参数
      */
-    public boolean isSaveResponseData() default true;
+    public boolean saveResponse() default true;
 }

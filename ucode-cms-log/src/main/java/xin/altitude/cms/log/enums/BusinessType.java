@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.framework.constant.enums;
+package xin.altitude.cms.log.enums;
 
 /**
  * 业务操作类型

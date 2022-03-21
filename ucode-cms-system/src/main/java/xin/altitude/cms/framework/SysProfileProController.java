@@ -34,10 +34,10 @@ import xin.altitude.cms.auth.web.service.CmsTokenService;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.framework.core.domain.SysUser;
 import xin.altitude.cms.framework.util.file.FileUploadUtils;
 import xin.altitude.cms.system.service.ISysUserService;
@@ -74,7 +74,7 @@ public class SysProfileProController extends BaseProController {
     /**
      * 修改用户
      */
-    @Log(title = "个人信息", businessType = BusinessType.UPDATE)
+    @OperLog(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult updateProfile(@RequestBody SysUser user) {
         if (StringUtil.isNotEmpty(user.getPhonenumber())
@@ -104,7 +104,7 @@ public class SysProfileProController extends BaseProController {
     /**
      * 重置密码
      */
-    @Log(title = "个人信息", businessType = BusinessType.UPDATE)
+    @OperLog(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping("/updatePwd")
     public AjaxResult updatePwd(String oldPassword, String newPassword) {
         LoginUser loginUser = getLoginUser();
@@ -128,7 +128,7 @@ public class SysProfileProController extends BaseProController {
     /**
      * 头像上传
      */
-    @Log(title = "用户头像", businessType = BusinessType.UPDATE)
+    @OperLog(title = "用户头像", businessType = BusinessType.UPDATE)
     @PostMapping("/avatar")
     public AjaxResult avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {

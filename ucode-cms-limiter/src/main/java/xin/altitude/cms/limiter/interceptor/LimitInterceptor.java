@@ -36,7 +36,7 @@ import xin.altitude.cms.limiter.config.LimitRedisTemplate;
 import xin.altitude.cms.limiter.config.RedisScriptConfig;
 import xin.altitude.cms.limiter.config.RedisTemplateConfig;
 import xin.altitude.cms.limiter.enums.LimitType;
-import xin.altitude.cms.limiter.util.IpUtils;
+import xin.altitude.cms.common.util.IpUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

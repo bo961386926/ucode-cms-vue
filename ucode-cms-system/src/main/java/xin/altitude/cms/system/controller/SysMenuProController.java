@@ -31,10 +31,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.framework.core.domain.SysMenu;
 import xin.altitude.cms.system.service.ISysMenuService;
 
@@ -95,7 +95,7 @@ public class SysMenuProController extends BaseProController {
      * 新增菜单
      */
     // @PreAuthorize("@ss.hasPermi('system:menu:add')")
-    @Log(title = "菜单管理", businessType = BusinessType.INSERT)
+    @OperLog(title = "菜单管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysMenu menu) {
         if (UserConstants.NOT_UNIQUE.equals(menuService.checkMenuNameUnique(menu))) {
@@ -111,7 +111,7 @@ public class SysMenuProController extends BaseProController {
      * 修改菜单
      */
     // @PreAuthorize("@ss.hasPermi('system:menu:edit')")
-    @Log(title = "菜单管理", businessType = BusinessType.UPDATE)
+    @OperLog(title = "菜单管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysMenu menu) {
         if (UserConstants.NOT_UNIQUE.equals(menuService.checkMenuNameUnique(menu))) {
@@ -129,7 +129,7 @@ public class SysMenuProController extends BaseProController {
      * 删除菜单
      */
     // @PreAuthorize("@ss.hasPermi('system:menu:remove')")
-    @Log(title = "菜单管理", businessType = BusinessType.DELETE)
+    @OperLog(title = "菜单管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{menuId}")
     public AjaxResult remove(@PathVariable("menuId") Long menuId) {
         if (menuService.hasChildByMenuId(menuId)) {

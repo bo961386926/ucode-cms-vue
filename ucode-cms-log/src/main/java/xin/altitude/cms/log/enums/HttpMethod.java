@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.framework.constant.enums;
+package xin.altitude.cms.log.enums;
 
 import org.springframework.lang.Nullable;
 

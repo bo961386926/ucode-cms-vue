@@ -36,10 +36,10 @@ import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.framework.core.domain.SysRole;
 import xin.altitude.cms.framework.core.domain.SysUser;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
@@ -79,7 +79,7 @@ public class SysUserProController extends BaseProController {
         return getDataTable(list);
     }
 
-    @Log(title = "用户管理", businessType = BusinessType.EXPORT)
+    @OperLog(title = "用户管理", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:user:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysUser user) {
@@ -88,7 +88,7 @@ public class SysUserProController extends BaseProController {
         util.exportExcel(response, list, "用户数据");
     }
 
-    @Log(title = "用户管理", businessType = BusinessType.IMPORT)
+    @OperLog(title = "用户管理", businessType = BusinessType.IMPORT)
     // @PreAuthorize("@ss.hasPermi('system:user:import')")
     @PostMapping("/importData")
     public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
@@ -128,7 +128,7 @@ public class SysUserProController extends BaseProController {
      * 新增用户
      */
     // @PreAuthorize("@ss.hasPermi('system:user:add')")
-    @Log(title = "用户管理", businessType = BusinessType.INSERT)
+    @OperLog(title = "用户管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysUser user) {
         if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(user.getUserName()))) {
@@ -149,7 +149,7 @@ public class SysUserProController extends BaseProController {
      * 修改用户
      */
     // @PreAuthorize("@ss.hasPermi('system:user:edit')")
-    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @OperLog(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysUser user) {
         userService.checkUserAllowed(user);
@@ -168,7 +168,7 @@ public class SysUserProController extends BaseProController {
      * 删除用户
      */
     // @PreAuthorize("@ss.hasPermi('system:user:remove')")
-    @Log(title = "用户管理", businessType = BusinessType.DELETE)
+    @OperLog(title = "用户管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
     public AjaxResult remove(@PathVariable Long[] userIds) {
         if (ArrayUtils.contains(userIds, getUserId())) {
@@ -181,7 +181,7 @@ public class SysUserProController extends BaseProController {
      * 重置密码
      */
     // @PreAuthorize("@ss.hasPermi('system:user:resetPwd')")
-    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @OperLog(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/resetPwd")
     public AjaxResult resetPwd(@RequestBody SysUser user) {
         userService.checkUserAllowed(user);
@@ -194,7 +194,7 @@ public class SysUserProController extends BaseProController {
      * 状态修改
      */
     // @PreAuthorize("@ss.hasPermi('system:user:edit')")
-    @Log(title = "用户管理", businessType = BusinessType.UPDATE)
+    @OperLog(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysUser user) {
         userService.checkUserAllowed(user);
@@ -220,7 +220,7 @@ public class SysUserProController extends BaseProController {
      * 用户授权角色
      */
     // @PreAuthorize("@ss.hasPermi('system:user:edit')")
-    @Log(title = "用户管理", businessType = BusinessType.GRANT)
+    @OperLog(title = "用户管理", businessType = BusinessType.GRANT)
     @PutMapping("/authRole")
     public AjaxResult insertAuthRole(Long userId, Long[] roleIds) {
         userService.insertUserAuth(userId, roleIds);

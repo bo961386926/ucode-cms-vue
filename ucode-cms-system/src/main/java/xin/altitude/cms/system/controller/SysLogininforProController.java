@@ -32,9 +32,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysLogininfor;
 import xin.altitude.cms.system.service.ISysLogininforService;
 
@@ -61,7 +61,7 @@ public class SysLogininforProController extends BaseProController {
         return AjaxResult.success(logininforService.page(page, Wrappers.lambdaQuery(logininfor)));
     }
 
-    @Log(title = "登录日志", businessType = BusinessType.EXPORT)
+    @OperLog(title = "登录日志", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('monitor:logininfor:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysLogininfor logininfor) {
@@ -71,14 +71,14 @@ public class SysLogininforProController extends BaseProController {
     }
 
     // @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
-    @Log(title = "登录日志", businessType = BusinessType.DELETE)
+    @OperLog(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
     public AjaxResult remove(@PathVariable Long[] infoIds) {
         return toAjax(logininforService.deleteLogininforByIds(infoIds));
     }
 
     // @PreAuthorize("@ss.hasPermi('monitor:logininfor:remove')")
-    @Log(title = "登录日志", businessType = BusinessType.CLEAN)
+    @OperLog(title = "登录日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
     public AjaxResult clean() {
         logininforService.cleanLogininfor();

@@ -16,29 +16,30 @@
  *
  */
 
-package xin.altitude.cms.auth.aspectj;
+package xin.altitude.cms.log.aspectj;
 
-import com.alibaba.fastjson.JSON;
+import cn.hutool.core.util.IdUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Import;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerMapping;
-import xin.altitude.cms.auth.manager.AsyncManager;
-import xin.altitude.cms.auth.manager.factory.AsyncFactory;
-import xin.altitude.cms.auth.model.LoginUser;
-import xin.altitude.cms.auth.util.SecurityUtils;
+import xin.altitude.cms.common.util.IpUtils;
+import xin.altitude.cms.common.util.RedisUtils;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.framework.annotation.Log;
-import xin.altitude.cms.framework.constant.enums.BusinessStatus;
-import xin.altitude.cms.framework.constant.enums.HttpMethod;
-import xin.altitude.cms.framework.util.ip.IpUtils;
-import xin.altitude.cms.system.domain.SysOperLog;
+import xin.altitude.cms.log.annotation.OperLog;
+import xin.altitude.cms.log.config.RedisSubMessageConfig;
+import xin.altitude.cms.log.domain.OperateLog;
+import xin.altitude.cms.log.enums.BusinessStatus;
+import xin.altitude.cms.log.enums.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -51,18 +52,22 @@ import java.util.Map;
  * @author ucode
  */
 @Aspect
-// @Component
+@Import({RedisSubMessageConfig.class})
 public class LogAspect {
+    public final static String CHANNEL_NAME = "REDIS_OPER_LOG";
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     /**
      * 处理完请求后执行
      *
      * @param joinPoint 切点
      */
-    @AfterReturning(pointcut = "@annotation(controllerLog)", returning = "jsonResult")
-    public void doAfterReturning(JoinPoint joinPoint, Log controllerLog, Object jsonResult) {
-        handleLog(joinPoint, controllerLog, null, jsonResult);
+    @AfterReturning(pointcut = "@annotation(controllerOperLog)", returning = "jsonResult")
+    public void doAfterReturning(JoinPoint joinPoint, OperLog controllerOperLog, Object jsonResult) {
+        handleLog(joinPoint, controllerOperLog, null, jsonResult);
     }
 
     /**
@@ -71,27 +76,20 @@ public class LogAspect {
      * @param joinPoint 切点
      * @param e         异常
      */
-    @AfterThrowing(value = "@annotation(controllerLog)", throwing = "e")
-    public void doAfterThrowing(JoinPoint joinPoint, Log controllerLog, Exception e) {
-        handleLog(joinPoint, controllerLog, e, null);
+    @AfterThrowing(value = "@annotation(controllerOperLog)", throwing = "e")
+    public void doAfterThrowing(JoinPoint joinPoint, OperLog controllerOperLog, Exception e) {
+        handleLog(joinPoint, controllerOperLog, e, null);
     }
 
-    protected void handleLog(final JoinPoint joinPoint, Log controllerLog, final Exception e, Object jsonResult) {
+    protected void handleLog(final JoinPoint joinPoint, OperLog controllerOperLog, final Exception e, Object jsonResult) {
         try {
-
-            // 获取当前的用户
-            LoginUser loginUser = SecurityUtils.getLoginUser();
-
-            // *========数据库日志=========*//
-            SysOperLog operLog = new SysOperLog();
+            OperateLog operLog = new OperateLog();
+            operLog.setOperId(IdUtil.getSnowflake(1).nextId());
             operLog.setStatus(BusinessStatus.SUCCESS.ordinal());
             // 请求的地址
             String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
             operLog.setOperIp(ip);
             operLog.setOperUrl(ServletUtils.getRequest().getRequestURI());
-            if (loginUser != null) {
-                operLog.setOperName(loginUser.getUsername());
-            }
 
             if (e != null) {
                 operLog.setStatus(BusinessStatus.FAIL.ordinal());
@@ -104,9 +102,10 @@ public class LogAspect {
             // 设置请求方式
             operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
             // 处理设置注解上的参数
-            getControllerMethodDescription(joinPoint, controllerLog, operLog, jsonResult);
+            getControllerMethodDescription(joinPoint, controllerOperLog, operLog, jsonResult);
             // 保存数据库
-            AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
+            RedisUtils.publishMsg(CHANNEL_NAME, operLog);
+            // AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
         } catch (Exception exp) {
             // 记录本地异常日志
             log.error("==前置通知异常==");
@@ -118,42 +117,42 @@ public class LogAspect {
     /**
      * 获取注解中对方法的描述信息 用于Controller层注解
      *
-     * @param log     日志
-     * @param operLog 操作日志
+     * @param log        日志
+     * @param operateLog 操作日志
      * @throws Exception
      */
-    public void getControllerMethodDescription(JoinPoint joinPoint, Log log, SysOperLog operLog, Object jsonResult) throws Exception {
+    public void getControllerMethodDescription(JoinPoint joinPoint, OperLog log, OperateLog operateLog, Object jsonResult) throws Exception {
         // 设置action动作
-        operLog.setBusinessType(log.businessType().ordinal());
+        operateLog.setBusinessType(log.businessType().ordinal());
         // 设置标题
-        operLog.setTitle(log.title());
+        operateLog.setTitle(log.title());
         // 设置操作人类别
-        operLog.setOperatorType(log.operatorType().ordinal());
+        // operLog.setOperatorType(log.operatorType().ordinal());
         // 是否需要保存request，参数和值
-        if (log.isSaveRequestData()) {
+        if (log.saveRequest()) {
             // 获取参数的信息，传入到数据库中。
-            setRequestValue(joinPoint, operLog);
+            setRequestValue(joinPoint, operateLog);
         }
         // 是否需要保存response，参数和值
-        if (log.isSaveResponseData() && StringUtil.isNotNull(jsonResult)) {
-            operLog.setJsonResult(StringUtil.substring(JSON.toJSONString(jsonResult), 0, 2000));
+        if (log.saveResponse() && StringUtil.isNotNull(jsonResult)) {
+            // operLog.setJsonResult(StringUtil.substring(JSON.toJSONString(jsonResult), 0, 2000));
+            operateLog.setJsonResult(StringUtil.substring(objectMapper.writeValueAsString(jsonResult), 0, 2000));
         }
     }
 
     /**
      * 获取请求的参数，放到log中
      *
-     * @param operLog 操作日志
-     * @throws Exception 异常
+     * @param operateLog 操作日志
      */
-    private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog) throws Exception {
-        String requestMethod = operLog.getRequestMethod();
+    private void setRequestValue(JoinPoint joinPoint, OperateLog operateLog) {
+        String requestMethod = operateLog.getRequestMethod();
         if (HttpMethod.PUT.name().equals(requestMethod) || HttpMethod.POST.name().equals(requestMethod)) {
             String params = argsArrayToString(joinPoint.getArgs());
-            operLog.setOperParam(StringUtil.substring(params, 0, 2000));
+            operateLog.setOperParam(StringUtil.substring(params, 0, 2000));
         } else {
             Map<?, ?> paramsMap = (Map<?, ?>) ServletUtils.getRequest().getAttribute(HandlerMapping.URI_TEMPLATE_VARIABLES_ATTRIBUTE);
-            operLog.setOperParam(StringUtil.substring(paramsMap.toString(), 0, 2000));
+            operateLog.setOperParam(StringUtil.substring(paramsMap.toString(), 0, 2000));
         }
     }
 
@@ -166,8 +165,10 @@ public class LogAspect {
             for (Object o : paramsArray) {
                 if (StringUtil.isNotNull(o) && !isFilterObject(o)) {
                     try {
-                        Object jsonObj = JSON.toJSON(o);
-                        params.append(jsonObj.toString()).append(" ");
+                        // Object jsonObj = JSON.toJSON(o);
+                        // Object jsonObj = objectMapper.readValue();
+                        // params.append(jsonObj.toString()).append(" ");
+                        params.append(objectMapper.writeValueAsString(o)).append(" ");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

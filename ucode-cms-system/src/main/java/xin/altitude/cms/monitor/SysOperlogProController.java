@@ -30,9 +30,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysOperLog;
 import xin.altitude.cms.system.service.ISysOperLogService;
 
@@ -59,7 +59,7 @@ public class SysOperlogProController extends BaseProController {
         return AjaxResult.success(operLogService.page(page, Wrappers.lambdaQuery(operLog)));
     }
 
-    @Log(title = "操作日志", businessType = BusinessType.EXPORT)
+    @OperLog(title = "操作日志", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('monitor:operlog:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysOperLog operLog) {
@@ -68,14 +68,14 @@ public class SysOperlogProController extends BaseProController {
         util.exportExcel(response, list, "操作日志");
     }
 
-    @Log(title = "操作日志", businessType = BusinessType.DELETE)
+    @OperLog(title = "操作日志", businessType = BusinessType.DELETE)
     // @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/{operIds}")
     public AjaxResult remove(@PathVariable Long[] operIds) {
         return toAjax(operLogService.deleteOperLogByIds(operIds));
     }
 
-    @Log(title = "操作日志", businessType = BusinessType.CLEAN)
+    @OperLog(title = "操作日志", businessType = BusinessType.CLEAN)
     // @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
     @DeleteMapping("/clean")
     public AjaxResult clean() {

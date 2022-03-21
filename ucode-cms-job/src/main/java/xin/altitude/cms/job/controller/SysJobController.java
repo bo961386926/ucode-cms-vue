@@ -37,9 +37,9 @@ import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.job.config.ScheduleConfig;
 import xin.altitude.cms.job.domain.SysJob;
 import xin.altitude.cms.job.exception.TaskException;
@@ -75,7 +75,7 @@ public class SysJobController {
     /**
      * 导出定时任务列表
      */
-    @Log(title = "定时任务", businessType = BusinessType.EXPORT)
+    @OperLog(title = "定时任务", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public AjaxResult export(SysJob sysJob) {
         List<SysJob> list = jobService.selectJobList(sysJob);
@@ -94,7 +94,7 @@ public class SysJobController {
     /**
      * 新增定时任务
      */
-    @Log(title = "定时任务", businessType = BusinessType.INSERT)
+    @OperLog(title = "定时任务", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody SysJob job) throws SchedulerException, TaskException {
         if (!CronUtils.isValid(job.getCronExpression())) {
@@ -113,7 +113,7 @@ public class SysJobController {
     /**
      * 修改定时任务
      */
-    @Log(title = "定时任务", businessType = BusinessType.UPDATE)
+    @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody SysJob job) throws SchedulerException, TaskException {
         if (!CronUtils.isValid(job.getCronExpression())) {
@@ -132,7 +132,7 @@ public class SysJobController {
     /**
      * 定时任务状态修改
      */
-    @Log(title = "定时任务", businessType = BusinessType.UPDATE)
+    @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysJob job) throws SchedulerException {
         SysJob newJob = new SysJob();
@@ -144,7 +144,7 @@ public class SysJobController {
     /**
      * 定时任务立即执行一次
      */
-    @Log(title = "定时任务", businessType = BusinessType.UPDATE)
+    @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping("/run")
     public AjaxResult run(@RequestBody SysJob job) throws SchedulerException {
         jobService.run(job);
@@ -154,7 +154,7 @@ public class SysJobController {
     /**
      * 删除定时任务
      */
-    @Log(title = "定时任务", businessType = BusinessType.DELETE)
+    @OperLog(title = "定时任务", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobIds}")
     public AjaxResult remove(@PathVariable Long[] jobIds) throws SchedulerException {
         jobService.deleteJobByIds(jobIds);

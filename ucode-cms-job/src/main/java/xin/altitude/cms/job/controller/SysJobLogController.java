@@ -30,9 +30,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.job.domain.SysJobLog;
 import xin.altitude.cms.job.service.ISysJobLogService;
 import xin.altitude.cms.job.service.impl.SysJobLogServiceImpl;
@@ -66,7 +66,7 @@ public class SysJobLogController {
     /**
      * 导出定时任务调度日志列表
      */
-    @Log(title = "任务调度日志", businessType = BusinessType.EXPORT)
+    @OperLog(title = "任务调度日志", businessType = BusinessType.EXPORT)
     @GetMapping("/export")
     public AjaxResult export(SysJobLog sysJobLog) {
         List<SysJobLog> list = jobLogService.selectJobLogList(sysJobLog);
@@ -86,7 +86,7 @@ public class SysJobLogController {
     /**
      * 删除定时任务调度日志
      */
-    @Log(title = "定时任务调度日志", businessType = BusinessType.DELETE)
+    @OperLog(title = "定时任务调度日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobLogIds}")
     public AjaxResult remove(@PathVariable Long[] jobLogIds) {
         return AjaxResult.success(jobLogService.deleteJobLogByIds(jobLogIds));
@@ -95,7 +95,7 @@ public class SysJobLogController {
     /**
      * 清空定时任务调度日志
      */
-    @Log(title = "调度日志", businessType = BusinessType.CLEAN)
+    @OperLog(title = "调度日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
     public AjaxResult clean() {
         jobLogService.cleanJobLog();

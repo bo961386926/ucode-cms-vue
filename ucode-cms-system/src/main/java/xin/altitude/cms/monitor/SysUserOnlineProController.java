@@ -29,9 +29,9 @@ import xin.altitude.cms.auth.model.LoginUser;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.framework.core.redis.RedisCache;
 import xin.altitude.cms.system.domain.SysUserOnline;
@@ -88,7 +88,7 @@ public class SysUserOnlineProController extends BaseProController {
      * 强退用户
      */
     // @PreAuthorize("@ss.hasPermi('monitor:online:forceLogout')")
-    @Log(title = "在线用户", businessType = BusinessType.FORCE)
+    @OperLog(title = "在线用户", businessType = BusinessType.FORCE)
     @DeleteMapping("/{tokenId}")
     public AjaxResult forceLogout(@PathVariable String tokenId) {
         redisCache.deleteObject(Constants.LOGIN_TOKEN_KEY + tokenId);

@@ -34,9 +34,9 @@ import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.framework.core.domain.SysDictData;
 import xin.altitude.cms.system.service.ISysDictDataService;
 import xin.altitude.cms.system.service.ISysDictTypeService;
@@ -68,7 +68,7 @@ public class SysDictDataProController extends BaseProController {
         return AjaxResult.success(dictDataService.page(page, Wrappers.lambdaQuery(dictData)));
     }
 
-    @Log(title = "字典数据", businessType = BusinessType.EXPORT)
+    @OperLog(title = "字典数据", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:dict:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysDictData dictData) {
@@ -102,7 +102,7 @@ public class SysDictDataProController extends BaseProController {
      * 新增字典类型
      */
     // @PreAuthorize("@ss.hasPermi('system:dict:add')")
-    @Log(title = "字典数据", businessType = BusinessType.INSERT)
+    @OperLog(title = "字典数据", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysDictData dict) {
         dict.setCreateBy(getUsername());
@@ -113,7 +113,7 @@ public class SysDictDataProController extends BaseProController {
      * 修改保存字典类型
      */
     // @PreAuthorize("@ss.hasPermi('system:dict:edit')")
-    @Log(title = "字典数据", businessType = BusinessType.UPDATE)
+    @OperLog(title = "字典数据", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysDictData dict) {
         dict.setUpdateBy(getUsername());
@@ -124,7 +124,7 @@ public class SysDictDataProController extends BaseProController {
      * 删除字典类型
      */
     // @PreAuthorize("@ss.hasPermi('system:dict:remove')")
-    @Log(title = "字典类型", businessType = BusinessType.DELETE)
+    @OperLog(title = "字典类型", businessType = BusinessType.DELETE)
     @DeleteMapping("/{dictCodes}")
     public AjaxResult remove(@PathVariable Long[] dictCodes) {
         dictDataService.deleteDictDataByIds(dictCodes);

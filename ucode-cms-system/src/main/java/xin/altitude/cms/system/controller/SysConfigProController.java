@@ -33,11 +33,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.framework.annotation.Log;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
+import xin.altitude.cms.log.annotation.OperLog;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysConfig;
 import xin.altitude.cms.system.service.ISysConfigService;
 
@@ -73,7 +73,7 @@ public class SysConfigProController extends BaseProController {
         return getDataTable(list);
     }
 
-    @Log(title = "参数管理", businessType = BusinessType.EXPORT)
+    @OperLog(title = "参数管理", businessType = BusinessType.EXPORT)
     // @PreAuthorize("@ss.hasPermi('system:config:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysConfig config) {
@@ -103,7 +103,7 @@ public class SysConfigProController extends BaseProController {
      * 新增参数配置
      */
     // @PreAuthorize("@ss.hasPermi('system:config:add')")
-    @Log(title = "参数管理", businessType = BusinessType.INSERT)
+    @OperLog(title = "参数管理", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysConfig config) {
         if (UserConstants.NOT_UNIQUE.equals(configService.checkConfigKeyUnique(config))) {
@@ -117,7 +117,7 @@ public class SysConfigProController extends BaseProController {
      * 修改参数配置
      */
     // @PreAuthorize("@ss.hasPermi('system:config:edit')")
-    @Log(title = "参数管理", businessType = BusinessType.UPDATE)
+    @OperLog(title = "参数管理", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysConfig config) {
         if (UserConstants.NOT_UNIQUE.equals(configService.checkConfigKeyUnique(config))) {
@@ -131,7 +131,7 @@ public class SysConfigProController extends BaseProController {
      * 删除参数配置
      */
     // @PreAuthorize("@ss.hasPermi('system:config:remove')")
-    @Log(title = "参数管理", businessType = BusinessType.DELETE)
+    @OperLog(title = "参数管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{configIds}")
     public AjaxResult remove(@PathVariable Long[] configIds) {
         configService.deleteConfigByIds(configIds);
@@ -142,7 +142,7 @@ public class SysConfigProController extends BaseProController {
      * 刷新参数缓存
      */
     // @PreAuthorize("@ss.hasPermi('system:config:remove')")
-    @Log(title = "参数管理", businessType = BusinessType.CLEAN)
+    @OperLog(title = "参数管理", businessType = BusinessType.CLEAN)
     @DeleteMapping("/refreshCache")
     public AjaxResult refreshCache() {
         configService.resetConfigCache();

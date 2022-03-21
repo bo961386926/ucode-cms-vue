@@ -232,47 +232,31 @@ public class RedisUtils {
 
     /**
      * 缓存基本的对象，Integer、String、实体类等
+     * 如果value是String类型，直接直接保存
+     * 如果不是，则转化序列化承JSON后保存
      *
      * @param key   缓存的键值
      * @param value 缓存的值
      */
     public static void setObject(final String key, final Object value) {
         if (value instanceof String) {
-            setObject(key, (String) value);
+            OPS_FOR_VALUE.set(key, (String) value);
         } else {
             try {
                 /* 现将对象格式化为JSON字符串，然后保存 */
                 String json = SpringUtils.getBean(ObjectMapper.class).writeValueAsString(value);
-                Optional.ofNullable(json).ifPresent(e -> setObject(key, e));
+                Optional.ofNullable(json).ifPresent(e -> OPS_FOR_VALUE.set(key, e));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    /**
-     * 缓存基本的对象，Integer、String、实体类等
-     *
-     * @param key   缓存的键值
-     * @param value 缓存的值
-     */
-    public static void setObject(final String key, final String value) {
-        OPS_FOR_VALUE.set(key, value);
-    }
 
     /**
      * 缓存基本的对象，Integer、String、实体类等
-     *
-     * @param key   缓存的键值
-     * @param value 缓存的值
-     * @return 如果保存成功，则返回true
-     */
-    public static Boolean setObjectIfAbsent(final String key, final String value) {
-        return OPS_FOR_VALUE.setIfAbsent(key, value);
-    }
-
-    /**
-     * 缓存基本的对象，Integer、String、实体类等
+     * 如果value是String类型，直接直接保存
+     * 如果不是，则转化序列化承JSON后保存
      *
      * @param key      缓存的键值
      * @param value    缓存的值
@@ -281,32 +265,47 @@ public class RedisUtils {
      */
     public static void setObject(final String key, final Object value, final Integer timeout, final TimeUnit timeUnit) {
         if (value instanceof String) {
-            setObject(key, (String) value, timeout, timeUnit);
+            OPS_FOR_VALUE.set(key, (String) value, timeout, timeUnit);
         } else {
             try {
                 /* 现将对象格式化为JSON字符串，然后保存 */
                 String json = SpringUtils.getBean(ObjectMapper.class).writeValueAsString(value);
-                Optional.ofNullable(json).ifPresent(e -> setObject(key, e, timeout, timeUnit));
+                Optional.ofNullable(json).ifPresent(e -> OPS_FOR_VALUE.set(key, e, timeout, timeUnit));
             } catch (JsonProcessingException e) {
                 e.printStackTrace();
             }
         }
     }
 
+
     /**
      * 缓存基本的对象，Integer、String、实体类等
+     * 如果value是String类型，直接直接保存
+     * 如果不是，则转化序列化承JSON后保存
      *
-     * @param key      缓存的键值
-     * @param value    缓存的值
-     * @param timeout  时间
-     * @param timeUnit 时间颗粒度
+     * @param key   缓存的键值
+     * @param value 缓存的值
+     * @return 如果保存成功，则返回true
      */
-    public static void setObject(final String key, final String value, final Integer timeout, final TimeUnit timeUnit) {
-        OPS_FOR_VALUE.set(key, value, timeout, timeUnit);
+    public static Boolean setObjectIfAbsent(final String key, final Object value) {
+        if (value instanceof String) {
+            return OPS_FOR_VALUE.setIfAbsent(key, (String) value);
+        } else {
+            try {
+                /* 现将对象格式化为JSON字符串，然后保存 */
+                String json = SpringUtils.getBean(ObjectMapper.class).writeValueAsString(value);
+                return Optional.ofNullable(json).map(e -> OPS_FOR_VALUE.setIfAbsent(key, e)).orElse(false);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     /**
      * 缓存基本的对象，Integer、String、实体类等
+     * 如果value是String类型，直接直接保存
+     * 如果不是，则转化序列化承JSON后保存
      *
      * @param key      缓存的键值
      * @param value    缓存的值
@@ -314,8 +313,19 @@ public class RedisUtils {
      * @param timeUnit 时间颗粒度
      * @return 如果保存成功，则返回true
      */
-    public static Boolean setObjectIfAbsent(final String key, final String value, final Integer timeout, final TimeUnit timeUnit) {
-        return OPS_FOR_VALUE.setIfAbsent(key, value, timeout, timeUnit);
+    public static Boolean setObjectIfAbsent(final String key, final Object value, final Integer timeout, final TimeUnit timeUnit) {
+        if (value instanceof String) {
+            return OPS_FOR_VALUE.setIfAbsent(key, (String) value, timeout, timeUnit);
+        } else {
+            try {
+                /* 现将对象格式化为JSON字符串，然后保存 */
+                String json = SpringUtils.getBean(ObjectMapper.class).writeValueAsString(value);
+                return Optional.ofNullable(json).map(e -> OPS_FOR_VALUE.setIfAbsent(key, e, timeout, timeUnit)).orElse(false);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
     /**
@@ -371,11 +381,11 @@ public class RedisUtils {
     /**
      * 删除集合对象
      *
-     * @param collection 多个对象
+     * @param keys 多个Key
      * @return
      */
-    public static Long deleteObject(final Collection collection) {
-        return STRING_REDIS_TEMPLATE.delete(collection);
+    public static Long deleteObject(final Collection<String> keys) {
+        return STRING_REDIS_TEMPLATE.delete(keys);
     }
 
     /**
@@ -457,7 +467,7 @@ public class RedisUtils {
      * @param hkey
      */
     public static void delCacheMapValue(final String key, final String hkey) {
-        HashOperations hashOperations = STRING_REDIS_TEMPLATE.opsForHash();
+        HashOperations<String,String,Object> hashOperations = STRING_REDIS_TEMPLATE.opsForHash();
         hashOperations.delete(key, hkey);
     }
 
@@ -469,5 +479,30 @@ public class RedisUtils {
      */
     public static Collection<String> keys(final String pattern) {
         return STRING_REDIS_TEMPLATE.keys(pattern);
+    }
+
+    //***** 发布消息
+
+    /**
+     * 向channel发布消息
+     * 如果消息是String类型，直接发送消息；
+     * 如果不是，则转化序列化承JSON后发送消息
+     *
+     * @param channelName channel名称
+     * @param msg         消息
+     * @since 1.4.5
+     */
+    public static void publishMsg(final String channelName, Object msg) {
+        if (msg instanceof String) {
+            STRING_REDIS_TEMPLATE.convertAndSend(channelName, msg);
+        } else {
+            try {
+                /* 现将对象格式化为JSON字符串，然后保存 */
+                String json = SpringUtils.getBean(ObjectMapper.class).writeValueAsString(msg);
+                Optional.ofNullable(json).ifPresent(e -> STRING_REDIS_TEMPLATE.convertAndSend(channelName, e));
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

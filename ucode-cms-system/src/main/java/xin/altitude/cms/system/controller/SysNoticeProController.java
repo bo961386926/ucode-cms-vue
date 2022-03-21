@@ -32,9 +32,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.entity.AjaxResult;
-import xin.altitude.cms.framework.annotation.Log;
+import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.framework.constant.enums.BusinessType;
+import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysNotice;
 import xin.altitude.cms.system.service.ISysNoticeService;
 
@@ -76,7 +76,7 @@ public class SysNoticeProController extends BaseProController {
      * 新增通知公告
      */
     // @PreAuthorize("@ss.hasPermi('system:notice:add')")
-    @Log(title = "通知公告", businessType = BusinessType.INSERT)
+    @OperLog(title = "通知公告", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysNotice notice) {
         notice.setCreateBy(getUsername());
@@ -87,7 +87,7 @@ public class SysNoticeProController extends BaseProController {
      * 修改通知公告
      */
     // @PreAuthorize("@ss.hasPermi('system:notice:edit')")
-    @Log(title = "通知公告", businessType = BusinessType.UPDATE)
+    @OperLog(title = "通知公告", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysNotice notice) {
         notice.setUpdateBy(getUsername());
@@ -98,7 +98,7 @@ public class SysNoticeProController extends BaseProController {
      * 删除通知公告
      */
     // @PreAuthorize("@ss.hasPermi('system:notice:remove')")
-    @Log(title = "通知公告", businessType = BusinessType.DELETE)
+    @OperLog(title = "通知公告", businessType = BusinessType.DELETE)
     @DeleteMapping("/{noticeIds}")
     public AjaxResult remove(@PathVariable Long[] noticeIds) {
         return toAjax(noticeService.deleteNoticeByIds(noticeIds));

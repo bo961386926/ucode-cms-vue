@@ -16,21 +16,25 @@
  *
  */
 
-package xin.altitude.cms.framework.constant.enums;
+package xin.altitude.cms.db.datasource.constant;
 
 /**
- * 数据源
+ * 数据源名称常量名称
  *
- * @author ucode
- */
-public enum DataSourceType {
+ * @author explore
+ * @since 2019/12/23 16:30
+ **/
+public interface DataSourceName {
     /**
-     * 主库
+     * 主数据源名称
      */
-    MASTER,
-
+    String MASTER_DATA_SOURCE = "masterDataSource";
     /**
-     * 从库
+     * 从数据源名称
      */
-    SLAVE
+    String SLAVE_DATA_SOURCE = "slaveDataSource";
+    /**
+     * 动态数据源名称
+     */
+    String DYNAMIC_DATA_SOURCE = "dynamicDataSource";
 }

@@ -29,8 +29,8 @@ import org.springframework.context.annotation.Bean;
 import xin.altitude.cms.code.constant.CodeConstant;
 import xin.altitude.cms.code.mapper.MetaTableMapper;
 import xin.altitude.cms.common.util.SpringUtils;
+import xin.altitude.cms.db.datasource.constant.DataSourceName;
 import xin.altitude.cms.framework.config.AbstractMyBatisConfig;
-import xin.altitude.cms.framework.constant.DataSourceName;
 
 
 /**

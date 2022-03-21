@@ -20,10 +20,8 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.system.controller.SysPostProController,\
     xin.altitude.cms.system.controller.SysRoleProController,\
     xin.altitude.cms.system.controller.SysUserProController,\
-    xin.altitude.cms.framework.config.properties.DruidProperties,\
     xin.altitude.cms.framework.config.CaptchaConfig,\
     xin.altitude.cms.framework.config.CmsConfig,\
-    xin.altitude.cms.framework.config.DruidConfig,\
     xin.altitude.cms.framework.config.FilterConfig,\
     xin.altitude.cms.framework.config.ServerConfig,\
     xin.altitude.cms.framework.config.SpringCaffeineConfig,\
@@ -35,7 +33,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.framework.config.JacksonSerializerConfig,\
     xin.altitude.cms.common.util.SpringUtils,\
     xin.altitude.cms.auth.aspectj.DataScopeAspect,\
-    xin.altitude.cms.auth.aspectj.DataSourceAspect,\
     xin.altitude.cms.auth.manager.ShutdownManager,\
     xin.altitude.cms.auth.security.filter.JwtAuthenticationTokenFilter,\
     xin.altitude.cms.auth.security.handle.AuthenticationEntryPointImpl,\

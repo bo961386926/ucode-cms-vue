@@ -16,24 +16,23 @@
  *
  */
 
-package xin.altitude.cms.framework.config;
+package xin.altitude.cms.db.datasource.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import com.alibaba.druid.util.Utils;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Primary;
 import xin.altitude.cms.common.util.SpringUtils;
-import xin.altitude.cms.framework.config.properties.DruidProperties;
-import xin.altitude.cms.framework.constant.DataSourceName;
-import xin.altitude.cms.framework.constant.enums.DataSourceType;
-import xin.altitude.cms.framework.core.datasource.DynamicDataSource;
+import xin.altitude.cms.db.datasource.constant.DataSourceName;
+import xin.altitude.cms.db.datasource.core.DynamicDataSource;
+import xin.altitude.cms.db.datasource.enums.DataSourceType;
+import xin.altitude.cms.db.datasource.properties.DruidProperties;
 
 import javax.servlet.Filter;
 import javax.sql.DataSource;
@@ -45,8 +44,7 @@ import java.util.Map;
  *
  * @author ucode
  */
-// @Configuration
-// @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
+@Import({DruidProperties.class})
 public class DruidConfig {
 
     /**

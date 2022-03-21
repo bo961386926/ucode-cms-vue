@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.framework.config.properties;
+package xin.altitude.cms.db.datasource.properties;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -27,7 +27,6 @@ import xin.altitude.cms.common.util.BeanCopyUtils;
  *
  * @author ucode
  */
-// @Configuration
 @ConfigurationProperties("spring.datasource.druid")
 public class DruidProperties {
     private Integer initialSize;

@@ -28,11 +28,8 @@ import xin.altitude.cms.common.util.SpringUtils;
  *
  * @author ucode
  */
-// @Configuration
 public class ResourcesConfig implements WebMvcConfigurer {
     private final CmsConfig cmsConfig = SpringUtils.getBean(CmsConfig.class);
-    // @Autowired
-    // private RepeatSubmitInterceptor repeatSubmitInterceptor;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -47,13 +44,4 @@ public class ResourcesConfig implements WebMvcConfigurer {
         /* cms-ui配置 */
         registry.addResourceHandler("/cms-web/**").addResourceLocations("classpath:/META-INF/resources/");
     }
-
-    // /**
-    //  * 自定义拦截规则
-    //  */
-    // @Override
-    // public void addInterceptors(InterceptorRegistry registry) {
-    //     /* 添加全局防重复提交拦截器 */
-    //     registry.addInterceptor(repeatSubmitInterceptor).addPathPatterns("/**");
-    // }
 }

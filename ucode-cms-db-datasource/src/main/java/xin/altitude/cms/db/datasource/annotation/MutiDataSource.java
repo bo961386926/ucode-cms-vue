@@ -16,9 +16,10 @@
  *
  */
 
-package xin.altitude.cms.framework.annotation;
+package xin.altitude.cms.db.datasource.annotation;
 
-import xin.altitude.cms.framework.constant.enums.DataSourceType;
+
+import xin.altitude.cms.db.datasource.enums.DataSourceType;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
@@ -38,7 +39,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface DataSource {
+public @interface MutiDataSource {
     /**
      * 切换数据源名称
      */

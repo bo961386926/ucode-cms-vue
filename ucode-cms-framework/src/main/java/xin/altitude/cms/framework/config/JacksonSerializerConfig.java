@@ -25,17 +25,17 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.springframework.boot.autoconfigure.jackson.Jackson2ObjectMapperBuilderCustomizer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * 用于格式化LocalDate、LocalDateTime、Long三种类型
+ *
  * @author explore
  * @since 2019/05/28 23:51
  **/
-// @Configuration
 public class JacksonSerializerConfig {
     private static final String PATTERN = "yyyy-MM-dd HH:mm:ss";
 

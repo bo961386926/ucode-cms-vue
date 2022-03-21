@@ -21,6 +21,7 @@ package xin.altitude.cms.repeat.filter;
 
 import xin.altitude.cms.repeat.util.HttpHelper;
 
+import javax.servlet.ReadListener;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
@@ -56,6 +57,21 @@ public class RepeateRequestWrapper extends HttpServletRequestWrapper {
     public ServletInputStream getInputStream() {
         final ByteArrayInputStream bais = new ByteArrayInputStream(body);
         return new ServletInputStream() {
+            @Override
+            public boolean isFinished() {
+                return false;
+            }
+
+            @Override
+            public boolean isReady() {
+                return false;
+            }
+
+            @Override
+            public void setReadListener(ReadListener readListener) {
+
+            }
+
             @Override
             public int read() {
                 return bais.read();

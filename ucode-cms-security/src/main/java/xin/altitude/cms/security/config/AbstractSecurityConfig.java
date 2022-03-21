@@ -19,7 +19,6 @@
 package xin.altitude.cms.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,7 +26,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import xin.altitude.cms.common.util.SpringUtils;
@@ -35,6 +33,7 @@ import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.security.filter.JwtAuthenticationTokenFilter;
 import xin.altitude.cms.security.handle.AuthenticationEntryPointImpl;
 import xin.altitude.cms.security.handle.LogoutSuccessHandlerImpl;
+import xin.altitude.cms.security.service.IUserDetailsService;
 
 import javax.annotation.Resource;
 
@@ -59,7 +58,7 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
      * 用户服务类
      */
     @Resource
-    protected UserDetailsService userDetailsServiceImpl;
+    protected IUserDetailsService userDetailsService;
     /**
      * 认证失败处理类
      */
@@ -140,6 +139,6 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
      */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsServiceImpl).passwordEncoder(bCryptPasswordEncoder);
+        auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 }

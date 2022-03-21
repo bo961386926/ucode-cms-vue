@@ -38,7 +38,6 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.auth.web.service.SysLoginService,\
     xin.altitude.cms.auth.web.service.SysPermissionService,\
     xin.altitude.cms.auth.web.service.SysRegisterService,\
-    xin.altitude.cms.auth.web.service.UserDetailsServiceImpl,\
     xin.altitude.cms.system.service.impl.SysConfigServiceImpl,\
     xin.altitude.cms.system.service.impl.SysDeptServiceImpl,\
     xin.altitude.cms.system.service.impl.SysDictDataServiceImpl,\
@@ -54,4 +53,5 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.system.service.impl.SysUserOnlineServiceImpl,\
     xin.altitude.cms.system.service.impl.SysUserPostServiceServiceImpl,\
     xin.altitude.cms.system.service.impl.SysUserRoleServiceImpl,\
-    xin.altitude.cms.system.service.impl.SysUserServiceImpl
+    xin.altitude.cms.system.service.impl.SysUserServiceImpl,\
+    xin.altitude.cms.framework.config.DefaultSwaggerConfig

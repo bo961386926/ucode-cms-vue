@@ -18,9 +18,10 @@
 
 package xin.altitude.cms.log.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 操作日志记录表 oper_log
@@ -103,7 +104,8 @@ public class OperateLog {
     /**
      * 操作时间
      */
-    private Date operTime;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime operTime;
     /**
      * 请求参数
      */

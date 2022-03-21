@@ -43,6 +43,7 @@ import xin.altitude.cms.log.enums.HttpMethod;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.Map;
 
@@ -90,6 +91,7 @@ public class LogAspect {
             String ip = IpUtils.getIpAddr(ServletUtils.getRequest());
             operLog.setOperIp(ip);
             operLog.setOperUrl(ServletUtils.getRequest().getRequestURI());
+            operLog.setOperTime(LocalDateTime.now());
 
             if (e != null) {
                 operLog.setStatus(BusinessStatus.FAIL.ordinal());
@@ -105,7 +107,6 @@ public class LogAspect {
             getControllerMethodDescription(joinPoint, controllerOperLog, operLog, jsonResult);
             // 保存数据库
             RedisUtils.publishMsg(CHANNEL_NAME, operLog);
-            // AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
         } catch (Exception exp) {
             // 记录本地异常日志
             log.error("==前置通知异常==");

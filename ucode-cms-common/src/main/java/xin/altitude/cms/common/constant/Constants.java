@@ -171,4 +171,10 @@ public class Constants {
      */
     public static final String[] JOB_ERROR_STR = {"java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
             "org.springframework.jndi"};
+
+
+    /**
+     * LDAP 远程方法调用
+     */
+    public static final String BITMAP_KEY = "redis_bitmap_key";
 }

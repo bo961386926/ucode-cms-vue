@@ -22,6 +22,7 @@ package xin.altitude.cms.common.util;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
@@ -116,6 +117,23 @@ public class EntityUtils {
             return source.stream().map(action).collect(Collectors.toList());
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * 将Array数组以一种类型转换成另一种类型
+     *
+     * @param <T>    源数据类型
+     * @param <R>    变换后数据类型
+     * @param source 源Array数组
+     * @param action 映射Lmabda表达式
+     * @return 变换后的类型集合，如果source为null,则返回空集合
+     */
+    public static <T, R> Object[] toArray(final T[] source, final Function<? super T, ? extends R> action) {
+        Objects.requireNonNull(action);
+        if (Objects.nonNull(source)) {
+            return Arrays.stream(source).map(action).toArray();
+        }
+        return new ArrayList<>().toArray();
     }
 
     // /**

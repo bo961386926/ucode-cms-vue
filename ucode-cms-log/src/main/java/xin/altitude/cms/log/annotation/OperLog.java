@@ -38,20 +38,20 @@ public @interface OperLog {
     /**
      * 模块
      */
-    public String title() default "";
+    String title() default "";
 
     /**
      * 功能
      */
-    public BusinessType businessType() default BusinessType.OTHER;
+    BusinessType businessType() default BusinessType.OTHER;
 
     /**
      * 是否保存请求的参数
      */
-    public boolean saveRequest() default true;
+    boolean saveRequest() default true;
 
     /**
      * 是否保存响应的参数
      */
-    public boolean saveResponse() default true;
+    boolean saveResponse() default true;
 }

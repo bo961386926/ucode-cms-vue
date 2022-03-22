@@ -86,33 +86,33 @@ CREATE TABLE `sys_dept`
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_dept`
-VALUES (100, 0, '0', '若依科技', 0, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54', '', NULL);
+VALUES (100, 0, '0', '依依科技', 0, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54', '', NULL);
 INSERT INTO `sys_dept`
-VALUES (101, 100, '0,100', '深圳总公司', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54', '',
+VALUES (101, 100, '0,100', '深圳总公司', 1, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54', '',
         NULL);
 INSERT INTO `sys_dept`
-VALUES (102, 100, '0,100', '长沙分公司', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54', '',
+VALUES (102, 100, '0,100', '长沙分公司', 2, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54', '',
         NULL);
 INSERT INTO `sys_dept`
-VALUES (103, 101, '0,100,101', '研发部门', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
+VALUES (103, 101, '0,100,101', '研发部门', 1, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
         '', NULL);
 INSERT INTO `sys_dept`
-VALUES (104, 101, '0,100,101', '市场部门', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
+VALUES (104, 101, '0,100,101', '市场部门', 2, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
         '', NULL);
 INSERT INTO `sys_dept`
-VALUES (105, 101, '0,100,101', '测试部门', 3, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
+VALUES (105, 101, '0,100,101', '测试部门', 3, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
         '', NULL);
 INSERT INTO `sys_dept`
-VALUES (106, 101, '0,100,101', '财务部门', 4, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
+VALUES (106, 101, '0,100,101', '财务部门', 4, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
         '', NULL);
 INSERT INTO `sys_dept`
-VALUES (107, 101, '0,100,101', '运维部门', 5, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
+VALUES (107, 101, '0,100,101', '运维部门', 5, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
         '', NULL);
 INSERT INTO `sys_dept`
-VALUES (108, 102, '0,100,102', '市场部门', 1, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
+VALUES (108, 102, '0,100,102', '市场部门', 1, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
         '', NULL);
 INSERT INTO `sys_dept`
-VALUES (109, 102, '0,100,102', '财务部门', 2, '若依', '15888888888', 'ry@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
+VALUES (109, 102, '0,100,102', '财务部门', 2, '依依', '15888888888', 'yy@qq.com', '0', '0', 'admin', '2021-11-22 09:57:54',
         '', NULL);
 COMMIT;
 
@@ -278,366 +278,6 @@ CREATE TABLE `sys_logininfor`
 BEGIN;
 INSERT INTO `sys_logininfor`
 VALUES (100, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-11-22 10:54:31');
-INSERT INTO `sys_logininfor`
-VALUES (101, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-11-22 10:54:35');
-INSERT INTO `sys_logininfor`
-VALUES (102, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-11-22 10:54:42');
-INSERT INTO `sys_logininfor`
-VALUES (103, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-11-22 13:41:32');
-INSERT INTO `sys_logininfor`
-VALUES (104, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-11-22 14:46:55');
-INSERT INTO `sys_logininfor`
-VALUES (105, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-11-22 14:47:02');
-INSERT INTO `sys_logininfor`
-VALUES (106, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-22 14:02:28');
-INSERT INTO `sys_logininfor`
-VALUES (107, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-22 15:13:41');
-INSERT INTO `sys_logininfor`
-VALUES (108, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-22 16:18:19');
-INSERT INTO `sys_logininfor`
-VALUES (109, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', '2021-12-22 16:43:14');
-INSERT INTO `sys_logininfor`
-VALUES (110, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-22 16:43:21');
-INSERT INTO `sys_logininfor`
-VALUES (111, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', '2021-12-22 16:43:25');
-INSERT INTO `sys_logininfor`
-VALUES (112, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-22 16:43:29');
-INSERT INTO `sys_logininfor`
-VALUES (113, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-22 16:43:36');
-INSERT INTO `sys_logininfor`
-VALUES (114, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-23 15:42:07');
-INSERT INTO `sys_logininfor`
-VALUES (115, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-23 16:43:58');
-INSERT INTO `sys_logininfor`
-VALUES (116, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-23 18:59:22');
-INSERT INTO `sys_logininfor`
-VALUES (117, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-23 18:59:27');
-INSERT INTO `sys_logininfor`
-VALUES (118, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-24 11:00:19');
-INSERT INTO `sys_logininfor`
-VALUES (119, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-24 11:00:28');
-INSERT INTO `sys_logininfor`
-VALUES (120, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-24 13:39:34');
-INSERT INTO `sys_logininfor`
-VALUES (121, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', '2021-12-24 18:03:21');
-INSERT INTO `sys_logininfor`
-VALUES (122, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-24 18:03:26');
-INSERT INTO `sys_logininfor`
-VALUES (123, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', '2021-12-26 14:04:20');
-INSERT INTO `sys_logininfor`
-VALUES (124, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', '2021-12-26 14:04:22');
-INSERT INTO `sys_logininfor`
-VALUES (125, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-26 14:04:26');
-INSERT INTO `sys_logininfor`
-VALUES (126, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-26 14:37:24');
-INSERT INTO `sys_logininfor`
-VALUES (127, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-26 15:36:25');
-INSERT INTO `sys_logininfor`
-VALUES (128, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-26 22:50:57');
-INSERT INTO `sys_logininfor`
-VALUES (129, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-26 22:51:05');
-INSERT INTO `sys_logininfor`
-VALUES (130, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-27 10:06:56');
-INSERT INTO `sys_logininfor`
-VALUES (131, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:49');
-INSERT INTO `sys_logininfor`
-VALUES (132, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:50');
-INSERT INTO `sys_logininfor`
-VALUES (133, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:50');
-INSERT INTO `sys_logininfor`
-VALUES (134, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:50');
-INSERT INTO `sys_logininfor`
-VALUES (135, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:50');
-INSERT INTO `sys_logininfor`
-VALUES (136, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:51');
-INSERT INTO `sys_logininfor`
-VALUES (137, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:51');
-INSERT INTO `sys_logininfor`
-VALUES (138, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '1', '验证码错误', '2021-12-27 10:37:51');
-INSERT INTO `sys_logininfor`
-VALUES (139, 'admin', '192.168.181.100', '内网IP', 'Chrome 9', 'Mac OS X', '0', '登录成功', '2021-12-27 10:37:51');
-INSERT INTO `sys_logininfor`
-VALUES (140, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 11:00:49');
-INSERT INTO `sys_logininfor`
-VALUES (141, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 11:00:49');
-INSERT INTO `sys_logininfor`
-VALUES (142, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-27 11:00:49');
-INSERT INTO `sys_logininfor`
-VALUES (143, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 13:39:46');
-INSERT INTO `sys_logininfor`
-VALUES (144, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-27 13:39:46');
-INSERT INTO `sys_logininfor`
-VALUES (145, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 15:13:18');
-INSERT INTO `sys_logininfor`
-VALUES (146, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 15:13:18');
-INSERT INTO `sys_logininfor`
-VALUES (147, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-27 15:13:18');
-INSERT INTO `sys_logininfor`
-VALUES (148, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-27 15:13:18');
-INSERT INTO `sys_logininfor`
-VALUES (149, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:32');
-INSERT INTO `sys_logininfor`
-VALUES (150, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:32');
-INSERT INTO `sys_logininfor`
-VALUES (151, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:33');
-INSERT INTO `sys_logininfor`
-VALUES (152, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:33');
-INSERT INTO `sys_logininfor`
-VALUES (153, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 10:05:33');
-INSERT INTO `sys_logininfor`
-VALUES (154, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-28 10:05:34');
-INSERT INTO `sys_logininfor`
-VALUES (155, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-28 11:21:31');
-INSERT INTO `sys_logininfor`
-VALUES (156, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28');
-INSERT INTO `sys_logininfor`
-VALUES (157, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28');
-INSERT INTO `sys_logininfor`
-VALUES (158, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28');
-INSERT INTO `sys_logininfor`
-VALUES (159, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28');
-INSERT INTO `sys_logininfor`
-VALUES (160, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:28');
-INSERT INTO `sys_logininfor`
-VALUES (161, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', '2021-12-28 13:06:29');
-INSERT INTO `sys_logininfor`
-VALUES (162, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', '2021-12-28 13:06:29');
-INSERT INTO `sys_logininfor`
-VALUES (163, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (164, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (165, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (166, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (167, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (168, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (169, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (170, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (171, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (172, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (173, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (174, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (175, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (176, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (177, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (178, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (179, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (180, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (181, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (182, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (183, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (184, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (185, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (186, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (187, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (188, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (189, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (190, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (191, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (192, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (193, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (194, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (195, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (196, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (197, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (198, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (199, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (200, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (201, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (202, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (203, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (204, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (205, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (206, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (207, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (208, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (209, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (210, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (211, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (212, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (213, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (214, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (215, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (216, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (217, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (218, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (219, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (220, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (221, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (222, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (223, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (224, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (225, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (226, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (227, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (228, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (229, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (230, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (231, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (232, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (233, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (234, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (235, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (236, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (237, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (238, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (239, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (240, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (241, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (242, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (243, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (244, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (245, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (246, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (247, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (248, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (249, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (250, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '退出成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (251, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (252, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (253, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码已失效', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (254, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (255, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (256, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '1', '验证码错误', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (257, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (258, 'admin', '192.168.181.161', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (259, 'admin', '192.168.181.161', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (260, 'admin', '192.168.181.162', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (261, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (262, 'admin', '192.168.181.162', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (263, 'admin', '192.168.181.162', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (264, 'admin', '192.168.181.162', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (265, 'admin', '192.168.181.162', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (266, 'admin', '192.168.181.162', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (267, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (268, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (269, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (270, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (271, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (272, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (273, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (274, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (275, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (276, 'admin', '192.168.181.164', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (277, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (278, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (279, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
-INSERT INTO `sys_logininfor`
-VALUES (280, 'admin', '127.0.0.1', '内网IP', 'Chrome 8', 'Mac OS X', '0', '登录成功', NULL);
 COMMIT;
 
 -- ----------------------------
@@ -765,10 +405,10 @@ CREATE TABLE `sys_notice`
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_notice`
-VALUES (1, '温馨提醒：2018-07-01 若依新版本发布啦', '2', 0xE696B0E78988E69CACE58685E5AEB9, '0', 'admin', '2021-11-22 09:57:56', '',
+VALUES (1, '温馨提醒：2018-07-01 依依新版本发布啦', '2', 0xE696B0E78988E69CACE58685E5AEB9, '0', 'admin', '2021-11-22 09:57:56', '',
         NULL, '管理员');
 INSERT INTO `sys_notice`
-VALUES (2, '维护通知：2018-07-01 若依系统凌晨维护', '1', 0xE7BBB4E68AA4E58685E5AEB9, '0', 'admin', '2021-11-22 09:57:56', '', NULL,
+VALUES (2, '维护通知：2018-07-01 依依系统凌晨维护', '1', 0xE7BBB4E68AA4E58685E5AEB9, '0', 'admin', '2021-11-22 09:57:56', '', NULL,
         '管理员');
 INSERT INTO `sys_notice`
 VALUES (3, '123123123', '1',
@@ -909,32 +549,32 @@ VALUES (24, '角色管理', 2, 'xin.altitude.cms.common.SysRoleController.edit()
 INSERT INTO `sys_oper_log`
 VALUES (25, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
         '/system/user', '127.0.0.1', '内网IP',
-        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":105,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"若依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"yy@qq.com\",\"nickName\":\"依依\",\"sex\":\"0\",\"deptId\":105,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"依依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
         '', 1, '', NULL);
 INSERT INTO `sys_oper_log`
 VALUES (26, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
         '/system/user', '127.0.0.1', '内网IP',
-        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":105,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"若依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"yy@qq.com\",\"nickName\":\"依依\",\"sex\":\"0\",\"deptId\":105,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"依依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
         '', 1, '', NULL);
 INSERT INTO `sys_oper_log`
 VALUES (27, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
         '/system/user', '127.0.0.1', '内网IP',
-        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":105,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"若依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"yy@qq.com\",\"nickName\":\"依依\",\"sex\":\"0\",\"deptId\":105,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"依依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
         '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL);
 INSERT INTO `sys_oper_log`
 VALUES (28, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
         '/system/user', '127.0.0.1', '内网IP',
-        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":108,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"若依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"yy@qq.com\",\"nickName\":\"依依\",\"sex\":\"0\",\"deptId\":108,\"avatar\":\"\",\"dept\":{\"deptName\":\"测试部门\",\"leader\":\"依依\",\"deptId\":105,\"orderNum\":\"3\",\"params\":{},\"parentId\":101,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
         '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL);
 INSERT INTO `sys_oper_log`
 VALUES (29, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
         '/system/user', '127.0.0.1', '内网IP',
-        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"deptId\":109,\"avatar\":\"\",\"dept\":{\"deptName\":\"市场部门\",\"leader\":\"若依\",\"deptId\":108,\"orderNum\":\"1\",\"params\":{},\"parentId\":102,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"yy@qq.com\",\"nickName\":\"依依\",\"sex\":\"0\",\"deptId\":109,\"avatar\":\"\",\"dept\":{\"deptName\":\"市场部门\",\"leader\":\"依依\",\"deptId\":108,\"orderNum\":\"1\",\"params\":{},\"parentId\":102,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
         '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL);
 INSERT INTO `sys_oper_log`
 VALUES (30, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
         '/system/user', '127.0.0.1', '内网IP',
-        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"ry@qq.com\",\"nickName\":\"若依\",\"sex\":\"0\",\"avatar\":\"\",\"dept\":{\"deptName\":\"财务部门\",\"leader\":\"若依\",\"deptId\":109,\"orderNum\":\"2\",\"params\":{},\"parentId\":102,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
+        '{\"roles\":[{\"flag\":false,\"roleId\":2,\"admin\":false,\"dataScope\":\"2\",\"params\":{},\"roleSort\":\"2\",\"roleKey\":\"common\",\"roleName\":\"普通角色\",\"status\":\"0\"}],\"phonenumber\":\"15666666666\",\"admin\":false,\"loginDate\":1637546274000,\"remark\":\"测试员\",\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[2],\"loginIp\":\"127.0.0.1\",\"email\":\"yy@qq.com\",\"nickName\":\"依依\",\"sex\":\"0\",\"avatar\":\"\",\"dept\":{\"deptName\":\"财务部门\",\"leader\":\"依依\",\"deptId\":109,\"orderNum\":\"2\",\"params\":{},\"parentId\":102,\"children\":[],\"status\":\"0\"},\"params\":{},\"userName\":\"ry\",\"userId\":2,\"createBy\":\"admin\",\"roleIds\":[2],\"createTime\":1637546274000,\"status\":\"0\"}',
         '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL);
 INSERT INTO `sys_oper_log`
 VALUES (31, '用户管理', 1, 'xin.altitude.cms.system.controller.SysUserController.add()', 'POST', 1, 'admin', '',
@@ -949,12 +589,12 @@ VALUES (32, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserContro
 INSERT INTO `sys_oper_log`
 VALUES (33, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
         '/system/user', '127.0.0.1', '内网IP',
-        '{\"phonenumber\":\"\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[1],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"dept\":{\"deptName\":\"若依科技\",\"leader\":\"若依\",\"deptId\":100,\"orderNum\":\"0\",\"delFlag\":\"0\",\"params\":{},\"parentId\":0,\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"phone\":\"15888888888\",\"updateBy\":\"\",\"ancestors\":\"0\",\"email\":\"ry@qq.com\",\"status\":\"0\"},\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[2],\"status\":\"0\"}',
+        '{\"phonenumber\":\"\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[1],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"dept\":{\"deptName\":\"依依科技\",\"leader\":\"依依\",\"deptId\":100,\"orderNum\":\"0\",\"delFlag\":\"0\",\"params\":{},\"parentId\":0,\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"phone\":\"15888888888\",\"updateBy\":\"\",\"ancestors\":\"0\",\"email\":\"yy@qq.com\",\"status\":\"0\"},\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[2],\"status\":\"0\"}',
         '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL);
 INSERT INTO `sys_oper_log`
 VALUES (34, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
         '/system/user', '127.0.0.1', '内网IP',
-        '{\"phonenumber\":\"18511112222\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[1],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"dept\":{\"deptName\":\"若依科技\",\"leader\":\"若依\",\"deptId\":100,\"orderNum\":\"0\",\"delFlag\":\"0\",\"params\":{},\"parentId\":0,\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"phone\":\"15888888888\",\"updateBy\":\"\",\"ancestors\":\"0\",\"email\":\"ry@qq.com\",\"status\":\"0\"},\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[2],\"status\":\"0\"}',
+        '{\"phonenumber\":\"18511112222\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[1],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"dept\":{\"deptName\":\"依依科技\",\"leader\":\"依依\",\"deptId\":100,\"orderNum\":\"0\",\"delFlag\":\"0\",\"params\":{},\"parentId\":0,\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"phone\":\"15888888888\",\"updateBy\":\"\",\"ancestors\":\"0\",\"email\":\"yy@qq.com\",\"status\":\"0\"},\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[2],\"status\":\"0\"}',
         '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL);
 INSERT INTO `sys_oper_log`
 VALUES (35, '菜单管理', 1, 'xin.altitude.cms.system.controller.SysMenuController.add()', 'POST', 1, 'admin', '',
@@ -986,7 +626,7 @@ VALUES (40, '角色管理', 4, 'xin.altitude.cms.common.SysRoleController.select
 INSERT INTO `sys_oper_log`
 VALUES (41, '用户管理', 2, 'xin.altitude.cms.system.controller.SysUserController.edit()', 'PUT', 1, 'admin', '',
         '/system/user', '127.0.0.1', '内网IP',
-        '{\"phonenumber\":\"18511112222\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[1],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"dept\":{\"deptName\":\"若依科技\",\"leader\":\"若依\",\"deptId\":100,\"orderNum\":\"0\",\"delFlag\":\"0\",\"params\":{},\"parentId\":0,\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"phone\":\"15888888888\",\"updateBy\":\"\",\"ancestors\":\"0\",\"email\":\"ry@qq.com\",\"status\":\"0\"},\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[3],\"status\":\"0\"}',
+        '{\"phonenumber\":\"18511112222\",\"admin\":false,\"delFlag\":\"0\",\"password\":\"\",\"updateBy\":\"admin\",\"postIds\":[1],\"loginIp\":\"\",\"email\":\"\",\"nickName\":\"321\",\"sex\":\"0\",\"deptId\":100,\"avatar\":\"\",\"dept\":{\"deptName\":\"依依科技\",\"leader\":\"依依\",\"deptId\":100,\"orderNum\":\"0\",\"delFlag\":\"0\",\"params\":{},\"parentId\":0,\"createBy\":\"admin\",\"children\":[],\"createTime\":1637546274000,\"phone\":\"15888888888\",\"updateBy\":\"\",\"ancestors\":\"0\",\"email\":\"yy@qq.com\",\"status\":\"0\"},\"params\":{},\"userName\":\"32131233\",\"userId\":3,\"createBy\":\"admin\",\"roleIds\":[3],\"status\":\"0\"}',
         '{\"msg\":\"操作成功\",\"code\":200}', 0, '', NULL);
 INSERT INTO `sys_oper_log`
 VALUES (42, '字典类型', 9, 'xin.altitude.cms.system.controller.SysDictTypeController.refreshCache()', 'DELETE', 1, 'admin',
@@ -4159,11 +3799,11 @@ CREATE TABLE `sys_user`
 -- ----------------------------
 BEGIN;
 INSERT INTO `sys_user`
-VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '',
+VALUES (1, 103, 'admin', '依依', '00', 'yy@163.com', '15888888888', '1', '',
         '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2022-01-18 09:53:02',
         'admin', '2021-11-22 09:57:54', '', '2022-01-18 09:53:01', '管理员');
 INSERT INTO `sys_user`
-VALUES (2, 109, 'ry', '若依', '00', 'ry@qq.com', '15666666666', '0', '',
+VALUES (2, 109, 'ry', '依依', '00', 'yy@qq.com', '15666666666', '0', '',
         '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2021-11-22 09:57:54',
         'admin', '2021-11-22 09:57:54', 'admin', '2022-01-12 13:36:20', '测试员');
 INSERT INTO `sys_user`

@@ -8,25 +8,31 @@
         <version>1.4.6.2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <!--<groupId>xin.altitude.cms.code</groupId>-->
-    <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <name>${project.artifactId}</name>
-    <url>http://www.altitude.xin</url>
-    <description>
-        Java知识图谱之内容管理系统（CMS）代码生成器starter
-    </description>
+
+    <artifactId>ucode-cms-take-time</artifactId>
+
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
+
     <dependencies>
         <dependency>
-            <groupId>xin.altitude.cms</groupId>
-            <artifactId>ucode-cms-code</artifactId>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-configuration-processor</artifactId>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>xin.altitude.cms</groupId>
+            <artifactId>ucode-cms-common</artifactId>
+            <scope>provided</scope>
             <optional>true</optional>
         </dependency>
     </dependencies>

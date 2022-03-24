@@ -21,20 +21,20 @@
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-spring-boot-starter</artifactId>
-            <version>1.4.6.2</version>
+            <version>1.4.7</version>
         </dependency>
         <!--代码生成器模块（非必选）-->
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-            <version>1.4.6.2</version>
+            <version>1.4.7</version>
         </dependency>
 
         <!--定时任务依赖（非必选）-->
         <!--<dependency>-->
         <!--    <groupId>xin.altitude.cms.job</groupId>-->
         <!--    <artifactId>ucode-cms-job</artifactId>-->
-        <!--    <version>1.4.6.2</version>-->
+        <!--    <version>1.4.7</version>-->
         <!--</dependency>-->
 
         <!--<dependency>-->
@@ -62,14 +62,16 @@
     </build>
 
     <repositories>
-        <!--Maven仓库源-->
         <repository>
             <id>public</id>
-            <name>aliyun nexus</name>
+            <name>maven nexus</name>
             <url>https://repo1.maven.org/maven2/</url>
             <snapshots>
                 <updatePolicy>always</updatePolicy>
             </snapshots>
+            <releases>
+                <updatePolicy>always</updatePolicy>
+            </releases>
         </repository>
     </repositories>
 

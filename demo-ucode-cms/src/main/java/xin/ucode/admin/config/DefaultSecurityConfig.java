@@ -18,10 +18,8 @@
 
 package xin.ucode.admin.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.web.SecurityFilterChain;
 import xin.altitude.cms.security.config.AbstractSecurityConfig;
 
 

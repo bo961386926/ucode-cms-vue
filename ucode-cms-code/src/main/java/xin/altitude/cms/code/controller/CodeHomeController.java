@@ -19,15 +19,14 @@
 package xin.altitude.cms.code.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Import;
-import org.springframework.context.annotation.Profile;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.code.config.MyBatisPlusConfig;
 import xin.altitude.cms.code.config.property.CodeProperties;
-import xin.altitude.cms.code.constant.RunEnv;
 import xin.altitude.cms.code.domain.MetaTable;
 import xin.altitude.cms.code.entity.vo.MetaTableBo;
 import xin.altitude.cms.code.service.code.impl.CodeHomeServiceImpl;
@@ -68,7 +67,7 @@ import java.util.List;
  * @since 2019/07/07 15:27
  **/
 @ResponseBody
-@Profile(value = RunEnv.ENV)
+@ConditionalOnProperty(prefix = "ucode.code", name = "enabled", havingValue = "true", matchIfMissing = true)
 @RequestMapping(CmsConfig.UNIFORM_PREFIX + "/auto/code")
 @Import({CodeHomeServiceImpl.class, MetaTableServiceImpl.class,
     DomainServiceImpl.class, One2OneVoServiceImpl.class, DomainBoServiceImpl.class, ControllerServiceImpl.class,

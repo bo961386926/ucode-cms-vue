@@ -11,7 +11,7 @@
     </parent>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.4.6.2</version>
+    <version>1.4.7</version>
     <description>Java知识图谱之内容管理系统（pom）【新版】</description>
     <url>http://www.altitude.xin</url>
 

@@ -40,7 +40,15 @@ public class TakeTimeAspect {
     @AfterReturning(returning = "ajaxResult", pointcut = "time()")
     public void doAfterReturning(AjaxResult ajaxResult) {
         long l = System.currentTimeMillis() - startTime.get();
-        ajaxResult.put("time", String.format("当前API接口耗时【%d毫秒】", l));
+        ajaxResult.put("time", String.format("当前API接口耗时{%s}", calTime(l)));
         startTime.remove();
+    }
+
+    private String calTime(long time) {
+        if (time < 100) {
+            return String.format("%s毫秒", time);
+        } else {
+            return String.format("%s秒", time*1.0 / 1000);
+        }
     }
 }

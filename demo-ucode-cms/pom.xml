@@ -21,26 +21,14 @@
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-spring-boot-starter</artifactId>
-            <version>1.5.0</version>
+            <version>1.5.2</version>
         </dependency>
         <!--代码生成器模块（非必选）-->
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-            <version>1.5.0</version>
+            <version>1.5.2</version>
         </dependency>
-
-        <!--定时任务依赖（非必选）-->
-        <!--<dependency>-->
-        <!--    <groupId>xin.altitude.cms.job</groupId>-->
-        <!--    <artifactId>ucode-cms-job</artifactId>-->
-        <!--    <version>1.5.0</version>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-        <!--    <groupId>org.springframework.boot</groupId>-->
-        <!--    <artifactId>spring-boot-configuration-processor</artifactId>-->
-        <!--</dependency>-->
     </dependencies>
 
     <build>

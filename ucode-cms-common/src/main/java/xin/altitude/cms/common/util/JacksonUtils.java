@@ -42,19 +42,20 @@ import java.util.Objects;
 
 /**
  * Jackson工具类
+ * 需要运行在Spring生态中
  *
  * @author explore
  * @since 2022/03/24 13:39
  **/
 public class JacksonUtils {
-    private final static ObjectMapper OBJECT_MAPPER = SpringUtils.getBean(ObjectMapper.class);
+    private final static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     /**
      * 把JavaBean转换为json字符串
      */
     public static String toJSONString(Object object) {
         try {
-            return toJsonThrows(object);
+            return writeValueAsString(object);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,8 +90,13 @@ public class JacksonUtils {
     /**
      * 把JavaBean转换为json字符串，抛出异常
      */
-    public static String toJsonThrows(Object object) throws Exception {
-        return OBJECT_MAPPER.writeValueAsString(object);
+    public static String writeValueAsString(Object object) {
+        try {
+            return OBJECT_MAPPER.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -719,4 +725,18 @@ public class JacksonUtils {
     }
 
 
+    //**** 复制对象
+
+    /**
+     * 使用JSON序列化的方式克隆对象
+     * 此方式对原始对象无任何要求，属于深拷贝
+     *
+     * @param obj   原始对象实例
+     * @param clazz 原始对象类对象
+     * @param <T>   原始对象泛型
+     * @return 原始对象深拷贝实例
+     */
+    public static <T> T clone(T obj, Class<T> clazz) {
+        return readValue(writeValueAsString(obj), clazz);
+    }
 }

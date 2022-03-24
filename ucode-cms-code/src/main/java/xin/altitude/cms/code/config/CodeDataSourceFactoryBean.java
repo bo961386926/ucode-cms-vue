@@ -32,13 +32,13 @@ import javax.sql.DataSource;
  * @since 2022/03/22 22:29
  **/
 public class CodeDataSourceFactoryBean implements FactoryBean<DataSource> {
-    @Value("${spring.datasource.druid.slave.enable}")
+    @Value("${spring.datasource.druid.slave.enable:false}")
     private boolean enabled;
-    @Value("${spring.datasource.druid.slave.url}")
+    @Value("${spring.datasource.druid.slave.url:url}")
     private String url;
-    @Value("${spring.datasource.druid.slave.username}")
+    @Value("${spring.datasource.druid.slave.username:username}")
     private String username;
-    @Value("${spring.datasource.druid.slave.password}")
+    @Value("${spring.datasource.druid.slave.password:password}")
     private String password;
 
 

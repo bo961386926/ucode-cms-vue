@@ -41,6 +41,8 @@ import java.util.Map;
 import java.util.Objects;
 
 /**
+ * Jackson工具类
+ *
  * @author explore
  * @since 2022/03/24 13:39
  **/

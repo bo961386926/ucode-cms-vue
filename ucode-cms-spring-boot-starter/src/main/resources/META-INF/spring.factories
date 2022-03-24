@@ -54,5 +54,4 @@ org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
     xin.altitude.cms.system.service.impl.SysUserPostServiceServiceImpl,\
     xin.altitude.cms.system.service.impl.SysUserRoleServiceImpl,\
     xin.altitude.cms.system.service.impl.SysUserServiceImpl,\
-    xin.altitude.cms.framework.config.DefaultSwaggerConfig,\
-    xin.ucode.admin.config.DefaultSecurityConfig
+    xin.altitude.cms.framework.config.DefaultSwaggerConfig

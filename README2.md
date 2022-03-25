@@ -1,13 +1,32 @@
 ### 一、序言
 
-`UCode Cms`管理系统是面向企业级应用软件开发的脚手架。希望构造一个合起来是一个系统，拆分出来是独立的组件供其它项目复用。
+`UCode Cms`管理系统是面向企业级应用软件开发的脚手架。
 
 ##### 当前版本
+
 ```xml
-<version>1.5.2</version>
+<!--ucode-cms核心依赖-->
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-spring-boot-starter</artifactId>
+    <version>1.5.2</version>
+</dependency>
 ```
 
-### 二、项目基本情况
+##### 快速体验
+
+快速体验`UCode Cms`的使用，请访问如下地址。
+
+```bash
+git clone https://gitee.com/decsa/demo-cms.git
+```
+
+快速体验`代码生成器`，请访问如下地址。
+
+```bash
+git clone git clone https://gitee.com/decsa/demo-code.git
+```
+
 #### （一）项目特点
 
 ##### 1、源码开源
@@ -55,7 +74,7 @@ git clone https://gitee.com/decsa/ucode-cms-vue.git
 
 在核心依赖的基础上定义了可选依赖：代码生成器模块、系统UI模块、系统监控模块、任务调度模块、Excel模块。可选依赖类似于积木，按需选配。
 
-### 三、项目细节
+### 二、项目细节
 
 #### （一）项目结构
 
@@ -90,11 +109,74 @@ UCode Cms源码项目结构如下
 | hutool           | 5.7.19     |
 | Guava            | 31.0.1-jre |
 
+#### （三）特色功能
 
-### 四、对外复用依赖
-本系统基于Spring生态，除了满足自身需求外，还能够以Maven依赖的方式对外提供功能和代码的复用。
-##### 1、公共代码
-公共代码依赖广泛应用于本项目中，同时也能以工具类的方式对外提供服务。
+`CmsConfig`配置类控制系统运行的行为，所有内置的配置可以在全局配置文件中修改。
+
+##### 1、代码生成器
+
+通过可视化界面勾选库表结构，即可达到本地化快速生成代码的效果。对于表间含有外键关系的库表结构同样支持，一对一、一对多、多对多可无缝衔接。 快速体验：
+
+```bash
+git clone https://gitee.com/decsa/demo-code.git
+```
+
+![imgpng](https://www.altitude.xin/typora/image-20220216105356896.png)
+
+##### 2、内置接口列表
+
+项目出厂时便自带接口列表特性，可快速实现接口联调与对接，降低沟通成本。
+
+![image-20220216172127541](https://www.altitude.xin/typora/image-20220216172127541.png)
+
+可在全局配置文件中开启或者关闭接口列表。
+
+##### 3、可视化任务调度
+
+可视化任务调度模块需要单独引入，对于任务调度的管理非常友好。
+
+![image-20220216172703350](https://www.altitude.xin/typora/image-20220216172703350.png)
+
+引入依赖
+
+```xml
+<!--定时任务依赖（非必选）-->
+<dependency>
+    <groupId>xin.altitude.cms.job</groupId>
+    <artifactId>ucode-cms-job</artifactId>
+    <version>1.5.2</version>
+</dependency>
+```
+
+全局配置文件启用
+
+```properties
+ucode.job.enabled: true
+```
+
+### 三、如何使用
+
+#### （一）核心依赖
+
+Maven对外提供的依赖清单如下：
+
+```xml
+<!--ucode-cms核心依赖-->
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-spring-boot-starter</artifactId>
+    <version>1.5.2</version>
+</dependency>
+```
+
+#### （二）可选依赖
+
+可选依赖有两重含义：一是 `ucode-cms-spring-boot-starter`中未包含的依赖可按需添加，二是 `ucode-cms-spring-boot-starter`中包含尚使用不到的依赖可按需移除。
+
+##### 1、通用代码
+
+通用代码依赖可跨项目使用，不仅限于此项目。其中内置的工具类`EntityUtils`在MybatisPlus多表连接查询中发挥重要作用。
+
 ```xml
 <dependency>
     <groupId>xin.altitude.cms</groupId>
@@ -102,52 +184,54 @@ UCode Cms源码项目结构如下
     <version>1.5.2</version>
 </dependency>
 ```
-##### 2、代码生成器
-作者很懒，对于重复性代码连复制粘贴的欲望也没有，于是跨项目版的代码生成器应运而生。支持单表代码生成、多表连接代码生成。
+
+##### 2、可视化界面
+
+可根据需要是否引入可视化界面。
+
 ```xml
 <dependency>
-    <groupId>xin.altitude.cms</groupId>
-    <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
+    <groupId>xin.altitude.cms.ui</groupId>
+    <artifactId>ucode-cms-ui</artifactId>
     <version>1.5.2</version>
 </dependency>
 ```
-##### 3、分布式限流
-使用注解，基于IP或者用户的方式对接口限流，支持分布式系统。
+
+##### 3、定时任务
+
+若有定时任务可视化管理的需求，可引入此模块。
+
 ```xml
 <dependency>
-    <groupId>xin.altitude.cms</groupId>
-    <artifactId>ucode-cms-limiter</artifactId>
+    <groupId>xin.altitude.cms.job</groupId>
+    <artifactId>ucode-cms-job</artifactId>
     <version>1.5.2</version>
 </dependency>
 ```
-##### 4、防重复提交
-对于一些增加数据的场合，由于非幂等性的原因，网络不稳定容易产生脏数据，这时可使用防重复提交功能。
+
+##### 4、系统监控
+
+若有系统监控的需求，可引入此模块。
+
 ```xml
 <dependency>
-    <groupId>xin.altitude.cms</groupId>
-    <artifactId>ucode-cms-repeat</artifactId>
+    <groupId>xin.altitude.cms.monitor</groupId>
+    <artifactId>ucode-cms-monitor</artifactId>
     <version>1.5.2</version>
 </dependency>
 ```
-##### 5、分布式日志收集
-基于Redis pub/sub订阅特性实现的日志收集，用消息队列的方式收集日志，然后从另外系统消费日志（数据落库）。实现了跨系统日志收集复用。
+
+##### 5、表格处理
+
 ```xml
 <dependency>
-    <groupId>xin.altitude.cms</groupId>
-    <artifactId>ucode-cms-log</artifactId>
+    <groupId>xin.altitude.cms.excel</groupId>
+    <artifactId>ucode-cms-excel</artifactId>
     <version>1.5.2</version>
 </dependency>
 ```
-##### 6、统计API接口响应时间
-基于AOP的方式封装统计API接口响应时间，按需引入。
-```xml
-<dependency>
-    <groupId>xin.altitude.cms</groupId>
-    <artifactId>ucode-cms-take-time</artifactId>
-    <version>1.5.2</version>
-</dependency>
-```
-### 五、互相交流
+
+### 四、互相交流
 
 如果在使用过程中有任何疑问，欢迎与我联系。
 

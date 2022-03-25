@@ -21,13 +21,13 @@
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-spring-boot-starter</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.1</version>
         </dependency>
         <!--代码生成器模块（非必选）-->
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-            <version>1.5.2</version>
+            <version>1.5.1</version>
         </dependency>
     </dependencies>
 

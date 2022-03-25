@@ -4,7 +4,7 @@
 
 ##### 当前版本
 ```xml
-<version>1.5.2</version>
+<version>1.5.1</version>
 ```
 
 ### 二、项目基本情况
@@ -26,7 +26,7 @@ git clone https://gitee.com/decsa/ucode-cms-vue.git
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.1</version>
 </dependency>
 ```
 
@@ -99,7 +99,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.1</version>
 </dependency>
 ```
 ##### 2、代码生成器
@@ -108,7 +108,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.1</version>
 </dependency>
 ```
 ##### 3、分布式限流
@@ -117,7 +117,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-limiter</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.1</version>
 </dependency>
 ```
 ##### 4、防重复提交
@@ -126,7 +126,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-repeat</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.1</version>
 </dependency>
 ```
 ##### 5、分布式日志收集
@@ -135,7 +135,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-log</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.1</version>
 </dependency>
 ```
 ##### 6、统计API接口响应时间
@@ -144,7 +144,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-take-time</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.1</version>
 </dependency>
 ```
 ### 五、互相交流

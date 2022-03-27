@@ -17,7 +17,7 @@ import java.io.Serializable;
 public class ${ClassName}
 #if($configEntity.useMybatisPlus&&$configEntity.mapper.useCache)
  implements Serializable
-#else if($configEntity.useMybatisPlus&&$!configEntity.mapper.useCache&&$configEntity.domain.useActiveRecord)
+#elseif($configEntity.useMybatisPlus&&$!configEntity.mapper.useCache&&$configEntity.domain.useActiveRecord)
  extends Model<${ClassName}>
 #end
 {

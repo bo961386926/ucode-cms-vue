@@ -2,9 +2,11 @@
 
 `UCode Cms`管理系统是面向企业级应用软件开发的脚手架。希望构造一个合起来是一个系统，拆分出来是独立的组件供其它项目复用。
 
+本项目与其它项目的显著区别是拒绝摊大饼式功能集成，核心追求是代码和功能复用。
+
 ##### 当前版本
 ```xml
-<version>1.5.1</version>
+<version>1.5.2</version>
 ```
 
 ### 二、项目基本情况
@@ -26,7 +28,7 @@ git clone https://gitee.com/decsa/ucode-cms-vue.git
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
 </dependency>
 ```
 
@@ -99,7 +101,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
 </dependency>
 ```
 ##### 2、代码生成器
@@ -108,7 +110,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
 </dependency>
 ```
 ##### 3、分布式限流
@@ -117,7 +119,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-limiter</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
 </dependency>
 ```
 ##### 4、防重复提交
@@ -126,7 +128,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-repeat</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
 </dependency>
 ```
 ##### 5、分布式日志收集
@@ -135,7 +137,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-log</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
 </dependency>
 ```
 ##### 6、统计API接口响应时间
@@ -144,14 +146,14 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-take-time</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
 </dependency>
 ```
 ### 五、互相交流
 
 如果在使用过程中有任何疑问，欢迎与我联系。
 
-<img src="https://www.altitude.xin/typora/image-20220303152929755.png" alt="image-20220303152929755" style="zoom:20%;" />
+![IMG_552DA7C4E674-1](https://www.altitude.xin/typora/IMG_552DA7C4E674-1.png)
 
 
 如果二维码失效，请添加微信号`dream4s`联系入群，谢谢。

@@ -18,7 +18,7 @@ public interface I${ClassName}Service
     /**查询用户实体类Vo*/
     default ${keyColumn.className}Vo getOneVo(${pkFieldType} ${pkFieldName}) {
         ${keyColumn.className}Vo ${t.sc($keyColumn.className)}Vo = EntityUtils.toObj(getById(${pkFieldName}), ${keyColumn.className}Vo::new);
-        List<${keyColumn.referencedClassName}> ${t.sc($keyColumn.referencedClassName)}List = get${keyColumn.referencedClassName}Service().list(Wrappers.lambdaQuery(${keyColumn.referencedClassName}.class).eq(${keyColumn.referencedClassName}::get${t.sc($keyColumn.referencedFieldName)}, tbDeptVo.get${t.sc($keyColumn.fieldName)}()));
+        List<${keyColumn.referencedClassName}> ${t.sc($keyColumn.referencedClassName)}List = get${keyColumn.referencedClassName}Service().list(Wrappers.lambdaQuery(${keyColumn.referencedClassName}.class).eq(${keyColumn.referencedClassName}::get${t.sc($keyColumn.referencedFieldName)}, ${t.sc($keyColumn.className)}Vo.get${t.sc($keyColumn.fieldName)}()));
         ${t.sc($keyColumn.className)}Vo.set${keyColumn.referencedClassName}List(${t.sc($keyColumn.referencedClassName)}List);
         return ${t.sc($keyColumn.className)}Vo;
     }

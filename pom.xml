@@ -11,7 +11,7 @@
     </parent>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.2</version>
     <description>Java知识图谱之内容管理系统（pom）【新版】</description>
     <url>http://www.altitude.xin</url>
 
@@ -169,18 +169,19 @@
                 <artifactId>ucode-cms-system</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <!--定时任务-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-job</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
+            <!--前端界面-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-ui</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!--监控模块-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-monitor</artifactId>
@@ -201,48 +202,56 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!--代码生成器-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-code</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
+            <!--Excel处理-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-excel</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
+            <!--日志处理-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-log</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
+            <!--防重复提交-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-repeat</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
+            <!--API限流-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-limiter</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
+            <!--多数据源-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-db-datasource</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
+            <!--权限-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-security</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
+            <!--统计API耗时-->
             <dependency>
                 <groupId>xin.altitude.cms</groupId>
                 <artifactId>ucode-cms-take-time</artifactId>
@@ -310,20 +319,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
-
-    <dependencies>
-        <!--全局排除所有项目中的log4j，等SpringBoot修复此漏洞后可以排除此项-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.logging.log4j</groupId>
-                    <artifactId>log4j-to-slf4j</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-    </dependencies>
 
 
     <licenses>

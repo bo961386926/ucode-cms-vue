@@ -23,7 +23,7 @@ import com.baomidou.mybatisplus.autoconfigure.SpringBootVFS;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.io.VFS;
-import org.apache.ibatis.logging.stdout.StdOutImpl;
+import org.apache.ibatis.logging.slf4j.Slf4jImpl;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -43,7 +43,7 @@ public class MyBatisPlusConfig extends AbstractMyBatisConfig {
 
     @Autowired
     private CodeDataSourceFactoryBean factoryBean;
-
+    
     /**
      * 注入分页拦截器，使二级缓存生效
      *
@@ -55,7 +55,7 @@ public class MyBatisPlusConfig extends AbstractMyBatisConfig {
         final MybatisSqlSessionFactoryBean sessionFactory = new MybatisSqlSessionFactoryBean();
         MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setCacheEnabled(true);
-        configuration.setLogImpl(StdOutImpl.class);
+        configuration.setLogImpl(Slf4jImpl.class);
         sessionFactory.setDataSource(factoryBean.getObject());
         sessionFactory.setPlugins(interceptor());
         sessionFactory.setConfiguration(configuration);

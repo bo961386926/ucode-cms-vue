@@ -47,3 +47,4 @@ nbdist/
 /demo-ucode-cms/src/main/java/xin/ucode/admin/controller/IndexController.java
 /demo-ucode-cms/src/main/java/xin/ucode/admin/listener/
 /demo-ucode-cms/src/main/java/xin/ucode/admin/service/
+/demo-ucode-cms/src/test/java/xin/ucode/CmsApplicationTest.java

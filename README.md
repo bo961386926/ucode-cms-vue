@@ -6,7 +6,7 @@
 
 ##### 当前版本
 ```xml
-<version>1.5.2</version>
+<version>1.5.2.1</version>
 ```
 
 ### 二、项目基本情况
@@ -28,7 +28,7 @@ git clone https://gitee.com/decsa/ucode-cms-vue.git
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.2.1</version>
 </dependency>
 ```
 
@@ -101,7 +101,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.2.1</version>
 </dependency>
 ```
 ##### 2、代码生成器
@@ -110,43 +110,52 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.2.1</version>
 </dependency>
 ```
-##### 3、分布式限流
+##### 3、分布式BitMap
+支持编码和注解两种方式实现分布式BitMap
+```xml
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-bitmap</artifactId>
+    <version>1.5.2.1</version>
+</dependency>
+```
+##### 4、分布式限流
 使用注解，基于IP或者用户的方式对接口限流，支持分布式系统。
 ```xml
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-limiter</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.2.1</version>
 </dependency>
 ```
-##### 4、防重复提交
+##### 5、防重复提交
 对于一些增加数据的场合，由于非幂等性的原因，网络不稳定容易产生脏数据，这时可使用防重复提交功能。
 ```xml
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-repeat</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.2.1</version>
 </dependency>
 ```
-##### 5、分布式日志收集
+##### 6、分布式日志收集
 基于Redis pub/sub订阅特性实现的日志收集，用消息队列的方式收集日志，然后从另外系统消费日志（数据落库）。实现了跨系统日志收集复用。
 ```xml
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-log</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.2.1</version>
 </dependency>
 ```
-##### 6、统计API接口响应时间
+##### 7、统计API接口响应时间
 基于AOP的方式封装统计API接口响应时间，按需引入。
 ```xml
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-take-time</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.2.1</version>
 </dependency>
 ```
 ### 五、互相交流

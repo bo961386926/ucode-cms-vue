@@ -6,7 +6,7 @@
 
 ##### 1、当前版本
 ```xml
-<version>1.5.2.1</version>
+<version>1.5.3</version>
 ```
 ##### 2、使用说明
 新时代的码农需要转变编码习惯，摒弃传统的CV开发依赖。实际上Java生态目前极其完善，从底层的JDK到Spring、SpringBoot，再到Apache Commons，再到Guava等几乎提供了95%实际问题的解决方案。
@@ -47,7 +47,7 @@ git clone https://gitee.com/decsa/ucode-cms-vue.git
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-spring-boot-starter</artifactId>
-    <version>1.5.2.1</version>
+    <version>1.5.3</version>
 </dependency>
 ```
 
@@ -120,7 +120,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.5.2.1</version>
+    <version>1.5.3</version>
 </dependency>
 ```
 ##### 2、代码生成器
@@ -129,7 +129,7 @@ UCode Cms源码项目结构如下
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.5.2.1</version>
+    <version>1.5.3</version>
 </dependency>
 ```
 ##### 3、分布式BitMap
@@ -145,7 +145,7 @@ public BuOrder getOrder2(Integer orderId) {
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-bitmap</artifactId>
-    <version>1.5.2.1</version>
+    <version>1.5.3</version>
 </dependency>
 ```
 ##### 4、分布式限流
@@ -160,7 +160,7 @@ public BuOrder getOrder2(Integer orderId) {
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-limiter</artifactId>
-    <version>1.5.2.1</version>
+    <version>1.5.3</version>
 </dependency>
 ```
 ##### 5、防重复提交
@@ -169,7 +169,7 @@ public BuOrder getOrder2(Integer orderId) {
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-repeat</artifactId>
-    <version>1.5.2.1</version>
+    <version>1.5.3</version>
 </dependency>
 ```
 在一些场合，同一接口、同一参数避免脏数据入库，通常需要防重复提交。比如统计页面浏览量，超过3分钟浏览一次页面增加一次浏览量等。
@@ -184,7 +184,7 @@ public BuOrder getOrder2(Integer orderId) {
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-log</artifactId>
-    <version>1.5.2.1</version>
+    <version>1.5.3</version>
 </dependency>
 ```
 在一些场合需要记录接口的操作日志信息，比如增加数据、修改数据、删除数据，需要用到日志系统
@@ -199,10 +199,48 @@ public BuOrder getOrder2(Integer orderId) {
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-take-time</artifactId>
-    <version>1.5.2.1</version>
+    <version>1.5.3</version>
 </dependency>
 ```
 对于想统计接口的响应时间，添加上述依赖，并在控制器方法添加`@TakeTime`注解。
+
+##### 8、多数据源模块
+一些项目有多数据源的需求，比如将系统表与业务表分离等，这时有多数据源解决方案，能够显著提高编码效率，使开发者更加专注于业务开发。
+```xml
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-db-datasource</artifactId>
+    <version>1.5.3</version>
+</dependency>
+```
+引入上述依赖，你的项目便有魔法助力，快速拥有多数据源的能力。 使用相当简单：
+
+（1）改造数据源配置
+```yaml
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo-master?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    druid:
+      slave:
+        enabled: true
+        url: jdbc:mysql://localhost:3306/demo-slave?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+        username: root
+        password: 123456
+```
+在业务层使用如下注解
+
+```java
+// 对应第一个数据源，可作用于类和方法上
+@Ds(value = DataSourceType.MASTER)
+
+// 对应第二个数据源，可作用于类和方法上
+@Ds(value = DataSourceType.SLAVE)
+```
+
 ### 五、互相交流
 
 如果在使用过程中有任何疑问，欢迎与我联系。

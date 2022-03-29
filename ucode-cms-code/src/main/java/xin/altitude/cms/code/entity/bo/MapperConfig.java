@@ -27,7 +27,7 @@ public class MapperConfig {
     /**
      * 是否需要使用二级缓存
      */
-    private Boolean useCache = true;
+    private Boolean useCache = false;
 
     public Boolean getUseCache() {
         return useCache;

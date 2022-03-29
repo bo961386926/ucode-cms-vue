@@ -28,7 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.core.annotation.Order;
 import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.db.datasource.annotation.MutiDataSource;
+import xin.altitude.cms.db.datasource.annotation.Ds;
 import xin.altitude.cms.db.datasource.core.DynamicDataSourceContextHolder;
 
 import java.util.Objects;
@@ -43,15 +43,15 @@ import java.util.Objects;
 public class DataSourceAspect {
     protected Logger logger = LoggerFactory.getLogger(getClass());
 
-    @Pointcut("@annotation(xin.altitude.cms.db.datasource.annotation.MutiDataSource)"
-        + "|| @within(xin.altitude.cms.db.datasource.annotation.MutiDataSource)")
+    @Pointcut("@annotation(xin.altitude.cms.db.datasource.annotation.Ds)"
+        + "|| @within(xin.altitude.cms.db.datasource.annotation.Ds)")
     public void dsPointCut() {
 
     }
 
     @Around("dsPointCut()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        MutiDataSource dataSource = getDataSource(point);
+        Ds dataSource = getDataSource(point);
 
         if (StringUtil.isNotNull(dataSource)) {
             DynamicDataSourceContextHolder.setDataSourceType(dataSource.value().name());
@@ -68,13 +68,13 @@ public class DataSourceAspect {
     /**
      * 获取需要切换的数据源
      */
-    public MutiDataSource getDataSource(ProceedingJoinPoint point) {
+    public Ds getDataSource(ProceedingJoinPoint point) {
         MethodSignature signature = (MethodSignature) point.getSignature();
-        MutiDataSource dataSource = AnnotationUtils.findAnnotation(signature.getMethod(), MutiDataSource.class);
+        Ds dataSource = AnnotationUtils.findAnnotation(signature.getMethod(), Ds.class);
         if (Objects.nonNull(dataSource)) {
             return dataSource;
         }
 
-        return AnnotationUtils.findAnnotation(signature.getDeclaringType(), MutiDataSource.class);
+        return AnnotationUtils.findAnnotation(signature.getDeclaringType(), Ds.class);
     }
 }

@@ -39,7 +39,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-public @interface MutiDataSource {
+public @interface Ds {
     /**
      * 切换数据源名称
      */

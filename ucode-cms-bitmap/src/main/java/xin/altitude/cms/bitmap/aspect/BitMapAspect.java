@@ -53,9 +53,8 @@ public class BitMapAspect {
         MethodSignature signature = (MethodSignature) point.getSignature();
         Method method = signature.getMethod();
 
-        TreeMap<String, Object> treeMap = ParserUtils.createTreeMap(point, signature);
-
         BitMap annotation = method.getAnnotation(BitMap.class);
+        TreeMap<String, Object> treeMap = ParserUtils.createTreeMap(point, signature);
         String elResult = ParserUtils.parse(annotation.value(), treeMap);
         if (elResult != null) {
             long value = Long.parseLong(elResult);

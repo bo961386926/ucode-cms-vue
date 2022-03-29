@@ -39,7 +39,8 @@ import java.lang.annotation.Target;
 @Inherited
 public @interface BitMap {
     /**
-     * key
+     * 同一类集合的唯一标识符
+     * 商品表、订单表分别设置key
      *
      * @return
      */

@@ -1,6 +1,6 @@
 ### 一、序言
 
-`UCode Cms`管理系统是面向企业级应用软件开发的脚手架。希望构造一个合起来是一个系统，拆分出来是独立的组件供其它项目复用。
+`UCode Cms`是面向企业级应用软件开发的脚手架。希望构造一个合起来是一个系统，拆分出来是独立的组件，供其它项目复用。
 
 本项目与其它项目的显著区别是拒绝摊大饼式功能集成，核心追求是代码和功能复用。
 
@@ -55,8 +55,6 @@ git clone https://gitee.com/decsa/ucode-cms-vue.git
 
 核心依赖仅需要引入`ucode-cms-spring-boot-starter`便可初始化项目，starter内置其余核心依赖。
 
-在核心依赖的基础上定义了可选依赖：代码生成器模块、系统UI模块、系统监控模块、任务调度模块、Excel模块。可选依赖类似于积木，按需选配。
-
 ### 三、项目细节
 
 #### （一）项目结构
@@ -97,6 +95,8 @@ UCode Cms源码项目结构如下
 本系统基于Spring生态，除了满足自身需求外，还能够以Maven依赖的方式对外提供功能和代码的复用。
 ##### 1、公共代码
 公共代码依赖广泛应用于本项目中，同时也能以工具类的方式对外提供服务。
+
+公共代码模块提供丰富的工具类支持，是整个项目的核心支撑。
 ```xml
 <dependency>
     <groupId>xin.altitude.cms</groupId>
@@ -115,6 +115,13 @@ UCode Cms源码项目结构如下
 ```
 ##### 3、分布式BitMap
 支持编码和注解两种方式实现分布式BitMap
+```java
+@BitMap(key = OrderServiceImpl.ORDER_BITMAP_KEY, value = "#orderId")
+public BuOrder getOrder2(Integer orderId) {
+    return getById(orderId);
+}
+```
+添加如下依赖，通过注解的方式即可为项目引入分布式BitMap，无需关心实现细节便可大幅提高接口响应速度。
 ```xml
 <dependency>
     <groupId>xin.altitude.cms</groupId>
@@ -123,7 +130,13 @@ UCode Cms源码项目结构如下
 </dependency>
 ```
 ##### 4、分布式限流
-使用注解，基于IP或者用户的方式对接口限流，支持分布式系统。
+使用注解，基于IP或者用户的方式对接口限流，支持分布式系统。比如短信验证码接口，同一用户（IP）60秒内最多发送一次短信，通过分布式限流模块可大幅提高接口安全性。
+
+为项目引入分布式限流模块非常简单，在控制器接口方法添加如下注解，便可实现分布式限流
+```java
+@RateLimiter(ttl = 60,threshold = 1)
+```
+需要引入如下依赖
 ```xml
 <dependency>
     <groupId>xin.altitude.cms</groupId>
@@ -140,6 +153,12 @@ UCode Cms源码项目结构如下
     <version>1.5.2.1</version>
 </dependency>
 ```
+在一些场合，同一接口、同一参数避免脏数据入库，通常需要防重复提交。比如统计页面浏览量，超过3分钟浏览一次页面增加一次浏览量等。
+
+在控制器方法接口添加如下注解
+```java
+@RepeatSubmit(interval = 180)
+```
 ##### 6、分布式日志收集
 基于Redis pub/sub订阅特性实现的日志收集，用消息队列的方式收集日志，然后从另外系统消费日志（数据落库）。实现了跨系统日志收集复用。
 ```xml
@@ -148,6 +167,12 @@ UCode Cms源码项目结构如下
     <artifactId>ucode-cms-log</artifactId>
     <version>1.5.2.1</version>
 </dependency>
+```
+在一些场合需要记录接口的操作日志信息，比如增加数据、修改数据、删除数据，需要用到日志系统
+
+在控制器方法添加如下注解
+```java
+@OperLog(title = "参数管理", businessType = BusinessType.INSERT)
 ```
 ##### 7、统计API接口响应时间
 基于AOP的方式封装统计API接口响应时间，按需引入。
@@ -158,6 +183,7 @@ UCode Cms源码项目结构如下
     <version>1.5.2.1</version>
 </dependency>
 ```
+对于想统计接口的响应时间，添加上述依赖，并在控制器方法添加`@TakeTime`注解。
 ### 五、互相交流
 
 如果在使用过程中有任何疑问，欢迎与我联系。

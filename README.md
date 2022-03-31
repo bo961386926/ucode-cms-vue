@@ -243,6 +243,30 @@ spring:
 @Ds(value = DataSourceType.SLAVE)
 ```
 
+##### 9、定时任务
+定时任务模块是对Quartz框架进一步封装，使用更加简洁。
+```xml
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-quartz</artifactId>
+    <version>1.5.3.1</version>
+</dependency>
+```
+
+编写定时任务
+```java
+@Component
+@DisallowConcurrentExecution
+@CronExp(id = 1, cron = "0/5 * * * * ?")
+public class DemoJob implements Job {
+    @Override
+    public void execute(JobExecutionContext context) {
+        System.out.println("任务1："+LocalDateTime.now());
+    }
+}
+```
+使用上述代码便快速在Quartz生态完成一个定时任务。
+
 ### 五、互相交流
 
 如果在使用过程中有任何疑问，欢迎与我联系。

@@ -1,4 +1,4 @@
-### Redis版BitMap
+### BitMap使用指南
 想要你的项目中快速拥有Redis版BitMap的能力，请按照如下步骤进行：
 
 ##### 1、引入依赖

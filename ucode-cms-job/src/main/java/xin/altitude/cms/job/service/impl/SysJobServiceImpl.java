@@ -146,7 +146,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
 
     /**
      * 任务调度状态修改
-     * 任务暂停 <==> 任务可运行
+     * 任务暂停 《==》 任务可运行
      *
      * @param job 调度信息
      * @return

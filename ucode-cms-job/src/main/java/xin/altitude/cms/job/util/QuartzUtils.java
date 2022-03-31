@@ -64,8 +64,6 @@ public class QuartzUtils {
      *
      * @param scheduler
      * @param sysJob
-     * @throws SchedulerException
-     * @throws TaskException
      */
     public static void createScheduleJob(Scheduler scheduler, SysJob sysJob) {
         /* 构造QZ Job */

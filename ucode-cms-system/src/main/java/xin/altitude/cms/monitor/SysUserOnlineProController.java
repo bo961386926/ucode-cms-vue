@@ -30,7 +30,6 @@ import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.log.annotation.OperLog;
-import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.framework.core.redis.RedisCache;
@@ -48,7 +47,7 @@ import java.util.List;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/online")
+@RequestMapping(Constants.UNIFORM_PREFIX + "/monitor/online")
 public class SysUserOnlineProController extends BaseProController {
     @Autowired
     private ISysUserOnlineService userOnlineService;

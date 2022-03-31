@@ -26,8 +26,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
-import xin.altitude.cms.framework.config.CmsConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +41,7 @@ import java.util.Properties;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/cache")
+@RequestMapping(Constants.UNIFORM_PREFIX + "/monitor/cache")
 public class CacheController {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;

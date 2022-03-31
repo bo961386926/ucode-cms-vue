@@ -31,9 +31,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
+import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
 import xin.altitude.cms.log.annotation.OperLog;
@@ -50,7 +50,7 @@ import java.util.List;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/system/config")
+@RequestMapping(Constants.UNIFORM_PREFIX + "/system/config")
 public class SysConfigProController extends BaseProController {
     @Autowired
     private ISysConfigService configService;

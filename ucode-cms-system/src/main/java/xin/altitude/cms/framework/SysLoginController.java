@@ -30,7 +30,6 @@ import xin.altitude.cms.auth.web.service.SysLoginService;
 import xin.altitude.cms.auth.web.service.SysPermissionService;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
-import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.core.domain.SysMenu;
 import xin.altitude.cms.framework.core.domain.SysUser;
 import xin.altitude.cms.framework.core.model.LoginBody;
@@ -45,7 +44,7 @@ import java.util.Set;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX)
+@RequestMapping(Constants.UNIFORM_PREFIX)
 public class SysLoginController {
     @Autowired
     private SysLoginService loginService;

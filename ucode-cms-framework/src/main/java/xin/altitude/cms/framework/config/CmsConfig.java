@@ -29,8 +29,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 @ConfigurationProperties(prefix = "ucode")
 public class CmsConfig {
-    /* 接口访问统一前缀 */
-    public final static String UNIFORM_PREFIX = "/cms-api";
     // public final static String UNIFORM_PREFIX = "";
     private Cms cms = new CmsConfig.Cms();
     private Token token = new CmsConfig.Token();

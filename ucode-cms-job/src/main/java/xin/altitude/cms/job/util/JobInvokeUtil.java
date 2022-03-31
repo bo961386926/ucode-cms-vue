@@ -64,9 +64,11 @@ public class JobInvokeUtil {
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException {
         if (methodParams != null && methodParams.size() > 0) {
+            /* 由参调用 */
             Method method = bean.getClass().getDeclaredMethod(methodName, getMethodParamsType(methodParams));
             method.invoke(bean, getMethodParamsValue(methodParams));
         } else {
+            /* 无参调用 */
             Method method = bean.getClass().getDeclaredMethod(methodName);
             method.invoke(bean);
         }

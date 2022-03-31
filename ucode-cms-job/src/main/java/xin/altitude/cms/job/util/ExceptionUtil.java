@@ -16,7 +16,7 @@
  *
  */
 
-package xin.altitude.cms.framework.util;
+package xin.altitude.cms.job.util;
 
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import xin.altitude.cms.common.util.StringUtil;
@@ -36,8 +36,7 @@ public class ExceptionUtil {
     public static String getExceptionMessage(Throwable e) {
         StringWriter sw = new StringWriter();
         e.printStackTrace(new PrintWriter(sw, true));
-        String str = sw.toString();
-        return str;
+        return sw.toString();
     }
 
     public static String getRootErrorMessage(Exception e) {

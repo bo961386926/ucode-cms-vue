@@ -36,18 +36,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.excel.util.ExcelUtil;
-import xin.altitude.cms.log.annotation.OperLog;
-import xin.altitude.cms.framework.config.CmsConfig;
-import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.job.config.ScheduleConfig;
 import xin.altitude.cms.job.domain.SysJob;
 import xin.altitude.cms.job.exception.TaskException;
 import xin.altitude.cms.job.service.ISysJobService;
 import xin.altitude.cms.job.service.impl.SysJobServiceImpl;
 import xin.altitude.cms.job.util.CronUtils;
-
-import java.util.List;
 
 /**
  * 调度任务信息操作处理
@@ -57,7 +51,7 @@ import java.util.List;
 @Import({ScheduleConfig.class, SysJobServiceImpl.class})
 @ConditionalOnProperty(value = "ucode.job.enabled", havingValue = "true")
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/monitor/job")
+@RequestMapping(Constants.UNIFORM_PREFIX + "/monitor/job")
 public class SysJobController {
     @Autowired
     private ISysJobService jobService;
@@ -73,28 +67,17 @@ public class SysJobController {
     }
 
     /**
-     * 导出定时任务列表
-     */
-    @OperLog(title = "定时任务", businessType = BusinessType.EXPORT)
-    @GetMapping("/export")
-    public AjaxResult export(SysJob sysJob) {
-        List<SysJob> list = jobService.selectJobList(sysJob);
-        ExcelUtil<SysJob> util = new ExcelUtil<SysJob>(SysJob.class);
-        return util.exportExcel(list, "定时任务");
-    }
-
-    /**
      * 获取定时任务详细信息
      */
     @GetMapping(value = "/{jobId}")
     public AjaxResult getInfo(@PathVariable("jobId") Long jobId) {
-        return AjaxResult.success(jobService.selectJobById(jobId));
+        return AjaxResult.success(jobService.getById(jobId));
     }
 
     /**
      * 新增定时任务
      */
-    @OperLog(title = "定时任务", businessType = BusinessType.INSERT)
+    // @OperLog(title = "定时任务", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody SysJob job) throws SchedulerException, TaskException {
         if (!CronUtils.isValid(job.getCronExpression())) {
@@ -106,14 +89,13 @@ public class SysJobController {
         } else if (StringUtil.containsAnyIgnoreCase(job.getInvokeTarget(), new String[]{Constants.HTTP, Constants.HTTPS})) {
             return AjaxResult.error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
         }
-        // job.setCreateBy(getUsername());
-        return AjaxResult.success(jobService.insertJob(job));
+        return AjaxResult.success(jobService.save(job));
     }
 
     /**
      * 修改定时任务
      */
-    @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
+    // @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody SysJob job) throws SchedulerException, TaskException {
         if (!CronUtils.isValid(job.getCronExpression())) {
@@ -126,13 +108,13 @@ public class SysJobController {
             return AjaxResult.error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
         }
         // job.setUpdateBy(getUsername());
-        return AjaxResult.success(jobService.updateJob(job));
+        return AjaxResult.success(jobService.updateById(job));
     }
 
     /**
      * 定时任务状态修改
      */
-    @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
+    // @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
     public AjaxResult changeStatus(@RequestBody SysJob job) throws SchedulerException {
         SysJob newJob = new SysJob();
@@ -144,7 +126,7 @@ public class SysJobController {
     /**
      * 定时任务立即执行一次
      */
-    @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
+    // @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping("/run")
     public AjaxResult run(@RequestBody SysJob job) throws SchedulerException {
         jobService.run(job);
@@ -154,7 +136,7 @@ public class SysJobController {
     /**
      * 删除定时任务
      */
-    @OperLog(title = "定时任务", businessType = BusinessType.DELETE)
+    // @OperLog(title = "定时任务", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobIds}")
     public AjaxResult remove(@PathVariable Long[] jobIds) throws SchedulerException {
         jobService.deleteJobByIds(jobIds);

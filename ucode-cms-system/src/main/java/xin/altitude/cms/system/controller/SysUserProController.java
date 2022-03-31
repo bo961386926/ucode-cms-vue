@@ -33,11 +33,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.auth.util.SecurityUtils;
+import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.log.annotation.OperLog;
-import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
 import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.framework.core.domain.SysRole;
@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/system/user")
+@RequestMapping(Constants.UNIFORM_PREFIX + "/system/user")
 public class SysUserProController extends BaseProController {
     @Autowired
     private ISysUserService userService;

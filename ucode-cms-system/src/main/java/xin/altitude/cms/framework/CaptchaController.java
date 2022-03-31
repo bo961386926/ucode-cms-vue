@@ -46,7 +46,7 @@ import java.util.concurrent.TimeUnit;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX)
+@RequestMapping(Constants.UNIFORM_PREFIX)
 public class CaptchaController {
     @Resource(name = "captchaProducer")
     private Producer captchaProducer;

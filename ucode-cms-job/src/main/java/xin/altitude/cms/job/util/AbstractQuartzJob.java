@@ -23,10 +23,9 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.SpringUtils;
-import xin.altitude.cms.framework.util.ExceptionUtil;
-import xin.altitude.cms.framework.util.bean.BeanUtils;
 import xin.altitude.cms.job.constant.ScheduleConstants;
 import xin.altitude.cms.job.domain.SysJob;
 import xin.altitude.cms.job.domain.SysJobLog;
@@ -43,21 +42,23 @@ public abstract class AbstractQuartzJob implements Job {
     private static final Logger log = LoggerFactory.getLogger(AbstractQuartzJob.class);
 
     /**
-     * 线程本地变量
+     * 线程本地变量（用来记录任务的执行之间）
      */
-    private static final ThreadLocal<Date> threadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<Date> THREAD_LOCAL = new ThreadLocal<>();
 
     @Override
     public void execute(JobExecutionContext context) {
         SysJob sysJob = new SysJob();
-        BeanUtils.copyBeanProp(sysJob, context.getMergedJobDataMap()
-                .get(ScheduleConstants.TASK_PROPERTIES));
+        BeanUtils.copyProperties(sysJob, context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES));
         try {
+            /* 任务执行前记录开始时间 */
             before(context, sysJob);
             doExecute(context, sysJob);
+            /* 任务执行完成后记录结束时间，并记录任务执行信息 */
             after(context, sysJob, null);
         } catch (Exception e) {
             log.error("任务执行异常  - ：", e);
+            /* 任务异常也记录 */
             after(context, sysJob, e);
         }
     }
@@ -69,7 +70,7 @@ public abstract class AbstractQuartzJob implements Job {
      * @param sysJob  系统计划任务
      */
     protected void before(JobExecutionContext context, SysJob sysJob) {
-        threadLocal.set(new Date());
+        THREAD_LOCAL.set(new Date());
     }
 
     /**
@@ -79,8 +80,8 @@ public abstract class AbstractQuartzJob implements Job {
      * @param sysJob  系统计划任务
      */
     protected void after(JobExecutionContext context, SysJob sysJob, Exception e) {
-        Date startTime = threadLocal.get();
-        threadLocal.remove();
+        Date startTime = THREAD_LOCAL.get();
+        THREAD_LOCAL.remove();
 
         final SysJobLog sysJobLog = new SysJobLog();
         sysJobLog.setJobName(sysJob.getJobName());

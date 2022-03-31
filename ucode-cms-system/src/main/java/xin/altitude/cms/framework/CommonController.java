@@ -46,7 +46,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX)
+@RequestMapping(Constants.UNIFORM_PREFIX)
 public class CommonController {
     private static final Logger log = LoggerFactory.getLogger(CommonController.class);
 

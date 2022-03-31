@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.auth.controller.BaseProController;
+import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.security.service.CmsTokenService;
@@ -50,7 +51,7 @@ import java.io.IOException;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/system/user/profile")
+@RequestMapping(Constants.UNIFORM_PREFIX + "/system/user/profile")
 public class SysProfileProController extends BaseProController {
     @Autowired
     private ISysUserService userService;

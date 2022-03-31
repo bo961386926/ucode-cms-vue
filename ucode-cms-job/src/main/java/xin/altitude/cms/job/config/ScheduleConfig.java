@@ -20,8 +20,6 @@ package xin.altitude.cms.job.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
-import xin.altitude.cms.common.util.SpringUtils;
-import xin.altitude.cms.framework.config.CmsConfig;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -44,12 +42,12 @@ public class ScheduleConfig {
     public SchedulerFactoryBean schedulerFactoryBean(DataSource dataSource) {
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
         /* 获取定时任务配置 */
-        CmsConfig.Job job = SpringUtils.getBean(CmsConfig.class).getJob();
-        if (job.getPersist()) {
-            factory.setDataSource(dataSource);
-        }
-
-        Properties prop = getProperties(job.getPersist());
+        // CmsConfig.Job job = SpringUtils.getBean(CmsConfig.class).getJob();
+        // if (job.getPersist()) {
+        //     factory.setDataSource(dataSource);
+        // }
+        //
+        Properties prop = getProperties(false);
         factory.setQuartzProperties(prop);
 
         factory.setSchedulerName("UCodeCmsScheduler");

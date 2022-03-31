@@ -25,9 +25,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.auth.web.service.SysRegisterService;
+import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.util.StringUtil;
-import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.core.model.RegisterBody;
 import xin.altitude.cms.system.service.ISysConfigService;
 
@@ -37,7 +37,7 @@ import xin.altitude.cms.system.service.ISysConfigService;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX)
+@RequestMapping(Constants.UNIFORM_PREFIX)
 public class SysRegisterProController extends BaseProController {
     @Autowired
     private SysRegisterService registerService;

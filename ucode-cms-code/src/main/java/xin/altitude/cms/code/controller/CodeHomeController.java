@@ -51,9 +51,9 @@ import xin.altitude.cms.code.service.join.impl.One2MoreDomainVoServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2MoreServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneServiceServiceImpl;
 import xin.altitude.cms.code.service.join.impl.One2OneVoServiceImpl;
+import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.common.entity.PageEntity;
-import xin.altitude.cms.framework.config.CmsConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +68,7 @@ import java.util.List;
  **/
 @ResponseBody
 @ConditionalOnProperty(prefix = "ucode.code", name = "enabled", havingValue = "true", matchIfMissing = true)
-@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/auto/code")
+@RequestMapping(Constants.UNIFORM_PREFIX + "/auto/code")
 @Import({CodeHomeServiceImpl.class, MetaTableServiceImpl.class,
     DomainServiceImpl.class, One2OneVoServiceImpl.class, DomainBoServiceImpl.class, ControllerServiceImpl.class,
     MapperServiceImpl.class, ServiceServiceImpl.class, ServiceImplServiceImpl.class, XmlServiceImpl.class,

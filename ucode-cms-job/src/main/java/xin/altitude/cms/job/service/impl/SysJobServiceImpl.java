@@ -57,12 +57,10 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
      * （注：不能手动修改数据库ID和任务组名，否则会导致脏数据）
      */
     @PostConstruct
-    public void init() throws SchedulerException, TaskException {
+    public void init() throws SchedulerException {
         scheduler.clear();
         List<SysJob> jobList = list();
-        for (SysJob job : jobList) {
-            QuartzUtils.createScheduleJob(scheduler, job);
-        }
+        jobList.forEach(e -> QuartzUtils.createScheduleJob(scheduler, e));
     }
 
     /**
@@ -74,17 +72,6 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     @Override
     public List<SysJob> selectJobList(SysJob job) {
         return list(Wrappers.lambdaQuery(job));
-    }
-
-    /**
-     * 通过调度任务ID查询调度信息
-     *
-     * @param jobId 调度任务ID
-     * @return 调度任务对象信息
-     */
-    @Override
-    public SysJob selectJobById(Long jobId) {
-        return getById(jobId);
     }
 
     /**
@@ -159,6 +146,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
 
     /**
      * 任务调度状态修改
+     * 任务暂停 <==> 任务可运行
      *
      * @param job 调度信息
      * @return
@@ -186,10 +174,11 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     public void run(SysJob job) throws SchedulerException {
         Long jobId = job.getJobId();
         String jobGroup = job.getJobGroup();
-        SysJob properties = selectJobById(job.getJobId());
+        SysJob sysJob = getById(job.getJobId());
         // 参数
         JobDataMap dataMap = new JobDataMap();
-        dataMap.put(ScheduleConstants.TASK_PROPERTIES, properties);
+        dataMap.put(ScheduleConstants.TASK_PROPERTIES, sysJob);
+        /* 立即运行任务 */
         scheduler.triggerJob(QuartzUtils.createJobKey(jobId, jobGroup), dataMap);
     }
 
@@ -219,7 +208,7 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateJob(SysJob job) throws SchedulerException, TaskException {
-        SysJob properties = selectJobById(job.getJobId());
+        SysJob properties = getById(job.getJobId());
         boolean rows = updateById(job);
         if (rows) {
             updateSchedulerJob(job, properties.getJobGroup());

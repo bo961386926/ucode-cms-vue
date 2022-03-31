@@ -29,3 +29,7 @@ ucode:
     package-name: "xin.ucode.front"
     domain:
       add-construction-method: true
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl

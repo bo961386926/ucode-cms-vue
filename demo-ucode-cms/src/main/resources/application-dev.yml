@@ -12,7 +12,20 @@ spring:
         url: jdbc:mysql://localhost:3306/demo-cms?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
         password: 123456
-
+#  quartz:
+#    properties:
+#      org.quartz.scheduler.instanceName: DefaultQuartzScheduler2
+#      org.quartz.scheduler.instanceId: 001
+#      org.quartz.scheduler.rmi.export: false
+#      org.quartz.scheduler.rmi.proxy: false
+#      org.quartz.scheduler.wrapJobExecutionInUserTransaction: false
+#      org.quartz.threadPool.class: org.quartz.simpl.SimpleThreadPool
+#      org.quartz.threadPool.threadCount: 3
+#      org.quartz.threadPool.threadPriority: 5
+#      org.quartz.jobStore.misfireThreshold: 60000
+#      org.quartz.jobStore.class: org.quartz.simpl.RAMJobStore
 ucode:
   code:
     join-query: false
+
+

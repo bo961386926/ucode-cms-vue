@@ -38,14 +38,7 @@ public interface ISysJobService extends IService<SysJob> {
      * @return 调度任务集合
      */
     List<SysJob> selectJobList(SysJob job);
-
-    /**
-     * 通过调度任务ID查询调度信息
-     *
-     * @param jobId 调度任务ID
-     * @return 调度任务对象信息
-     */
-    SysJob selectJobById(Long jobId);
+    
 
     /**
      * 暂停任务

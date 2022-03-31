@@ -28,6 +28,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.security.filter.JwtAuthenticationTokenFilter;
@@ -129,7 +130,7 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
         } else {
             httpSecurity.authorizeRequests().anyRequest().permitAll();
         }
-        httpSecurity.logout().logoutUrl(CmsConfig.UNIFORM_PREFIX + "/logout").logoutSuccessHandler(logoutSuccessHandler);
+        httpSecurity.logout().logoutUrl(Constants.UNIFORM_PREFIX + "/logout").logoutSuccessHandler(logoutSuccessHandler);
         // 添加JWT filter
         httpSecurity.addFilterBefore(authenticationTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }

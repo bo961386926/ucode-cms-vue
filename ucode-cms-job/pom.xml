@@ -9,12 +9,12 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.5.3</version>
+        <version>1.5.3.1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <!--<groupId>xin.altitude.cms.job</groupId>-->
     <artifactId>ucode-cms-job</artifactId>
-    <version>1.5.3</version>
+    <version>1.5.3.1</version>
     <name>${project.artifactId}</name>
     <url>http://www.altitude.xin</url>
     <description>
@@ -49,10 +49,10 @@
             <artifactId>spring-context-support</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>jakarta.validation</groupId>
-            <artifactId>jakarta.validation-api</artifactId>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>jakarta.validation</groupId>-->
+        <!--    <artifactId>jakarta.validation-api</artifactId>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -78,20 +78,24 @@
             <artifactId>spring-web</artifactId>
             <optional>true</optional>
         </dependency>
-        <dependency>
-            <groupId>xin.altitude.cms</groupId>
-            <artifactId>ucode-cms-system</artifactId>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>xin.altitude.cms</groupId>
-            <artifactId>ucode-cms-excel</artifactId>
-            <optional>true</optional>
-        </dependency>
+        <!--<dependency>-->
+        <!--    <groupId>xin.altitude.cms</groupId>-->
+        <!--    <artifactId>ucode-cms-system</artifactId>-->
+        <!--    <optional>true</optional>-->
+        <!--</dependency>-->
+        <!--<dependency>-->
+        <!--    <groupId>xin.altitude.cms</groupId>-->
+        <!--    <artifactId>ucode-cms-excel</artifactId>-->
+        <!--    <optional>true</optional>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
             <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
         </dependency>
     </dependencies>
 

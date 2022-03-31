@@ -31,10 +31,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
+import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.entity.AjaxResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.log.annotation.OperLog;
-import xin.altitude.cms.framework.config.CmsConfig;
 import xin.altitude.cms.framework.constant.UserConstants;
 import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.framework.core.domain.SysDictType;
@@ -49,7 +49,7 @@ import java.util.List;
  * @author ucode
  */
 @ResponseBody
-@RequestMapping(CmsConfig.UNIFORM_PREFIX + "/system/dict/type")
+@RequestMapping(Constants.UNIFORM_PREFIX + "/system/dict/type")
 public class SysDictTypeProController extends BaseProController {
     @Autowired
     private ISysDictTypeService dictTypeService;

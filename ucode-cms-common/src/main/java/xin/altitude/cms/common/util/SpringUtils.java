@@ -29,6 +29,10 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 /**
  * spring工具类 方便在非spring管理环境中获取bean
  *
@@ -63,6 +67,21 @@ public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContext
     public static <T> T getBean(Class<T> clazz) throws BeansException {
         T result = beanFactory.getBean(clazz);
         return result;
+    }
+
+
+    /**
+     * 返回指定类型所有的子类
+     *
+     * @param clazz 接口或者抽象类对象
+     * @param <T>   接口或者抽象类类型
+     * @return 集合
+     */
+    public static <T> List<T> getBeans(Class<T> clazz) {
+        List<T> list = new ArrayList<T>();
+        Map<String, T> beansOfType = applicationContext.getBeansOfType(clazz);
+        beansOfType.forEach((k, v) -> list.add(v));
+        return list;
     }
 
     /**

@@ -170,11 +170,15 @@ public class Constants {
      * 定时任务违规的字符
      */
     public static final String[] JOB_ERROR_STR = {"java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
-            "org.springframework.jndi"};
+        "org.springframework.jndi"};
 
 
     /**
      * LDAP 远程方法调用
      */
     public static final String BITMAP_KEY = "redis_bitmap_key";
+    /**
+     * 接口访问统一前缀
+     */
+    public final static String UNIFORM_PREFIX = "/cms-api";
 }

@@ -31,6 +31,7 @@ import xin.altitude.cms.job.domain.SysJob;
 public class QuartzDisallowConcurrentExecution extends AbstractQuartzJob {
     @Override
     protected void doExecute(JobExecutionContext context, SysJob sysJob) throws Exception {
+        /* 利用反射执行任务 */
         JobInvokeUtil.invokeMethod(sysJob);
     }
 }

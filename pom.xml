@@ -64,7 +64,6 @@
         <module>ucode-cms-take-time</module>
         <module>ucode-cms-bitmap</module>
         <module>ucode-cms-quartz</module>
-        <module>ucode-cms-quartz</module>
     </modules>
     <packaging>pom</packaging>
 

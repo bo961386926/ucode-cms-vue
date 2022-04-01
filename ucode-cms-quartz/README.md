@@ -69,8 +69,14 @@ public void execute(JobExecutionContext context) {
 ```http
 http://localhost:8080/cms-api/quartz/job/1?key=a
 ```
-上述http调用的含义是手动触发任务ID为【1】的任务，并且向其传递参数为【key】，值为【a】的参数。
+上述http调用的含义是手动触发任务ID为【1】的任务，并且向其传递参数为【key】值为【a】的参数。
 
+##### 5、任务并发
+本框架不支持任务并发，换句话说并发对定时任务不利，因此需要手动禁止。
+
+需要注意的是`Quartz`的并发是指当任务执行耗时超过任务调度周期时，上一个任务未执行完，新任务是否执行。
+
+一般来说需要显示禁止并发，在任务类上添加注解`DisallowConcurrentExecution`即可禁止任务并发。
 
 
 ---

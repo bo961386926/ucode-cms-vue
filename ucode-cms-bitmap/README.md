@@ -33,3 +33,8 @@ public BuOrder getOrder(Integer orderId) {
 }
 ```
 注解版与业务完全解藕，透明化的使用BitMap，可拆可装，灵活自如。
+
+
+---
+> 如有疑问，可通过微信`dream4s`与作者联系。源码在[GitHub](https://gitee.com/decsa)，视频讲解在[B站](https://space.bilibili.com/1936685014)，本文收藏在[博客天地](http://www.altitude.xin)。
+---

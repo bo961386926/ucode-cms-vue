@@ -18,6 +18,7 @@
 
 package xin.altitude.cms.quartz.service.impl;
 
+import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
@@ -27,6 +28,8 @@ import xin.altitude.cms.quartz.model.JobModel;
 import xin.altitude.cms.quartz.service.IQuartzJobService;
 import xin.altitude.cms.quartz.util.CronUtils;
 import xin.altitude.cms.quartz.util.QuartzUtils;
+
+import javax.annotation.PostConstruct;
 
 /**
  * 定时任务调度信息 服务层
@@ -38,6 +41,14 @@ public class QuartzJobServiceImpl implements IQuartzJobService {
      * 调度器（核心参数）
      */
     private final Scheduler scheduler = SpringUtils.getBean(ScheduleConstants.SCHEDULE_NAME);
+
+    /**
+     * 初始化并启动任务列表
+     */
+    @PostConstruct
+    public void init() {
+        SpringUtils.getBeans(Job.class).forEach(e -> QuartzUtils.createScheduleJob(scheduler, e.getClass()));
+    }
 
     /**
      * 暂停任务

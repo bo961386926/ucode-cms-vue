@@ -78,6 +78,27 @@ http://localhost:8080/cms-api/quartz/job/1?key=a
 
 一般来说需要显示禁止并发，在任务类上添加注解`DisallowConcurrentExecution`即可禁止任务并发。
 
+##### 6、持久化
+如果定时任务有高可用的需求，那么需要对任务进行持久化。定时任务数据持久化到数据库中后，支持应用程序多开。定时任务持久化多节点部署后，集群中单节点故障不影响定时任务的执行。
+
+定时任务持久化，仅需修改yml文件配置即可达到目标，无需修改代码。一般而言使用Mysql做持久化的容器。
+
+```yaml
+spring:
+  quartz:
+    properties:
+      org.quartz.jobStore.isClustered: true
+      org.quartz.jobStore.class: org.quartz.impl.jdbcjobstore.JobStoreTX
+      org.quartz.jobStore.driverDelegateClass: org.quartz.impl.jdbcjobstore.StdJDBCDelegate
+      org.quartz.jobStore.dataSource: qzDS
+      org.quartz.dataSource.qzDS.driver: com.mysql.cj.jdbc.Driver
+      org.quartz.dataSource.qzDS.URL: jdbc:mysql://localhost:3306/quartz-demo
+      org.quartz.dataSource.qzDS.user: root
+      org.quartz.dataSource.qzDS.password: 123456
+```
+除了修改主机、端口、数据库名、用户名、密码五个参数外，其余参数使用默认值即可。
+
+> 配置完数据库连接后，使用SQL脚本，注意初始化数据库
 
 ---
 > 如有疑问，可通过微信`dream4s`与作者联系。源码在[GitHub](https://gitee.com/decsa)，视频讲解在[B站](https://space.bilibili.com/1936685014)，本文收藏在[博客天地](http://www.altitude.xin)。

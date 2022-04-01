@@ -7,11 +7,10 @@
 ##### 1、引入依赖
 
 ```xml
-
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-quartz</artifactId>
-    <version>1.5.4</version>
+    <version>1.5.4.1</version>
 </dependency>
 ```
 
@@ -22,7 +21,6 @@
 启动项目，定时任务便处于监听与运行中。
 
 ```java
-
 @Component
 @DisallowConcurrentExecution
 @CronExp(cron = "0/5 * * * * ?")
@@ -102,4 +100,6 @@ spring:
 
 ---
 > 如有疑问，可通过微信`dream4s`与作者联系。源码在[GitHub](https://gitee.com/decsa)，视频讲解在[B站](https://space.bilibili.com/1936685014)，本文收藏在[博客天地](http://www.altitude.xin)。
+
 ---
+

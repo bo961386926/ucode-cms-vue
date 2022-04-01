@@ -20,7 +20,6 @@ package xin.altitude.cms.quartz.config;
 
 import org.quartz.Job;
 import org.quartz.Scheduler;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.scheduling.quartz.SchedulerFactoryBean;
 import xin.altitude.cms.common.util.SpringUtils;
@@ -34,14 +33,17 @@ import javax.annotation.PostConstruct;
  * @since 2022/03/30 20:21
  **/
 public class QuartzConfig {
-    @Autowired
-    private SchedulerFactoryBean schedulerFactoryBean;
-
+    /**
+     * 使用SpringBoot自动装载外部配置，初始化调度器
+     *
+     * @return Scheduler调度器
+     * @throws Exception
+     */
     @Bean(ScheduleConstants.SCHEDULE_NAME)
     public Scheduler scheduler() throws Exception {
-        Scheduler scheduler = schedulerFactoryBean.getScheduler();
-        /* 延迟5秒启动 */
-        scheduler.startDelayed(5);
+        SchedulerFactoryBean factoryBean = SpringUtils.getBean(SchedulerFactoryBean.class);
+        Scheduler scheduler = factoryBean.getScheduler();
+        scheduler.start();
         return scheduler;
     }
 

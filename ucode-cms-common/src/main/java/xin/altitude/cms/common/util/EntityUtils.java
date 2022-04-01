@@ -136,25 +136,6 @@ public class EntityUtils {
         return new ArrayList<>().toArray();
     }
 
-    // /**
-    //  * 将IPaged对象以一种类型转换成另一种类型
-    //  *
-    //  * @param <T>    源数据类型
-    //  * @param <R>    变换后数据类型
-    //  * @param source 源IPage对象
-    //  * @param action 映射Lmabda表达式
-    //  * @return 变换后的类型集合，如果source为null,则返回null
-    //  */
-    // @SuppressWarnings("unchecked")
-    // public static <T, R> IPage<R> convertPage(IPage<? extends T> source, final Function<? super T, ? extends R> action) {
-    //     Optional<? extends IPage<? extends T>> optional = ofNullable(source);
-    //     if (optional.isPresent()) {
-    //         List<R> collect = source.getRecords().stream().map(action).collect(toList());
-    //         return ((IPage<R>) source).setRecords(collect);
-    //     }
-    //     return null;
-    // }
-
     /**
      * 将IPaged对象以一种类型转换成另一种类型
      *

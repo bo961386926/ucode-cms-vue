@@ -34,7 +34,7 @@ import java.util.Set;
  * @author explore
  * @since 2019/11/30 22:53
  **/
-public class BeanCopyUtils {
+public class BeanCopyUtils extends BeanUtils {
 
     /**
      * 如果目标对象与源对象有相同字段，并且不为空，则忽略复制

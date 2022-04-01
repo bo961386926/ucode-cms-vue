@@ -70,3 +70,9 @@ public void execute(JobExecutionContext context) {
 http://localhost:8080/cms-api/quartz/job/1?key=a
 ```
 上述http调用的含义是手动触发任务ID为【1】的任务，并且向其传递参数为【key】，值为【a】的参数。
+
+
+
+---
+> 如有疑问，可通过微信`dream4s`与作者联系。源码在[GitHub](https://gitee.com/decsa)，视频讲解在[B站](https://space.bilibili.com/1936685014)，本文收藏在[博客天地](http://www.altitude.xin)。
+---

@@ -11,7 +11,7 @@
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-quartz</artifactId>
-    <version>1.5.3.1</version>
+    <version>1.5.4</version>
 </dependency>
 ```
 

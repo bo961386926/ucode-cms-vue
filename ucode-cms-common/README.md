@@ -6,7 +6,7 @@
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.5.3.1</version>
+    <version>1.5.4</version>
 </dependency>
 ```
 引入上述依赖便可以直接使用内置的大量工具类

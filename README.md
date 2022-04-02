@@ -8,6 +8,7 @@
 ```xml
 <version>1.5.4.1</version>
 ```
+> 学习代码的朋友，顺手给[本项目](https://gitee.com/decsa/ucode-cms-vue)来个star吧
 ##### 2、使用说明
 新时代的码农需要转变编码习惯，摒弃传统的CV开发依赖。实际上Java生态目前极其完善，从底层的JDK到Spring、SpringBoot，再到Apache Commons，再到Guava等几乎提供了95%实际问题的解决方案。
 

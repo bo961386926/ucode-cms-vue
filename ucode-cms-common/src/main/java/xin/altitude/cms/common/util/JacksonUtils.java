@@ -45,10 +45,13 @@ import java.util.Objects;
  * 需要运行在Spring生态中
  *
  * @author explore
- * @since 2022/03/24 13:39
+ * @since 2021/03/24 13:39
  **/
 public class JacksonUtils {
-    private final static ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    /**
+     * 从Spring容器中获取ObjectMapper实例
+     */
+    private final static ObjectMapper OBJECT_MAPPER = SpringUtils.getBean(ObjectMapper.class);
 
     /**
      * 把JavaBean转换为json字符串

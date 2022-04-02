@@ -46,7 +46,7 @@ import java.util.List;
 
 /**
  * @author explore
- * @since 2022/03/19 10:10
+ * @since 2021/03/19 10:10
  **/
 @Import({RedisScriptConfig.class, RedisTemplateConfig.class})
 public class LimitInterceptor implements HandlerInterceptor {

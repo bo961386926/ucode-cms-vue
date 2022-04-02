@@ -5,7 +5,7 @@ package xin.altitude.cms.common.lang;
  * 将clone方法修饰符转化为public
  *
  * @author explore
- * @since 2022/03/24 19:57
+ * @since 2021/03/24 19:57
  **/
 public abstract class AbstractObject implements Cloneable {
     @Override

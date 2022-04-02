@@ -28,7 +28,7 @@ import java.io.Serializable;
  * RabbitMQ工具类
  *
  * @author explore
- * @since 2022/03/07 10:34
+ * @since 2021/03/07 10:34
  **/
 public class RabbitUtils extends org.springframework.amqp.rabbit.connection.RabbitUtils {
 

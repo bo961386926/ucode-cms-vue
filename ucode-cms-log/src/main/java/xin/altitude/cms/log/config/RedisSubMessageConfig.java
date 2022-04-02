@@ -18,32 +18,53 @@
 
 package xin.altitude.cms.log.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.redis.connection.MessageListener;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import xin.altitude.cms.common.util.ColUtils;
+import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.log.aspectj.LogAspect;
-import xin.altitude.cms.log.listener.DefaultRedisOperateLogListener;
+import xin.altitude.cms.log.listener.DefaultOperateLogListener;
+
+import java.util.List;
 
 /**
  * @author explore
- * @since 2022/03/21 13:37
+ * @since 2021/03/21 13:37
  **/
-@Import({DefaultRedisOperateLogListener.class})
+@Import({DefaultOperateLogListener.class})
 public class RedisSubMessageConfig {
 
-    @Autowired
-    private DefaultRedisOperateLogListener listener;
+    // @Autowired
+    // private DefaultRedisOperateLogListener listener;
 
     @Bean
     public RedisMessageListenerContainer redisMessageListenerContainer(RedisConnectionFactory redisConnectionFactory) {
         RedisMessageListenerContainer redisMessageListenerContainer = new RedisMessageListenerContainer();
         redisMessageListenerContainer.setConnectionFactory(redisConnectionFactory);
         /* 订阅topic - subscribe */
-        redisMessageListenerContainer.addMessageListener(listener, new ChannelTopic(LogAspect.CHANNEL_NAME));
+        redisMessageListenerContainer.addMessageListener(dynamicListener(), new ChannelTopic(LogAspect.CHANNEL_NAME));
         return redisMessageListenerContainer;
+    }
+
+    /**
+     * 动态选择监听器
+     *
+     * @return MessageListener
+     */
+    private MessageListener dynamicListener() {
+        List<MessageListener> beans = SpringUtils.getBeans(MessageListener.class);
+        if (beans.size() != 1) {
+            for (MessageListener bean : beans) {
+                if (!DefaultOperateLogListener.class.equals(bean.getClass())) {
+                    return bean;
+                }
+            }
+        }
+        return ColUtils.toObj(beans);
     }
 }
 

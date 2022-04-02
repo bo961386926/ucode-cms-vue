@@ -27,7 +27,7 @@ import xin.altitude.cms.repeat.interceptor.impl.RepeatSubmitInterceptor;
 
 /**
  * @author explore
- * @since 2022/03/20 00:45
+ * @since 2021/03/20 00:45
  **/
 @Import({RepeatSubmitInterceptor.class, RepeatableFilter.class})
 public class RepeatConfig implements WebMvcConfigurer {

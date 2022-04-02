@@ -18,35 +18,31 @@
 
 package xin.altitude.cms.log.listener;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.Message;
 import org.springframework.data.redis.connection.MessageListener;
-import xin.altitude.cms.common.util.SpringUtils;
+import xin.altitude.cms.common.util.JacksonUtils;
 import xin.altitude.cms.log.domain.OperateLog;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 /**
  * 此类须由子类继承，并注入到Spring容器中
  *
  * @author explore
- * @since 2022/03/21 13:28
+ * @since 2021/03/21 13:28
  **/
-public class DefaultRedisOperateLogListener implements MessageListener {
-    protected static final Logger log = LoggerFactory.getLogger(DefaultRedisOperateLogListener.class);
+public class DefaultOperateLogListener implements MessageListener {
+    protected static final Logger log = LoggerFactory.getLogger(DefaultOperateLogListener.class);
 
     @Override
     public void onMessage(Message message, byte[] pattern) {
-        try {
-            String s = new String(message.getBody(), StandardCharsets.UTF_8);
-            OperateLog operateLog = SpringUtils.getBean(ObjectMapper.class).readValue(s, OperateLog.class);
-            saveData(operateLog);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
+        String s = new String(message.getBody(), StandardCharsets.UTF_8);
+        OperateLog operateLog = JacksonUtils.readValue(s, OperateLog.class);
+        /* 如果数据存在，则保存数据 */
+        Optional.ofNullable(operateLog).ifPresent(this::saveData);
     }
 
     /**

@@ -19,19 +19,18 @@
 package xin.altitude.cms.log.aspectj;
 
 import cn.hutool.core.util.IdUtil;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Import;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.HandlerMapping;
 import xin.altitude.cms.common.util.IpUtils;
+import xin.altitude.cms.common.util.JacksonUtils;
 import xin.altitude.cms.common.util.RedisUtils;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.StringUtil;
@@ -57,9 +56,6 @@ import java.util.Map;
 public class LogAspect {
     public final static String CHANNEL_NAME = "REDIS_OPER_LOG";
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
-
-    @Autowired
-    private ObjectMapper objectMapper;
 
     /**
      * 处理完请求后执行
@@ -136,8 +132,7 @@ public class LogAspect {
         }
         // 是否需要保存response，参数和值
         if (log.saveResponse() && StringUtil.isNotNull(jsonResult)) {
-            // operLog.setJsonResult(StringUtil.substring(JSON.toJSONString(jsonResult), 0, 2000));
-            operateLog.setJsonResult(StringUtil.substring(objectMapper.writeValueAsString(jsonResult), 0, 2000));
+            operateLog.setJsonResult(StringUtil.substring(JacksonUtils.writeValueAsString(jsonResult), 0, 2000));
         }
     }
 
@@ -169,7 +164,7 @@ public class LogAspect {
                         // Object jsonObj = JSON.toJSON(o);
                         // Object jsonObj = objectMapper.readValue();
                         // params.append(jsonObj.toString()).append(" ");
-                        params.append(objectMapper.writeValueAsString(o)).append(" ");
+                        params.append(JacksonUtils.writeValueAsString(o)).append(" ");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

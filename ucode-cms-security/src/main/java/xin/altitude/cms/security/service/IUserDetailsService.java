@@ -24,7 +24,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 /**
  * @author explore
- * @since 2022/03/21 23:05
+ * @since 2021/03/21 23:05
  **/
 public abstract class IUserDetailsService implements UserDetailsService {
     @Override

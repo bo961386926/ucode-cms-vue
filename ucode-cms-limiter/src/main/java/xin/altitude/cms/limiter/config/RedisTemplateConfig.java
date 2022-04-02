@@ -24,7 +24,7 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 
 /**
  * @author explore
- * @since 2022/03/19 23:37
+ * @since 2021/03/19 23:37
  **/
 public class RedisTemplateConfig {
     /**

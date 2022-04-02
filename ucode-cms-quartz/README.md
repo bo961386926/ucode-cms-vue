@@ -10,7 +10,7 @@
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-quartz</artifactId>
-    <version>1.5.4.1</version>
+    <version>1.5.4.2</version>
 </dependency>
 ```
 

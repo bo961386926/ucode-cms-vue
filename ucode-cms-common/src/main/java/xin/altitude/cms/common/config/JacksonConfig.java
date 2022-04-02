@@ -32,7 +32,7 @@ import java.time.format.DateTimeFormatter;
  * 处理LocalDate、LocalDateTime、Long 三种类型JSON序列化
  *
  * @author explore
- * @@since 2021/04/02 20:53
+ * @since 2021/04/02 20:53
  **/
 public class JacksonConfig {
     @Bean

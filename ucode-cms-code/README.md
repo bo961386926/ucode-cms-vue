@@ -113,7 +113,7 @@ spring:
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.5.4.1</version>
+    <version>1.5.4.2</version>
 </dependency>
 ```
 

@@ -352,7 +352,7 @@ http://localhost:8080
 
 如果在使用过程中有任何疑问，欢迎与我联系。
 
-![IMG_552DA7C4E674-1](https://www.altitude.xin/typora/IMG_552DA7C4E674-1.png)
+![IMG_09206BE8BEBE-1](https://www.altitude.xin/typora/IMG_09206BE8BEBE-1.png)
 
 
 如果二维码失效，请添加微信号`dream4s`联系入群，谢谢。

@@ -268,7 +268,87 @@ public class DemoJob implements Job {
 ```
 使用上述代码便快速在Quartz生态完成一个定时任务。
 
-### 五、互相交流
+### 五、使用UCode CMS
+上述代码是UCode CMS的内部封装的源代码，不能对外直接使用，这里提供两种对外使用的方式。
+
+#### （一）克隆初始化项目
+##### 1、克隆脚手架项目
+克隆脚手架项目并导入idea中
+```http
+https://gitee.com/decsa/demo-cms.git
+```
+##### 2、使用SQL脚本初始化数据库
+使用项目自带的SQL脚本初始化数据库
+```text
+sql/
+├── cms（必选）.sql                                 // 核心脚本（必选）
+```
+##### 3、配置数据库连接
+```yml
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 主库数据源
+    url: jdbc:mysql://localhost:3306/ucode-cms2
+    username: root
+    password: 123456
+```
+##### 4、启动项目
+启动项目前检查Mysql数据库服务和Redis服务配置信息是否正常。
+```http
+http://localhost:8080
+```
+
+> 使用脚手架或者在脚手架上修改比较方便，原因是将细节内容提供在初始化项目中。
+
+#### （二）从零新建项目
+
+##### 1、添加依赖
+```xml
+<dependencies>
+    <!--Cms核心依赖（必选）-->
+    <dependency>
+        <groupId>xin.altitude.cms</groupId>
+        <artifactId>ucode-cms-spring-boot-starter</artifactId>
+        <version>1.5.4.2</version>
+    </dependency>
+</dependencies>
+```
+##### 2、添加配置类
+此配置类与Spring Security有关，属于权限管理范畴。
+```java
+@Configuration
+public class SecurityConfig extends AbstractSecurityConfig {
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        super.configure(httpSecurity);
+    }
+}
+```
+
+##### 3、初始化数据库
+初始化数据库与配置连接信息
+```yml
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    # 主库数据源
+    url: jdbc:mysql://localhost:3306/ucode-cms2
+    username: root
+    password: 123456
+```
+
+##### 4、启动项目
+启动项目前检查Mysql数据库服务和Redis服务配置信息是否正常。
+```http
+http://localhost:8080
+```
+
+> 从零新建项目需要注意的细节部分略微多一些，也能够快速体验使用UCode CMS。
+
+### 六、互相交流
 
 如果在使用过程中有任何疑问，欢迎与我联系。
 

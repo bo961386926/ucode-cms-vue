@@ -65,7 +65,64 @@ spring:
 
 勾选表结构，点击生成，重启项目，相应的代码生效。访问地址`http://localhost:8080/doc.html` 访问接口列表。
 
-#### （三）高级使用
+---
+
+#### （三）嵌入已有项目
+如果想要将代码生成器嵌入已有项目中使用，可能会产生系统冲突问题，原因是代码生成器运行的环境本身是一个完整的系统。建议按照如下流程尝试：
+
+- 使用UCode CMS作为项目脚手架，无缝兼容代码生成器，同时无缝拓展十余种功能组件
+- 按照上述步骤，独立运行代码生成器，然后将生成的代码拷贝至已有项目中
+- 将代码生成器嵌入已有项目中，如果能够正常运行，生成代码完毕，请移除相关依赖
+
+上述三个选项任选其一即可。下面将嵌入已有项目的操作步骤。
+
+##### 1、添加依赖
+```xml
+<!--Cms核心依赖（必选）-->
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-spring-boot-starter</artifactId>
+    <version>1.5.4.2</version>
+</dependency>
+
+<!--代码本地化生成依赖（可选）-->
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
+    <version>1.5.4.2</version>
+</dependency>
+```
+如果使用代码生成器功能，则代码本地化生成依赖为必选项。
+
+##### 2、初始化数据库
+项目中【cms（必选）.sql】脚本文件为系统运行的必要脚本，需要初始化。运行前先检查脚本中的库表结构是否有冲突，然后进行下一步。
+
+##### 3、新建配置类
+本配置类是因为封装不彻底的缘故，目前尚未找到很好的解决方式，因此带入到业务代码中。
+```java
+@Configuration
+public class SecurityConfig extends AbstractSecurityConfig {
+    @Override
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        super.configure(httpSecurity);
+    }
+}
+```
+Mysql数据库配置和Redis配置与上述保持一致，或者参考demo-code演示项目。
+
+> 由于涉及到两个系统的合并，系统发生冲突不可预料，强烈不推荐将代码生成器嵌入到已有项目中使用
+
+##### 4、移除依赖
+在生成完代码后，移除相关依赖，如果生成后的代码包缺少包，请添加如下轻量依赖包（通用代码包）。
+```xml
+<dependency>
+    <groupId>xin.altitude.cms</groupId>
+    <artifactId>ucode-cms-common</artifactId>
+    <version>1.5.4.2</version>
+</dependency>
+```
+
+#### （四）高级使用
 
 在完成简单入门体验后，需要了解代码生成的高级部分，即全局配置。在项目中搜索类名`CodeProperties`即可查看所有内置可供修改的参数，在全局`yml`文件中覆盖默认值即可完成修改，按需配置。
 
@@ -90,7 +147,7 @@ spring:
 | `ucode.code.xml.addXml`        | `false`              | 虽然说不建议使用XML文件编写SQL，但仍提高可开启开关 |
 | `ucode.code.mapper.useCache`   | `true`               | 默认开启二级缓存，自定义业务缓存可关闭             |
 
-#### （四）常见问题
+#### （五）常见问题
 ##### 1、找不到依赖？
 找不到依赖很大可能是因为阿里云景象仓库尚未同步完成Jar包，在项目中`pom`文件添加如下配置：
 ```xml

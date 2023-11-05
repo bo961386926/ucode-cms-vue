@@ -1,0 +1,64 @@
+{
+  "properties": [
+    {
+      "name": "ucode.code.packageName",
+      "type": "java.lang.String",
+      "description": "代码生成包前缀名."
+    },
+    {
+      "name": "ucode.code.moduleName",
+      "type": "java.lang.String",
+      "description": "代码生成模块名称."
+    },
+    {
+      "name": "ucode.code.projectDir",
+      "type": "java.lang.String",
+      "description": "代码生成相对路径."
+    },
+    {
+      "name": "ucode.code.removeTablePrefix",
+      "type": "java.lang.Boolean",
+      "description": "是否移除表前缀."
+    },
+    {
+      "name": "ucode.code.files",
+      "type": "xin.altitude.cms.gen.code.enums.FileEnum",
+      "description": "文件列表."
+    }
+  ],
+  "hints": [
+    {
+      "name": "ucode.code.files",
+      "values": [
+        {
+          "value": "domain",
+          "description": "DO实体类."
+        },
+        {
+          "value": "mapper",
+          "description": "DAO访问层."
+        },
+        {
+          "value": "mapStruct",
+          "description": "实体类转换层."
+        },
+        {
+          "value": "serviceImpl",
+          "description": "服务层."
+        },
+        {
+          "value": "service",
+          "description": "服务接口层."
+        },
+        {
+          "value": "controller",
+          "description": "控制器层."
+        },
+        {
+          "value": "xml",
+          "description": "XML文件."
+        }
+      ]
+    }
+  ]
+}

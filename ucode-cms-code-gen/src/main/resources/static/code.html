@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" />
+    <title>Java代码生成器 - 赛泰先生</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/element-ui/lib/theme-chalk/index.css"
+    />
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://lib.baomitu.com/axios/0.27.2/axios.js"></script>
+    <!-- <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/androidstudio.min.css"
+    /> -->
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/dark.min.css"
+    />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</head>
+<body>
+<div id="root">
+    <h1 style="text-align: center;">Java代码生成器</h1>
+    <el-form :inline="true" class="demo-form-inline">
+        <el-row>
+            <el-form-item label="生成文件">
+                <el-checkbox-group v-model="config.files" @change="listCode()">
+                    <el-checkbox
+                        v-for="item in files"
+                        :label="item"
+                        name="type"
+                        :key="item"
+                    ></el-checkbox>
+                </el-checkbox-group>
+            </el-form-item>
+            <el-form-item label="移除表前缀">
+                <el-switch
+                    v-model="config.removeTablePrefix"
+                    active-text="是"
+                    inactive-text="否"
+                    @change="listCode()"
+                ></el-switch>
+            </el-form-item>
+
+            <el-form-item label="过滤系统表">
+                <el-switch
+                    v-model="config.filterSysTable"
+                    active-text="是"
+                    inactive-text="否"
+                    @change="listCode()"
+                ></el-switch>
+            </el-form-item>
+            <el-button @click="handleAllLocalGen()" type="primary" size="small"
+            >全部生成</el-button
+            >
+            <el-button type="success" size="small" @click="handleLocalDownload()"
+            >全部下载</el-button
+            >
+        </el-row>
+    </el-form>
+    <el-table
+        ref="multipleTable"
+        :data="tableList"
+        style="width: 100%"
+        @selection-change="handleSelectionChange"
+        stripe
+        border
+    >
+        <el-table-column type="selection" width="60"> </el-table-column>
+        <el-table-column type="index" label="序号" width="60"></el-table-column>
+        <el-table-column prop="tableName" label="表名"> </el-table-column>
+        <el-table-column prop="tableComment" label="表注释"> </el-table-column>
+        <el-table-column prop="createTime" label="创建时间" width="200">
+        </el-table-column>
+        <el-table-column prop="updateTime" label="修改时间" width="200">
+        </el-table-column>
+        <el-table-column fixed="right" label="操作" width="200">
+            <template slot-scope="scope">
+                <el-tooltip content="在线预览" placement="top" hide-after="5000">
+                    <el-button
+                        type="text"
+                        size="small"
+                        class="el-icon-view"
+                        @click="previewCode(scope.row)"
+                    >预览</el-button
+                    >
+                </el-tooltip>
+                <el-tooltip content="生成到开发工具" placement="top" hide-after="5000">
+                    <el-button
+                        type="text"
+                        size="small"
+                        class="el-icon-download"
+                        @click="handleLocalGen(scope.row)"
+                    >生成</el-button
+                    >
+                </el-tooltip>
+                <el-tooltip content="压缩包下载" placement="top" hide-after="5000">
+                    <el-button
+                        type="text"
+                        size="small"
+                        class="el-icon-bottom-right"
+                        @click="handleLocalDownload(scope.row)"
+                    >下载</el-button
+                </el-tooltip>
+                >
+            </template>
+        </el-table-column>
+    </el-table>
+
+    <el-dialog
+        :visible.sync="dialogVisible"
+        top="5vh"
+        width="90%"
+        style="height: 98%"
+    >
+        <!-- <span>这是一段信息</span> -->
+        <el-container>
+            <el-main>
+                <el-tabs type="card" tab-position="left">
+                    <el-tab-pane
+                        v-for="item in codeList"
+                        :label="item.fileName"
+                        :key="item.fileName"
+                    >
+                        <pre><code class="highlight">{{item.fileContent}}</code></pre>
+                    </el-tab-pane>
+                </el-tabs>
+            </el-main>
+            <el-aside width="300px"
+            ><el-form
+                ref="form"
+                label-width="80px"
+                size="mini"
+                label-position="left"
+            >
+                <el-collapse v-model="activeName" accordion>
+                    <el-collapse-item title="全局配置" name="1">
+                        <el-form-item label="存储目录">
+                            <el-input
+                                placeholder="多模块项目需指定 否则为项目启动当前工作空间"
+                                v-model="config.projectDir"
+                            ></el-input>
+                        </el-form-item>
+                        <el-form-item label="基础包名">
+                            <el-input
+                                placeholder="xin.altitude.front"
+                                v-model="config.packageName"
+                                @input="listCode()"
+                            ></el-input>
+                        </el-form-item>
+                        <el-form-item label="生成文件">
+                            <el-checkbox-group
+                                v-model="config.files"
+                                @change="listCode()"
+                            >
+                                <el-checkbox
+                                    v-for="item in files"
+                                    :label="item"
+                                    name="type"
+                                    :key="item"
+                                ></el-checkbox>
+                            </el-checkbox-group>
+                        </el-form-item>
+                        <el-form-item label="移除表前缀" label-width="180px">
+                            <el-switch
+                                v-model="config.removeTablePrefix"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="DAO技术">
+                            <el-radio v-model="config.dao" label="mybatis"
+                            >Mybatis</el-radio
+                            >
+                            <el-radio v-model="config.dao" label="mybatisPlus"
+                            >MybatisPlus</el-radio
+                            >
+                        </el-form-item>
+
+                        <el-form-item label="使用Swagger" label-width="180px">
+                            <el-switch
+                                v-model="config.useSwagger"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="过滤系统表" label-width="180px">
+                            <el-switch
+                                v-model="config.filterSysTable"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="作者">
+                            <el-input
+                                placeholder="赛泰先生"
+                                v-model="config.funAuthor"
+                            ></el-input>
+                        </el-form-item>
+                    </el-collapse-item>
+                    <el-collapse-item title="DO实体类" name="2">
+                        <el-form-item label="使用Lombok" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.useLombok"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="添加父类" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.addSuperClass"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="重写toString方法" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.overrideToString"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="添加构造器" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.addConstructionMethod"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="使用AR" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.useActiveRecord"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="导入列表" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.addImportList"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="属性注释" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.addNoteInfo"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="主键自增" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.pkInc"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="日期格式化" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.dateFormat"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                        <el-form-item label="日期序列化" label-width="180px">
+                            <el-switch
+                                v-model="config.domain.dateSerialize"
+                                active-text="是"
+                                inactive-text="否"
+                                @change="listCode()"
+                            ></el-switch>
+                        </el-form-item>
+                    </el-collapse-item>
+                </el-collapse> </el-form
+            ></el-aside>
+        </el-container>
+    </el-dialog>
+</div>
+</body>
+
+<script type="text/javascript">
+    // flow为接口返回的文件流
+    const downloadFn = (flow = null) => {
+        if (!flow) return;
+        const blob = new Blob([flow]);
+        const blobUrl = window.URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.style.display = "none";
+        a.download = "code.zip"; // 自定义下载的文件名
+        a.href = blobUrl;
+        a.click();
+    };
+
+    let vm = new Vue({
+        el: "#root",
+        mounted() {},
+        created() {
+            this.listTable();
+            // this.listCode();
+        },
+        data: {
+            activeName: "1",
+            // value: true,
+            dialogVisible: false,
+            tableNames: [],
+            tableList: [],
+            config: {
+                projectDir: "demo-code",
+                codeMode: "LOCAL",
+                removeTablePrefix: true,
+                tablePrefix: null,
+                packageName: "xin.altitude.front",
+                moduleName: null,
+                funAuthor: "explore",
+                dao: "mybatisPlus",
+                useSwagger: true,
+                filterSysTable: true,
+                files: [
+                    "mapStruct",
+                    "domain",
+                    "service",
+                    "xml",
+                    "serviceImpl",
+                    "controller",
+                    "mapper",
+                ],
+                domain: {
+                    useLombok: true,
+                    addSuperClass: false,
+                    overrideToString: false,
+                    addConstructionMethod: true,
+                    useActiveRecord: true,
+                    addImportList: true,
+                    addNoteInfo: true,
+                    pkInc: true,
+                    dateFormat: true,
+                    dateSerialize: false,
+                },
+                controller: {
+                    businessName: null,
+                    addImportList: true,
+                    addNoteInfo: false,
+                },
+                mapper: {
+                    useCache: false,
+                },
+            },
+            files: [
+                "domain",
+                "mapper",
+                "serviceImpl",
+                "service",
+                "controller",
+                "xml",
+                "mapStruct",
+            ],
+            codeList: "",
+        },
+        methods: {
+            listCode() {
+                var _tableName = "";
+                if (this.tableNames.length > 0) {
+                    _tableName = this.tableNames[0].tableName;
+                } else if (this.tableList.length > 0) {
+                    _tableName = this.tableList[0].tableName;
+                } else {
+                    _tableName = "tb_red_packet";
+                }
+                axios({
+                    //baseURL: "http://127.0.0.1:5500",
+                    method: "post",
+                    url: "/cms-api/auto/code/preview/" + _tableName,
+                    data: this.config,
+                }).then(function (r) {
+                    vm.codeList = [];
+                    vm.codeList = r.data.data;
+                });
+            },
+            listCode2(row) {
+                var _tableName = row.tableName;
+
+                axios({
+                    //baseURL: "http://127.0.0.1:5500",
+                    method: "post",
+                    url: "/cms-api/auto/code/preview/" + _tableName,
+                    data: this.config,
+                }).then(function (r) {
+                    vm.codeList = [];
+                    vm.codeList = r.data.data;
+                });
+            },
+            listTable() {
+                axios({
+                    //baseURL: "http://127.0.0.1:5500",
+                    method: "get",
+                    url: "/cms-api/auto/code/table/list",
+                }).then(function (r) {
+                    vm.tableList = r.data.data;
+                    Vue.nextTick(function () {
+                        vm.tableList = r.data.data;
+                    });
+                    vm.listCode();
+                });
+            },
+            // 单个生成
+            handleLocalGen(row) {
+                this.toggleSelection(row);
+                axios({
+                    //baseURL: "http://127.0.0.1:5500",
+                    method: "get",
+                    url: "/cms-api/auto/code/table/gen",
+                    params: {
+                        tableName: row.tableName,
+                    },
+                }).then(function (r) {
+                    vm.$message({
+                        message: "恭喜！所选表对应的代码已经生成到后端项目的工作空间",
+                        type: "success",
+                    });
+                });
+            },
+            handleAllLocalGen() {
+                if (this.tableNames.length > 0) {
+                    tb = [];
+                    for (const item of this.tableNames) {
+                        tb.push(item.tableName);
+                    }
+                    axios({
+                        //baseURL: "http://127.0.0.1:5500",
+                        method: "get",
+                        url: "/cms-api/auto/code/table/gen",
+                        params: {
+                            tableName: tb.toString(),
+                        },
+                    }).then(function (r) {
+                        vm.$message({
+                            message: "恭喜！所选表对应的代码已经生成到后端项目的工作空间",
+                            type: "success",
+                        });
+                    });
+                } else {
+                    this.$message({
+                        message: "请至少选择一张表",
+                        type: "error",
+                    });
+                }
+            },
+            handleLocalDownload(row) {
+                var _tableName = "";
+                if (row) {
+                    this.toggleSelection(row);
+                    _tableName = row.tableName;
+                } else {
+                    if (this.tableNames.length > 0) {
+                        tb = [];
+                        for (const item of this.tableNames) {
+                            tb.push(item.tableName);
+                        }
+                        _tableName = tb.toString();
+                    } else {
+                        this.$message({
+                            message: "请至少选择一张表",
+                            type: "error",
+                        });
+                    }
+                }
+                axios({
+                    //baseURL: "http://127.0.0.1:5500",
+                    method: "get",
+                    url: "/cms-api/auto/code/table/download",
+                    responseType: "blob",
+                    params: {
+                        tableName: _tableName,
+                    },
+                }).then(function (res) {
+                    downloadFn(res.data);
+                    vm.$message({
+                        message: "恭喜！所选表对应的代码正在下载中...",
+                        type: "success",
+                    });
+                });
+            },
+            handleSelectionChange(val) {
+                this.tableNames = val;
+            },
+            previewCode(row) {
+                this.toggleSelection(row);
+                this.listCode2(row);
+                this.dialogVisible = true;
+                hljs.highlightAll();
+            },
+            toggleSelection(row) {
+                this.$refs.multipleTable.clearSelection();
+                this.$refs.multipleTable.toggleRowSelection(row);
+            },
+        },
+    });
+</script>
+</html>

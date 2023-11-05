@@ -1,0 +1,13 @@
+package ${packageName}.service;
+
+#foreach ($item in $importList)
+    ${item}
+#end
+
+public interface I${ClassName}Service
+    #if($configEntity.useMybatisPlus)
+            extends IService<${ClassName}>
+    #end
+{
+
+}

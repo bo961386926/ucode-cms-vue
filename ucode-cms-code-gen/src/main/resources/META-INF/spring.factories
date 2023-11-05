@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    xin.altitude.cms.gen.code.controller.CodeHomeController,\
+    xin.altitude.cms.gen.code.config.socket.WebSocketServerConfigure,\
+    xin.altitude.cms.gen.code.config.CodeCommandLineRunner

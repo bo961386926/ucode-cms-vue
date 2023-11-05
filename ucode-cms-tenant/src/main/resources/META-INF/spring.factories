@@ -1,0 +1,5 @@
+# Auto Configure
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    xin.altitude.cms.tenant.aspectj.TenantAspect,\
+    xin.altitude.cms.tenant.config.TenantHikariConfig
+

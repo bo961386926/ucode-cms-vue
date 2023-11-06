@@ -33,11 +33,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.function.Predicate;
@@ -247,6 +249,7 @@ public class EntityUtils {
      * @since 1.6.1
      */
     public static <T> T[] toArray(final List<T> list) {
+        Objects.requireNonNull(list, "输入参数不能为空");
         if (ColUtils.isNotEmpty(list)) {
             Class<?> tClazz = Objects.requireNonNull(ColUtils.toObj(list)).getClass();
             ArrayCollector<T> collector = new ArrayCollector<>(RefUtils.getClass(tClazz));
@@ -482,20 +485,22 @@ public class EntityUtils {
     /**
      * <p>对集合中元素按照指定列进行分组</p>
      * <p>返回值是{@code Map}，其中Key为分组列，Value为当前元素</p>
-     * <p>通过比较器对集合中元素排序</p>
+     * <p>通过比较器对Map中元素排序</p>
      *
      * @param list    集合实例
      * @param gColumn 分组列（方法引用表示）
      * @param <E>     集合元素泛型
      * @param <G>     分组列数据类型泛型
-     * @return {@code Map}实例
+     * @return LinkedHashMap实例
      * @since 1.6.1
      */
-    public static <E, G> Map<G, List<E>> groupBy(final Collection<E> list, final Function<E, G> gColumn, Comparator<E> comparator) {
+    public static <E, G> Map<G, List<E>> groupBy(final Collection<E> list, final Function<E, G> gColumn, Comparator<Map.Entry<G, List<E>>> comparator) {
         Objects.requireNonNull(comparator);
         Map<G, List<E>> map = groupBy(list, gColumn);
-        map.forEach((k, v) -> v.sort(comparator));
-        return map;
+        BinaryOperator<List<E>> binaryOperator = (u, v) -> {
+            throw new IllegalStateException(String.format("Duplicate key %s", u));
+        };
+        return map.entrySet().stream().sorted(comparator).collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, binaryOperator, LinkedHashMap::new));
     }
 
     /**

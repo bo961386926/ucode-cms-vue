@@ -67,7 +67,7 @@ public class CmsTokenService {
                 String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
                 String userKey = getTokenKey(uuid);
                 // LoginUser user = redisCache.getCacheObject(userKey);
-                return RedisUtils.getObject(userKey, LoginUser.class);
+                return RedisUtils.getObject(null, userKey, LoginUser.class);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -90,7 +90,7 @@ public class CmsTokenService {
     public void delLoginUser(String token) {
         if (StringUtil.isNotEmpty(token)) {
             String userKey = getTokenKey(token);
-            RedisUtils.remove(userKey);
+            RedisUtils.remove(null, userKey);
         }
     }
 
@@ -134,7 +134,7 @@ public class CmsTokenService {
         loginUser.setExpireTime(loginUser.getLoginTime() + token.getExpireTime() * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
-        RedisUtils.save(userKey, loginUser, token.getExpireTime(), TimeUnit.MINUTES);
+        RedisUtils.save(null, userKey, loginUser, token.getExpireTime(), TimeUnit.MINUTES);
     }
 
     /**
@@ -158,9 +158,7 @@ public class CmsTokenService {
      * @return 令牌
      */
     private String createToken(Map<String, Object> claims) {
-        return Jwts.builder()
-            .setClaims(claims)
-            .signWith(SignatureAlgorithm.HS512, this.token.getSecret()).compact();
+        return Jwts.builder().setClaims(claims).signWith(SignatureAlgorithm.HS512, this.token.getSecret()).compact();
     }
 
     /**
@@ -170,10 +168,7 @@ public class CmsTokenService {
      * @return 数据声明
      */
     private Claims parseToken(String token) {
-        return Jwts.parser()
-            .setSigningKey(this.token.getSecret())
-            .parseClaimsJws(token)
-            .getBody();
+        return Jwts.parser().setSigningKey(this.token.getSecret()).parseClaimsJws(token).getBody();
     }
 
     /**

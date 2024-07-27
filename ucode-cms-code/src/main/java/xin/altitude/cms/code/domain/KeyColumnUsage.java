@@ -24,7 +24,7 @@ import com.baomidou.mybatisplus.extension.activerecord.Model;
 /**
  * @author <a href="http://www.altitude.xin" target="_blank">赛泰先生</a>
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
- * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
+ * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  * @since 2019/12/18 19:28
  **/
 @TableName(schema = "information_schema", value = "KEY_COLUMN_USAGE")

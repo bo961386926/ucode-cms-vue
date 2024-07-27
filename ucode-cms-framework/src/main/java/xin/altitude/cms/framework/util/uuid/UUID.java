@@ -31,7 +31,7 @@ import java.util.concurrent.ThreadLocalRandom;
  *
  * @author <a href="http://www.altitude.xin" target="_blank">赛泰先生</a>
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
- * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
+ * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  */
 public final class UUID implements java.io.Serializable, Comparable<UUID> {
     private static final long serialVersionUID = -1185015143654744140L;

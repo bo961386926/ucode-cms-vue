@@ -21,6 +21,7 @@ package xin.altitude.cms.common.util;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.ReflectionKit;
+import org.springframework.util.Assert;
 import xin.altitude.cms.common.support.ArrayCollector;
 
 import java.lang.reflect.Array;
@@ -55,7 +56,7 @@ import java.util.stream.Collectors;
  *
  * @author <a href="http://www.altitude.xin" target="_blank">赛泰先生</a>
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
- * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
+ * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  * @since 2019/06/19 17:23
  **/
 public abstract class EntityUtils {
@@ -114,7 +115,7 @@ public abstract class EntityUtils {
      * @return 变换后的类型，如果source为null,则返回null
      */
     public static <T, R> R toObj(final T obj, final Function<? super T, ? extends R> action) {
-        Objects.requireNonNull(action);
+        Assert.notNull(action, "action参数不能为空");
         return Optional.ofNullable(obj).map(action).orElse(null);
     }
 
@@ -163,7 +164,7 @@ public abstract class EntityUtils {
      * @return 变换后的类型集合，如果source为null,则返回空集合
      */
     public static <T, R> List<R> toList(final Collection<T> list, final Function<? super T, ? extends R> action) {
-        Objects.requireNonNull(action);
+        Assert.notNull(action, "action参数不能为空");
         if (Objects.nonNull(list)) {
             return list.stream().map(action).collect(Collectors.toList());
         }
@@ -207,7 +208,7 @@ public abstract class EntityUtils {
      * @return 变换后的类型集合，如果source为null,则返回空集合
      */
     public static <T, R> List<R> toList(final Collection<T> list, final Function<? super T, ? extends R> action, Predicate<R> pred) {
-        Objects.requireNonNull(action);
+        Assert.notNull(action, "action参数不能为空");
         Objects.requireNonNull(pred);
         if (Objects.nonNull(list)) {
             return list.stream().map(action).filter(pred).collect(Collectors.toList());
@@ -291,7 +292,7 @@ public abstract class EntityUtils {
      * @return {@code G[]}数组实例
      */
     public static <T, R> R[] toArray(final Collection<T> list, final Function<? super T, ? extends R> action) {
-        Objects.requireNonNull(action);
+        Assert.notNull(action, "action参数不能为空");
         if (ColUtils.isNotEmpty(list)) {
             Class<?> rClazz = toObj(ColUtils.toObj(list), action).getClass();
             ArrayCollector<R> collector = new ArrayCollector<>(RefUtils.getClass(rClazz));
@@ -316,7 +317,7 @@ public abstract class EntityUtils {
      * @since 1.6.0
      */
     public static <T, R> R[] toArray(final Collection<T> list, final Function<? super T, ? extends R> action, IntFunction<R[]> generator) {
-        Objects.requireNonNull(action);
+        Assert.notNull(action, "action参数不能为空");
         if (ColUtils.isNotEmpty(list)) {
             return list.stream().map(action).toArray(generator);
         }
@@ -341,7 +342,7 @@ public abstract class EntityUtils {
      */
     @SuppressWarnings("unchecked")
     public static <T, R> R[] toArray(final Collection<T> list, final Function<? super T, ? extends R> action, final Class<R[]> clazz) {
-        Objects.requireNonNull(action);
+        Assert.notNull(action, "action参数不能为空");
         Objects.requireNonNull(clazz);
         Class<?> itemClazz = clazz.isArray() ? clazz.getComponentType() : clazz;
         IntFunction<R[]> generator = e -> (R[]) Array.newInstance(itemClazz, e);
@@ -359,7 +360,7 @@ public abstract class EntityUtils {
      */
     public static <T, R> IPage<R> toPage(IPage<T> page, final Function<? super T, ? extends R> action) {
         Objects.requireNonNull(page);
-        Objects.requireNonNull(action);
+        Assert.notNull(action, "action参数不能为空");
         return page.convert(action);
     }
 
@@ -382,15 +383,15 @@ public abstract class EntityUtils {
     /**
      * <p>将{@code T}类型实体类对象转化为{@code Map}实例</p>
      *
-     * @param pred 断言器 方便用户完成更高级的需求 如无需要 可忽略
-     * @param obj  POJO对象实例
-     * @param <T>  对象类型
+     * @param predicate 断言器 方便用户完成更高级的需求,比如过滤属性 如无需要 可忽略
+     * @param obj       POJO对象实例
+     * @param <T>       对象类型
      * @return 以字段名称为Key 以字段值为Value的{@code Map}实例
      */
-    public static <T> Map<String, Object> toMap(final T obj, final Predicate<Field> pred) {
+    public static <T> Map<String, Object> toMap(final T obj, final Predicate<Field> predicate) {
         Objects.requireNonNull(obj);
-        Objects.requireNonNull(pred);
-        List<Field> fieldList = ReflectionKit.getFieldList(obj.getClass()).stream().filter(pred).collect(Collectors.toList());
+        Objects.requireNonNull(predicate);
+        List<Field> fieldList = ReflectionKit.getFieldList(obj.getClass()).stream().filter(predicate).collect(Collectors.toList());
         Map<String, Object> map = new HashMap<>();
         fieldList.forEach(e -> map.put(e.getName(), RefUtils.getFieldValue(obj, e)));
         return map;
@@ -426,7 +427,7 @@ public abstract class EntityUtils {
         Objects.requireNonNull(keyAction);
         Objects.requireNonNull(valueAction);
         if (ColUtils.isNotEmpty(list)) {
-            return list.stream().collect(Collectors.toMap(keyAction, valueAction));
+            return list.stream().collect(Collectors.toMap(keyAction, valueAction, (e1, e2) -> e2));
         }
         return Collections.emptyMap();
     }
@@ -452,11 +453,11 @@ public abstract class EntityUtils {
      * @param <T>    源数据类型
      * @param <R>    变换后数据类型
      * @param data   源List集合
-     * @param action 映射Lambda表达式
+     * @param action 映射Lambda表达式 比如<code>User::getId</code>
      * @return 变换后的类型集合，如果source为null,则返回空集合
      */
     public static <T, R> Set<R> toSet(final Collection<T> data, final Function<? super T, ? extends R> action) {
-        Objects.requireNonNull(action);
+        Assert.notNull(action, "action参数不能为空");
         if (Objects.nonNull(data)) {
             return data.stream().map(action).collect(Collectors.toSet());
         }
@@ -474,9 +475,9 @@ public abstract class EntityUtils {
      * @return {@code Map}实例
      * @since 1.6.0
      */
-    public static <E, G> Map<G, List<E>> groupBy(final Collection<E> list, final Function<E, G> gColumn) {
+    public static <G, E> Map<G, List<E>> groupBy(final Collection<E> list, final Function<E, G> gColumn) {
         Objects.requireNonNull(gColumn);
-        if (Objects.nonNull(list)) {
+        if (ColUtils.isNotEmpty(list)) {
             return list.stream().collect(Collectors.groupingBy(gColumn));
         }
         return Collections.emptyMap();

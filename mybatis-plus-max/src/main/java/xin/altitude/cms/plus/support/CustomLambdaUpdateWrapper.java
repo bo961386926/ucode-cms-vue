@@ -38,7 +38,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author <a href="http://www.altitude.xin" target="_blank">赛泰先生</a>
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
- * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
+ * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  **/
 public class CustomLambdaUpdateWrapper<T> extends LambdaUpdateWrapper<T> {
     private final static Logger logger = LoggerFactory.getLogger(CustomLambdaUpdateWrapper.class);

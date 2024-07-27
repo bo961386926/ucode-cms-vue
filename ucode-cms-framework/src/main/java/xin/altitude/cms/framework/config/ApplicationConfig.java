@@ -30,7 +30,7 @@ import java.util.TimeZone;
  *
  * @author <a href="http://www.altitude.xin" target="_blank">赛泰先生</a>
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
- * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
+ * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  */
 // @Configuration
 // 表示通过aop框架暴露该代理对象,AopContext能够访问

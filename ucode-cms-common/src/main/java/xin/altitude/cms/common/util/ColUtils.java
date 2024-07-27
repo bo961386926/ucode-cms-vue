@@ -35,7 +35,7 @@ import java.util.function.ToIntFunction;
  *
  * @author <a href="http://www.altitude.xin" target="_blank">赛泰先生</a>
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
- * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
+ * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  * @since 2020/06/03 23:17
  **/
 public abstract class ColUtils {
@@ -43,7 +43,7 @@ public abstract class ColUtils {
     }
 
     public static <E> boolean isEmpty(Collection<E> data) {
-        return data == null || (data.size() == 0);
+        return data == null || (data.isEmpty());
     }
 
     public static <E> boolean isEmpty(E[] data) {

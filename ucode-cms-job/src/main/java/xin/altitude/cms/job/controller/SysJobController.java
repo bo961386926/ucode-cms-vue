@@ -48,7 +48,7 @@ import xin.altitude.cms.job.util.CronUtils;
  *
  * @author <a href="http://www.altitude.xin" target="_blank">赛泰先生</a>
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
- * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
+ * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  */
 @Import({ScheduleConfig.class, SysJobServiceImpl.class})
 @ConditionalOnProperty(value = "ucode.job.enabled", havingValue = "true")

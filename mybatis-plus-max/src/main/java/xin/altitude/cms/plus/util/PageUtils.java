@@ -9,7 +9,7 @@ import java.util.List;
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  **/
-public class PageUtils {
+public abstract class PageUtils {
     private PageUtils() {
     }
 

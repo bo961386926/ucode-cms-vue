@@ -17,7 +17,7 @@ import java.util.List;
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  **/
-public class WrapperUtils {
+public abstract class WrapperUtils {
     /**
      * <p>and 内连 or，处理形如下面复杂SQL的情形</p>
      * <pre>

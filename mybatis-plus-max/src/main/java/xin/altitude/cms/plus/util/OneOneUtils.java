@@ -55,7 +55,7 @@ import static xin.altitude.cms.common.util.SpringUtils.getBean;
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  * @since 1.6.4
  **/
-public class OneOneUtils {
+public abstract class OneOneUtils {
     private static final String DEBUG_LOG_FORMAT = "实体类%s中的属性[%s]已完成值注入，强烈建议使用继承保持源与目标属性名称一致";
     private final static Logger LOGGER = LoggerFactory.getLogger(OneOneUtils.class);
     private static final String WARN_LOG = "本次属性注入操作已跳过，请通过可变参数[injectColumns]至少指定一个待注入属性";

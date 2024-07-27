@@ -43,11 +43,10 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
     private static final long serialVersionUID = -8970718410437077606L;
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e)
-        throws IOException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
         int code = HttpStatus.UNAUTHORIZED;
         String msg = StringUtil.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
-        String content = JacksonUtils.writeValueAsString(RestResult.error(code, msg));
+        String content = JacksonUtils.writeValueAsString(null, RestResult.error(code, msg));
         ServletUtils.renderString(response, content);
     }
 }

@@ -106,8 +106,8 @@ public abstract class RedisSetUtils {
      *
      * @param key ZSET对应的Key
      */
-    public static Boolean remove(String key) {
-        return RedisUtils.remove(key);
+    public static Boolean remove(StringRedisTemplate template, String key) {
+        return RedisUtils.remove(template,key);
     }
 
 }

@@ -58,10 +58,10 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
      */
     default T selectById(Serializable id, long timeout, TimeUnit timeUnit) {
         Class<T> clazz = getEntityClass();
-        T t = RedisUtils.getObject(id, clazz);
+        T t = RedisUtils.getObject(null,id, clazz);
         if (t == null) {
             synchronized (RedisConstants.createLockKey(clazz, id)) {
-                T t2 = RedisUtils.getObject(id, clazz);
+                T t2 = RedisUtils.getObject(null,id, clazz);
                 if (t2 == null) {
                     T t3 = this.selectById(id);
                     RedisUtils.save(null,id, t3, timeout, timeUnit);
@@ -83,7 +83,7 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
      */
     default List<T> selectBatchIds(Collection<Serializable> idList, long timeout, TimeUnit timeUnit) {
         Class<T> clazz = getEntityClass();
-        List<T> tList = RedisUtils.multiGet(EntityUtils.toList(idList, String::valueOf), clazz);
+        List<T> tList = RedisUtils.multiGet(null,EntityUtils.toList(idList, String::valueOf), clazz);
         List<T> result = new ArrayList<>(idList.size());
         Set<Serializable> ids = new HashSet<>();
         TableInfo tableInfo = TableInfoHelper.getTableInfo(clazz);

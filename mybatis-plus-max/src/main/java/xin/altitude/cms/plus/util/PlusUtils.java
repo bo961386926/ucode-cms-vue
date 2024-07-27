@@ -83,10 +83,10 @@ public class PlusUtils {
      */
     public static <E extends Serializable, T> T ifNotCache(E id, Class<T> clazz, Function<E, T> action) {
         String key = RedisConstants.createCacheKey(clazz, id);
-        T value = RedisUtils.getObject(key, clazz);
+        T value = RedisUtils.getObject(null,key, clazz);
         if (value == null) {
             T newValue = action.apply(id);
-            Optional.ofNullable(newValue).ifPresent(e -> RedisUtils.save(null,key, e, 0, TimeUnit.SECONDS));
+            Optional.ofNullable(newValue).ifPresent(e -> RedisUtils.save(null, key, e, 0, TimeUnit.SECONDS));
             return newValue;
         }
         return value;
@@ -115,12 +115,12 @@ public class PlusUtils {
      * @return DO实体类实例
      */
     public static <E extends Serializable, T> T ifNotCache(E id, Class<T> clazz, Function<E, T> action, Lock lock) {
-        T value = RedisUtils.getObject(id, clazz);
+        T value = RedisUtils.getObject(null,id, clazz);
         String key = RedisConstants.createCacheKey(clazz, id);
         if (value == null) {
             T newValue = doVisitDb(id, -1L, clazz, action, lock);
             Optional.ofNullable(newValue).ifPresent(e -> {
-                RedisUtils.save(null,key, e, 0, TimeUnit.SECONDS);
+                RedisUtils.save(null, key, e, 0, TimeUnit.SECONDS);
             });
             return newValue;
         }
@@ -153,11 +153,11 @@ public class PlusUtils {
      * @deprecated 无锁实现 存在缓存击穿问题
      */
     public static <E extends Serializable, T> T ifNotCache(E id, Class<T> clazz, long ms, Function<E, T> action) {
-        T value = RedisUtils.getObject(id, clazz);
+        T value = RedisUtils.getObject(null,id, clazz);
         if (value == null) {
             T newValue = action.apply(id);
             Optional.ofNullable(newValue).ifPresent(e -> {
-                RedisUtils.save(null,id, e, ms, TimeUnit.MILLISECONDS);
+                RedisUtils.save(null, id, e, ms, TimeUnit.MILLISECONDS);
                 logger.debug("缓存未命中，已向Redis添加缓存：{}", e);
             });
             return newValue;
@@ -189,12 +189,12 @@ public class PlusUtils {
      * @return DO实体类实例
      */
     public static <E extends Serializable, T> T ifNotCache(E id, Class<T> clazz, long ms, Function<E, T> action, Lock lock) {
-        T value = RedisUtils.getObject(id, clazz);
+        T value = RedisUtils.getObject(null,id, clazz);
         String key = RedisConstants.createCacheKey(clazz, id);
         if (value == null) {
             T newValue = doVisitDb(id, ms, clazz, action, lock);
             Optional.ofNullable(newValue).ifPresent(e -> {
-                RedisUtils.save(null,id, e, ms, TimeUnit.MILLISECONDS);
+                RedisUtils.save(null, id, e, ms, TimeUnit.MILLISECONDS);
             });
             return newValue;
         }
@@ -231,7 +231,7 @@ public class PlusUtils {
      * @return DO实体类实例
      */
     public static <E extends Serializable, T> T ifNotCache(E id, Class<T> clazz, long ms, Function<E, T> action, RedissonClient redisson) {
-        T value = RedisUtils.getObject(id, clazz);
+        T value = RedisUtils.getObject(null,id, clazz);
         if (value == null) {
             return doVisitDb(id, ms, clazz, action, redisson);
         }
@@ -263,7 +263,7 @@ public class PlusUtils {
      */
     public static <T> List<T> ifNotCache(Collection<? extends Serializable> ids, Class<T> clazz, long ms, Function<Collection<? extends Serializable>, ? extends List<T>> action) {
         List<String> keys = RedisConstants.createCacheKey(clazz, ids);
-        List<T> redisResults = RedisUtils.multiGet(keys, clazz);
+        List<T> redisResults = RedisUtils.multiGet(null,keys, clazz);
         if (redisResults.size() < ids.size()) {
             TableInfo tableInfo = TableInfoHelper.getTableInfo(clazz);
             if (tableInfo == null) {
@@ -278,7 +278,7 @@ public class PlusUtils {
                     RedisUtils.multiSet(null, map, clazz, 0, TimeUnit.SECONDS);
                     redisResults.addAll(newValue);
                     if (ms > 0) {
-                        map.forEach((k, v) -> RedisUtils.expire(k, ms, TimeUnit.MILLISECONDS));
+                        map.forEach((k, v) -> RedisUtils.expire(null, k, ms, TimeUnit.MILLISECONDS));
                     }
                 }
             }
@@ -298,9 +298,9 @@ public class PlusUtils {
     public static <T> boolean updateById(T entity, Class<T> clazz, Function<T, Boolean> action) {
         Serializable id = pkVal(entity, clazz);
         String key = RedisConstants.createCacheKey(clazz, id);
-        RedisUtils.remove(key);
+        RedisUtils.remove(null,key);
         boolean result = action.apply(entity);
-        RedisUtils.remove(key);
+        RedisUtils.remove(null,key);
         return result;
     }
 
@@ -316,7 +316,7 @@ public class PlusUtils {
     public static <T> boolean updateById(T entity, Class<T> clazz, Function<T, Boolean> updateAction, Function<Serializable, T> selectAction) {
         Serializable id = pkVal(entity, clazz);
         boolean result = updateAction.apply(entity);
-        BooleanUtils.ifTrue(result, () -> RedisUtils.save(null,id, selectAction.apply(id), 0, TimeUnit.SECONDS));
+        BooleanUtils.ifTrue(result, () -> RedisUtils.save(null, id, selectAction.apply(id), 0, TimeUnit.SECONDS));
         return result;
     }
 
@@ -334,7 +334,7 @@ public class PlusUtils {
         boolean result = updateAction.apply(entity);
         if (result) {
             String key = RedisConstants.createCacheKey(clazz, id);
-            if (RedisUtils.remove(key)) {
+            if (RedisUtils.remove(null,key)) {
                 logger.debug("[数据库执行更新操作，同时将Redis中主键ID:{}对应的缓存数据删除，其中Key:{}]", id, key);
             }
         }
@@ -346,7 +346,7 @@ public class PlusUtils {
         boolean result = updateAction.apply(entityList);
         if (result) {
             List<String> keys = EntityUtils.toList(ids, e -> RedisConstants.createCacheKey(clazz, e));
-            if (RedisUtils.remove(keys) > 0) {
+            if (RedisUtils.remove(null,keys) > 0) {
                 logger.debug("[数据库执行更新操作，同时将Redis中主键ID:{}对应的缓存数据删除，其中Key:{}]", ids.toArray(), keys.toArray());
             }
         }
@@ -370,7 +370,7 @@ public class PlusUtils {
         JvmLockMeta meta = JvmLockMeta.of(lock, 3, TimeUnit.SECONDS);
         return LockUtils.tryLock(meta, () -> {
             boolean result = updateAction.apply(entity);
-            BooleanUtils.ifTrue(result, () -> RedisUtils.save(null,id, selectAction.apply(id), 0, TimeUnit.SECONDS));
+            BooleanUtils.ifTrue(result, () -> RedisUtils.save(null, id, selectAction.apply(id), 0, TimeUnit.SECONDS));
             return result;
         });
 
@@ -384,9 +384,9 @@ public class PlusUtils {
         RLock lock = redisson.getLock(lockKey);
         try {
             if (lock.tryLock(5, 10, TimeUnit.SECONDS)) {
-                RedisUtils.remove(cacheKey);
+                RedisUtils.remove(null,cacheKey);
                 boolean result = action.apply(entity);
-                RedisUtils.remove(cacheKey);
+                RedisUtils.remove(null,cacheKey);
                 return result;
             }
             return false;
@@ -404,7 +404,7 @@ public class PlusUtils {
         String key = RedisConstants.createCacheKey(clazz, id);
         boolean result = action.apply(id);
         if (result) {
-            RedisUtils.remove(key);
+            RedisUtils.remove(null,key);
             logger.debug("[DO实体类{}映射数据库表的主键ID为{}的记录已删除，同时在Redis中删除了该条缓存，其中Key:{}]", clazz.getSimpleName(), id, key);
         }
         return result;
@@ -418,7 +418,7 @@ public class PlusUtils {
         String key = RedisConstants.createCacheKey(clazz, id);
         boolean result = action.apply(entity);
         if (result) {
-            RedisUtils.remove(key);
+            RedisUtils.remove(null,key);
             logger.debug("[DO实体类{}映射数据库表的主键ID为{}的记录已删除，同时在Redis中删除了该条缓存，其中Key:{}]", clazz.getSimpleName(), id, key);
         }
         return result;
@@ -431,7 +431,7 @@ public class PlusUtils {
         Set<String> keys = EntityUtils.toSet(idList, e -> RedisConstants.createCacheKey(clazz, e));
         boolean result = action.apply(keys);
         if (result) {
-            RedisUtils.remove(keys);
+            RedisUtils.remove(null,keys);
             logger.debug("[DO实体类{}映射数据库表的主键ID为{}的记录已删除，同时在Redis中删除了该条缓存，其中Key:{}]", clazz.getSimpleName(), idList, keys);
         }
         return result;
@@ -462,7 +462,7 @@ public class PlusUtils {
 
     private static <E extends Serializable, T> T noLockVisitDb(E id, long ms, Class<T> clazz, Function<E, T> action, String cacheKey) {
         // 再次检查一下Redis里面有没有数据 有的话直接返回 没有再取查询DB
-        T value = RedisUtils.getObject(cacheKey, clazz);
+        T value = RedisUtils.getObject(null,cacheKey, clazz);
         String key = RedisConstants.createCacheKey(clazz, id);
         // 如果Redis中查询到数据 直接返回 否则执行查询数据库操作
         if (value != null) {
@@ -471,9 +471,9 @@ public class PlusUtils {
         } else {
             T t = action.apply(id);
             if (Objects.nonNull(t) && ms <= 0) {
-                RedisUtils.save(null,cacheKey, t, 0, TimeUnit.SECONDS);
+                RedisUtils.save(null, cacheKey, t, 0, TimeUnit.SECONDS);
             } else if (Objects.nonNull(t)) {
-                RedisUtils.save(null,cacheKey, t, ms, TimeUnit.MILLISECONDS);
+                RedisUtils.save(null, cacheKey, t, ms, TimeUnit.MILLISECONDS);
             }
             logger.debug("缓存未命中，已向Redis添加缓存，其中Key:{} Value:{}", key, t);
             return t;

@@ -112,7 +112,7 @@ public class RedisQueue<E> implements IQueue<E> {
      */
     @Override
     public void clear(String key) {
-        RedisUtils.remove(key);
+        RedisUtils.remove(null,key);
     }
 
     /**

@@ -197,7 +197,7 @@ public abstract class RedisBitMapUtils {
      * 清空该Key下所有数据
      */
     public static void remove(String key) {
-        RedisUtils.remove(key);
+        RedisUtils.remove(null,key);
     }
 
     /**

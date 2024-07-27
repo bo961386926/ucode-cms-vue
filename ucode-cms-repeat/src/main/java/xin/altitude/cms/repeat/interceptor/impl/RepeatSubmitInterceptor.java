@@ -63,7 +63,8 @@ public class RepeatSubmitInterceptor extends AbstractRepeatSubmitInterceptor {
         // 唯一标识（指定key + 消息头）
         String cacheRepeatKey = Constants.REPEAT_SUBMIT_KEY + submitKey;
 
-        Boolean bool = RedisUtils.saveIfAbsent(cacheRepeatKey, Constants.LOGIN_SUCCESS, annotation.interval(), TimeUnit.SECONDS);
+//        Boolean bool = RedisUtils.saveIfAbsent(null,cacheRepeatKey, Constants.LOGIN_SUCCESS, annotation.interval(), TimeUnit.SECONDS);
+        Boolean bool = true;
         boolean result = bool != null && !bool;
         if (result) {
             log.warn(String.format("当前请求重复提交，缓存Key为【%s】", cacheRepeatKey));

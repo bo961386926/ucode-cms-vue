@@ -111,7 +111,7 @@ public abstract class EntityUtils {
      * @param <T>    源数据类型
      * @param <R>    变换后数据类型
      * @param obj    源对象实例
-     * @param action 映射Lambda表达式 参数不能为<code>null</code> 否则抛出异常
+     * @param action 映射Lambda表达式 比如 User::getId
      * @return 变换后的类型，如果source为null,则返回null
      */
     public static <T, R> R toObj(final T obj, final Function<? super T, ? extends R> action) {

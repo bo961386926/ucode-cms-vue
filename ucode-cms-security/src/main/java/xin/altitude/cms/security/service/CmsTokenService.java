@@ -34,6 +34,7 @@ import xin.altitude.cms.framework.util.uuid.IdUtils;
 import xin.altitude.cms.security.model.LoginUser;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -134,7 +135,8 @@ public class CmsTokenService {
         loginUser.setExpireTime(loginUser.getLoginTime() + token.getExpireTime() * MILLIS_MINUTE);
         // 根据uuid将loginUser缓存
         String userKey = getTokenKey(loginUser.getToken());
-        RedisUtils.save(null, userKey, loginUser, token.getExpireTime(), TimeUnit.MINUTES);
+
+        RedisUtils.save(null, userKey, loginUser, Duration.ofMinutes(token.getExpireTime()));
     }
 
     /**

@@ -57,12 +57,8 @@ public abstract class RedissonUtils {
      */
     public static <ID extends Serializable, T> void save(final RedissonClient client, final ID id, final T value, final Duration duration) {
         final String key;
-        if (id instanceof String) {
-            key = RedisConstants.createCacheKey(value.getClass(), (String) id);
-        } else if (id instanceof Long) {
-            key = RedisConstants.createCacheKey(value.getClass(), (Long) id);
-        } else if (id instanceof Integer) {
-            key = RedisConstants.createCacheKey(value.getClass(), (Integer) id);
+        if (id instanceof String || id instanceof Long || id instanceof Integer) {
+            key = RedisConstants.createCacheKey(value.getClass(), id);
         } else {
             throw new IllegalArgumentException("参数id类型不正确");
         }

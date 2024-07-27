@@ -22,9 +22,11 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.util.Assert;
 import xin.altitude.cms.common.constant.RedisConstants;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -51,23 +53,15 @@ public abstract class RedisUtils {
      * <p>缓存基本的对象</p>
      *
      * @param template 如无特别需求，请设置为<code>null</code>
-     * @param id       缓存的主键ID用以形成唯一key
+     * @param id       缓存的主键ID 用以形成唯一key
      * @param value    缓存的值
-     * @param timeout  过期时间（小于或者等于0 表示缓存用不过期）
-     * @param timeUnit 时间颗粒度
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      */
-    public static <T> void save(final StringRedisTemplate template, final Serializable id, final T value, final long timeout, final TimeUnit timeUnit) {
-        final String key;
-        if (id instanceof String) {
-            key = RedisConstants.createCacheKey(value.getClass(), (String) id);
-        } else if (id instanceof Long) {
-            key = RedisConstants.createCacheKey(value.getClass(), (Long) id);
-        } else if (id instanceof Integer) {
-            key = RedisConstants.createCacheKey(value.getClass(), (Integer) id);
-        } else {
-            throw new IllegalArgumentException("参数id类型不正确");
-        }
-        save(template, key, value, timeout, timeUnit);
+    public static <T> void save(final StringRedisTemplate template, final Serializable id, final T value, final Duration duration) {
+        Assert.notNull(id, "参数id不能为空");
+        Assert.isTrue((id instanceof String || id instanceof Long || id instanceof Integer), "参数id的类型不正确");
+        String key = RedisConstants.createCacheKey(value.getClass(), id);
+        save(template, key, value, duration);
     }
 
     /**
@@ -78,36 +72,36 @@ public abstract class RedisUtils {
      * @param template 如果为<code>null</code> 则自动从容器中获取
      * @param key      缓存的键值
      * @param value    缓存的值
-     * @param timeout  过期时间（小于或者等于0 表示缓存用不过期）
-     * @param timeUnit 时间颗粒度
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      */
-    public static void save(final StringRedisTemplate template, final String key, final Object value, final long timeout, final TimeUnit timeUnit) {
+    public static void save(final StringRedisTemplate template, final String key, final Object value, final Duration duration) {
         StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
 
         String writeValue = JacksonUtils.writeValue(null, value);
-        Optional<String> stringOptional = Optional.ofNullable(writeValue);
-        if (timeout <= 0) {
-            stringOptional.ifPresent(e -> t.opsForValue().set(key, e));
-            log.debug("object save successful,key:{},value:{},no expire time", key, writeValue);
-        } else {
-            stringOptional.ifPresent(e -> t.opsForValue().set(key, e, timeout, timeUnit));
+        if (duration != null && !duration.isNegative()) {
+            Optional.ofNullable(writeValue).ifPresent(e -> t.opsForValue().set(key, e, duration));
             log.debug("object save successful,key:{},value:{}", key, writeValue);
+        } else {
+            Optional.ofNullable(writeValue).ifPresent(e -> t.opsForValue().set(key, e));
+            log.debug("object save successful,key:{},value:{},no expire time", key, writeValue);
         }
     }
 
     /**
      * @param template 如无特别需求，请设置为<code>null</code>
-     *                 批量保存数据 设置过期时间
+     * @param map      批量保存的{@link  Map}实例 其中key为缓存的键值
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      */
-    public static <V> void saveBatch(final StringRedisTemplate template, final Map<String, V> map, int timeout, TimeUnit timeUnit) {
+    public static <V> void saveBatch(final StringRedisTemplate template, final Map<String, V> map, final Duration duration) {
         StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
         Map<String, String> transMap = MapUtils.transMap(map, e -> JacksonUtils.writeValue(null, e));
         t.opsForValue().multiSet(transMap);
 
-        if (timeUnit.equals(TimeUnit.SECONDS)) {
-            RedisAsyncUtils.expire(map.keySet(), timeout);
-        } else if (timeUnit.equals(TimeUnit.MICROSECONDS)) {
-            RedisAsyncUtils.pExpire(map.keySet(), timeout);
+        if (duration != null && !duration.isNegative()) {
+            long seconds = duration.getSeconds();
+            if (seconds > 0) {
+                RedisAsyncUtils.expire(map.keySet(), seconds);
+            }
         }
     }
 
@@ -116,13 +110,16 @@ public abstract class RedisUtils {
      *
      * @param template 如无特别需求，请设置为<code>null</code>
      * @param key      Redis键
-     * @param timeout  超时时间
-     * @param unit     时间单位
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      * @return true=设置成功；false=设置失败
      */
-    public static Boolean expire(final StringRedisTemplate template, final String key, final Long timeout, final TimeUnit unit) {
+    public static Boolean expire(final StringRedisTemplate template, final String key, final Duration duration) {
         StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
-        return t.expire(key, timeout, unit);
+        if (duration != null && !duration.isNegative()) {
+            return t.expire(key, duration);
+        } else {
+            return Boolean.FALSE;
+        }
     }
 
     /**
@@ -145,6 +142,8 @@ public abstract class RedisUtils {
      * @return 缓存键值对应的数据
      */
     public static <T> T getObject(final StringRedisTemplate template, final Serializable id, final Class<T> clazz) {
+        Assert.notNull(id, "参数id不能为空");
+        Assert.isTrue((id instanceof String || id instanceof Long || id instanceof Integer), "参数id的类型不正确");
         String key = RedisConstants.createCacheKey(clazz, id);
         return getObject(template, key, clazz);
     }
@@ -157,16 +156,20 @@ public abstract class RedisUtils {
      *
      * @param template 如无特别需求，请设置为<code>null</code>
      * @param id       主键值 使用{@link RedisConstants#createCacheKey(Class, Serializable)}转换成Key
+     * @param action   回调函数
      * @return 缓存键值对应的数据
      */
-    public static <T> T getObject(final StringRedisTemplate template, final Serializable id, final long timeout, final TimeUnit timeUnit, final Class<T> clazz, Function<Serializable, T> action) {
+    public static <T> T getObject(final StringRedisTemplate template, final Serializable id, final Duration duration, final Class<T> clazz, final Function<Serializable, T> action) {
+        Assert.notNull(id, "参数id不能为空");
+        Assert.isTrue((id instanceof String || id instanceof Long || id instanceof Integer), "参数id的类型不正确");
+        Assert.notNull(action, "回调函数action不能为空");
         String key = RedisConstants.createCacheKey(clazz, id);
         T t = getObject(template, key, clazz);
         if (t == null) {
             synchronized (RedisConstants.createLockKey(clazz, id)) {
                 T t2 = getObject(template, key, clazz);
                 if (t2 == null) {
-                    save(template, key, action.apply(id), timeout, timeUnit);
+                    save(template, key, action.apply(id), duration);
                     return getObject(template, key, clazz);
                 }
                 return t2;
@@ -216,7 +219,7 @@ public abstract class RedisUtils {
      * @param <T>
      * @return
      */
-    public static <T> List<T> getObjects(final StringRedisTemplate template, final Collection<Serializable> ids, long timeout, TimeUnit unit, final Class<T> clazz, Function<Collection<Serializable>, List<T>> action) {
+    public static <T> List<T> getObjects(final StringRedisTemplate template, final Collection<Serializable> ids, final Duration duration, final Class<T> clazz, final Function<Collection<Serializable>, List<T>> action) {
         StringRedisTemplate tp = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
         List<T> result = new ArrayList<>(ids.size());
         List<Serializable> remainIds = new ArrayList<>();
@@ -236,7 +239,7 @@ public abstract class RedisUtils {
                     synchronized (RedisConstants.createLockKey(clazz, id)) {
                         T t2 = ColUtils.toObj(action.apply(Collections.singletonList(id)));
                         if (t2 != null) {
-                            save(tp, RedisConstants.createCacheKey(clazz, id), t2, timeout, unit);
+                            save(tp, RedisConstants.createCacheKey(clazz, id), t2, duration);
                             result.add(t2);
                         }
                     }
@@ -270,21 +273,20 @@ public abstract class RedisUtils {
     /**
      * 通过PO封装查询条件，使用普通索引查询多条记录（结果集为集合）
      * <p>
-     * 如果仅涉及主键查询，请使用{@link RedisUtils#getObject(StringRedisTemplate, Serializable, long, TimeUnit, Class, Function)}或者{@link RedisUtils#getObjects(StringRedisTemplate, Collection, long, TimeUnit, Class, Function)}
+     * 如果仅涉及主键查询，请使用{@link RedisUtils#getObject(StringRedisTemplate, Serializable, Duration, Class, Function)}或者{@link RedisUtils#getObjects(StringRedisTemplate, Collection, Duration, Class, Function)}
      * <p>
      * 使用JVM本地锁处理缓存
      *
      * @param template 如无特别需求，请设置为<code>null</code>
      * @param d        封装的查询对象
-     * @param timeout  过期时间（小于或者等于0 表示缓存不过期）
-     * @param unit     过期时间单位
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      * @param clazz    与表一一对应的实体类CLass对象
      * @param action   访问数据库方法
      * @param <D>      封装查询条件类
      * @param <T>      与表一一对应的实体类
      * @return 集合
      */
-    public static <D, T> List<T> getCollection(final StringRedisTemplate template, D d, long timeout, TimeUnit unit, final Class<T> clazz, Function<D, List<T>> action) {
+    public static <D, T> List<T> getCollection(final StringRedisTemplate template, D d, final Duration duration, final Class<T> clazz, Function<D, List<T>> action) {
         StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
         String poStr = JacksonUtils.writeValueAsString(null, d);
         String key = RedisConstants.createCacheKey(clazz, MD5Utils.md5(poStr));
@@ -294,7 +296,7 @@ public abstract class RedisUtils {
             synchronized (RedisConstants.createLockKey(clazz, MD5Utils.md5(poStr))) {
                 List<T> tList2 = getCollection(template, d, clazz);
                 if (tList2 == null || tList2.isEmpty()) {
-                    save(t, key, action.apply(d), timeout, unit);
+                    save(t, key, action.apply(d), duration);
                     return getCollection(t, d, clazz);
                 }
                 return tList2;
@@ -332,7 +334,7 @@ public abstract class RedisUtils {
      * @param template 如无特别需求，请设置为<code>null</code>
      * @param map
      */
-    public static void multiSet(final StringRedisTemplate template, Map<String, String> map, long timeout, TimeUnit unit) {
+    public static void multiSet(final StringRedisTemplate template, Map<String, String> map, Duration duration) {
         StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
         t.opsForValue().multiSet(map);
     }
@@ -346,7 +348,7 @@ public abstract class RedisUtils {
      * @param clazz
      * @param <T>
      */
-    public static <T> void multiSet(final StringRedisTemplate template, Map<String, T> map, Class<T> clazz, long timeout, TimeUnit unit) {
+    public static <T> void multiSet(final StringRedisTemplate template, Map<String, T> map, Class<T> clazz, Duration duration) {
         StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
         Map<String, String> stringMap = MapUtils.transMap(map, e -> e, e -> JacksonUtils.writeValue(null, e));
         t.opsForValue().multiSet(stringMap);

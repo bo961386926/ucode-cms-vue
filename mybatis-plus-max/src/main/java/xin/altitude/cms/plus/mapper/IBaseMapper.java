@@ -10,12 +10,14 @@ import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.reflection.property.PropertyNamer;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.Assert;
 import xin.altitude.cms.common.constant.RedisConstants;
 import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.common.util.RedisUtils;
 import xin.altitude.cms.common.util.SpringUtils;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -52,19 +54,20 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
      * 【新增方法】主键查询（添加缓存）
      *
      * @param id       主键ID
-     * @param timeout  过期时间（小于或者等于0 表示缓存不过期）
-     * @param timeUnit 时间单位
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      * @return T实例
      */
-    default T selectById(Serializable id, long timeout, TimeUnit timeUnit) {
+    default T selectById(Serializable id, Duration duration) {
+        Assert.notNull(id, "参数id不能为空");
+        Assert.isTrue((id instanceof String || id instanceof Long || id instanceof Integer), "参数id类型不正确");
         Class<T> clazz = getEntityClass();
-        T t = RedisUtils.getObject(null,id, clazz);
+        T t = RedisUtils.getObject(null, id, clazz);
         if (t == null) {
-            synchronized (RedisConstants.createLockKey(clazz, id)) {
-                T t2 = RedisUtils.getObject(null,id, clazz);
+            synchronized (RedisConstants.createLockKey(clazz, id).intern()) {
+                T t2 = RedisUtils.getObject(null, id, clazz);
                 if (t2 == null) {
                     T t3 = this.selectById(id);
-                    RedisUtils.save(null,id, t3, timeout, timeUnit);
+                    RedisUtils.save(null, id, t3, duration);
                     return t3;
                 }
                 return t2;
@@ -77,13 +80,12 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
      * 【新增方法】批量保存（添加缓存）
      *
      * @param idList   主键ID集合
-     * @param timeout  过期时间（小于或者等于0 表示缓存不过期）
-     * @param timeUnit 时间单位
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      * @return 集合实例
      */
-    default List<T> selectBatchIds(Collection<Serializable> idList, long timeout, TimeUnit timeUnit) {
+    default List<T> selectBatchIds(Collection<Serializable> idList, Duration duration) {
         Class<T> clazz = getEntityClass();
-        List<T> tList = RedisUtils.multiGet(null,EntityUtils.toList(idList, String::valueOf), clazz);
+        List<T> tList = RedisUtils.multiGet(null, EntityUtils.toList(idList, String::valueOf), clazz);
         List<T> result = new ArrayList<>(idList.size());
         Set<Serializable> ids = new HashSet<>();
         TableInfo tableInfo = TableInfoHelper.getTableInfo(clazz);
@@ -94,11 +96,11 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
             }
         }
         List<Serializable> remainIds = idList.stream().filter(e -> !ids.contains(e)).collect(Collectors.toList());
-        if (remainIds.size() > 0) {
+        if (!remainIds.isEmpty()) {
             Map<Serializable, T> remainMap = this.selectMaps(remainIds);
             for (Map.Entry<Serializable, T> entry : remainMap.entrySet()) {
                 result.add(entry.getValue());
-                RedisUtils.save(null,entry.getKey(), entry.getValue(), timeout, timeUnit);
+                RedisUtils.save(null, entry.getKey(), entry.getValue(), duration);
             }
         }
         return result;

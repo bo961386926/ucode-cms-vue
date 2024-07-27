@@ -24,6 +24,7 @@ import org.redisson.api.RedissonClient;
 import xin.altitude.cms.plus.util.PlusUtils;
 
 import java.io.Serializable;
+import java.time.Duration;
 
 /**
  * 增强{@link IService} 用于实现Redis分布式缓存功能
@@ -40,11 +41,11 @@ public interface IRedissonCacheService<T> extends ICacheService<T> {
      * <p>增加分布式锁的支持 防止高并发场景下<i>缓存穿透</i></p>
      *
      * @param id       主键ID
-     * @param ms       过期时间 毫秒
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      * @param redisson {@link Redisson}实例
      * @return {@code T}实体类对象实例
      */
-    default T getById(Serializable id, long ms, RedissonClient redisson) {
-        return PlusUtils.ifNotCache(id, getEntityClass(), ms, this::getById, redisson);
+    default T getById(Serializable id, Duration duration, RedissonClient redisson) {
+        return PlusUtils.ifNotCache(id, getEntityClass(), duration, this::getById, redisson);
     }
 }

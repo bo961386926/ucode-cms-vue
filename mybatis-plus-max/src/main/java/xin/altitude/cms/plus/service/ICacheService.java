@@ -24,6 +24,7 @@ import xin.altitude.cms.plus.support.LockMap;
 import xin.altitude.cms.plus.util.PlusUtils;
 
 import java.io.Serializable;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -163,24 +164,24 @@ public interface ICacheService<T> extends IService<T> {
      * 重载{@link IService#getById(Serializable)}方法 增加Redis分布式缓存功能
      * <p>有缓存；有过期时间；适合并发较低的场景</p>
      *
-     * @param id 主键ID
-     * @param ms 过期时间 毫秒
+     * @param id       主键ID
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      * @return {@code T}实体类对象实例
      */
-    default T getById(Serializable id, long ms) {
-        return PlusUtils.ifNotCache(id, getEntityClass(), ms, this::getById, getJvmLock());
+    default T getById(Serializable id, Duration duration) {
+        return PlusUtils.ifNotCache(id, getEntityClass(), duration, this::getById, getJvmLock());
     }
 
     /**
      * 重载{@link IService#getById(Serializable)}方法 增加Redis分布式缓存功能
      *
-     * @param id    主键ID
-     * @param ms    过期时间 毫秒
-     * @param clazz 实体类Class对象（参数为了方法的重载 不参与实际业务逻辑）
+     * @param id       主键ID
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
+     * @param clazz    实体类Class对象（参数为了方法的重载 不参与实际业务逻辑）
      * @return {@code T}实体类对象实例
      */
-    default T getById(Serializable id, long ms, Class<?> clazz) {
-        return PlusUtils.ifNotCache(id, getEntityClass(), ms, this::getById, getJvmLock());
+    default T getById(Serializable id, Duration duration, Class<?> clazz) {
+        return PlusUtils.ifNotCache(id, getEntityClass(), duration, this::getById, getJvmLock());
     }
 
 
@@ -192,30 +193,30 @@ public interface ICacheService<T> extends IService<T> {
      * @return 以{@code T}实体类为元素的集合实例
      */
     default List<T> listByIds(Collection<? extends Serializable> ids, Class<?> clazz) {
-        return PlusUtils.ifNotCache(ids, getEntityClass(), -1, this::listByIds);
+        return PlusUtils.ifNotCache(ids, getEntityClass(), null, this::listByIds);
     }
 
     /**
      * 重载{@link IService#listByIds(Collection)}方法 增加Redis分布式缓存功能
      *
-     * @param ids 批主键ID
-     * @param ms  过期时间 毫秒
+     * @param ids      批主键ID
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      * @return 以{@code T}实体类为元素的集合实例
      */
-    default List<T> listByIds(Collection<? extends Serializable> ids, long ms) {
-        return PlusUtils.ifNotCache(ids, getEntityClass(), ms, this::listByIds);
+    default List<T> listByIds(Collection<? extends Serializable> ids, Duration duration) {
+        return PlusUtils.ifNotCache(ids, getEntityClass(), duration, this::listByIds);
     }
 
     /**
      * 重载{@link IService#listByIds(Collection)}方法 增加Redis分布式缓存功能
      *
-     * @param ids   批主键ID
-     * @param clazz 实体类Class对象（参数为了方法的重载 不参与实际业务逻辑）
-     * @param ms    过期时间 毫秒
+     * @param ids      批主键ID
+     * @param clazz    实体类Class对象（参数为了方法的重载 不参与实际业务逻辑）
+     * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      * @return 以{@code T}实体类为元素的集合实例
      */
-    default List<T> listByIds(Collection<? extends Serializable> ids, long ms, Class<?> clazz) {
-        return PlusUtils.ifNotCache(ids, getEntityClass(), ms, this::listByIds);
+    default List<T> listByIds(Collection<? extends Serializable> ids, Duration duration, Class<?> clazz) {
+        return PlusUtils.ifNotCache(ids, getEntityClass(), duration, this::listByIds);
     }
 
 

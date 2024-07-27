@@ -36,7 +36,7 @@ import static xin.altitude.cms.common.util.SpringUtils.getBean;
  * <p>
  * 一对一查询属性注入{@link OneOneUtils} | 一对多查询属性注入{@link OneMoreUtils} | 多对多查询属性注入{@link MoreMoreUtils}
  *
- * @author <a href="http://www.altitude.xin" target="_blank">Java知识图谱</a>
+ * @author <a href="http://www.altitude.xin" target="_blank">赛泰先生</a>
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  * @since 1.6.4

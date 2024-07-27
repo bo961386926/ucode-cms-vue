@@ -75,6 +75,7 @@ public abstract class RedisUtils {
      * @param duration 缓存是否过期：如果为<code>null</code>则表示不过期
      */
     public static void save(final StringRedisTemplate template, final String key, final Object value, final Duration duration) {
+        Assert.notNull(key, "缓存键值key参数不能为空");
         StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
 
         String writeValue = JacksonUtils.writeValue(null, value);

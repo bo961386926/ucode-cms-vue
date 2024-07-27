@@ -53,7 +53,7 @@ public abstract class RedisAsyncUtils {
      */
     private static <T> byte[] toByte(T value) {
         Objects.requireNonNull(value);
-        return JacksonUtils.writeValue(value).getBytes(StandardCharsets.UTF_8);
+        return JacksonUtils.writeValue(null,value).getBytes(StandardCharsets.UTF_8);
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class RedisAsyncUtils {
      */
     private static <T> T toObj(byte[] bytes, Class<T> clazz) {
         Objects.requireNonNull(bytes);
-        return JacksonUtils.readObjectValue(new String(bytes), clazz);
+        return JacksonUtils.readObjectValue(null,new String(bytes), clazz);
     }
 
     /**
@@ -78,7 +78,7 @@ public abstract class RedisAsyncUtils {
     public static <T> void save(String key, T value) {
         Objects.requireNonNull(key);
         Objects.requireNonNull(value);
-        String jsonValue = JacksonUtils.writeValue(value);
+        String jsonValue = JacksonUtils.writeValue(null,value);
         STRING_REDIS_TEMPLATE.execute((RedisCallback<Boolean>) conn -> conn.set(toByte(key), toByte(jsonValue)));
     }
 

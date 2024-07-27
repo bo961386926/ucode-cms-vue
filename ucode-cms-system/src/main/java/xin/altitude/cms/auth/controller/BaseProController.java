@@ -23,7 +23,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.controller.BaseController;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.constant.HttpStatus;
 import xin.altitude.cms.framework.core.page.PageDomain;
@@ -87,23 +87,23 @@ public class BaseProController extends BaseController {
     /**
      * 返回失败消息
      */
-    public AjaxResult error() {
-        return AjaxResult.error();
+    public RestResult error() {
+        return RestResult.error();
     }
 
     /**
      * 返回成功消息
      */
-    public AjaxResult success(String message) {
-        return AjaxResult.success(message);
+    public RestResult success(String message) {
+        return RestResult.success(message);
     }
 
 
     /**
      * 返回失败消息
      */
-    public AjaxResult error(String message) {
-        return AjaxResult.error(message);
+    public RestResult error(String message) {
+        return RestResult.error(message);
     }
 
     /**

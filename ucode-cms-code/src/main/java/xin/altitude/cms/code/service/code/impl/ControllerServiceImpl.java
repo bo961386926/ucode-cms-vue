@@ -26,7 +26,7 @@ import xin.altitude.cms.code.domain.KeyColumnUsage;
 import xin.altitude.cms.code.entity.vo.KeyColumnUsageVo;
 import xin.altitude.cms.code.util.CodeUtils;
 import xin.altitude.cms.code.util.format.JavaFormat4Controller;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.entity.PageEntity;
 import xin.altitude.cms.common.util.EntityUtils;
 import xin.altitude.cms.common.util.SpringUtils;
@@ -134,7 +134,7 @@ public class ControllerServiceImpl extends CommonServiceImpl {
             rs.add("import org.springframework.web.bind.annotation.RestController;");
             rs.add("import java.util.Arrays;");
             rs.add("import java.util.List;");
-            rs.add(String.format("import %s;", AjaxResult.class.getName()));
+            rs.add(String.format("import %s;", RestResult.class.getName()));
             rs.add(String.format("import %s;", PageEntity.class.getName()));
             rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
             rs.add(String.format("import %s.service.I%sService;", config.getPackageName(), CodeUtils.getClassName(tableName)));

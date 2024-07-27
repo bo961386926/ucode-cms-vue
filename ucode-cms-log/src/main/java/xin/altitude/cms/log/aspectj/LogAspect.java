@@ -134,7 +134,7 @@ public class LogAspect {
         }
         // 是否需要保存response，参数和值
         if (log.saveResponse() && StringUtil.isNotNull(jsonResult)) {
-            operateLog.setJsonResult(StringUtil.substring(JacksonUtils.writeValue(jsonResult), 0, 2000));
+            operateLog.setJsonResult(StringUtil.substring(JacksonUtils.writeValue(null,jsonResult), 0, 2000));
         }
     }
 
@@ -166,7 +166,7 @@ public class LogAspect {
                         // Object jsonObj = JSON.toJSON(o);
                         // Object jsonObj = objectMapper.readObjectValue();
                         // params.append(jsonObj.toString()).append(" ");
-                        params.append(JacksonUtils.writeValue(o)).append(" ");
+                        params.append(JacksonUtils.writeValue(null,o)).append(" ");
                     } catch (Exception e) {
                         e.printStackTrace();
                     }

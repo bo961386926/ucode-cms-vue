@@ -42,7 +42,7 @@ public class DefaultOperateLogListener implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] pattern) {
         String s = new String(message.getBody(), StandardCharsets.UTF_8);
-        OperateLog operateLog = JacksonUtils.readObjectValue(s, OperateLog.class);
+        OperateLog operateLog = JacksonUtils.readObjectValue(null, s, OperateLog.class);
         /* 如果数据存在，则保存数据 */
         Optional.ofNullable(operateLog).ifPresent(this::saveData);
     }

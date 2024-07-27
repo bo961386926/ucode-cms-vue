@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.entity.PageEntity;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.SpringUtils;
@@ -83,15 +83,15 @@ public class CodeHomeController {
     private MetaTableService metaTableService;
 
     @GetMapping("/table/gen")
-    public AjaxResult multiTableGen(String[] tableName) {
+    public RestResult multiTableGen(String[] tableName) {
         MetaTable metaTable = new MetaTable();
         List<MetaTableBo> tableList = metaTableService.selectTableList(metaTable);
         if (tableName == null) {
             // tableName = EntityUtils.toList(tableList, MetaTableBo::getTableName).toArray(new String[0]);
-            return AjaxResult.success("请选择表名");
+            return RestResult.success("请选择表名");
         }
         entranceService.multiTableGen(tableName);
-        return AjaxResult.success();
+        return RestResult.success();
     }
 
     @SneakyThrows
@@ -123,8 +123,8 @@ public class CodeHomeController {
      * @return AjaxResult
      */
     @GetMapping("/table/page")
-    public AjaxResult page(PageEntity pageEntity, MetaTable metaTable) {
-        return AjaxResult.success(metaTableService.pageMetaTable(pageEntity.toPage(), metaTable));
+    public RestResult page(PageEntity pageEntity, MetaTable metaTable) {
+        return RestResult.success(metaTableService.pageMetaTable(pageEntity.toPage(), metaTable));
     }
 
     /**
@@ -134,8 +134,8 @@ public class CodeHomeController {
      * @return AjaxResult
      */
     @GetMapping("/table/list")
-    public AjaxResult list(MetaTable metaTable) {
-        return AjaxResult.success(metaTableService.listTables(metaTable));
+    public RestResult list(MetaTable metaTable) {
+        return RestResult.success(metaTableService.listTables(metaTable));
     }
 
 
@@ -153,9 +153,9 @@ public class CodeHomeController {
      * 预览代码（默认表｜自定义表）
      */
     @PostMapping("/preview/{tableName}")
-    public AjaxResult preview(@PathVariable("tableName") String tableName, @RequestBody ConfigBo configBo) {
+    public RestResult preview(@PathVariable("tableName") String tableName, @RequestBody ConfigBo configBo) {
         CommonService.setConfig(configBo);
-        return AjaxResult.success(entranceService.multiTableGen2(tableName));
+        return RestResult.success(entranceService.multiTableGen2(tableName));
 
     }
 }

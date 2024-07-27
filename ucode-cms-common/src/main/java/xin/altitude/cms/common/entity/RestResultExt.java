@@ -33,7 +33,7 @@ import java.util.List;
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
  */
-public class AjaxResultExt extends AjaxResult {
+public class RestResultExt extends RestResult {
 
     /**
      * 完成分页对象实体类的属性过滤
@@ -45,7 +45,7 @@ public class AjaxResultExt extends AjaxResult {
      * @since 1.5.7
      */
     @SafeVarargs
-    public static <T> AjaxResult success(IPage<T> data, final SFunction<T, ? extends Serializable>... action) {
+    public static <T> RestResult success(IPage<T> data, final SFunction<T, ? extends Serializable>... action) {
         return success(data, false, action);
     }
 
@@ -60,8 +60,8 @@ public class AjaxResultExt extends AjaxResult {
      * @since 1.5.7.2
      */
     @SafeVarargs
-    public static <T> AjaxResult success(IPage<T> data, boolean isInclude, final SFunction<T, ? extends Serializable>... action) {
-        return AjaxResult.success(SUCCESS_MSG, FieldFilterUtils.filterFields(data, isInclude, action));
+    public static <T> RestResult success(IPage<T> data, boolean isInclude, final SFunction<T, ? extends Serializable>... action) {
+        return RestResult.success(SUCCESS_MSG, FieldFilterUtils.filterFields(data, isInclude, action));
     }
 
     /**
@@ -74,7 +74,7 @@ public class AjaxResultExt extends AjaxResult {
      * @since 1.5.7
      */
     @SafeVarargs
-    public static <T> AjaxResult success(T data, final SFunction<T, ? extends Serializable>... action) {
+    public static <T> RestResult success(T data, final SFunction<T, ? extends Serializable>... action) {
         return success(data, false, action);
     }
 
@@ -89,8 +89,8 @@ public class AjaxResultExt extends AjaxResult {
      * @since 1.5.7.2
      */
     @SafeVarargs
-    public static <T> AjaxResult success(T data, boolean isInclude, final SFunction<T, ? extends Serializable>... action) {
-        return AjaxResult.success(SUCCESS_MSG, FieldFilterUtils.filterFields(data, isInclude, action));
+    public static <T> RestResult success(T data, boolean isInclude, final SFunction<T, ? extends Serializable>... action) {
+        return RestResult.success(SUCCESS_MSG, FieldFilterUtils.filterFields(data, isInclude, action));
     }
 
     /**
@@ -103,7 +103,7 @@ public class AjaxResultExt extends AjaxResult {
      * @since 1.5.7
      */
     @SafeVarargs
-    public static <T> AjaxResult success(List<T> data, final SFunction<T, ? extends Serializable>... action) {
+    public static <T> RestResult success(List<T> data, final SFunction<T, ? extends Serializable>... action) {
         return success(data, false, action);
     }
 
@@ -118,7 +118,7 @@ public class AjaxResultExt extends AjaxResult {
      * @since 1.5.7.2
      */
     @SafeVarargs
-    public static <T> AjaxResult success(List<T> data, boolean isInclude, final SFunction<T, ? extends Serializable>... action) {
-        return AjaxResult.success(SUCCESS_MSG, FieldFilterUtils.filterFields(data, isInclude, action));
+    public static <T> RestResult success(List<T> data, boolean isInclude, final SFunction<T, ? extends Serializable>... action) {
+        return RestResult.success(SUCCESS_MSG, FieldFilterUtils.filterFields(data, isInclude, action));
     }
 }

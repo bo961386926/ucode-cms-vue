@@ -41,7 +41,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.openxmlformats.schemas.drawingml.x2006.spreadsheetDrawing.CTMarker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.ConvertUtils;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtil;
@@ -477,7 +477,7 @@ public class ExcelUtil<T> {
      * @param sheetName 工作表的名称
      * @return 结果
      */
-    public AjaxResult exportExcel(List<T> list, String sheetName) {
+    public RestResult exportExcel(List<T> list, String sheetName) {
         return exportExcel(list, sheetName, StringUtil.EMPTY);
     }
 
@@ -489,7 +489,7 @@ public class ExcelUtil<T> {
      * @param title     标题
      * @return 结果
      */
-    public AjaxResult exportExcel(List<T> list, String sheetName, String title) {
+    public RestResult exportExcel(List<T> list, String sheetName, String title) {
         this.init(list, sheetName, title, Excel.Type.EXPORT);
         return exportExcel();
     }
@@ -526,7 +526,7 @@ public class ExcelUtil<T> {
      * @param sheetName 工作表的名称
      * @return 结果
      */
-    public AjaxResult importTemplateExcel(String sheetName) {
+    public RestResult importTemplateExcel(String sheetName) {
         return importTemplateExcel(sheetName, StringUtil.EMPTY);
     }
 
@@ -537,7 +537,7 @@ public class ExcelUtil<T> {
      * @param title     标题
      * @return 结果
      */
-    public AjaxResult importTemplateExcel(String sheetName, String title) {
+    public RestResult importTemplateExcel(String sheetName, String title) {
         this.init(null, sheetName, title, Excel.Type.IMPORT);
         return exportExcel();
     }
@@ -583,14 +583,14 @@ public class ExcelUtil<T> {
      *
      * @return 结果
      */
-    public AjaxResult exportExcel() {
+    public RestResult exportExcel() {
         OutputStream out = null;
         try {
             writeSheet();
             String filename = encodingFilename(sheetName);
             out = new FileOutputStream(getAbsoluteFile(filename));
             wb.write(out);
-            return AjaxResult.success(filename);
+            return RestResult.success(filename);
         } catch (Exception e) {
             log.error("导出Excel异常{}", e.getMessage());
             throw new UtilException("导出Excel失败，请联系网站管理员！");

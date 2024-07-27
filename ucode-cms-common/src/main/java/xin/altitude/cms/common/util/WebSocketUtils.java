@@ -40,7 +40,7 @@ public abstract class WebSocketUtils {
      * （群）发送消息
      */
     public static void sendMessage(Object msg) {
-        TextMessage textMessage = new TextMessage(JacksonUtils.writeValueAsString(msg));
+        TextMessage textMessage = new TextMessage(JacksonUtils.writeValueAsString(null,msg));
         try {
             for (WebSocketSession session : SESSION_SETS) {
                 session.sendMessage(textMessage);

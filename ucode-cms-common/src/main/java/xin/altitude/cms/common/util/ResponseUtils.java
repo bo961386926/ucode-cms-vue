@@ -3,7 +3,7 @@ package xin.altitude.cms.common.util;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StreamUtils;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 
 import javax.servlet.ServletResponse;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public abstract class ResponseUtils {
      *
      * @param result 返回数据
      */
-    public static void responseJson(AjaxResult result) {
+    public static void responseJson(RestResult result) {
         responseJson(ServletUtils.getResponse(), result);
     }
 
@@ -33,11 +33,11 @@ public abstract class ResponseUtils {
      * @param response 相应
      * @param result   返回数据
      */
-    public static void responseJson(ServletResponse response, AjaxResult result) {
+    public static void responseJson(ServletResponse response, RestResult result) {
         try {
             response.setCharacterEncoding("UTF-8");
             response.setContentType("application/json");
-            String value = JacksonUtils.writeValueAsString(result);
+            String value = JacksonUtils.writeValueAsString(null,result);
             StreamUtils.copy(value, StandardCharsets.UTF_8, response.getOutputStream());
         } catch (IOException e) {
             log.error("Response输出Json异常：" + e);

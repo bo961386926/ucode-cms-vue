@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.framework.constant.UserConstants;
 import xin.altitude.cms.framework.core.page.TableDataInfo;
@@ -61,8 +61,8 @@ public class SysConfigProController extends BaseProController {
      * 获取参数配置列表
      */
     @GetMapping("/page")
-    public AjaxResult page(Page<SysConfig> page, SysConfig config) {
-        return AjaxResult.success(configService.page(page, Wrappers.lambdaQuery(config)));
+    public RestResult page(Page<SysConfig> page, SysConfig config) {
+        return RestResult.success(configService.page(page, Wrappers.lambdaQuery(config)));
     }
 
     /**
@@ -87,16 +87,16 @@ public class SysConfigProController extends BaseProController {
      * 根据参数编号获取详细信息
      */
     @GetMapping(value = "/{configId}")
-    public AjaxResult getInfo(@PathVariable Long configId) {
-        return AjaxResult.success(configService.selectConfigById(configId));
+    public RestResult getInfo(@PathVariable Long configId) {
+        return RestResult.success(configService.selectConfigById(configId));
     }
 
     /**
      * 根据参数键名查询参数值
      */
     @GetMapping(value = "/configKey/{configKey}")
-    public AjaxResult getConfigKey(@PathVariable String configKey) {
-        return AjaxResult.success(configService.selectConfigByKey(configKey));
+    public RestResult getConfigKey(@PathVariable String configKey) {
+        return RestResult.success(configService.selectConfigByKey(configKey));
     }
 
     /**
@@ -104,9 +104,9 @@ public class SysConfigProController extends BaseProController {
      */
     @OperLog(title = "参数管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysConfig config) {
+    public RestResult add(@Validated @RequestBody SysConfig config) {
         if (UserConstants.NOT_UNIQUE.equals(configService.checkConfigKeyUnique(config))) {
-            return AjaxResult.error("新增参数'" + config.getConfigName() + "'失败，参数键名已存在");
+            return RestResult.error("新增参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
         config.setCreateBy(getUsername());
         return toAjax(configService.insertConfig(config));
@@ -117,9 +117,9 @@ public class SysConfigProController extends BaseProController {
      */
     @OperLog(title = "参数管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysConfig config) {
+    public RestResult edit(@Validated @RequestBody SysConfig config) {
         if (UserConstants.NOT_UNIQUE.equals(configService.checkConfigKeyUnique(config))) {
-            return AjaxResult.error("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
+            return RestResult.error("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
         config.setUpdateBy(getUsername());
         return toAjax(configService.updateConfig(config));
@@ -130,7 +130,7 @@ public class SysConfigProController extends BaseProController {
      */
     @OperLog(title = "参数管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{configIds}")
-    public AjaxResult remove(@PathVariable Long[] configIds) {
+    public RestResult remove(@PathVariable Long[] configIds) {
         configService.deleteConfigByIds(configIds);
         return success();
     }
@@ -140,8 +140,8 @@ public class SysConfigProController extends BaseProController {
      */
     @OperLog(title = "参数管理", businessType = BusinessType.CLEAN)
     @DeleteMapping("/refreshCache")
-    public AjaxResult refreshCache() {
+    public RestResult refreshCache() {
         configService.resetConfigCache();
-        return AjaxResult.success();
+        return RestResult.success();
     }
 }

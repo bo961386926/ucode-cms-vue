@@ -29,7 +29,7 @@ import xin.altitude.cms.security.util.UserUtils;
 import xin.altitude.cms.auth.web.service.SysLoginService;
 import xin.altitude.cms.auth.web.service.SysPermissionService;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.framework.core.domain.SysMenu;
 import xin.altitude.cms.framework.core.domain.SysUser;
 import xin.altitude.cms.framework.core.model.LoginBody;
@@ -64,8 +64,8 @@ public class SysLoginController {
      * @return 结果
      */
     @PostMapping("/login")
-    public AjaxResult login(@RequestBody LoginBody loginBody) {
-        AjaxResult ajax = AjaxResult.success();
+    public RestResult login(@RequestBody LoginBody loginBody) {
+        RestResult ajax = RestResult.success();
         // 生成令牌
         String token = loginService.login(loginBody.getUsername(), loginBody.getPassword(), loginBody.getCode(),
             loginBody.getUuid());
@@ -79,13 +79,13 @@ public class SysLoginController {
      * @return 用户信息
      */
     @GetMapping("getInfo")
-    public AjaxResult getInfo() {
+    public RestResult getInfo() {
         SysUser user = SecurityUtils.getLoginUser().getUser();
         // 角色集合
         Set<String> roles = permissionService.getRolePermission(user);
         // 权限集合
         Set<String> permissions = permissionService.getMenuPermission(user);
-        AjaxResult ajax = AjaxResult.success();
+        RestResult ajax = RestResult.success();
         ajax.put("user", user);
         ajax.put("roles", roles);
         ajax.put("permissions", permissions);
@@ -98,9 +98,9 @@ public class SysLoginController {
      * @return 路由信息
      */
     @GetMapping("getRouters")
-    public AjaxResult getRouters() {
+    public RestResult getRouters() {
         Long userId = UserUtils.getUserId();
         List<SysMenu> menus = menuService.selectMenuTreeByUserId(userId);
-        return AjaxResult.success(menuService.buildMenus(menus));
+        return RestResult.success(menuService.buildMenus(menus));
     }
 }

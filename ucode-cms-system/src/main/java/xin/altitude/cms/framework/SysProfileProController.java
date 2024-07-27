@@ -32,7 +32,7 @@ import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.security.service.CmsTokenService;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.log.annotation.OperLog;
@@ -65,10 +65,10 @@ public class SysProfileProController extends BaseProController {
      * 个人信息
      */
     @GetMapping
-    public AjaxResult profile() {
+    public RestResult profile() {
         LoginUser loginUser = getLoginUser();
         SysUser user = loginUser.getUser();
-        AjaxResult ajax = AjaxResult.success(user);
+        RestResult ajax = RestResult.success(user);
         ajax.put("roleGroup", userService.selectUserRoleGroup(loginUser.getUsername()));
         ajax.put("postGroup", userService.selectUserPostGroup(loginUser.getUsername()));
         return ajax;
@@ -79,14 +79,14 @@ public class SysProfileProController extends BaseProController {
      */
     @OperLog(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult updateProfile(@RequestBody SysUser user) {
+    public RestResult updateProfile(@RequestBody SysUser user) {
         if (StringUtil.isNotEmpty(user.getPhonenumber())
             && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
-            return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
+            return RestResult.error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
         }
         if (StringUtil.isNotEmpty(user.getEmail())
             && UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
-            return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+            return RestResult.error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         LoginUser loginUser = getLoginUser();
         SysUser sysUser = loginUser.getUser();
@@ -99,9 +99,9 @@ public class SysProfileProController extends BaseProController {
             sysUser.setEmail(user.getEmail());
             sysUser.setSex(user.getSex());
             cmsTokenService.setLoginUser(loginUser);
-            return AjaxResult.success();
+            return RestResult.success();
         }
-        return AjaxResult.error("修改个人信息异常，请联系管理员");
+        return RestResult.error("修改个人信息异常，请联系管理员");
     }
 
     /**
@@ -109,23 +109,23 @@ public class SysProfileProController extends BaseProController {
      */
     @OperLog(title = "个人信息", businessType = BusinessType.UPDATE)
     @PutMapping("/updatePwd")
-    public AjaxResult updatePwd(String oldPassword, String newPassword) {
+    public RestResult updatePwd(String oldPassword, String newPassword) {
         LoginUser loginUser = getLoginUser();
         String userName = loginUser.getUsername();
         String password = loginUser.getPassword();
         if (!SecurityUtils.matchesPassword(oldPassword, password)) {
-            return AjaxResult.error("修改密码失败，旧密码错误");
+            return RestResult.error("修改密码失败，旧密码错误");
         }
         if (SecurityUtils.matchesPassword(newPassword, password)) {
-            return AjaxResult.error("新密码不能与旧密码相同");
+            return RestResult.error("新密码不能与旧密码相同");
         }
         if (userService.resetUserPwd(userName, SecurityUtils.encryptPassword(newPassword))) {
             // 更新缓存用户密码
             loginUser.getUser().setPassword(SecurityUtils.encryptPassword(newPassword));
             cmsTokenService.setLoginUser(loginUser);
-            return AjaxResult.success();
+            return RestResult.success();
         }
-        return AjaxResult.error("修改密码异常，请联系管理员");
+        return RestResult.error("修改密码异常，请联系管理员");
     }
 
     /**
@@ -133,12 +133,12 @@ public class SysProfileProController extends BaseProController {
      */
     @OperLog(title = "用户头像", businessType = BusinessType.UPDATE)
     @PostMapping("/avatar")
-    public AjaxResult avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException {
+    public RestResult avatar(@RequestParam("avatarfile") MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
             LoginUser loginUser = getLoginUser();
             String avatar = FileUploadUtils.upload(SpringUtils.getBean(CmsConfig.class).getCms().getAvatarPath(), file);
             if (userService.updateUserAvatar(loginUser.getUsername(), avatar)) {
-                AjaxResult ajax = AjaxResult.success();
+                RestResult ajax = RestResult.success();
                 ajax.put("imgUrl", avatar);
                 // 更新缓存用户头像
                 loginUser.getUser().setAvatar(avatar);
@@ -146,6 +146,6 @@ public class SysProfileProController extends BaseProController {
                 return ajax;
             }
         }
-        return AjaxResult.error("上传图片异常，请联系管理员");
+        return RestResult.error("上传图片异常，请联系管理员");
     }
 }

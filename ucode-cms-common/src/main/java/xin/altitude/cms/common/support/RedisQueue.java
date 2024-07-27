@@ -131,7 +131,7 @@ public class RedisQueue<E> implements IQueue<E> {
         List<byte[]> bytes = conn.bRPop(30, key.getBytes(StandardCharsets.UTF_8));
         if (bytes != null && bytes.size() >= 2) {
             String valueString = new String(bytes.get(1), StandardCharsets.UTF_8);
-            return JacksonUtils.readObjectValue(valueString, clazz);
+            return JacksonUtils.readObjectValue(null,valueString, clazz);
         }
         return null;
     }

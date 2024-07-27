@@ -27,7 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.log.enums.BusinessType;
@@ -89,8 +89,8 @@ public class SysUserOnlineProController extends BaseProController {
      */
     @OperLog(title = "在线用户", businessType = BusinessType.FORCE)
     @DeleteMapping("/{tokenId}")
-    public AjaxResult forceLogout(@PathVariable String tokenId) {
+    public RestResult forceLogout(@PathVariable String tokenId) {
         redisCache.deleteObject(Constants.LOGIN_TOKEN_KEY + tokenId);
-        return AjaxResult.success();
+        return RestResult.success();
     }
 }

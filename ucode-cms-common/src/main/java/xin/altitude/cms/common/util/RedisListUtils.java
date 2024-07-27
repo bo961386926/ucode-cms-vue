@@ -56,7 +56,7 @@ public abstract class RedisListUtils {
         if (e instanceof String) {
             return QUEUE.push(key, (String) e);
         } else {
-            String value = JacksonUtils.writeValueAsString(e);
+            String value = JacksonUtils.writeValueAsString(null, e);
             return QUEUE.push(key, value);
         }
     }
@@ -72,7 +72,7 @@ public abstract class RedisListUtils {
             List<String> newValue = EntityUtils.toList(values, e -> (String) e);
             return QUEUE.pushAll(key, newValue);
         } else {
-            List<String> newValue = EntityUtils.toList(values, JacksonUtils::writeValueAsString);
+            List<String> newValue = EntityUtils.toList(values, e -> JacksonUtils.writeValueAsString(null, e));
             return QUEUE.pushAll(key, newValue);
         }
     }
@@ -95,7 +95,7 @@ public abstract class RedisListUtils {
      */
     public static <T> T pop(String key, Class<T> clazz) {
         String value = QUEUE.pop(key);
-        return JacksonUtils.readObjectValue(value, clazz);
+        return JacksonUtils.readObjectValue(null, value, clazz);
     }
 
     /**
@@ -114,7 +114,7 @@ public abstract class RedisListUtils {
      */
     public static <T> List<T> pop(String key, long count, Class<T> clazz) {
         List<String> values = QUEUE.pop(key, count);
-        return EntityUtils.toList(values, e -> JacksonUtils.readObjectValue(e, clazz));
+        return EntityUtils.toList(values, e -> JacksonUtils.readObjectValue(null, e, clazz));
     }
 
     /**
@@ -132,7 +132,7 @@ public abstract class RedisListUtils {
      * @return 元素
      */
     public static <T> T bPop(String key, long timeout, TimeUnit unit, Class<T> clazz) {
-        return JacksonUtils.readObjectValue(QUEUE.bPop(key, timeout, unit), clazz);
+        return JacksonUtils.readObjectValue(null, QUEUE.bPop(key, timeout, unit), clazz);
     }
 
     /**

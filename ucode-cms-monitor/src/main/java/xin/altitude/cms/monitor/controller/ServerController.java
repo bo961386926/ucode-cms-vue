@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.monitor.domain.Server;
 
 /**
@@ -36,9 +36,9 @@ import xin.altitude.cms.monitor.domain.Server;
 @RequestMapping(Constants.UNIFORM_PREFIX + "/monitor/server")
 public class ServerController {
     @GetMapping()
-    public AjaxResult getInfo() throws Exception {
+    public RestResult getInfo() throws Exception {
         Server server = new Server();
         server.copyTo();
-        return AjaxResult.success(server);
+        return RestResult.success(server);
     }
 }

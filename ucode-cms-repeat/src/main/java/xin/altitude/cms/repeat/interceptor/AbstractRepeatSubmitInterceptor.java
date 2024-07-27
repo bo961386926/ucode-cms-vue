@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.repeat.annotation.RepeatSubmit;
 
@@ -56,8 +56,8 @@ public abstract class AbstractRepeatSubmitInterceptor implements HandlerIntercep
         if (handler instanceof HandlerMethod) {
             RepeatSubmit annotation = Optional.of((HandlerMethod) handler).map(HandlerMethod::getMethod).map(e -> e.getAnnotation(RepeatSubmit.class)).orElse(null);
             if (annotation != null && isRepeatSubmit(request, annotation)) {
-                AjaxResult ajaxResult = AjaxResult.error(annotation.message());
-                ServletUtils.renderString(response, objectMapper.writeValueAsString(ajaxResult));
+                RestResult restResult = RestResult.error(annotation.message());
+                ServletUtils.renderString(response, objectMapper.writeValueAsString(restResult));
                 return false;
             }
             return true;

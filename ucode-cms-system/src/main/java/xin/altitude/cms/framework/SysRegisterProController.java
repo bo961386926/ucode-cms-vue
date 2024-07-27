@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.auth.web.service.SysRegisterService;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.framework.core.model.RegisterBody;
 import xin.altitude.cms.system.service.ISysConfigService;
@@ -48,7 +48,7 @@ public class SysRegisterProController extends BaseProController {
     private ISysConfigService configService;
 
     @PostMapping("/register")
-    public AjaxResult register(@RequestBody RegisterBody user) {
+    public RestResult register(@RequestBody RegisterBody user) {
         if (!("true".equals(configService.selectConfigByKey("sys.account.registerUser")))) {
             return error("当前系统没有开启注册功能！");
         }

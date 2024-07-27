@@ -27,6 +27,7 @@ import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.lang.NonNull;
 
 import java.util.ArrayList;
@@ -41,8 +42,9 @@ import java.util.Objects;
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
  */
+@Lazy(value = false)
 @ConditionalOnMissingBean(value = xin.altitude.cms.common.util.SpringUtils.class)
-public abstract class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {
+public class SpringUtils implements BeanFactoryPostProcessor, ApplicationContextAware {
     /**
      * Spring应用上下文环境
      */

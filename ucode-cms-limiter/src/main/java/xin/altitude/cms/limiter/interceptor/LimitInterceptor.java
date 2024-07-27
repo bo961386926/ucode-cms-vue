@@ -27,7 +27,7 @@ import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.ColUtils;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.SpringUtils;
@@ -81,8 +81,8 @@ public class LimitInterceptor implements HandlerInterceptor {
                 if (result != null && result) {
                     String msg = String.format("访问过于频繁，请稍候再试，当前请求允许访问速率为{%d次/%d秒}", threshold, ttl);
                     log.warn(msg);
-                    AjaxResult ajaxResult = AjaxResult.error(msg);
-                    ServletUtils.renderString(response, objectMapper.writeValueAsString(ajaxResult));
+                    RestResult restResult = RestResult.error(msg);
+                    ServletUtils.renderString(response, objectMapper.writeValueAsString(restResult));
                     return false;
                 }
             }

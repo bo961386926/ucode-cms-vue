@@ -21,7 +21,7 @@ package xin.altitude.cms.gen.code.service.code.impl;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.velocity.VelocityContext;
 import org.springframework.util.StreamUtils;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.entity.PageEntity;
 import xin.altitude.cms.gen.code.entity.CodeFile;
 import xin.altitude.cms.gen.code.enums.DaoEnum;
@@ -141,7 +141,7 @@ public class ControllerServiceImpl extends CommonService {
             rs.add("import org.springframework.web.bind.annotation.RestController;");
             rs.add("import java.util.Arrays;");
             rs.add("import java.util.List;");
-            rs.add(String.format("import %s;", AjaxResult.class.getName()));
+            rs.add(String.format("import %s;", RestResult.class.getName()));
             rs.add(String.format("import %s;", PageEntity.class.getName()));
             rs.add(String.format("import %s.domain.%s;", config.getPackageName(), CodeUtils.getClassName(tableName)));
             if (config.isHasService()) {

@@ -34,7 +34,7 @@ import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.auth.util.SecurityUtils;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.log.annotation.OperLog;
@@ -90,12 +90,12 @@ public class SysUserProController extends BaseProController {
 
     @OperLog(title = "用户管理", businessType = BusinessType.IMPORT)
     @PostMapping("/importData")
-    public AjaxResult importData(MultipartFile file, boolean updateSupport) throws Exception {
+    public RestResult importData(MultipartFile file, boolean updateSupport) throws Exception {
         ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
         List<SysUser> userList = util.importExcel(file.getInputStream());
         String operName = getUsername();
         String message = userService.importUser(userList, updateSupport, operName);
-        return AjaxResult.success(message);
+        return RestResult.success(message);
     }
 
     @PostMapping("/importTemplate")
@@ -108,14 +108,14 @@ public class SysUserProController extends BaseProController {
      * 根据用户编号获取详细信息
      */
     @GetMapping(value = {"/", "/{userId}"})
-    public AjaxResult getInfo(@PathVariable(value = "userId", required = false) Long userId) {
+    public RestResult getInfo(@PathVariable(value = "userId", required = false) Long userId) {
         userService.checkUserDataScope(userId);
-        AjaxResult ajax = AjaxResult.success();
+        RestResult ajax = RestResult.success();
         List<SysRole> roles = roleService.selectRoleAll();
         ajax.put("roles", SysUser.isAdmin(userId) ? roles : roles.stream().filter(r -> !r.isAdmin()).collect(Collectors.toList()));
         ajax.put("posts", postService.selectPostAll());
         if (StringUtil.isNotNull(userId)) {
-            ajax.put(AjaxResult.DATA_TAG, userService.selectUserById(userId));
+            ajax.put(RestResult.DATA_TAG, userService.selectUserById(userId));
             ajax.put("postIds", postService.selectPostListByUserId(userId));
             ajax.put("roleIds", roleService.selectRoleListByUserId(userId));
         }
@@ -127,15 +127,15 @@ public class SysUserProController extends BaseProController {
      */
     @OperLog(title = "用户管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysUser user) {
+    public RestResult add(@Validated @RequestBody SysUser user) {
         if (UserConstants.NOT_UNIQUE.equals(userService.checkUserNameUnique(user.getUserName()))) {
-            return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
+            return RestResult.error("新增用户'" + user.getUserName() + "'失败，登录账号已存在");
         } else if (StringUtil.isNotEmpty(user.getPhonenumber())
             && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
-            return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
+            return RestResult.error("新增用户'" + user.getUserName() + "'失败，手机号码已存在");
         } else if (StringUtil.isNotEmpty(user.getEmail())
             && UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
-            return AjaxResult.error("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+            return RestResult.error("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         user.setCreateBy(getUsername());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
@@ -147,14 +147,14 @@ public class SysUserProController extends BaseProController {
      */
     @OperLog(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysUser user) {
+    public RestResult edit(@Validated @RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         if (StringUtil.isNotEmpty(user.getPhonenumber())
             && UserConstants.NOT_UNIQUE.equals(userService.checkPhoneUnique(user))) {
-            return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
+            return RestResult.error("修改用户'" + user.getUserName() + "'失败，手机号码已存在");
         } else if (StringUtil.isNotEmpty(user.getEmail())
             && UserConstants.NOT_UNIQUE.equals(userService.checkEmailUnique(user))) {
-            return AjaxResult.error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
+            return RestResult.error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
         user.setUpdateBy(getUsername());
         return toAjax(userService.updateUser(user));
@@ -165,7 +165,7 @@ public class SysUserProController extends BaseProController {
      */
     @OperLog(title = "用户管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
-    public AjaxResult remove(@PathVariable Long[] userIds) {
+    public RestResult remove(@PathVariable Long[] userIds) {
         if (ArrayUtils.contains(userIds, getUserId())) {
             return error("当前用户不能删除");
         }
@@ -177,7 +177,7 @@ public class SysUserProController extends BaseProController {
      */
     @OperLog(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/resetPwd")
-    public AjaxResult resetPwd(@RequestBody SysUser user) {
+    public RestResult resetPwd(@RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         user.setUpdateBy(getUsername());
@@ -189,7 +189,7 @@ public class SysUserProController extends BaseProController {
      */
     @OperLog(title = "用户管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
-    public AjaxResult changeStatus(@RequestBody SysUser user) {
+    public RestResult changeStatus(@RequestBody SysUser user) {
         userService.checkUserAllowed(user);
         user.setUpdateBy(getUsername());
         return toAjax(userService.updateUserStatus(user));
@@ -199,8 +199,8 @@ public class SysUserProController extends BaseProController {
      * 根据用户编号获取授权角色
      */
     @GetMapping("/authRole/{userId}")
-    public AjaxResult authRole(@PathVariable("userId") Long userId) {
-        AjaxResult ajax = AjaxResult.success();
+    public RestResult authRole(@PathVariable("userId") Long userId) {
+        RestResult ajax = RestResult.success();
         SysUser user = userService.selectUserById(userId);
         List<SysRole> roles = roleService.selectRolesByUserId(userId);
         ajax.put("user", user);
@@ -213,7 +213,7 @@ public class SysUserProController extends BaseProController {
      */
     @OperLog(title = "用户管理", businessType = BusinessType.GRANT)
     @PutMapping("/authRole")
-    public AjaxResult insertAuthRole(Long userId, Long[] roleIds) {
+    public RestResult insertAuthRole(Long userId, Long[] roleIds) {
         userService.insertUserAuth(userId, roleIds);
         return success();
     }

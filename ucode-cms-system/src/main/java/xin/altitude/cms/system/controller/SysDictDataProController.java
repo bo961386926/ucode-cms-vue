@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.log.annotation.OperLog;
@@ -62,8 +62,8 @@ public class SysDictDataProController extends BaseProController {
     private ISysDictTypeService dictTypeService;
 
     @GetMapping("/list")
-    public AjaxResult list(Page<SysDictData> page, SysDictData dictData) {
-        return AjaxResult.success(dictDataService.page(page, Wrappers.lambdaQuery(dictData)));
+    public RestResult list(Page<SysDictData> page, SysDictData dictData) {
+        return RestResult.success(dictDataService.page(page, Wrappers.lambdaQuery(dictData)));
     }
 
     @OperLog(title = "字典数据", businessType = BusinessType.EXPORT)
@@ -78,20 +78,20 @@ public class SysDictDataProController extends BaseProController {
      * 查询字典数据详细
      */
     @GetMapping(value = "/{dictCode}")
-    public AjaxResult getInfo(@PathVariable Long dictCode) {
-        return AjaxResult.success(dictDataService.selectDictDataById(dictCode));
+    public RestResult getInfo(@PathVariable Long dictCode) {
+        return RestResult.success(dictDataService.selectDictDataById(dictCode));
     }
 
     /**
      * 根据字典类型查询字典数据信息
      */
     @GetMapping(value = "/type/{dictType}")
-    public AjaxResult dictType(@PathVariable String dictType) {
+    public RestResult dictType(@PathVariable String dictType) {
         List<SysDictData> data = dictTypeService.selectDictDataByType(dictType);
         if (StringUtil.isNull(data)) {
             data = new ArrayList<SysDictData>();
         }
-        return AjaxResult.success(data);
+        return RestResult.success(data);
     }
 
     /**
@@ -99,7 +99,7 @@ public class SysDictDataProController extends BaseProController {
      */
     @OperLog(title = "字典数据", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysDictData dict) {
+    public RestResult add(@Validated @RequestBody SysDictData dict) {
         dict.setCreateBy(getUsername());
         return toAjax(dictDataService.insertDictData(dict));
     }
@@ -109,7 +109,7 @@ public class SysDictDataProController extends BaseProController {
      */
     @OperLog(title = "字典数据", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysDictData dict) {
+    public RestResult edit(@Validated @RequestBody SysDictData dict) {
         dict.setUpdateBy(getUsername());
         return toAjax(dictDataService.updateDictData(dict));
     }
@@ -119,7 +119,7 @@ public class SysDictDataProController extends BaseProController {
      */
     @OperLog(title = "字典类型", businessType = BusinessType.DELETE)
     @DeleteMapping("/{dictCodes}")
-    public AjaxResult remove(@PathVariable Long[] dictCodes) {
+    public RestResult remove(@PathVariable Long[] dictCodes) {
         dictDataService.deleteDictDataByIds(dictCodes);
         return success();
     }

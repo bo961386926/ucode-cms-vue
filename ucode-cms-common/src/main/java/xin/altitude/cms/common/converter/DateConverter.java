@@ -11,7 +11,7 @@ import java.util.Date;
  */
 public class DateConverter implements Converter<String, Date> {
     private static final String dateFormat = "yyyy-MM-dd HH:mm:ss";
-    private static final String dateFormata = "yyyy-MM-dd HH:mm:ss";
+    private static final String dateFormata = "yyyy/MM/dd HH:mm:ss";
     private static final String shortDateFormat = "yyyy-MM-dd";
     private static final String shortDateFormata = "yyyy/MM/dd";
     private static final String timeStampFormat = "^\\d+$";

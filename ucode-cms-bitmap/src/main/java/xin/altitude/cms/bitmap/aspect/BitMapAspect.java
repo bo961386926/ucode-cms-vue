@@ -27,7 +27,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import xin.altitude.cms.bitmap.annotation.BitMap;
 import xin.altitude.cms.bitmap.util.ParserUtils;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.RedisBitMapUtils;
 
 import java.lang.reflect.Method;
@@ -64,7 +64,7 @@ public class BitMapAspect {
                 return point.proceed();
             } else {
                 logger.info(String.format("当前主键ID{%d}不存在", id));
-                return method.getReturnType().equals(AjaxResult.class) ? AjaxResult.success() : null;
+                return method.getReturnType().equals(RestResult.class) ? RestResult.success() : null;
             }
         }
         throw new RuntimeException("主键ID解析不正确，请按照参考格式书写");

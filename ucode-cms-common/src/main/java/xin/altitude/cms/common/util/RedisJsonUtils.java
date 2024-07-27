@@ -109,7 +109,7 @@ public abstract class RedisJsonUtils {
                 template.opsForValue().set(key, (String) value, timeout, timeUnit);
             }
         } else {
-            Optional<String> stringOptional = Optional.ofNullable(JacksonUtils.writeValue(value));
+            Optional<String> stringOptional = Optional.ofNullable(JacksonUtils.writeValue(null, value));
             if (timeout <= 0) {
                 stringOptional.ifPresent(e -> template.opsForValue().set(key, e));
             } else {
@@ -138,7 +138,7 @@ public abstract class RedisJsonUtils {
                 template.opsForValue().set(key, (String) value, timeout, timeUnit);
             }
         } else {
-            Optional<String> stringOptional = Optional.ofNullable(JacksonUtils.writeValue(value));
+            Optional<String> stringOptional = Optional.ofNullable(JacksonUtils.writeValue(null, value));
             if (timeout <= 0) {
                 stringOptional.ifPresent(e -> template.opsForValue().set(key, e));
             } else {
@@ -160,7 +160,7 @@ public abstract class RedisJsonUtils {
      * 批量保存数据 设置过期时间
      */
     public static <V> void saveBatch(final StringRedisTemplate template, final Map<String, V> map, long timeout, TimeUnit timeUnit) {
-        Map<String, String> transMap = MapUtils.transMap(map, JacksonUtils::writeValue);
+        Map<String, String> transMap = MapUtils.transMap(map, e -> JacksonUtils.writeValue(null, e));
         template.opsForValue().multiSet(transMap);
 
         if (timeUnit.equals(TimeUnit.SECONDS)) {
@@ -262,7 +262,7 @@ public abstract class RedisJsonUtils {
      * @return 缓存键值对应的数据
      */
     public static <T> T getObject(final StringRedisTemplate template, final String key, final Class<T> clazz) {
-        return Optional.ofNullable(template.opsForValue().get(key)).map(e -> JacksonUtils.readObjectValue(e, clazz)).orElse(null);
+        return Optional.ofNullable(template.opsForValue().get(key)).map(e -> JacksonUtils.readObjectValue(null, e, clazz)).orElse(null);
     }
 
 
@@ -325,7 +325,7 @@ public abstract class RedisJsonUtils {
      * @return
      */
     public static <T> List<T> getList(final StringRedisTemplate template, final String key, final Class<T> clazz) {
-        return Optional.ofNullable(template.opsForValue().get(key)).map(e -> JacksonUtils.readListValue(e, clazz)).orElse(Collections.emptyList());
+        return Optional.ofNullable(template.opsForValue().get(key)).map(e -> JacksonUtils.readListValue(null,e, clazz)).orElse(Collections.emptyList());
     }
 
     /**
@@ -468,7 +468,7 @@ public abstract class RedisJsonUtils {
      * @param <T>
      */
     public static <T> void multiSet(final StringRedisTemplate template, Map<String, T> map, Class<T> clazz) {
-        Map<String, String> stringMap = MapUtils.transMap(map, e -> e, JacksonUtils::writeValue);
+        Map<String, String> stringMap = MapUtils.transMap(map, e -> e, e -> JacksonUtils.writeValue(null, e));
         template.opsForValue().multiSet(stringMap);
     }
 
@@ -489,7 +489,7 @@ public abstract class RedisJsonUtils {
      * @return Value值集合
      */
     public static <T> List<T> multiGet(final StringRedisTemplate template, List<String> keys, Class<T> clazz) {
-        return EntityUtils.toList(multiGet(template, keys), e -> JacksonUtils.readObjectValue(e, clazz), Objects::nonNull);
+        return EntityUtils.toList(multiGet(template, keys), e -> JacksonUtils.readObjectValue(null, e, clazz), Objects::nonNull);
     }
 
     /**
@@ -506,7 +506,7 @@ public abstract class RedisJsonUtils {
             template.convertAndSend(channelName, msg);
         } else {
             /* 现将对象格式化为JSON字符串，然后保存 */
-            String json = JacksonUtils.writeValueAsString(msg);
+            String json = JacksonUtils.writeValueAsString(null, msg);
             Optional.ofNullable(json).ifPresent(e -> template.convertAndSend(channelName, e));
         }
     }

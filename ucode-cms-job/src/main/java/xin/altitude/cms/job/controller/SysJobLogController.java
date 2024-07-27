@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.job.domain.SysJobLog;
 import xin.altitude.cms.job.service.ISysJobLogService;
 import xin.altitude.cms.job.service.impl.SysJobLogServiceImpl;
@@ -56,16 +56,16 @@ public class SysJobLogController {
      * @return
      */
     @GetMapping("/list")
-    public AjaxResult list(Page<SysJobLog> page, SysJobLog sysJobLog) {
-        return AjaxResult.success(jobLogService.page(page, Wrappers.lambdaQuery(sysJobLog)));
+    public RestResult list(Page<SysJobLog> page, SysJobLog sysJobLog) {
+        return RestResult.success(jobLogService.page(page, Wrappers.lambdaQuery(sysJobLog)));
     }
 
     /**
      * 根据调度编号获取详细信息
      */
     @GetMapping(value = "/{jobLogId}")
-    public AjaxResult getInfo(@PathVariable Long jobLogId) {
-        return AjaxResult.success(jobLogService.selectJobLogById(jobLogId));
+    public RestResult getInfo(@PathVariable Long jobLogId) {
+        return RestResult.success(jobLogService.selectJobLogById(jobLogId));
     }
 
 
@@ -74,8 +74,8 @@ public class SysJobLogController {
      */
     // @OperLog(title = "定时任务调度日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobLogIds}")
-    public AjaxResult remove(@PathVariable Long[] jobLogIds) {
-        return AjaxResult.success(jobLogService.deleteJobLogByIds(jobLogIds));
+    public RestResult remove(@PathVariable Long[] jobLogIds) {
+        return RestResult.success(jobLogService.deleteJobLogByIds(jobLogIds));
     }
 
     /**
@@ -83,8 +83,8 @@ public class SysJobLogController {
      */
     // @OperLog(title = "调度日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
-    public AjaxResult clean() {
+    public RestResult clean() {
         jobLogService.cleanJobLog();
-        return AjaxResult.success();
+        return RestResult.success();
     }
 }

@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.quartz.service.IQuartzJobService;
 
 import java.util.Map;
@@ -48,9 +48,9 @@ public class QuartzJobController {
      * 立即运行
      */
     @GetMapping("/{jobId}")
-    public AjaxResult run(@PathVariable Long jobId, @RequestParam Map<String, Object> map) {
+    public RestResult run(@PathVariable Long jobId, @RequestParam Map<String, Object> map) {
         jobService.run(jobId, new JobDataMap(map));
-        return AjaxResult.success();
+        return RestResult.success();
     }
 
 }

@@ -35,7 +35,7 @@ import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.security.model.LoginUser;
 import xin.altitude.cms.security.service.CmsTokenService;
 import xin.altitude.cms.auth.web.service.SysPermissionService;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.log.annotation.OperLog;
@@ -74,8 +74,8 @@ public class SysRoleProController extends BaseProController {
     private ISysUserService userService;
 
     @GetMapping("/list")
-    public AjaxResult list(Page<SysRole> page, SysRole role) {
-        return AjaxResult.success(roleService.page(page, Wrappers.lambdaQuery(role)));
+    public RestResult list(Page<SysRole> page, SysRole role) {
+        return RestResult.success(roleService.page(page, Wrappers.lambdaQuery(role)));
     }
 
     @OperLog(title = "角色管理", businessType = BusinessType.EXPORT)
@@ -90,9 +90,9 @@ public class SysRoleProController extends BaseProController {
      * 根据角色编号获取详细信息
      */
     @GetMapping(value = "/{roleId}")
-    public AjaxResult getInfo(@PathVariable Long roleId) {
+    public RestResult getInfo(@PathVariable Long roleId) {
         roleService.checkRoleDataScope(roleId);
-        return AjaxResult.success(roleService.selectRoleById(roleId));
+        return RestResult.success(roleService.selectRoleById(roleId));
     }
 
     /**
@@ -100,11 +100,11 @@ public class SysRoleProController extends BaseProController {
      */
     @OperLog(title = "角色管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysRole role) {
+    public RestResult add(@Validated @RequestBody SysRole role) {
         if (UserConstants.NOT_UNIQUE.equals(roleService.checkRoleNameUnique(role))) {
-            return AjaxResult.error("新增角色'" + role.getRoleName() + "'失败，角色名称已存在");
+            return RestResult.error("新增角色'" + role.getRoleName() + "'失败，角色名称已存在");
         } else if (UserConstants.NOT_UNIQUE.equals(roleService.checkRoleKeyUnique(role))) {
-            return AjaxResult.error("新增角色'" + role.getRoleName() + "'失败，角色权限已存在");
+            return RestResult.error("新增角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
         role.setCreateBy(getUsername());
         return toAjax(roleService.insertRole(role));
@@ -116,12 +116,12 @@ public class SysRoleProController extends BaseProController {
      */
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysRole role) {
+    public RestResult edit(@Validated @RequestBody SysRole role) {
         roleService.checkRoleAllowed(role);
         if (UserConstants.NOT_UNIQUE.equals(roleService.checkRoleNameUnique(role))) {
-            return AjaxResult.error("修改角色'" + role.getRoleName() + "'失败，角色名称已存在");
+            return RestResult.error("修改角色'" + role.getRoleName() + "'失败，角色名称已存在");
         } else if (UserConstants.NOT_UNIQUE.equals(roleService.checkRoleKeyUnique(role))) {
-            return AjaxResult.error("修改角色'" + role.getRoleName() + "'失败，角色权限已存在");
+            return RestResult.error("修改角色'" + role.getRoleName() + "'失败，角色权限已存在");
         }
         role.setUpdateBy(getUsername());
 
@@ -133,9 +133,9 @@ public class SysRoleProController extends BaseProController {
                 loginUser.setUser(userService.selectUserByUserName(loginUser.getUser().getUserName()));
                 cmsTokenService.setLoginUser(loginUser);
             }
-            return AjaxResult.success();
+            return RestResult.success();
         }
-        return AjaxResult.error("修改角色'" + role.getRoleName() + "'失败，请联系管理员");
+        return RestResult.error("修改角色'" + role.getRoleName() + "'失败，请联系管理员");
     }
 
     /**
@@ -143,7 +143,7 @@ public class SysRoleProController extends BaseProController {
      */
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping("/dataScope")
-    public AjaxResult dataScope(@RequestBody SysRole role) {
+    public RestResult dataScope(@RequestBody SysRole role) {
         roleService.checkRoleAllowed(role);
         return toAjax(roleService.authDataScope(role));
     }
@@ -153,7 +153,7 @@ public class SysRoleProController extends BaseProController {
      */
     @OperLog(title = "角色管理", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
-    public AjaxResult changeStatus(@RequestBody SysRole role) {
+    public RestResult changeStatus(@RequestBody SysRole role) {
         roleService.checkRoleAllowed(role);
         role.setUpdateBy(getUsername());
         return toAjax(roleService.updateRoleStatus(role));
@@ -164,7 +164,7 @@ public class SysRoleProController extends BaseProController {
      */
     @OperLog(title = "角色管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{roleIds}")
-    public AjaxResult remove(@PathVariable Long[] roleIds) {
+    public RestResult remove(@PathVariable Long[] roleIds) {
         return toAjax(roleService.deleteRoleByIds(roleIds));
     }
 
@@ -172,8 +172,8 @@ public class SysRoleProController extends BaseProController {
      * 获取角色选择框列表
      */
     @GetMapping("/optionselect")
-    public AjaxResult optionselect() {
-        return AjaxResult.success(roleService.selectRoleAll());
+    public RestResult optionselect() {
+        return RestResult.success(roleService.selectRoleAll());
     }
 
     /**
@@ -201,7 +201,7 @@ public class SysRoleProController extends BaseProController {
      */
     @OperLog(title = "角色管理", businessType = BusinessType.GRANT)
     @PutMapping("/authUser/cancel")
-    public AjaxResult cancelAuthUser(@RequestBody SysUserRole userRole) {
+    public RestResult cancelAuthUser(@RequestBody SysUserRole userRole) {
         return toAjax(roleService.deleteAuthUser(userRole));
     }
 
@@ -210,7 +210,7 @@ public class SysRoleProController extends BaseProController {
      */
     @OperLog(title = "角色管理", businessType = BusinessType.GRANT)
     @PutMapping("/authUser/cancelAll")
-    public AjaxResult cancelAuthUserAll(Long roleId, Long[] userIds) {
+    public RestResult cancelAuthUserAll(Long roleId, Long[] userIds) {
         return toAjax(roleService.deleteAuthUsers(roleId, userIds));
     }
 
@@ -219,7 +219,7 @@ public class SysRoleProController extends BaseProController {
      */
     @OperLog(title = "角色管理", businessType = BusinessType.GRANT)
     @PutMapping("/authUser/selectAll")
-    public AjaxResult selectAuthUserAll(Long roleId, Long[] userIds) {
+    public RestResult selectAuthUserAll(Long roleId, Long[] userIds) {
         return toAjax(roleService.insertAuthUsers(roleId, userIds));
     }
 }

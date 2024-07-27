@@ -31,7 +31,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.log.enums.BusinessType;
@@ -55,8 +55,8 @@ public class SysLogininforProController extends BaseProController {
     private ISysLogininforService logininforService;
 
     @GetMapping("/list")
-    public AjaxResult list(Page<SysLogininfor> page, SysLogininfor logininfor) {
-        return AjaxResult.success(logininforService.page(page, Wrappers.lambdaQuery(logininfor)));
+    public RestResult list(Page<SysLogininfor> page, SysLogininfor logininfor) {
+        return RestResult.success(logininforService.page(page, Wrappers.lambdaQuery(logininfor)));
     }
 
     @OperLog(title = "登录日志", businessType = BusinessType.EXPORT)
@@ -69,14 +69,14 @@ public class SysLogininforProController extends BaseProController {
 
     @OperLog(title = "登录日志", businessType = BusinessType.DELETE)
     @DeleteMapping("/{infoIds}")
-    public AjaxResult remove(@PathVariable Long[] infoIds) {
+    public RestResult remove(@PathVariable Long[] infoIds) {
         return toAjax(logininforService.deleteLogininforByIds(infoIds));
     }
 
     @OperLog(title = "登录日志", businessType = BusinessType.CLEAN)
     @DeleteMapping("/clean")
-    public AjaxResult clean() {
+    public RestResult clean() {
         logininforService.cleanLogininfor();
-        return AjaxResult.success();
+        return RestResult.success();
     }
 }

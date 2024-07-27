@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.core.config.CmsConfig;
@@ -85,19 +85,19 @@ public class CommonController {
      * 通用上传请求
      */
     @PostMapping("/common/upload")
-    public AjaxResult uploadFile(MultipartFile file) throws Exception {
+    public RestResult uploadFile(MultipartFile file) throws Exception {
         try {
             // 上传文件路径
             String filePath = SpringUtils.getBean(CmsConfig.class).getCms().getUploadPath();
             // 上传并返回新文件名称
             String fileName = FileUploadUtils.upload(filePath, file);
             String url = serverConfig.getUrl() + fileName;
-            AjaxResult ajax = AjaxResult.success();
+            RestResult ajax = RestResult.success();
             ajax.put("fileName", fileName);
             ajax.put("url", url);
             return ajax;
         } catch (Exception e) {
-            return AjaxResult.error(e.getMessage());
+            return RestResult.error(e.getMessage());
         }
     }
 

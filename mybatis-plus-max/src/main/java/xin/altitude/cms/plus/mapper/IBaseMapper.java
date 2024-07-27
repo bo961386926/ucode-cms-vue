@@ -64,7 +64,7 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
                 T t2 = RedisUtils.getObject(id, clazz);
                 if (t2 == null) {
                     T t3 = this.selectById(id);
-                    RedisUtils.save(id, t3, timeout, timeUnit);
+                    RedisUtils.save(null,id, t3, timeout, timeUnit);
                     return t3;
                 }
                 return t2;
@@ -98,7 +98,7 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
             Map<Serializable, T> remainMap = this.selectMaps(remainIds);
             for (Map.Entry<Serializable, T> entry : remainMap.entrySet()) {
                 result.add(entry.getValue());
-                RedisUtils.save(entry.getKey(), entry.getValue(), timeout, timeUnit);
+                RedisUtils.save(null,entry.getKey(), entry.getValue(), timeout, timeUnit);
             }
         }
         return result;

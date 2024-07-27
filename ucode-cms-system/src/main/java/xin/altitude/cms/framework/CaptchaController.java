@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.core.config.CmsConfig;
 import xin.altitude.cms.framework.core.redis.RedisCache;
@@ -66,8 +66,8 @@ public class CaptchaController {
      * 生成验证码
      */
     @GetMapping("/captchaImage")
-    public AjaxResult getCode(HttpServletResponse response) {
-        AjaxResult ajax = AjaxResult.success();
+    public RestResult getCode(HttpServletResponse response) {
+        RestResult ajax = RestResult.success();
         boolean captchaOnOff = configService.selectCaptchaOnOff();
         ajax.put("captchaOnOff", captchaOnOff);
         if (!captchaOnOff) {
@@ -99,7 +99,7 @@ public class CaptchaController {
         try {
             ImageIO.write(image, "jpg", os);
         } catch (IOException e) {
-            return AjaxResult.error(e.getMessage());
+            return RestResult.error(e.getMessage());
         }
 
         ajax.put("uuid", uuid);

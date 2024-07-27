@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.constant.UserConstants;
@@ -57,8 +57,8 @@ public class SysDictTypeProController extends BaseProController {
     private ISysDictTypeService dictTypeService;
 
     @GetMapping("/list")
-    public AjaxResult list(Page<SysDictType> page, SysDictType dictType) {
-        return AjaxResult.success(dictTypeService.page(page, Wrappers.lambdaQuery(dictType)));
+    public RestResult list(Page<SysDictType> page, SysDictType dictType) {
+        return RestResult.success(dictTypeService.page(page, Wrappers.lambdaQuery(dictType)));
     }
 
     @OperLog(title = "字典类型", businessType = BusinessType.EXPORT)
@@ -73,8 +73,8 @@ public class SysDictTypeProController extends BaseProController {
      * 查询字典类型详细
      */
     @GetMapping(value = "/{dictId}")
-    public AjaxResult getInfo(@PathVariable Long dictId) {
-        return AjaxResult.success(dictTypeService.selectDictTypeById(dictId));
+    public RestResult getInfo(@PathVariable Long dictId) {
+        return RestResult.success(dictTypeService.selectDictTypeById(dictId));
     }
 
     /**
@@ -82,9 +82,9 @@ public class SysDictTypeProController extends BaseProController {
      */
     @OperLog(title = "字典类型", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysDictType dict) {
+    public RestResult add(@Validated @RequestBody SysDictType dict) {
         if (UserConstants.NOT_UNIQUE.equals(dictTypeService.checkDictTypeUnique(dict))) {
-            return AjaxResult.error("新增字典'" + dict.getDictName() + "'失败，字典类型已存在");
+            return RestResult.error("新增字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
         dict.setCreateBy(getUsername());
         return toAjax(dictTypeService.insertDictType(dict));
@@ -95,9 +95,9 @@ public class SysDictTypeProController extends BaseProController {
      */
     @OperLog(title = "字典类型", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysDictType dict) {
+    public RestResult edit(@Validated @RequestBody SysDictType dict) {
         if (UserConstants.NOT_UNIQUE.equals(dictTypeService.checkDictTypeUnique(dict))) {
-            return AjaxResult.error("修改字典'" + dict.getDictName() + "'失败，字典类型已存在");
+            return RestResult.error("修改字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
         dict.setUpdateBy(getUsername());
         return toAjax(dictTypeService.updateDictType(dict));
@@ -108,7 +108,7 @@ public class SysDictTypeProController extends BaseProController {
      */
     @OperLog(title = "字典类型", businessType = BusinessType.DELETE)
     @DeleteMapping("/{dictIds}")
-    public AjaxResult remove(@PathVariable Long[] dictIds) {
+    public RestResult remove(@PathVariable Long[] dictIds) {
         dictTypeService.deleteDictTypeByIds(dictIds);
         return success();
     }
@@ -118,17 +118,17 @@ public class SysDictTypeProController extends BaseProController {
      */
     @OperLog(title = "字典类型", businessType = BusinessType.CLEAN)
     @DeleteMapping("/refreshCache")
-    public AjaxResult refreshCache() {
+    public RestResult refreshCache() {
         dictTypeService.resetDictCache();
-        return AjaxResult.success();
+        return RestResult.success();
     }
 
     /**
      * 获取字典选择框列表
      */
     @GetMapping("/optionselect")
-    public AjaxResult optionselect() {
+    public RestResult optionselect() {
         List<SysDictType> dictTypes = dictTypeService.selectDictTypeAll();
-        return AjaxResult.success(dictTypes);
+        return RestResult.success(dictTypes);
     }
 }

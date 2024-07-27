@@ -48,7 +48,7 @@ public abstract class RedisUtils {
     private static final Logger logger = LoggerFactory.getLogger(RedisUtils.class);
 
 
-    private static final StringRedisTemplate TEMPLATE = SpringUtils.getBean(StringRedisTemplate.class);
+//    private static final StringRedisTemplate TEMPLATE = SpringUtils.getBean(StringRedisTemplate.class);
 
     /**
      * <p>缓存基本的对象</p>
@@ -58,53 +58,64 @@ public abstract class RedisUtils {
      * @param timeout  过期时间（小于或者等于0 表示缓存用不过期）
      * @param timeUnit 时间颗粒度
      */
-    public static <T> void save(final Serializable id, final T value, final long timeout, final TimeUnit timeUnit) {
-        String key = RedisConstants.createCacheKey(value.getClass(), id);
-        save(TEMPLATE, key, value, timeout, timeUnit);
+    public static <T> void save(final StringRedisTemplate template,final Serializable id, final T value, final long timeout, final TimeUnit timeUnit) {
+        final String key;
+        if (id instanceof String) {
+            key = RedisConstants.createCacheKey(value.getClass(), (String) id);
+        } else if (id instanceof Long) {
+            key = RedisConstants.createCacheKey(value.getClass(), (Long) id);
+        } else if (id instanceof Integer) {
+            key = RedisConstants.createCacheKey(value.getClass(), (Integer) id);
+        } else {
+            throw new IllegalArgumentException("参数id类型不正确");
+        }
+        save(template, key, value, timeout, timeUnit);
     }
+
+//    /**
+//     * <p>缓存基本的对象，Integer、String、实体类等 如果value是String类型，直接直接保存 如果不是，则转化序列化承JSON字符串后保存</p>
+//     * <p>支持指定过期时间</p>
+//     * <p>缓存对象值支持多种类型：普通单个实体类对象、{@link List}实体类集合、{@link IPage}分页对象、{@link Map}实例对象</p>
+//     *
+//     * @param key      缓存的键值
+//     * @param value    缓存的值
+//     * @param timeout  过期时间（小于或者等于0 表示缓存用不过期）
+//     * @param timeUnit 时间颗粒度
+//     */
+//    public static void save(final String key, final Object value, final long timeout, final TimeUnit timeUnit) {
+//        save(null, key, value, timeout, timeUnit);
+//    }
 
     /**
      * <p>缓存基本的对象，Integer、String、实体类等 如果value是String类型，直接直接保存 如果不是，则转化序列化承JSON字符串后保存</p>
      * <p>支持指定过期时间</p>
      * <p>缓存对象值支持多种类型：普通单个实体类对象、{@link List}实体类集合、{@link IPage}分页对象、{@link Map}实例对象</p>
      *
-     * @param key      缓存的键值
-     * @param value    缓存的值
-     * @param timeout  过期时间（小于或者等于0 表示缓存用不过期）
-     * @param timeUnit 时间颗粒度
-     */
-    public static void save(final String key, final Object value, final long timeout, final TimeUnit timeUnit) {
-        save(TEMPLATE, key, value, timeout, timeUnit);
-    }
-
-    /**
-     * <p>缓存基本的对象，Integer、String、实体类等 如果value是String类型，直接直接保存 如果不是，则转化序列化承JSON字符串后保存</p>
-     * <p>支持指定过期时间</p>
-     * <p>缓存对象值支持多种类型：普通单个实体类对象、{@link List}实体类集合、{@link IPage}分页对象、{@link Map}实例对象</p>
-     *
+     * @param template 如果为<code>null</code> 则自动从容器中获取
      * @param key      缓存的键值
      * @param value    缓存的值
      * @param timeout  过期时间（小于或者等于0 表示缓存用不过期）
      * @param timeUnit 时间颗粒度
      */
     public static void save(final StringRedisTemplate template, final String key, final Object value, final long timeout, final TimeUnit timeUnit) {
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
         if (value instanceof String) {
             if (timeout <= 0) {
-                template.opsForValue().set(key, (String) value);
-                logger.info("object save successful,key:{},value:{},no expire time", key, value);
+                t.opsForValue().set(key, (String) value);
+                logger.debug("object save successful,key:{},value:{},no expire time", key, value);
             } else {
-                template.opsForValue().set(key, (String) value, timeout, timeUnit);
-                logger.info("object save successful,key:{},value:{}", key, value);
+                t.opsForValue().set(key, (String) value, timeout, timeUnit);
+                logger.debug("object save successful,key:{},value:{}", key, value);
             }
         } else {
-            String writeValue = JacksonUtils.writeValue(value);
+            String writeValue = JacksonUtils.writeValue(null,value);
             Optional<String> stringOptional = Optional.ofNullable(writeValue);
             if (timeout <= 0) {
-                stringOptional.ifPresent(e -> template.opsForValue().set(key, e));
-                logger.info("object save successful,key:{},value:{},no expire time", key, writeValue);
+                stringOptional.ifPresent(e -> t.opsForValue().set(key, e));
+                logger.debug("object save successful,key:{},value:{},no expire time", key, writeValue);
             } else {
-                stringOptional.ifPresent(e -> template.opsForValue().set(key, e, timeout, timeUnit));
-                logger.info("object save successful,key:{},value:{}", key, writeValue);
+                stringOptional.ifPresent(e -> t.opsForValue().set(key, e, timeout, timeUnit));
+                logger.debug("object save successful,key:{},value:{}", key, writeValue);
             }
         }
     }
@@ -121,15 +132,16 @@ public abstract class RedisUtils {
      * 批量保存数据 设置过期时间
      */
     public static <V> void saveBatch(final Map<String, V> map, int timeout, TimeUnit timeUnit) {
-        saveBatch(TEMPLATE, map, timeout, timeUnit);
+        saveBatch(null, map, timeout, timeUnit);
     }
 
     /**
      * 批量保存数据 设置过期时间
      */
     public static <V> void saveBatch(StringRedisTemplate template, final Map<String, V> map, int timeout, TimeUnit timeUnit) {
-        Map<String, String> transMap = MapUtils.transMap(map, JacksonUtils::writeValue);
-        template.opsForValue().multiSet(transMap);
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
+        Map<String, String> transMap = MapUtils.transMap(map, e->JacksonUtils.writeValue(null,e));
+        t.opsForValue().multiSet(transMap);
 
         if (timeUnit.equals(TimeUnit.SECONDS)) {
             RedisAsyncUtils.expire(map.keySet(), timeout);
@@ -148,7 +160,7 @@ public abstract class RedisUtils {
      * @return true=设置成功；false=设置失败
      */
     public static Boolean expire(final String key, final Long timeout, final TimeUnit unit) {
-        return expire(TEMPLATE, key, timeout, unit);
+        return expire(null, key, timeout, unit);
     }
 
     /**
@@ -160,7 +172,8 @@ public abstract class RedisUtils {
      * @return true=设置成功；false=设置失败
      */
     public static Boolean expire(StringRedisTemplate template, final String key, final Long timeout, final TimeUnit unit) {
-        return template.expire(key, timeout, unit);
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
+        return t.expire(key, timeout, unit);
     }
 
     /**
@@ -170,7 +183,7 @@ public abstract class RedisUtils {
      * @return 缓存键值对应的数据
      */
     public static <T> T getObject(final String key, final Class<T> clazz) {
-        return getObject(TEMPLATE, key, clazz);
+        return getObject(null, key, clazz);
     }
 
     /**
@@ -180,7 +193,8 @@ public abstract class RedisUtils {
      * @return 缓存键值对应的数据
      */
     public static <T> T getObject(StringRedisTemplate template, final String key, final Class<T> clazz) {
-        return Optional.ofNullable(template.opsForValue().get(key)).map(e -> JacksonUtils.readObjectValue(e, clazz)).orElse(null);
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
+        return Optional.ofNullable(t.opsForValue().get(key)).map(e -> JacksonUtils.readObjectValue(null,e, clazz)).orElse(null);
     }
 
     /**
@@ -213,7 +227,7 @@ public abstract class RedisUtils {
      * @return 缓存键值对应的数据
      */
     public static <T> T getObject(final Serializable id, final long timeout, final TimeUnit timeUnit, final Class<T> clazz, Function<Serializable, T> action) {
-        return getObject(TEMPLATE, id, timeout, timeUnit, clazz, action);
+        return getObject(null, id, timeout, timeUnit, clazz, action);
     }
 
 
@@ -252,7 +266,7 @@ public abstract class RedisUtils {
      * @return
      */
     public static <T> List<T> getObjects(final Class<T> clazz, final Collection<String> keys) {
-        return getObjects(TEMPLATE, clazz, keys);
+        return getObjects(null, clazz, keys);
     }
 
     /**
@@ -264,8 +278,9 @@ public abstract class RedisUtils {
      * @return
      */
     public static <T> List<T> getObjects(StringRedisTemplate template, final Class<T> clazz, final Collection<String> keys) {
-        List<String> valueString = template.opsForValue().multiGet(keys);
-        return Optional.ofNullable(valueString).map(e -> EntityUtils.toList(e, f -> JacksonUtils.readObjectValue(f, clazz))).orElse(Collections.emptyList());
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
+        List<String> valueString = t.opsForValue().multiGet(keys);
+        return Optional.ofNullable(valueString).map(e -> EntityUtils.toList(e, f -> JacksonUtils.readObjectValue(null,f, clazz))).orElse(Collections.emptyList());
     }
 
 
@@ -278,7 +293,7 @@ public abstract class RedisUtils {
      * @return
      */
     public static <T> List<T> getObjects(final Collection<? extends Serializable> ids, final Class<T> clazz) {
-        return getObjects(TEMPLATE, ids, clazz);
+        return getObjects(null, ids, clazz);
     }
 
 
@@ -305,7 +320,7 @@ public abstract class RedisUtils {
      * @return
      */
     public static <T> List<T> getObjects(final Collection<Serializable> ids, long timeout, TimeUnit unit, final Class<T> clazz, Function<Collection<Serializable>, List<T>> action) {
-        return getObjects(TEMPLATE, ids, timeout, unit, clazz, action);
+        return getObjects(null, ids, timeout, unit, clazz, action);
     }
 
 
@@ -358,7 +373,7 @@ public abstract class RedisUtils {
      * @return
      */
     public static <D, T> List<T> getCollection(D d, final Class<T> clazz) {
-        return getCollection(TEMPLATE, d, clazz);
+        return getCollection(null, d, clazz);
     }
 
 
@@ -370,10 +385,11 @@ public abstract class RedisUtils {
      * @return
      */
     public static <PO, T> List<T> getCollection(StringRedisTemplate template, PO po, final Class<T> clazz) {
-        String poStr = JacksonUtils.writeValueAsString(po);
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
+        String poStr = JacksonUtils.writeValueAsString(null,po);
         String key = RedisConstants.createCacheKey(clazz, MD5Utils.md5(poStr));
-        String jsonValue = template.opsForValue().get(key);
-        return Optional.ofNullable(jsonValue).map(e -> JacksonUtils.readListValue(e, clazz)).orElse(Collections.emptyList());
+        String jsonValue = t.opsForValue().get(key);
+        return Optional.ofNullable(jsonValue).map(e -> JacksonUtils.readListValue(null,e, clazz)).orElse(Collections.emptyList());
     }
 
 
@@ -394,7 +410,7 @@ public abstract class RedisUtils {
      * @return 集合
      */
     public static <D, T> List<T> getCollection(D d, long timeout, TimeUnit unit, final Class<T> clazz, Function<D, List<T>> action) {
-        return getCollection(TEMPLATE, d, timeout, unit, clazz, action);
+        return getCollection(null, d, timeout, unit, clazz, action);
     }
 
 
@@ -416,7 +432,7 @@ public abstract class RedisUtils {
      * @return 集合
      */
     public static <D, T> List<T> getCollection(StringRedisTemplate template, D d, long timeout, TimeUnit unit, final Class<T> clazz, Function<D, List<T>> action) {
-        String poStr = JacksonUtils.writeValueAsString(d);
+        String poStr = JacksonUtils.writeValueAsString(null,d);
         String key = RedisConstants.createCacheKey(clazz, MD5Utils.md5(poStr));
 
         List<T> tList = getCollection(template, d, clazz);
@@ -494,7 +510,7 @@ public abstract class RedisUtils {
      * @param key
      */
     public static Boolean remove(final String key) {
-        return remove(TEMPLATE, key);
+        return remove(null, key);
     }
 
     /**
@@ -503,7 +519,8 @@ public abstract class RedisUtils {
      * @param key
      */
     public static Boolean remove(StringRedisTemplate template, final String key) {
-        return template.delete(key);
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
+        return t.delete(key);
     }
 
     /**
@@ -513,7 +530,7 @@ public abstract class RedisUtils {
      * @return
      */
     public static Long remove(final Collection<String> keys) {
-        return remove(TEMPLATE, keys);
+        return remove(null, keys);
     }
 
     /**
@@ -523,7 +540,8 @@ public abstract class RedisUtils {
      * @return
      */
     public static Long remove(StringRedisTemplate template, final Collection<String> keys) {
-        return template.delete(keys);
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
+        return t.delete(keys);
     }
 
     /**
@@ -532,7 +550,7 @@ public abstract class RedisUtils {
      * @param map
      */
     public static void multiSet(Map<String, String> map, long timeout, TimeUnit unit) {
-        multiSet(TEMPLATE, map, timeout, unit);
+        multiSet(null, map, timeout, unit);
     }
 
     /**
@@ -541,7 +559,8 @@ public abstract class RedisUtils {
      * @param map
      */
     public static void multiSet(StringRedisTemplate template, Map<String, String> map, long timeout, TimeUnit unit) {
-        template.opsForValue().multiSet(map);
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
+        t.opsForValue().multiSet(map);
     }
 
 
@@ -553,7 +572,7 @@ public abstract class RedisUtils {
      * @param <T>
      */
     public static <T> void multiSet(Map<String, T> map, Class<T> clazz, long timeout, TimeUnit unit) {
-        multiSet(TEMPLATE, map, clazz, timeout, unit);
+        multiSet(null, map, clazz, timeout, unit);
     }
 
     /**
@@ -564,8 +583,9 @@ public abstract class RedisUtils {
      * @param <T>
      */
     public static <T> void multiSet(StringRedisTemplate template, Map<String, T> map, Class<T> clazz, long timeout, TimeUnit unit) {
-        Map<String, String> stringMap = MapUtils.transMap(map, e -> e, JacksonUtils::writeValue);
-        template.opsForValue().multiSet(stringMap);
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
+        Map<String, String> stringMap = MapUtils.transMap(map, e -> e, e->JacksonUtils.writeValue(null,e));
+        t.opsForValue().multiSet(stringMap);
     }
 
     /**
@@ -586,7 +606,7 @@ public abstract class RedisUtils {
      * @return Value值集合
      */
     public static <T> List<T> multiGet(List<String> keys, Class<T> clazz) {
-        return multiGet(TEMPLATE, keys, clazz);
+        return multiGet(null, keys, clazz);
     }
 
     /**
@@ -596,7 +616,7 @@ public abstract class RedisUtils {
      * @return Value值集合
      */
     public static <T> List<T> multiGet(StringRedisTemplate template, List<String> keys, Class<T> clazz) {
-        return EntityUtils.toList(multiGet(template, keys), e -> JacksonUtils.readObjectValue(e, clazz), Objects::nonNull);
+        return EntityUtils.toList(multiGet(template, keys), e -> JacksonUtils.readObjectValue(null,e, clazz), Objects::nonNull);
     }
 
 
@@ -610,7 +630,7 @@ public abstract class RedisUtils {
      * @since 1.4.5
      */
     public static <T> void publishMsg(final String channelName, T msg) {
-        publishMsg(TEMPLATE, channelName, msg);
+        publishMsg(null, channelName, msg);
     }
 
     /**
@@ -623,12 +643,13 @@ public abstract class RedisUtils {
      * @since 1.4.5
      */
     public static <T> void publishMsg(StringRedisTemplate template, final String channelName, T msg) {
+        StringRedisTemplate t = Optional.ofNullable(template).orElseGet(() -> SpringUtils.getBean(StringRedisTemplate.class));
         if (msg instanceof String) {
-            template.convertAndSend(channelName, msg);
+            t.convertAndSend(channelName, msg);
         } else {
             /* 现将对象格式化为JSON字符串，然后保存 */
-            String json = JacksonUtils.writeValueAsString(msg);
-            Optional.ofNullable(json).ifPresent(e -> template.convertAndSend(channelName, e));
+            String json = JacksonUtils.writeValueAsString(null,msg);
+            Optional.ofNullable(json).ifPresent(e -> t.convertAndSend(channelName, e));
         }
     }
 }

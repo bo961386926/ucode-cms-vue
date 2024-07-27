@@ -30,7 +30,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.excel.util.ExcelUtil;
 import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.framework.constant.UserConstants;
@@ -77,8 +77,8 @@ public class SysPostProController extends BaseProController {
      * 根据岗位编号获取详细信息
      */
     @GetMapping(value = "/{postId}")
-    public AjaxResult getInfo(@PathVariable Long postId) {
-        return AjaxResult.success(postService.selectPostById(postId));
+    public RestResult getInfo(@PathVariable Long postId) {
+        return RestResult.success(postService.selectPostById(postId));
     }
 
     /**
@@ -86,11 +86,11 @@ public class SysPostProController extends BaseProController {
      */
     @OperLog(title = "岗位管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysPost post) {
+    public RestResult add(@Validated @RequestBody SysPost post) {
         if (UserConstants.NOT_UNIQUE.equals(postService.checkPostNameUnique(post))) {
-            return AjaxResult.error("新增岗位'" + post.getPostName() + "'失败，岗位名称已存在");
+            return RestResult.error("新增岗位'" + post.getPostName() + "'失败，岗位名称已存在");
         } else if (UserConstants.NOT_UNIQUE.equals(postService.checkPostCodeUnique(post))) {
-            return AjaxResult.error("新增岗位'" + post.getPostName() + "'失败，岗位编码已存在");
+            return RestResult.error("新增岗位'" + post.getPostName() + "'失败，岗位编码已存在");
         }
         post.setCreateBy(getUsername());
         return toAjax(postService.insertPost(post));
@@ -101,11 +101,11 @@ public class SysPostProController extends BaseProController {
      */
     @OperLog(title = "岗位管理", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysPost post) {
+    public RestResult edit(@Validated @RequestBody SysPost post) {
         if (UserConstants.NOT_UNIQUE.equals(postService.checkPostNameUnique(post))) {
-            return AjaxResult.error("修改岗位'" + post.getPostName() + "'失败，岗位名称已存在");
+            return RestResult.error("修改岗位'" + post.getPostName() + "'失败，岗位名称已存在");
         } else if (UserConstants.NOT_UNIQUE.equals(postService.checkPostCodeUnique(post))) {
-            return AjaxResult.error("修改岗位'" + post.getPostName() + "'失败，岗位编码已存在");
+            return RestResult.error("修改岗位'" + post.getPostName() + "'失败，岗位编码已存在");
         }
         post.setUpdateBy(getUsername());
         return toAjax(postService.updatePost(post));
@@ -116,7 +116,7 @@ public class SysPostProController extends BaseProController {
      */
     @OperLog(title = "岗位管理", businessType = BusinessType.DELETE)
     @DeleteMapping("/{postIds}")
-    public AjaxResult remove(@PathVariable Long[] postIds) {
+    public RestResult remove(@PathVariable Long[] postIds) {
         return toAjax(postService.deletePostByIds(postIds));
     }
 
@@ -124,8 +124,8 @@ public class SysPostProController extends BaseProController {
      * 获取岗位选择框列表
      */
     @GetMapping("/optionselect")
-    public AjaxResult optionselect() {
+    public RestResult optionselect() {
         List<SysPost> posts = postService.selectPostAll();
-        return AjaxResult.success(posts);
+        return RestResult.success(posts);
     }
 }

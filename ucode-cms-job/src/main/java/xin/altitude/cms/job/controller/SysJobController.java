@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.StringUtil;
 import xin.altitude.cms.job.config.ScheduleConfig;
 import xin.altitude.cms.job.domain.SysJob;
@@ -64,16 +64,16 @@ public class SysJobController {
      * @return
      */
     @GetMapping("/list")
-    public AjaxResult list(Page<SysJob> page, SysJob sysJob) {
-        return AjaxResult.success(jobService.page(page, Wrappers.lambdaQuery(sysJob)));
+    public RestResult list(Page<SysJob> page, SysJob sysJob) {
+        return RestResult.success(jobService.page(page, Wrappers.lambdaQuery(sysJob)));
     }
 
     /**
      * 获取定时任务详细信息
      */
     @GetMapping(value = "/{jobId}")
-    public AjaxResult getInfo(@PathVariable("jobId") Long jobId) {
-        return AjaxResult.success(jobService.getById(jobId));
+    public RestResult getInfo(@PathVariable("jobId") Long jobId) {
+        return RestResult.success(jobService.getById(jobId));
     }
 
     /**
@@ -81,17 +81,17 @@ public class SysJobController {
      */
     // @OperLog(title = "定时任务", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody SysJob job) throws SchedulerException, TaskException {
+    public RestResult add(@RequestBody SysJob job) throws SchedulerException, TaskException {
         if (!CronUtils.isValid(job.getCronExpression())) {
-            return AjaxResult.error("新增任务'" + job.getJobName() + "'失败，Cron表达式不正确");
+            return RestResult.error("新增任务'" + job.getJobName() + "'失败，Cron表达式不正确");
         } else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_RMI)) {
-            return AjaxResult.error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
+            return RestResult.error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
         } else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_LDAP)) {
-            return AjaxResult.error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
+            return RestResult.error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
         } else if (StringUtil.containsAnyIgnoreCase(job.getInvokeTarget(), new String[]{Constants.HTTP, Constants.HTTPS})) {
-            return AjaxResult.error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
+            return RestResult.error("新增任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
         }
-        return AjaxResult.success(jobService.save(job));
+        return RestResult.success(jobService.save(job));
     }
 
     /**
@@ -99,18 +99,18 @@ public class SysJobController {
      */
     // @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@RequestBody SysJob job) throws SchedulerException, TaskException {
+    public RestResult edit(@RequestBody SysJob job) throws SchedulerException, TaskException {
         if (!CronUtils.isValid(job.getCronExpression())) {
-            return AjaxResult.error("修改任务'" + job.getJobName() + "'失败，Cron表达式不正确");
+            return RestResult.error("修改任务'" + job.getJobName() + "'失败，Cron表达式不正确");
         } else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_RMI)) {
-            return AjaxResult.error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
+            return RestResult.error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'rmi://'调用");
         } else if (StringUtils.containsIgnoreCase(job.getInvokeTarget(), Constants.LOOKUP_LDAP)) {
-            return AjaxResult.error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
+            return RestResult.error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'ldap://'调用");
         } else if (StringUtil.containsAnyIgnoreCase(job.getInvokeTarget(), new String[]{Constants.HTTP, Constants.HTTPS})) {
-            return AjaxResult.error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
+            return RestResult.error("修改任务'" + job.getJobName() + "'失败，目标字符串不允许'http(s)//'调用");
         }
         // job.setUpdateBy(getUsername());
-        return AjaxResult.success(jobService.updateById(job));
+        return RestResult.success(jobService.updateById(job));
     }
 
     /**
@@ -118,11 +118,11 @@ public class SysJobController {
      */
     // @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping("/changeStatus")
-    public AjaxResult changeStatus(@RequestBody SysJob job) throws SchedulerException {
+    public RestResult changeStatus(@RequestBody SysJob job) throws SchedulerException {
         SysJob newJob = new SysJob();
         newJob.setJobId(job.getJobId());
         newJob.setStatus(job.getStatus());
-        return AjaxResult.success(jobService.changeStatus(newJob));
+        return RestResult.success(jobService.changeStatus(newJob));
     }
 
     /**
@@ -130,9 +130,9 @@ public class SysJobController {
      */
     // @OperLog(title = "定时任务", businessType = BusinessType.UPDATE)
     @PutMapping("/run")
-    public AjaxResult run(@RequestBody SysJob job) throws SchedulerException {
+    public RestResult run(@RequestBody SysJob job) throws SchedulerException {
         jobService.run(job);
-        return AjaxResult.success();
+        return RestResult.success();
     }
 
     /**
@@ -140,8 +140,8 @@ public class SysJobController {
      */
     // @OperLog(title = "定时任务", businessType = BusinessType.DELETE)
     @DeleteMapping("/{jobIds}")
-    public AjaxResult remove(@PathVariable Long[] jobIds) throws SchedulerException {
+    public RestResult remove(@PathVariable Long[] jobIds) throws SchedulerException {
         jobService.deleteJobByIds(jobIds);
-        return AjaxResult.success();
+        return RestResult.success();
     }
 }

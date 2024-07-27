@@ -20,7 +20,7 @@ package xin.altitude.cms.security.handle;
 
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.JacksonUtils;
 import xin.altitude.cms.common.util.ServletUtils;
 import xin.altitude.cms.common.util.StringUtil;
@@ -47,7 +47,7 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint, S
         throws IOException {
         int code = HttpStatus.UNAUTHORIZED;
         String msg = StringUtil.format("请求访问：{}，认证失败，无法访问系统资源", request.getRequestURI());
-        String content = JacksonUtils.writeValueAsString(AjaxResult.error(code, msg));
+        String content = JacksonUtils.writeValueAsString(RestResult.error(code, msg));
         ServletUtils.renderString(response, content);
     }
 }

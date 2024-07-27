@@ -86,7 +86,7 @@ public class PlusUtils {
         T value = RedisUtils.getObject(key, clazz);
         if (value == null) {
             T newValue = action.apply(id);
-            Optional.ofNullable(newValue).ifPresent(e -> RedisUtils.save(key, e, 0, TimeUnit.SECONDS));
+            Optional.ofNullable(newValue).ifPresent(e -> RedisUtils.save(null,key, e, 0, TimeUnit.SECONDS));
             return newValue;
         }
         return value;
@@ -120,7 +120,7 @@ public class PlusUtils {
         if (value == null) {
             T newValue = doVisitDb(id, -1L, clazz, action, lock);
             Optional.ofNullable(newValue).ifPresent(e -> {
-                RedisUtils.save(key, e, 0, TimeUnit.SECONDS);
+                RedisUtils.save(null,key, e, 0, TimeUnit.SECONDS);
             });
             return newValue;
         }
@@ -157,7 +157,7 @@ public class PlusUtils {
         if (value == null) {
             T newValue = action.apply(id);
             Optional.ofNullable(newValue).ifPresent(e -> {
-                RedisUtils.save(id, e, ms, TimeUnit.MILLISECONDS);
+                RedisUtils.save(null,id, e, ms, TimeUnit.MILLISECONDS);
                 logger.debug("缓存未命中，已向Redis添加缓存：{}", e);
             });
             return newValue;
@@ -194,7 +194,7 @@ public class PlusUtils {
         if (value == null) {
             T newValue = doVisitDb(id, ms, clazz, action, lock);
             Optional.ofNullable(newValue).ifPresent(e -> {
-                RedisUtils.save(id, e, ms, TimeUnit.MILLISECONDS);
+                RedisUtils.save(null,id, e, ms, TimeUnit.MILLISECONDS);
             });
             return newValue;
         }
@@ -275,7 +275,7 @@ public class PlusUtils {
                 List<T> newValue = action.apply(remainIds);
                 if (!newValue.isEmpty()) {
                     Map<String, T> map = EntityUtils.toMap(newValue, e -> RedisConstants.createCacheKey(clazz, (String) pkVal(tableInfo, e)), Function.identity());
-                    RedisUtils.multiSet(map, clazz);
+                    RedisUtils.multiSet(null, map, clazz, 0, TimeUnit.SECONDS);
                     redisResults.addAll(newValue);
                     if (ms > 0) {
                         map.forEach((k, v) -> RedisUtils.expire(k, ms, TimeUnit.MILLISECONDS));
@@ -316,7 +316,7 @@ public class PlusUtils {
     public static <T> boolean updateById(T entity, Class<T> clazz, Function<T, Boolean> updateAction, Function<Serializable, T> selectAction) {
         Serializable id = pkVal(entity, clazz);
         boolean result = updateAction.apply(entity);
-        BooleanUtils.ifTrue(result, () -> RedisUtils.save(id, selectAction.apply(id), 0, TimeUnit.SECONDS));
+        BooleanUtils.ifTrue(result, () -> RedisUtils.save(null,id, selectAction.apply(id), 0, TimeUnit.SECONDS));
         return result;
     }
 
@@ -370,7 +370,7 @@ public class PlusUtils {
         JvmLockMeta meta = JvmLockMeta.of(lock, 3, TimeUnit.SECONDS);
         return LockUtils.tryLock(meta, () -> {
             boolean result = updateAction.apply(entity);
-            BooleanUtils.ifTrue(result, () -> RedisUtils.save(id, selectAction.apply(id), 0, TimeUnit.SECONDS));
+            BooleanUtils.ifTrue(result, () -> RedisUtils.save(null,id, selectAction.apply(id), 0, TimeUnit.SECONDS));
             return result;
         });
 
@@ -471,9 +471,9 @@ public class PlusUtils {
         } else {
             T t = action.apply(id);
             if (Objects.nonNull(t) && ms <= 0) {
-                RedisUtils.save(cacheKey, t, 0, TimeUnit.SECONDS);
+                RedisUtils.save(null,cacheKey, t, 0, TimeUnit.SECONDS);
             } else if (Objects.nonNull(t)) {
-                RedisUtils.save(cacheKey, t, ms, TimeUnit.MILLISECONDS);
+                RedisUtils.save(null,cacheKey, t, ms, TimeUnit.MILLISECONDS);
             }
             logger.debug("缓存未命中，已向Redis添加缓存，其中Key:{} Value:{}", key, t);
             return t;

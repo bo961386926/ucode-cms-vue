@@ -29,7 +29,7 @@ import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.ColUtils;
 import xin.altitude.cms.filter.field.annotation.FieldFilter;
 import xin.altitude.cms.filter.field.util.HelpUtils;
@@ -46,9 +46,9 @@ public class FieldFilterAspect {
     }
 
     @Around("fieldFilterAspect()")
-    public AjaxResult around(ProceedingJoinPoint pjp) throws Throwable {
-        AjaxResult r = (AjaxResult) pjp.proceed();
-        Object data = r.get(AjaxResult.DATA_TAG);
+    public RestResult around(ProceedingJoinPoint pjp) throws Throwable {
+        RestResult r = (RestResult) pjp.proceed();
+        Object data = r.get(RestResult.DATA_TAG);
         if (data == null) {
             return r;
         }

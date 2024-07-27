@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import xin.altitude.cms.auth.controller.BaseProController;
 import xin.altitude.cms.common.constant.Constants;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.log.annotation.OperLog;
 import xin.altitude.cms.log.enums.BusinessType;
 import xin.altitude.cms.system.domain.SysNotice;
@@ -57,16 +57,16 @@ public class SysNoticeProController extends BaseProController {
      * @return
      */
     @GetMapping("/list")
-    public AjaxResult list(Page<SysNotice> page, SysNotice notice) {
-        return AjaxResult.success(noticeService.page(page, Wrappers.lambdaQuery(notice)));
+    public RestResult list(Page<SysNotice> page, SysNotice notice) {
+        return RestResult.success(noticeService.page(page, Wrappers.lambdaQuery(notice)));
     }
 
     /**
      * 根据通知公告编号获取详细信息
      */
     @GetMapping(value = "/{noticeId}")
-    public AjaxResult getInfo(@PathVariable Long noticeId) {
-        return AjaxResult.success(noticeService.selectNoticeById(noticeId));
+    public RestResult getInfo(@PathVariable Long noticeId) {
+        return RestResult.success(noticeService.selectNoticeById(noticeId));
     }
 
     /**
@@ -74,7 +74,7 @@ public class SysNoticeProController extends BaseProController {
      */
     @OperLog(title = "通知公告", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@Validated @RequestBody SysNotice notice) {
+    public RestResult add(@Validated @RequestBody SysNotice notice) {
         notice.setCreateBy(getUsername());
         return toAjax(noticeService.insertNotice(notice));
     }
@@ -84,7 +84,7 @@ public class SysNoticeProController extends BaseProController {
      */
     @OperLog(title = "通知公告", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult edit(@Validated @RequestBody SysNotice notice) {
+    public RestResult edit(@Validated @RequestBody SysNotice notice) {
         notice.setUpdateBy(getUsername());
         return toAjax(noticeService.updateNotice(notice));
     }
@@ -94,7 +94,7 @@ public class SysNoticeProController extends BaseProController {
      */
     @OperLog(title = "通知公告", businessType = BusinessType.DELETE)
     @DeleteMapping("/{noticeIds}")
-    public AjaxResult remove(@PathVariable Long[] noticeIds) {
+    public RestResult remove(@PathVariable Long[] noticeIds) {
         return toAjax(noticeService.deleteNoticeByIds(noticeIds));
     }
 }

@@ -26,7 +26,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import xin.altitude.cms.common.converter.DateConverter;
 import xin.altitude.cms.common.converter.ListConverter;
-import xin.altitude.cms.common.entity.AjaxResult;
+import xin.altitude.cms.common.entity.RestResult;
 
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
@@ -73,8 +73,8 @@ public abstract class BaseController {
      *
      * @return AjaxResult
      */
-    protected AjaxResult success() {
-        return AjaxResult.success();
+    protected RestResult success() {
+        return RestResult.success();
     }
 
     /**
@@ -83,8 +83,8 @@ public abstract class BaseController {
      * @param data 具体响应体数据
      * @return AjaxResult
      */
-    protected AjaxResult success(Object data) {
-        return AjaxResult.success(data);
+    protected RestResult success(Object data) {
+        return RestResult.success(data);
     }
 
     /**
@@ -93,8 +93,8 @@ public abstract class BaseController {
      * @param result 结果
      * @return 操作结果
      */
-    protected AjaxResult toAjax(boolean result) {
-        return result ? AjaxResult.success() : AjaxResult.error();
+    protected RestResult toAjax(boolean result) {
+        return result ? RestResult.success() : RestResult.error();
     }
 
     /**
@@ -103,7 +103,7 @@ public abstract class BaseController {
      * @param rows 影响行数
      * @return 操作结果
      */
-    protected AjaxResult toAjax(int rows) {
-        return rows > 0 ? AjaxResult.success() : AjaxResult.error();
+    protected RestResult toAjax(int rows) {
+        return rows > 0 ? RestResult.success() : RestResult.error();
     }
 }

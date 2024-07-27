@@ -2,7 +2,7 @@
 
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,12 +24,7 @@ import org.springframework.util.AntPathMatcher;
 import xin.altitude.cms.common.constant.Constants;
 import xin.altitude.cms.common.text.StrFormatter;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * 字符串工具类
@@ -38,7 +33,7 @@ import java.util.Set;
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
  */
-public class StringUtil extends org.apache.commons.lang3.StringUtils {
+public abstract class StringUtil extends org.apache.commons.lang3.StringUtils {
     /**
      * 空字符串
      */

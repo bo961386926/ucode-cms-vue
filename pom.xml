@@ -5,14 +5,14 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-parent</artifactId>
-        <version>2.7.0</version>
+        <version>2.7.7</version>
         <relativePath/>
     </parent>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
     <name>00-${project.artifactId}</name>
-    <description>赛泰先生之UCode CMS【新版】</description>
+    <description>赛泰先生之UCode CMS【Java 1.8版本】</description>
     <url>http://www.altitude.xin</url>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,7 +23,7 @@
         <bitwalker.version>1.21</bitwalker.version>
         <swagger.version>3.0.0</swagger.version>
         <kaptcha.version>2.3.2</kaptcha.version>
-        <mybatis-plus.version>3.5.0</mybatis-plus.version>
+<!--        <mybatis-plus.version>3.5</mybatis-plus.version>-->
         <pagehelper.boot.version>1.4.1</pagehelper.boot.version>
         <fastjson.version>2.0.19</fastjson.version>
         <oshi.version>5.8.2</oshi.version>
@@ -284,22 +284,22 @@
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <version>3.5.7</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-annotation</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <version>3.5.7</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-core</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <version>3.5.7</version>
             </dependency>
             <dependency>
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-extension</artifactId>
-                <version>${mybatis-plus.version}</version>
+                <version>3.5.7</version>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -309,7 +309,7 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>${guava.version}</version>
+                <version>33.0.0-jre</version>
             </dependency>
             <dependency>
                 <groupId>cn.hutool</groupId>
@@ -330,7 +330,7 @@
             <dependency>
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
-                <version>${redisson.version}</version>
+                <version>3.33.0</version>
             </dependency>
             <dependency>
                 <groupId>com.mchange</groupId>

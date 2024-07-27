@@ -25,7 +25,7 @@ Mysql数据库中库表结构为用户自定义的库表，代码生成将会读
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -61,7 +61,7 @@ spring:
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -70,7 +70,7 @@ spring:
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 <dependency>
     <groupId>com.baomidou</groupId>
@@ -112,7 +112,7 @@ spring:
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 ```
 关联依赖也要添加，如果有，可以忽略
@@ -120,7 +120,7 @@ spring:
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 <dependency>
     <groupId>com.baomidou</groupId>
@@ -205,7 +205,7 @@ spring:
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 ```
 

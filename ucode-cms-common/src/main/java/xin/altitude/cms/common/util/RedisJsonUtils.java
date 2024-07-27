@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,7 +42,7 @@ import java.util.function.Function;
  *
  * @since 1.6.5
  */
-public class RedisJsonUtils {
+public abstract class RedisJsonUtils {
     private static final Logger logger = LoggerFactory.getLogger(RedisJsonUtils.class);
 
     // *************从容器中读取RedisTemplate实例

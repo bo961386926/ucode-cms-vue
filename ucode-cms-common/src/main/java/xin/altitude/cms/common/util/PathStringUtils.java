@@ -2,7 +2,7 @@
 
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ import java.time.format.DateTimeFormatter;
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
  * @since 2019/01/10 19:20
  **/
-public class PathStringUtils {
+public abstract class PathStringUtils {
     private final static String PATTERN = String.format("yyyy%sMM%sdd", File.separatorChar, File.separatorChar);
 
     /**

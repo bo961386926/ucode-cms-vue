@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,83 +66,83 @@ public class DomainConfig {
      * 日期强制序列化
      */
     private Boolean dateSerialize = false;
-    
+
     public Boolean getAddSuperClass() {
         return addSuperClass;
     }
-    
+
     public void setAddSuperClass(Boolean addSuperClass) {
         this.addSuperClass = addSuperClass;
     }
-    
+
     public Boolean getOverrideToString() {
         return overrideToString;
     }
-    
+
     public void setOverrideToString(Boolean overrideToString) {
         this.overrideToString = overrideToString;
     }
-    
+
     public Boolean getAddConstructionMethod() {
         return addConstructionMethod;
     }
-    
+
     public void setAddConstructionMethod(Boolean addConstructionMethod) {
         this.addConstructionMethod = addConstructionMethod;
     }
-    
+
     public Boolean getUseActiveRecord() {
         return useActiveRecord;
     }
-    
+
     public void setUseActiveRecord(Boolean useActiveRecord) {
         this.useActiveRecord = useActiveRecord;
     }
-    
+
     public Boolean getAddImportList() {
         return addImportList;
     }
-    
+
     public void setAddImportList(Boolean addImportList) {
         this.addImportList = addImportList;
     }
-    
+
     public Boolean getAddNoteInfo() {
         return addNoteInfo;
     }
-    
+
     public void setAddNoteInfo(Boolean addNoteInfo) {
         this.addNoteInfo = addNoteInfo;
     }
-    
+
     public Boolean getPkInc() {
         return pkInc;
     }
-    
+
     public void setPkInc(Boolean pkInc) {
         this.pkInc = pkInc;
     }
-    
+
     public Boolean getDateFormat() {
         return dateFormat;
     }
-    
+
     public void setDateFormat(Boolean dateFormat) {
         this.dateFormat = dateFormat;
     }
-    
+
     public Boolean getDateSerialize() {
         return dateSerialize;
     }
-    
+
     public void setDateSerialize(Boolean dateSerialize) {
         this.dateSerialize = dateSerialize;
     }
-    
+
     public Boolean getUseLombok() {
         return useLombok;
     }
-    
+
     public void setUseLombok(Boolean useLombok) {
         this.useLombok = useLombok;
     }

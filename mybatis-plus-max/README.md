@@ -13,7 +13,7 @@ MybatisPlus依然进入软件成熟期，对其进行微小的修改会慎之又
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>mybatis-plus-max</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 ```
 
@@ -221,7 +221,7 @@ public class UserMapperAspect extends BaseMapperAspect<User> {
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 <dependency>
     <groupId>com.baomidou</groupId>

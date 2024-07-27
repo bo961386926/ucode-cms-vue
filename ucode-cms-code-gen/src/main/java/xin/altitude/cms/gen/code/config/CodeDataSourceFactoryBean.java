@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,11 +42,11 @@ public class CodeDataSourceFactoryBean implements FactoryBean<DataSource> {
     private String username;
     @Value("${spring.datasource.druid.slave.password:password}")
     private String password;
-    
-    
+
+
     @Autowired
     private DataSourceProperties dataSourceProperties;
-    
+
     @Override
     public DataSource getObject() {
         HikariDataSource defaultDruidDataSource = new HikariDataSource();
@@ -61,7 +61,7 @@ public class CodeDataSourceFactoryBean implements FactoryBean<DataSource> {
         }
         return defaultDruidDataSource;
     }
-    
+
     @Override
     public Class<?> getObjectType() {
         return DataSource.class;

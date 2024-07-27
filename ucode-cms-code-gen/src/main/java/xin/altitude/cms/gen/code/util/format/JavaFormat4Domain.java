@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,7 +34,7 @@ import java.util.regex.Pattern;
  **/
 public class JavaFormat4Domain {
     public static Map<String, String> mapZY = new HashMap<String, String>();
-    
+
     /**
      * 格式化java代码(入口代码)
      **/
@@ -62,7 +62,7 @@ public class JavaFormat4Domain {
         // dataTmp = recursiveMatchReplace(dataTmp, 1);
         return dataTmp;
     }
-    
+
     /**
      * 循环替换指定字符为随机uuid  并将uui存入全局map:mapZY
      **/
@@ -110,8 +110,8 @@ public class JavaFormat4Domain {
         sb.append(string.substring(indexHome + 1));
         return sb.toString();
     }
-    
-    
+
+
     //处理换行
     public static String repalceHHF(String data, String a, String b) {
         try {
@@ -135,7 +135,7 @@ public class JavaFormat4Domain {
         }
         return null;
     }
-    
+
     //处理缩进
     public static String repalceHHFX(String data, String a) {
         try {
@@ -178,7 +178,7 @@ public class JavaFormat4Domain {
         }
         return null;
     }
-    
+
     /**
      * 获得栈数据
      **/
@@ -193,7 +193,7 @@ public class JavaFormat4Domain {
         }
         return result;
     }
-    
+
     // /**
     //  * 连续注解添加回车
     //  */
@@ -211,5 +211,5 @@ public class JavaFormat4Domain {
     //         return data;
     //     }
     // }
-    
+
 }

@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,8 +28,8 @@ import org.apache.velocity.VelocityContext;
  **/
 public interface IXmlService {
     void writeToLocalFile(String tableName, String className);
-    
+
     String realtimePreview(String tableName);
-    
+
     VelocityContext createContext(String tableName);
 }

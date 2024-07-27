@@ -40,7 +40,7 @@ freemark模版制作完成后，保存为ftl后缀文件。
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-word</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 ```
 

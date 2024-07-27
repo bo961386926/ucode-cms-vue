@@ -6,7 +6,7 @@
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-bitmap</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 ```
 由于用到了Redis，因此容器中应当配置好了Redis数据源，考虑到Redis数据源几乎是项目的标配，这里省略。

@@ -14,7 +14,7 @@ import java.nio.charset.StandardCharsets;
  *
  * @author 赛泰先生
  */
-public class ResponseUtils {
+public abstract class ResponseUtils {
     private final static Logger log = LoggerFactory.getLogger(ResponseUtils.class);
 
 

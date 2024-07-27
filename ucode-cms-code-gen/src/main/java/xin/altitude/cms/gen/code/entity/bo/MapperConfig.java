@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,11 +42,11 @@ public class MapperConfig {
     // public void setAddXml(Boolean addXml) {
     //     this.addXml = addXml;
     // }
-    
+
     public Boolean getUseCache() {
         return useCache;
     }
-    
+
     public void setUseCache(Boolean useCache) {
         this.useCache = useCache;
     }

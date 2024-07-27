@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  * @author 笔者专题技术博客 —— http://www.altitude.xin
  * @author B站视频 —— https://space.bilibili.com/1936685014
  **/
-public class RefUtils {
+public abstract class RefUtils {
     private RefUtils() {
     }
 

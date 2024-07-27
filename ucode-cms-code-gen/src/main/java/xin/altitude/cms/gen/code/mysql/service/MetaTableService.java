@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,17 +48,17 @@ import java.util.List;
 public class MetaTableService {
     @Autowired
     private IThirdSqlSessionService sessionService;
-    
+
     @Autowired
     private CodeProperties codeProperties;
-    
-    
+
+
     /**
      * 查询当前数据库所有列信息
      *
      * @return 列元数据集合
      */
-    
+
     @Transactional(rollbackFor = Exception.class)
     public List<MetaTable> listTables() {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
@@ -67,8 +67,8 @@ public class MetaTableService {
             return sqlSession.getMapper(MetaTableMapper.class).selectList(wrapper);
         }
     }
-    
-    
+
+
     @Transactional(rollbackFor = Exception.class)
     public List<MetaTable> listTables(MetaTable metaTable) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
@@ -82,8 +82,8 @@ public class MetaTableService {
             return sqlSession.getMapper(MetaTableMapper.class).selectList(wrapper);
         }
     }
-    
-    
+
+
     @Transactional(rollbackFor = Exception.class)
     public List<MetaTableBo> selectTableList(String tableName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
@@ -94,14 +94,14 @@ public class MetaTableService {
             return EntityUtils.toList(list, e -> new MetaTableBo(e.getTableName(), e.getTableName().equalsIgnoreCase(tableName)));
         }
     }
-    
+
     /**
      * 列表查询元数据表数据
      *
      * @param metaTable
      * @return
      */
-    
+
     @Transactional(rollbackFor = Exception.class)
     public List<MetaTableBo> selectTableList(MetaTable metaTable) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
@@ -112,8 +112,8 @@ public class MetaTableService {
             return EntityUtils.toList(list, e -> new MetaTableBo(e.getTableName(), e.getTableName().equalsIgnoreCase(metaTable.getTableName())));
         }
     }
-    
-    
+
+
     @Transactional(rollbackFor = Exception.class)
     public IPage<MetaTable> pageMetaTable(Page<MetaTable> page, MetaTable metaTable) {
         page.setOptimizeCountSql(false);
@@ -129,8 +129,8 @@ public class MetaTableService {
             return sqlSession.getMapper(MetaTableMapper.class).selectPage(page, wrapper);
         }
     }
-    
-    
+
+
     public MetaTable getMetaTable(String tableName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaTable> queryWrapper = Wrappers.lambdaQuery(MetaTable.class)

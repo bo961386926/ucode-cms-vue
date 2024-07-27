@@ -256,7 +256,7 @@ public class PlusUtils {
      *
      * @param ids    批主键查询ID
      * @param clazz  DO实体类Class对象
-     * @param ms     过期时间 毫秒 当参数小于0代表不过期
+     * @param ms     过期时间 毫秒 当参数小于0 代表不过期
      * @param action 访问数据库的回调
      * @param <T>    DO实体类数据类型
      * @return DO实体类实例
@@ -275,7 +275,7 @@ public class PlusUtils {
                 List<T> newValue = action.apply(remainIds);
                 if (!newValue.isEmpty()) {
                     Map<String, T> map = EntityUtils.toMap(newValue, e -> RedisConstants.createCacheKey(clazz, (String) pkVal(tableInfo, e)), Function.identity());
-                    RedisUtils.multiSet(map, clazz, 0, TimeUnit.SECONDS);
+                    RedisUtils.multiSet(map, clazz);
                     redisResults.addAll(newValue);
                     if (ms > 0) {
                         map.forEach((k, v) -> RedisUtils.expire(k, ms, TimeUnit.MILLISECONDS));

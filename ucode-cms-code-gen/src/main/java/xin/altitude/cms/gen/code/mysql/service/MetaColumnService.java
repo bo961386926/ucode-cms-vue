@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,13 +43,13 @@ import java.util.List;
 public class MetaColumnService {
     @Autowired
     private IThirdSqlSessionService sessionService;
-    
+
     /**
      * 查询当前数据库所有列信息
      *
      * @return 列元数据集合
      */
-    
+
     public List<MetaColumn> listColumns() {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaColumn> wrapper = Wrappers.lambdaQuery(MetaColumn.class)
@@ -57,14 +57,14 @@ public class MetaColumnService {
             return sqlSession.getMapper(MetaColumnMapper.class).selectList(wrapper);
         }
     }
-    
+
     /**
      * 查询表的列信息集合
      *
      * @param tableName 表名
      * @return 列信息集合
      */
-    
+
     public List<MetaColumn> listColumns(String tableName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaColumn> eq = Wrappers.lambdaQuery(MetaColumn.class)
@@ -73,8 +73,8 @@ public class MetaColumnService {
             return sqlSession.getMapper(MetaColumnMapper.class).selectList(eq);
         }
     }
-    
-    
+
+
     /**
      * 根据表名、列名查询详细数据
      *
@@ -82,7 +82,7 @@ public class MetaColumnService {
      * @param columnName 列名
      * @return 列详细数据
      */
-    
+
     public MetaColumn getOneColumn(String tableName, String columnName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaColumn> eq = Wrappers.lambdaQuery(MetaColumn.class)
@@ -92,8 +92,8 @@ public class MetaColumnService {
             return sqlSession.getMapper(MetaColumnMapper.class).selectOne(eq);
         }
     }
-    
-    
+
+
     public List<MetaColumnVo> getColumnVos(String tableName) {
         try (SqlSession sqlSession = sessionService.getSqlSession()) {
             LambdaQueryWrapper<MetaColumn> eq = Wrappers.lambdaQuery(MetaColumn.class)

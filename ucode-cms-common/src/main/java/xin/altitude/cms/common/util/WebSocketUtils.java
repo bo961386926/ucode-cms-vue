@@ -13,7 +13,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
  **/
-public class WebSocketUtils {
+public abstract class WebSocketUtils {
     /**
      * 定义存储session的容器
      */

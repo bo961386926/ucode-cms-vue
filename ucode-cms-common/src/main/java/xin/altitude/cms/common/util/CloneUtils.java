@@ -10,7 +10,7 @@ import xin.altitude.cms.common.lang.AbstractObject;
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
  * @since 2021/03/24 19:49
  **/
-public class CloneUtils {
+public abstract class CloneUtils {
     private CloneUtils() {
     }
 

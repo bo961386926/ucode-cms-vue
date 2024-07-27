@@ -10,7 +10,7 @@
 <dependency>
     <groupId>xin.altitude.cms</groupId>
     <artifactId>ucode-cms-common</artifactId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 ```
 如果提示缺失关联依赖，则按照提示引入关联依赖，后文为给出会用到的关联依赖列表，仅供参考。

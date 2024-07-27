@@ -1,6 +1,6 @@
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,7 +39,7 @@ import java.util.Optional;
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
  * @since 1.6.0
  */
-public class RedisAsyncUtils {
+public abstract class RedisAsyncUtils {
     private static final Logger logger = LoggerFactory.getLogger(RedisAsyncUtils.class);
 
     private static final StringRedisTemplate STRING_REDIS_TEMPLATE = SpringUtils.getBean(StringRedisTemplate.class);

@@ -1,7 +1,7 @@
 
 /*
  *
- * Copyright (c) 2020-2022, 赛泰先生 (http://www.altitude.xin).
+ * Copyright (c) 2020-2024, 赛泰先生 (http://www.altitude.xin).
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,7 +38,7 @@ import java.util.function.ToIntFunction;
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
  * @since 2020/06/03 23:17
  **/
-public class ColUtils {
+public abstract class ColUtils {
     private ColUtils() {
     }
 

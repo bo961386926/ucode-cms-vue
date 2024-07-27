@@ -7,7 +7,7 @@
 <dependency>
     <artifactId>ucode-cms</artifactId>
     <groupId>xin.altitude.cms</groupId>
-    <version>1.6.4.1-beta</version>
+    <version>1.6.5-SNAPSHOT</version>
 </dependency>
 ```
 

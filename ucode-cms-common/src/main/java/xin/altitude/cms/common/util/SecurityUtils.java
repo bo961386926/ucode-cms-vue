@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">B站视频</a>
  **/
-public class SecurityUtils {
+public abstract class SecurityUtils {
     private SecurityUtils() {
     }
 

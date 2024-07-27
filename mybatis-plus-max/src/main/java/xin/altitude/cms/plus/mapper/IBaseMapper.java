@@ -83,7 +83,7 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
      */
     default List<T> selectBatchIds(Collection<Serializable> idList, long timeout, TimeUnit timeUnit) {
         Class<T> clazz = getEntityClass();
-        List<T> tList = RedisUtils.getObjects(idList, clazz);
+        List<T> tList = RedisUtils.multiGet(EntityUtils.toList(idList, String::valueOf), clazz);
         List<T> result = new ArrayList<>(idList.size());
         Set<Serializable> ids = new HashSet<>();
         TableInfo tableInfo = TableInfoHelper.getTableInfo(clazz);
@@ -168,9 +168,7 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
         Class<T> clazz = getEntityClass();
         synchronized (clazz) {
             boolean rSave = insert(entity) > 0;
-            String field = Optional.ofNullable(statColumn).map(LambdaUtils::extract)
-                .map(LambdaMeta::getImplMethodName)
-                .map(PropertyNamer::methodToProperty).orElse(null);
+            String field = Optional.ofNullable(statColumn).map(LambdaUtils::extract).map(LambdaMeta::getImplMethodName).map(PropertyNamer::methodToProperty).orElse(null);
             boolean rUpdate = mapper.incr(fkValue, field, 1) > 0;
             return rSave && rUpdate;
         }
@@ -228,9 +226,7 @@ public interface IBaseMapper<T> extends BaseMapper<T> {
         Class<T> clazz = getEntityClass();
         synchronized (clazz) {
             boolean rDelete = deleteById(id) > 0;
-            String field = Optional.ofNullable(statColumn).map(LambdaUtils::extract)
-                .map(LambdaMeta::getImplMethodName)
-                .map(PropertyNamer::methodToProperty).orElse(null);
+            String field = Optional.ofNullable(statColumn).map(LambdaUtils::extract).map(LambdaMeta::getImplMethodName).map(PropertyNamer::methodToProperty).orElse(null);
             boolean rUpdate = mapper.decr(fkValue, field, 1) > 0;
             return rDelete && rUpdate;
         }

@@ -5,7 +5,7 @@
     <parent>
         <artifactId>ucode-cms</artifactId>
         <groupId>xin.altitude.cms</groupId>
-        <version>1.6.4.1-beta</version>
+        <version>1.6.5-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>ucode-cms-code-spring-boot-starter</artifactId>
@@ -22,12 +22,12 @@
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-code</artifactId>
-            <version>1.6.4.1-beta</version>
+            <version>1.6.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-core</artifactId>
-            <version>1.6.4.1-beta</version>
+            <version>1.6.5-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>xin.altitude.cms</groupId>
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-common</artifactId>
-            <version>1.6.4.1-beta</version>
+            <version>1.6.5-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -68,7 +68,7 @@
         <dependency>
             <groupId>xin.altitude.cms</groupId>
             <artifactId>ucode-cms-swagger</artifactId>
-            <version>1.6.4.1-beta</version>
+            <version>1.6.5-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <!--结束-->

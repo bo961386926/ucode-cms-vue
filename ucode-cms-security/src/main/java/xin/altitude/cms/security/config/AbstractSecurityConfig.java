@@ -36,7 +36,6 @@ import xin.altitude.cms.security.handle.AuthenticationEntryPointImpl;
 import xin.altitude.cms.security.handle.LogoutSuccessHandlerImpl;
 import xin.altitude.cms.security.service.IUserDetailsService;
 
-import javax.annotation.Resource;
 
 /**
  * spring security配置
@@ -60,7 +59,7 @@ public abstract class AbstractSecurityConfig extends WebSecurityConfigurerAdapte
     /**
      * 用户服务类
      */
-    @Resource
+    @Autowired
     protected IUserDetailsService userDetailsService;
     /**
      * 认证失败处理类

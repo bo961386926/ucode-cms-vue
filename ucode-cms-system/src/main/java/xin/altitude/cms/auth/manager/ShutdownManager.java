@@ -20,8 +20,7 @@ package xin.altitude.cms.auth.manager;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.annotation.PreDestroy;
+import org.springframework.beans.factory.DisposableBean;
 
 /**
  * 确保应用退出时能关闭后台线程
@@ -31,10 +30,9 @@ import javax.annotation.PreDestroy;
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  */
 // @Component
-public class ShutdownManager {
+public class ShutdownManager implements DisposableBean {
     private static final Logger logger = LoggerFactory.getLogger("sys-user");
 
-    @PreDestroy
     public void destroy() {
         shutdownAsyncManager();
     }

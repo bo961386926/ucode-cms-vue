@@ -43,7 +43,6 @@ import xin.altitude.cms.security.service.CmsTokenService;
 import xin.altitude.cms.system.service.ISysConfigService;
 import xin.altitude.cms.system.service.ISysUserService;
 
-import javax.annotation.Resource;
 
 /**
  * 登录校验方法
@@ -57,7 +56,7 @@ public class SysLoginService {
     @Autowired
     private CmsTokenService cmsTokenService;
 
-    @Resource
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired

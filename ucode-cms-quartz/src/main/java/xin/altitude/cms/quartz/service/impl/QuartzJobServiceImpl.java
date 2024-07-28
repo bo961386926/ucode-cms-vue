@@ -22,6 +22,7 @@ import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.springframework.beans.factory.InitializingBean;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.quartz.constant.ScheduleConstants;
 import xin.altitude.cms.quartz.model.CmsJobBean;
@@ -29,7 +30,6 @@ import xin.altitude.cms.quartz.service.IQuartzJobService;
 import xin.altitude.cms.quartz.util.CronUtils;
 import xin.altitude.cms.quartz.util.QuartzUtils;
 
-import javax.annotation.PostConstruct;
 
 /**
  * 定时任务调度信息 服务层
@@ -38,7 +38,7 @@ import javax.annotation.PostConstruct;
  * @author <a href="https://gitee.com/decsa/ucode-cms-vue" target="_blank">UCode CMS</a>
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  */
-public class QuartzJobServiceImpl implements IQuartzJobService {
+public class QuartzJobServiceImpl implements IQuartzJobService, InitializingBean {
     /**
      * 调度器（核心参数）
      */
@@ -47,8 +47,8 @@ public class QuartzJobServiceImpl implements IQuartzJobService {
     /**
      * 初始化并启动任务列表
      */
-    @PostConstruct
-    public void init() {
+    @Override
+    public void afterPropertiesSet() throws Exception {
         SpringUtils.getBeans(Job.class).forEach(e -> QuartzUtils.createScheduleJob(scheduler, e.getClass()));
     }
 

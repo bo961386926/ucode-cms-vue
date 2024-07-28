@@ -20,6 +20,7 @@ package xin.altitude.cms.framework;
 
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +34,6 @@ import xin.altitude.cms.framework.util.sign.Base64;
 import xin.altitude.cms.framework.util.uuid.IdUtils;
 import xin.altitude.cms.system.service.ISysConfigService;
 
-import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
@@ -50,10 +50,12 @@ import java.util.concurrent.TimeUnit;
 @ResponseBody
 @RequestMapping(Constants.UNIFORM_PREFIX)
 public class CaptchaController {
-    @Resource(name = "captchaProducer")
+    @Autowired
+    @Qualifier(value = "captchaProducer")
     private Producer captchaProducer;
 
-    @Resource(name = "captchaProducerMath")
+    @Autowired
+    @Qualifier(value = "captchaProducerMath")
     private Producer captchaProducerMath;
 
     @Autowired

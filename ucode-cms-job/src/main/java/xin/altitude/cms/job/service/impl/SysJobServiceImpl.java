@@ -24,6 +24,7 @@ import org.quartz.JobDataMap;
 import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.transaction.annotation.Transactional;
 import xin.altitude.cms.common.util.SpringUtils;
 import xin.altitude.cms.job.config.ScheduleConfig;
@@ -36,7 +37,6 @@ import xin.altitude.cms.job.service.ISysJobService;
 import xin.altitude.cms.job.util.CronUtils;
 import xin.altitude.cms.job.util.QuartzUtils;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 /**
@@ -47,7 +47,7 @@ import java.util.List;
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  */
 // @Service
-public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> implements ISysJobService {
+public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> implements ISysJobService, InitializingBean {
     /**
      * 调度器（核心参数）
      */
@@ -58,8 +58,8 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
      * 主要是防止手动修改数据库导致未同步到定时任务处理
      * （注：不能手动修改数据库ID和任务组名，否则会导致脏数据）
      */
-    @PostConstruct
-    public void init() throws SchedulerException {
+    @Override
+    public void afterPropertiesSet() throws Exception {
         scheduler.clear();
         List<SysJob> jobList = list();
         jobList.forEach(e -> QuartzUtils.createScheduleJob(scheduler, e));
@@ -245,4 +245,6 @@ public class SysJobServiceImpl extends ServiceImpl<SysJobMapper, SysJob> impleme
     public boolean checkCronExpressionIsValid(String cronExpression) {
         return CronUtils.isValid(cronExpression);
     }
+
+
 }

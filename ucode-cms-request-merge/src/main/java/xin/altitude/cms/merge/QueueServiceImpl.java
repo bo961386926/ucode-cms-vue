@@ -22,9 +22,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.TableInfo;
 import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.InitializingBean;
 import xin.altitude.cms.common.util.EntityUtils;
 
-import javax.annotation.PostConstruct;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -50,7 +50,7 @@ import java.util.function.Function;
  * @author <a href="https://space.bilibili.com/1936685014" target="_blank">赛泰先生的B站视频</a>
  * @since 1.5.8
  */
-public class QueueServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> {
+public class QueueServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M, T> implements InitializingBean {
     /**
      * 并发安全队列，多个线程同时添加数据时保证线程安全
      */
@@ -107,24 +107,6 @@ public class QueueServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M,
         }
     }
 
-    /**
-     * <p>修改服务类的配置行为</p>
-     * <p>子类重写{@link QueueServiceImpl#createReqConfig}方法</p>
-     */
-    @PostConstruct
-    public void init() {
-        ReqConfig config = createReqConfig();
-
-        Runnable task = createTask(config.getMaxReqSize(), taskQueue);
-
-        if (config.getThreadPool() != null) {
-            config.getThreadPool().scheduleAtFixedRate(task, 0L, config.getReqInterval(), TimeUnit.MILLISECONDS);
-        } else {
-            ThreadFactory threadFactory = config.getThreadFactory();
-            ScheduledExecutorService threadPool = new ScheduledThreadPoolExecutor(config.getCorePoolSize(), threadFactory);
-            threadPool.scheduleAtFixedRate(task, 0L, config.getReqInterval(), TimeUnit.MILLISECONDS);
-        }
-    }
 
     /**
      * 获取当前DO实体类主键值
@@ -151,5 +133,22 @@ public class QueueServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M,
         return new ReqConfig();
     }
 
+    /**
+     * <p>修改服务类的配置行为</p>
+     * <p>子类重写{@link QueueServiceImpl#createReqConfig}方法</p>
+     */
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        ReqConfig config = createReqConfig();
 
+        Runnable task = createTask(config.getMaxReqSize(), taskQueue);
+
+        if (config.getThreadPool() != null) {
+            config.getThreadPool().scheduleAtFixedRate(task, 0L, config.getReqInterval(), TimeUnit.MILLISECONDS);
+        } else {
+            ThreadFactory threadFactory = config.getThreadFactory();
+            ScheduledExecutorService threadPool = new ScheduledThreadPoolExecutor(config.getCorePoolSize(), threadFactory);
+            threadPool.scheduleAtFixedRate(task, 0L, config.getReqInterval(), TimeUnit.MILLISECONDS);
+        }
+    }
 }

@@ -19,6 +19,7 @@
 package xin.altitude.cms.framework.config;
 
 import com.baomidou.mybatisplus.autoconfigure.MybatisPlusProperties;
+import com.baomidou.mybatisplus.core.MybatisConfiguration;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -55,7 +56,10 @@ public class MyBatisConfig extends AbstractMyBatisConfig {
         // /* 注入mapper扫描地址 */
         // Optional.ofNullable(env.getProperty("mybatis.configLocation")).ifPresent(e -> sessionFactory.setConfigLocation(getConfigLocation(e)));
         VFS.addImplClass(SpringBootVFS.class);
-        sessionFactory.setConfiguration(SpringUtils.getBean(MybatisPlusProperties.class).getConfiguration());
+        MybatisPlusProperties.CoreConfiguration coreConfiguration = SpringUtils.getBean(MybatisPlusProperties.class).getConfiguration();
+        MybatisConfiguration mybatisConfiguration = new MybatisConfiguration();
+        coreConfiguration.applyTo(mybatisConfiguration);
+        sessionFactory.setConfiguration(mybatisConfiguration);
         sessionFactory.setDataSource(dataSource);
         sessionFactory.setPlugins(interceptor());
         return sessionFactory.getObject();

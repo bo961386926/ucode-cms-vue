@@ -9,9 +9,7 @@ import org.hibernate.mapping.PersistentClass;
 import org.hibernate.mapping.Property;
 import org.hibernate.service.spi.SessionFactoryServiceRegistry;
 
-import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Iterator;
 
 public class CommentIntegrator implements Integrator {
@@ -86,12 +84,12 @@ public class CommentIntegrator implements Integrator {
             if (field.isAnnotationPresent(ApiModelProperty.class)) {
                 comment = field.getAnnotation(ApiModelProperty.class).value();
             } else {
-                PropertyDescriptor descriptor = new PropertyDescriptor(field.getName(), persistentClass.getMappedClass());
-                Method readMethod = descriptor.getReadMethod();
-                ApiModelProperty apiModelProperty = readMethod.getAnnotation(ApiModelProperty.class);
-                if (apiModelProperty != null) {
-                    comment = apiModelProperty.value();
-                }
+//                PropertyDescriptor descriptor = new PropertyDescriptor(field.getName(), persistentClass.getMappedClass());
+//                Method readMethod = descriptor.getReadMethod();
+//                ApiModelProperty apiModelProperty = readMethod.getAnnotation(ApiModelProperty.class);
+//                if (apiModelProperty != null) {
+//                    comment = apiModelProperty.value();
+//                }
             }
         }
         return comment;

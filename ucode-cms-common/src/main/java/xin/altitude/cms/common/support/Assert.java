@@ -2,6 +2,7 @@ package xin.altitude.cms.common.support;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 import org.springframework.lang.Nullable;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -11,34 +12,50 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public abstract class CustomAssert {
+public abstract class Assert {
 
-    public static void state(boolean expression, String message) {
-        if (!expression) {
+    public static void state(Boolean expression, String message) {
+        if (expression == null || !expression) {
+            printInvokeMethod();
+            throw new IllegalStateException(message);
+        }
+    }
+
+    public static void state(Boolean expression, String format, Object... args) {
+        String message = MessageFormatter.arrayFormat(format, args).getMessage();
+        if (expression == null || !expression) {
             printInvokeMethod();
             throw new IllegalStateException(message);
         }
     }
 
 
-    public static void state(boolean expression, Supplier<String> messageSupplier) {
-        if (!expression) {
+    public static void state(Boolean expression, Supplier<String> messageSupplier) {
+        if (expression == null || !expression) {
             printInvokeMethod();
             throw new IllegalStateException(nullSafeGet(messageSupplier));
         }
     }
 
 
-    public static void isTrue(boolean expression, String message) {
-        if (!expression) {
+    public static void isTrue(Boolean expression, String message) {
+        if (expression == null || !expression) {
             printInvokeMethod();
             throw new IllegalArgumentException(message);
         }
     }
 
+    public static void isTrue(Boolean expression, String format, Object... args) {
+        String message = MessageFormatter.arrayFormat(format, args).getMessage();
+        if (expression == null || !expression) {
+            printInvokeMethod();
+            throw new IllegalStateException(message);
+        }
+    }
 
-    public static void isTrue(boolean expression, Supplier<String> messageSupplier) {
-        if (!expression) {
+
+    public static void isTrue(Boolean expression, Supplier<String> messageSupplier) {
+        if (expression == null || !expression) {
             printInvokeMethod();
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
@@ -49,6 +66,14 @@ public abstract class CustomAssert {
         if (object != null) {
             printInvokeMethod();
             throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static void isNull(@Nullable Object object, String format, Object... args) {
+        String message = MessageFormatter.arrayFormat(format, args).getMessage();
+        if (object != null) {
+            printInvokeMethod();
+            throw new IllegalStateException(message);
         }
     }
 
@@ -65,6 +90,14 @@ public abstract class CustomAssert {
         if (object == null) {
             printInvokeMethod();
             throw new IllegalArgumentException(message);
+        }
+    }
+
+    public static void notNull(@Nullable Object object, String format, Object... args) {
+        String message = MessageFormatter.arrayFormat(format, args).getMessage();
+        if (object == null) {
+            printInvokeMethod();
+            throw new IllegalStateException(message);
         }
     }
 
@@ -324,7 +357,7 @@ public abstract class CustomAssert {
             String className = caller.getClassName();
             Logger log = LoggerFactory.getLogger(className);
             // 获取类名、方法名、行号
-            log.debug("断言异常调用方法的位置：{}#{}:{}", className, caller.getMethodName(),caller.getLineNumber());
+            log.debug("断言异常调用方法的位置：{}#{}:{}", className, caller.getMethodName(), caller.getLineNumber());
         }
     }
 }

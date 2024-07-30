@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import xin.altitude.cms.common.entity.RestResult;
-import xin.altitude.cms.common.util.JacksonUtils;
 
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -19,7 +18,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {NullPointerException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Object> handleNullPointerException(NullPointerException ex, WebRequest request) {
+    public ResponseEntity<Object> handleException(NullPointerException ex, WebRequest request) {
         String errorMessage = "A NullPointerException occurred: " + ex.getMessage();
         log.error(errorMessage);
         RestResult restResult = RestResult.error(errorMessage);
@@ -28,7 +27,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<Object> handleIllegalArgumentException(IllegalArgumentException ex, WebRequest request) {
+    public ResponseEntity<Object> handleException(IllegalArgumentException ex, WebRequest request) {
         String errorMessage = "An IllegalArgumentException occurred: " + ex.getMessage();
         log.error(errorMessage);
         RestResult restResult = RestResult.error(errorMessage);

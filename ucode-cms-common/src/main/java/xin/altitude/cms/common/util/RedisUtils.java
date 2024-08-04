@@ -27,14 +27,7 @@ import xin.altitude.cms.common.constant.RedisConstants;
 
 import java.io.Serializable;
 import java.time.Duration;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.concurrent.TimeUnit;
+import java.util.*;
 import java.util.function.Function;
 
 /**
@@ -233,7 +226,7 @@ public abstract class RedisUtils {
             result.add(t);
         }
 
-        if (remainIds.size() > 0) {
+        if (!remainIds.isEmpty()) {
             for (Serializable id : remainIds) {
                 T t = getObject(tp, id, clazz);
                 if (t == null) {

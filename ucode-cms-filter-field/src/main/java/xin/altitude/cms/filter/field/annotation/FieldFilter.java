@@ -29,7 +29,7 @@ import java.lang.annotation.Target;
  * 控制器字段过滤注解
  *
  * @author 赛先生和泰先生
- * @author 笔者专题技术博客 —— http://www.altitude.xin
+ * @author 专题技术博客 —— http://www.altitude.xin
  * @author B站视频 —— https://space.bilibili.com/1936685014
  **/
 @Target({ElementType.METHOD, ElementType.TYPE})

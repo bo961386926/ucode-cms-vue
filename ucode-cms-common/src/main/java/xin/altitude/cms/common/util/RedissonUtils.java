@@ -21,18 +21,15 @@ package xin.altitude.cms.common.util;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import org.redisson.api.RBatch;
 import org.redisson.api.RBucket;
-import org.redisson.api.RFuture;
 import org.redisson.api.RedissonClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.util.Assert;
 import xin.altitude.cms.common.constant.RedisConstants;
 
 import java.io.Serializable;
 import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 /**
@@ -144,15 +141,15 @@ public abstract class RedissonUtils {
      * @param key    缓存键值
      * @return 缓存键值对应的数据
      */
-    public static <T> Optional<T> getObject(final RedissonClient client, final String key, final Class<T> clazz) {
+    public static <T> T getObject(final RedissonClient client, final String key, final Class<T> clazz) {
         RedissonClient t = Optional.ofNullable(client).orElseGet(() -> SpringUtils.getBean(RedissonClient.class));
 
         RBucket<String> bucket = t.getBucket(key);
         return getObject(bucket, clazz);
     }
 
-    public static <T> Optional<T> getObject(RBucket<String> bucket, Class<T> clazz) {
-        return Optional.ofNullable(bucket.get()).map(e -> JacksonUtils.readObjectValue(null, e, clazz));
+    public static <T> T getObject(RBucket<String> bucket, Class<T> clazz) {
+        return Optional.ofNullable(bucket.get()).map(e -> JacksonUtils.readObjectValue(null, e, clazz)).orElse(null);
     }
 
     /**
@@ -162,7 +159,7 @@ public abstract class RedissonUtils {
      * @param id     主键值 使用{@link RedisConstants#createCacheKey(Class, Serializable)}转换成Key
      * @return 缓存键值对应的数据
      */
-    public static <T> Optional<T> getObject(final RedissonClient client, final Serializable id, final Class<T> clazz) {
+    public static <T> T getObject(final RedissonClient client, final Serializable id, final Class<T> clazz) {
         if (id instanceof String || id instanceof Long || id instanceof Integer) {
             String key = RedisConstants.createCacheKey(clazz, id);
             return getObject(client, key, clazz);
@@ -182,13 +179,13 @@ public abstract class RedissonUtils {
      * @param id     主键值 使用{@link RedisConstants#createCacheKey(Class, Serializable)}转换成Key
      * @return 缓存键值对应的数据
      */
-    public static <T> Optional<T> getObject(final RedissonClient client, final Serializable id, final Duration duration, final Class<T> clazz, Function<Serializable, T> action) {
+    public static <T> T getObject(final RedissonClient client, final Serializable id, final Duration duration, final Class<T> clazz, Function<Serializable, T> action) {
         String key = RedisConstants.createCacheKey(clazz, id);
-        Optional<T> t = getObject(client, key, clazz);
-        if (!t.isPresent()) {
+        T t = getObject(client, key, clazz);
+        if (t == null) {
             synchronized (RedisConstants.createLockKey(clazz, id)) {
-                Optional<T> t2 = getObject(client, key, clazz);
-                if (!t2.isPresent()) {
+                T t2 = getObject(client, key, clazz);
+                if (t2 == null) {
                     save(client, key, action.apply(id), duration);
                     return getObject(client, key, clazz);
                 }

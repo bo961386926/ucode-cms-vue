@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author 赛先生和泰先生
- * @author 笔者专题技术博客 —— http://www.altitude.xin
+ * @author 专题技术博客 —— http://www.altitude.xin
  * @author B站视频 —— https://space.bilibili.com/1936685014
  **/
 public abstract class RefUtils {

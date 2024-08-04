@@ -22,7 +22,7 @@ package xin.altitude.cms.common.model;
  * 用户存储K、V结构的Model实体类
  *
  * @author 赛先生和泰先生
- * @author 笔者专题技术博客 —— http://www.altitude.xin
+ * @author 专题技术博客 —— http://www.altitude.xin
  * @author B站视频 —— https://space.bilibili.com/1936685014
  **/
 public class KVModel<K, V> {

@@ -16,6 +16,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import xin.altitude.cms.common.entity.RestResult;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
@@ -26,7 +27,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleException(NullPointerException ex, WebRequest request) {
         String errorMessage = "A NullPointerException occurred: " + ex.getMessage();
-        log.warn(errorMessage);
+        log.warn("全局捕获异常：{}", errorMessage);
+        printExceptionPath(ex);
         RestResult restResult = RestResult.error(errorMessage);
         return handleExceptionInternal(ex, restResult, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
@@ -35,7 +37,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleException(IllegalArgumentException ex, WebRequest request) {
         String errorMessage = "An IllegalArgumentException occurred: " + ex.getMessage();
-        log.warn(errorMessage);
+        log.warn("全局捕获异常：{}", errorMessage);
+        printExceptionPath(ex);
         RestResult restResult = RestResult.error(errorMessage);
         return handleExceptionInternal(ex, restResult, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
@@ -47,7 +50,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<Object> handleException(HttpMessageNotReadableException ex, WebRequest request) {
         String errorMessage = "请求参数序列化异常: " + ex.getMessage();
-        log.warn(errorMessage);
+        log.warn("全局捕获异常：{}", errorMessage);
+        printExceptionPath(ex);
         RestResult restResult = RestResult.error(errorMessage);
         return handleExceptionInternal(ex, restResult, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
@@ -67,7 +71,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             if (i < errorList.size()) sb.append("|");
         }
         String errorMessage = "参数校验不通过: " + sb;
-        log.warn(errorMessage);
+        log.warn("全局捕获异常：{}", errorMessage);
+        printExceptionPath(ex);
         RestResult restResult = RestResult.error(errorMessage);
         return handleExceptionInternal(ex, restResult, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
@@ -87,10 +92,18 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
             if (i < errorList.size()) sb.append("|");
         }
         String errorMessage = "参数绑定异常: " + sb;
-        log.warn(errorMessage);
+        log.warn("全局捕获异常：{}", errorMessage);
+        printExceptionPath(ex);
         RestResult restResult = RestResult.error(errorMessage);
         return handleExceptionInternal(ex, restResult, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
 
-    // 处理其他异常...
+    private void printExceptionPath(Exception e){
+        StackTraceElement[] elements = e.getStackTrace();
+        List<String> ss = new ArrayList<>();
+        for (StackTraceElement element : elements) {
+            ss.add(String.format("%s#%s:%s",element.getClassName(),element.getMethodName(),element.getLineNumber()));
+        }
+        log.warn("异常发生路径：{}",String.join(" -> ",ss));
+    }
 }

@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.function.Supplier;
 
 public abstract class Assert {
+    private final static Logger log = LoggerFactory.getLogger(Assert.class);
 
     public static void state(Boolean expression, String message) {
         if (expression == null || !expression) {
@@ -355,9 +356,8 @@ public abstract class Assert {
         if (stackTraceElements.length > layer) {
             StackTraceElement caller = stackTraceElements[layer];
             String className = caller.getClassName();
-            Logger log = LoggerFactory.getLogger(className);
             // 获取类名、方法名、行号
-            log.debug("断言异常调用方法的位置：{}#{}:{}", className, caller.getMethodName(), caller.getLineNumber());
+            log.debug("断言方法的位置：{}#{}:{}", className, caller.getMethodName(), caller.getLineNumber());
         }
     }
 }

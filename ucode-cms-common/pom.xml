@@ -7,6 +7,18 @@
         <groupId>xin.altitude.cms</groupId>
         <version>1.6.5-SNAPSHOT</version>
     </parent>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>9</source>
+                    <target>9</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
     <modelVersion>4.0.0</modelVersion>
 
     <!--<groupId>xin.altitude.cms</groupId>-->
@@ -149,6 +161,10 @@
             <artifactId>redisson-spring-boot-starter</artifactId>
             <version>3.19.1</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
         </dependency>
 
 

@@ -2,7 +2,6 @@ package xin.altitude.cms.common.support;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.stereotype.Component;
@@ -12,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import xin.altitude.cms.common.entity.RestResult;
 import xin.altitude.cms.common.util.InvokeMethodUtils;
 
 import javax.validation.ConstraintViolation;
@@ -27,10 +27,11 @@ public class HoldExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public ResponseEntity<Object> handle(Exception e) {
+        RestResult result = RestResult.error();
         if (e instanceof HttpMessageNotReadableException) {
             //参数序列化异常
             log.warn("序列化转换错误：{}", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("参数不匹配，序列化转换错误");
+            result = RestResult.error("参数不匹配，序列化转换错误");
         } else if (e instanceof MethodArgumentNotValidException) {
             //POST+BODY参数校验不通过
             log.warn("参数校验不过：{}", e.getMessage());
@@ -42,7 +43,7 @@ public class HoldExceptionHandler {
                 sb.append(er.getDefaultMessage());
                 if (i < errorList.size()) sb.append("|");
             }
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(sb.toString());
+            result = RestResult.error(sb.toString());
         } else if (e instanceof ConstraintViolationException) {
             //GET参数校验不通过
             log.warn("参数校验不过：{}", e.getMessage());
@@ -54,7 +55,7 @@ public class HoldExceptionHandler {
                 sb.append(er.getMessage());
                 if (i < errorSet.size()) sb.append("|");
             }
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(sb.toString());
+            result = RestResult.error(sb.toString());
         } else if (e instanceof BindException) {
             log.error("参数校验失败：{}", e.getMessage());
             List<ObjectError> errorList = ((BindException) e).getBindingResult().getAllErrors();
@@ -65,16 +66,17 @@ public class HoldExceptionHandler {
                 sb.append(er.getDefaultMessage());
                 if (i < errorList.size()) sb.append("|");
             }
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(sb.toString());
+            result = RestResult.error(sb.toString());
         } else if (e instanceof IllegalArgumentException) {
             //自定义断言
-            log.warn("断言内容：{}", e.getMessage());
-            InvokeMethodUtils.invokePath();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("自定义断言");
+            log.warn("自定义断言：{}", e.getMessage());
+            result = RestResult.error("自定义断言");
         } else {
             //其余未捕获异常
             log.error("未捕获异常", e);
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("未捕获异常");
+            result = RestResult.error("未捕获异常");
         }
+        InvokeMethodUtils.invokePath();
+        return ResponseEntity.ok(result);
     }
 }

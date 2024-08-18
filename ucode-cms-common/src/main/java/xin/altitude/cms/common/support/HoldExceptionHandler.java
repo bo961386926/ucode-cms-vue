@@ -12,14 +12,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import xin.altitude.cms.common.util.InvokeMethodUtils;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import static xin.altitude.cms.common.config.StorageStartAppClassNameListener.APP_PACKAGE_NAME;
 
 @ControllerAdvice
 @Component
@@ -70,27 +68,13 @@ public class HoldExceptionHandler {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(sb.toString());
         } else if (e instanceof IllegalArgumentException) {
             //自定义断言
-            log.warn("断言位置：{} | 内容：{}", printExceptionPath(e), e.getMessage());
-            ;
+            log.warn("断言内容：{}", e.getMessage());
+            InvokeMethodUtils.invokePath();
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("自定义断言");
         } else {
             //其余未捕获异常
             log.error("未捕获异常", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("未捕获异常");
         }
-    }
-
-    private String printExceptionPath(Exception e) {
-        StackTraceElement[] elements = e.getStackTrace();
-        List<String> ss = new ArrayList<>();
-        String packageName = System.getProperty(APP_PACKAGE_NAME);
-        for (StackTraceElement element : elements) {
-            String className = element.getClassName();
-            if (packageName != null && className.startsWith(packageName)) {
-                ss.add(String.format("%s.%s:%s", className, element.getMethodName(), element.getLineNumber()));
-            }
-        }
-        // log.warn("异常发生路径：{}",String.join(" -> ",ss));
-        return String.join(" -> ", ss);
     }
 }

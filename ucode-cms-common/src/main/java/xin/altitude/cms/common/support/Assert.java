@@ -17,7 +17,6 @@ public abstract class Assert {
 
     public static void state(Boolean expression, String message) {
         if (expression == null || !expression) {
-            printInvokeMethod(3);
             throw new IllegalStateException(message);
         }
     }
@@ -25,7 +24,6 @@ public abstract class Assert {
     public static void state(Boolean expression, String format, Object... args) {
         String message = MessageFormatter.arrayFormat(format, args).getMessage();
         if (expression == null || !expression) {
-            printInvokeMethod(3);
             throw new IllegalStateException(message);
         }
     }
@@ -33,7 +31,6 @@ public abstract class Assert {
 
     public static void state(Boolean expression, Supplier<String> messageSupplier) {
         if (expression == null || !expression) {
-            printInvokeMethod(3);
             throw new IllegalStateException(nullSafeGet(messageSupplier));
         }
     }
@@ -41,7 +38,6 @@ public abstract class Assert {
 
     public static void isTrue(Boolean expression, String message) {
         if (expression == null || !expression) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(message);
         }
     }
@@ -49,7 +45,6 @@ public abstract class Assert {
     public static void isTrue(Boolean expression, String format, Object... args) {
         String message = MessageFormatter.arrayFormat(format, args).getMessage();
         if (expression == null || !expression) {
-            printInvokeMethod(3);
             throw new IllegalStateException(message);
         }
     }
@@ -57,7 +52,6 @@ public abstract class Assert {
 
     public static void isTrue(Boolean expression, Supplier<String> messageSupplier) {
         if (expression == null || !expression) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }
@@ -65,7 +59,6 @@ public abstract class Assert {
 
     public static void isNull(@Nullable Object object, String message) {
         if (object != null) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(message);
         }
     }
@@ -73,7 +66,6 @@ public abstract class Assert {
     public static void isNull(@Nullable Object object, String format, Object... args) {
         String message = MessageFormatter.arrayFormat(format, args).getMessage();
         if (object != null) {
-            printInvokeMethod(3);
             throw new IllegalStateException(message);
         }
     }
@@ -81,7 +73,6 @@ public abstract class Assert {
 
     public static void isNull(@Nullable Object object, Supplier<String> messageSupplier) {
         if (object != null) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }
@@ -89,7 +80,6 @@ public abstract class Assert {
 
     public static void notNull(@Nullable Object object, String message) {
         if (object == null) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(message);
         }
     }
@@ -97,7 +87,6 @@ public abstract class Assert {
     public static void notNull(@Nullable Object object, String format, Object... args) {
         String message = MessageFormatter.arrayFormat(format, args).getMessage();
         if (object == null) {
-            printInvokeMethod(3);
             throw new IllegalStateException(message);
         }
     }
@@ -105,7 +94,6 @@ public abstract class Assert {
 
     public static void notNull(@Nullable Object object, Supplier<String> messageSupplier) {
         if (object == null) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }
@@ -113,7 +101,6 @@ public abstract class Assert {
 
     public static void hasLength(@Nullable String text, String message) {
         if (!StringUtils.hasLength(text)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(message);
         }
     }
@@ -121,7 +108,6 @@ public abstract class Assert {
 
     public static void hasLength(@Nullable String text, Supplier<String> messageSupplier) {
         if (!StringUtils.hasLength(text)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }
@@ -129,7 +115,6 @@ public abstract class Assert {
 
     public static void hasText(@Nullable String text, String message) {
         if (!StringUtils.hasText(text)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(message);
         }
     }
@@ -137,7 +122,6 @@ public abstract class Assert {
 
     public static void hasText(@Nullable String text, Supplier<String> messageSupplier) {
         if (!StringUtils.hasText(text)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }
@@ -145,7 +129,6 @@ public abstract class Assert {
 
     public static void doesNotContain(@Nullable String textToSearch, String substring, String message) {
         if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) && textToSearch.contains(substring)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(message);
         }
     }
@@ -153,7 +136,6 @@ public abstract class Assert {
 
     public static void doesNotContain(@Nullable String textToSearch, String substring, Supplier<String> messageSupplier) {
         if (StringUtils.hasLength(textToSearch) && StringUtils.hasLength(substring) && textToSearch.contains(substring)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }
@@ -161,7 +143,6 @@ public abstract class Assert {
 
     public static void notEmpty(@Nullable Object[] array, String message) {
         if (ObjectUtils.isEmpty(array)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(message);
         }
     }
@@ -169,7 +150,6 @@ public abstract class Assert {
 
     public static void notEmpty(@Nullable Object[] array, Supplier<String> messageSupplier) {
         if (ObjectUtils.isEmpty(array)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }
@@ -179,7 +159,6 @@ public abstract class Assert {
         if (array != null) {
             for (Object element : array) {
                 if (element == null) {
-                    printInvokeMethod(3);
                     throw new IllegalArgumentException(message);
                 }
             }
@@ -191,7 +170,6 @@ public abstract class Assert {
         if (array != null) {
             for (Object element : array) {
                 if (element == null) {
-                    printInvokeMethod(3);
                     throw new IllegalArgumentException(nullSafeGet(messageSupplier));
                 }
             }
@@ -201,7 +179,6 @@ public abstract class Assert {
 
     public static void notEmpty(@Nullable Collection<?> collection, String message) {
         if (CollectionUtils.isEmpty(collection)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(message);
         }
     }
@@ -209,7 +186,6 @@ public abstract class Assert {
 
     public static void notEmpty(@Nullable Collection<?> collection, Supplier<String> messageSupplier) {
         if (CollectionUtils.isEmpty(collection)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }
@@ -219,7 +195,6 @@ public abstract class Assert {
         if (collection != null) {
             for (Object element : collection) {
                 if (element == null) {
-                    printInvokeMethod(3);
                     throw new IllegalArgumentException(message);
                 }
             }
@@ -231,7 +206,6 @@ public abstract class Assert {
         if (collection != null) {
             for (Object element : collection) {
                 if (element == null) {
-                    printInvokeMethod(3);
                     throw new IllegalArgumentException(nullSafeGet(messageSupplier));
                 }
             }
@@ -241,7 +215,6 @@ public abstract class Assert {
 
     public static void notEmpty(@Nullable Map<?, ?> map, String message) {
         if (CollectionUtils.isEmpty(map)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(message);
         }
     }
@@ -249,7 +222,6 @@ public abstract class Assert {
 
     public static void notEmpty(@Nullable Map<?, ?> map, Supplier<String> messageSupplier) {
         if (CollectionUtils.isEmpty(map)) {
-            printInvokeMethod(3);
             throw new IllegalArgumentException(nullSafeGet(messageSupplier));
         }
     }
@@ -258,7 +230,6 @@ public abstract class Assert {
     public static void isInstanceOf(Class<?> type, @Nullable Object obj, String message) {
         notNull(type, "Type to check against must not be null");
         if (!type.isInstance(obj)) {
-            printInvokeMethod(3);
             instanceCheckFailed(type, obj, message);
         }
     }
@@ -267,7 +238,6 @@ public abstract class Assert {
     public static void isInstanceOf(Class<?> type, @Nullable Object obj, Supplier<String> messageSupplier) {
         notNull(type, "Type to check against must not be null");
         if (!type.isInstance(obj)) {
-            printInvokeMethod(3);
             instanceCheckFailed(type, obj, nullSafeGet(messageSupplier));
         }
     }
@@ -281,7 +251,6 @@ public abstract class Assert {
     public static void isAssignable(Class<?> superType, @Nullable Class<?> subType, String message) {
         notNull(superType, "Supertype to check against must not be null");
         if (subType == null || !superType.isAssignableFrom(subType)) {
-            printInvokeMethod(3);
             assignableCheckFailed(superType, subType, message);
         }
     }
@@ -290,7 +259,6 @@ public abstract class Assert {
     public static void isAssignable(Class<?> superType, @Nullable Class<?> subType, Supplier<String> messageSupplier) {
         notNull(superType, "Supertype to check against must not be null");
         if (subType == null || !superType.isAssignableFrom(subType)) {
-            printInvokeMethod(3);
             assignableCheckFailed(superType, subType, nullSafeGet(messageSupplier));
         }
     }
@@ -347,17 +315,5 @@ public abstract class Assert {
     @Nullable
     private static String nullSafeGet(@Nullable Supplier<String> messageSupplier) {
         return (messageSupplier != null ? messageSupplier.get() : null);
-    }
-
-    private static void printInvokeMethod(int layer) {
-        // 获取当前线程的堆栈跟踪
-        StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-        // 第二个元素通常是我们想要的信息
-        if (stackTraceElements.length > layer) {
-            StackTraceElement caller = stackTraceElements[layer];
-            String className = caller.getClassName();
-            // 获取类名、方法名、行号
-            log.debug("断言方法的位置：{}#{}:{}", className, caller.getMethodName(), caller.getLineNumber());
-        }
     }
 }
